@@ -337,6 +337,8 @@ def load_param(combinations):
     '''
     print('##############')
     print('load data')
+    df_el = pd.DataFrame(combinations['hh'])
+    
     logger.info("Choose the correspongind profile for electricity")
 
     if combinations['electricity_profile'] == 'Low':
@@ -349,34 +351,59 @@ def load_param(combinations):
             logger.info("Electricity profile High")
             electricity_profiles = pd.read_csv('../Input/HHHigh.csv')
     
-    combinations['hh'] = electricity_profiles.iloc[combinations['profile_row_number']]
+    combinations['electricity_profiles'] = electricity_profiles.iloc[combinations['profile_row_number']]
     param=dict()
+    param['name']=combinations['name']
 
-    PV_nom=combinations['PV_nom']
+    
     param['App_comb']=combinations['App_comb']
     param['id_dwell']=electricity_profiles.iloc[combinations['profile_row_number']]#combinations['building_name'] # To be added for citysim
 #####################################################
     param['aging'] = True
-    param['Inverter_power'] = round(PV_nom / 1.2, 1)
     param['Curtailment'] = 0
     param['Inverter_efficiency'] = 0.95
     param['Converter_efficiency_HP'] = 0.98
-    param['delta_t'] = 0.25
+    param['delta_t'] = 1
     param['Capacity_tariff'] = 0
     param['nyears'] = 1
     param['days'] = 365
-    param['testing'] = True
+    param['testing'] = False
     week = 1
 
 ######################################################
 
-    df_el = load_electricity_demand(param['id_dwell'])
+    #df_el = load_electricity_demand(param['id_dwell'])
+    df_el.columns=['Req_kWh','E_demand','E_PV']
+    
+    PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
+    param['Capacity']=(df_el.E_PV.sum()/1000).round()  # Estimated kW ratio 1:1 with PV
+    param['Inverter_power'] = round(PV_nom / 1.2, 1)
+
     df_prices = load_prices()
+    
     df_heat = load_heat_demand(combinations)
     [param, df_EV, EV_ID] = load_EV_data(combinations,param)
     
 
-    
+    df_prices=df_prices.resample('1h').mean()
+    #######################################################
+    df_prices.Price_flat=31.76 # pour val de bagnes   TO BE CHANGED ACCORDINGLY
+    #######################################################
+
+    df_EV=df_EV.resample('1h').agg({'E_EV_req': 'sum', 'E_EV_trip': 'sum', 
+                                     'EV_home': 'max','EV_away':'max'})
+    df_EV.EV_away=np.abs(df_EV.EV_home-1)
+    df_heat=df_heat.resample('1h').agg({'Set_T': 'mean', 'Temp': 'mean', 
+                                     'Req_kWh': 'sum', 'Req_kWh_DHW':'sum',
+                                       'Temp_supply':'mean', 'Temp_supply_tank':'mean',
+                                        'COP_SH':'mean', 'COP_tank':'mean',
+                                        'COP_DHW':'mean',
+                                        'hp_sh_cons':'max','hp_tank_cons':'max',
+                                        'hp_dhw_cons':'max'})
+    df_el.index=df_heat.index
+    df_heat.Req_kWh = df_el.Req_kWh
+    df_el=df_el.drop('Req_kWh',axis=1)
+
     ############ data profiles through time
     
     data_input=pd.concat([df_el,df_heat,df_prices,df_EV],axis=1,copy=True,sort=False)
@@ -384,9 +411,9 @@ def load_param(combinations):
     #skip the first DHW data since cannot be produced simultaneously with SH    data_input.loc[(data_input.index.hour<2),'Req_kWh_DHW']=0
 
 
-    data_input.loc[:,'E_PV']=data_input.loc[:,'E_PV']*PV_nom
+    #data_input.loc[:,'E_PV']=data_input.loc[:,'E_PV']*PV_nom
 
-
+    
 
     data_input['Temp']=data_input['Temp'].apply(celsius_to_kelvin)
     data_input['Set_T']=data_input['Set_T'].apply(celsius_to_kelvin)
@@ -408,10 +435,9 @@ def load_param(combinations):
     logger.debug("Initialized EV battery with capacity %s", param['EV_batt_cap'])
 
     
-    param.update({'Capacity':combinations['Capacity'],'Tech':combinations['Tech'],'conf':conf_aux,'ht':combinations['house_type'],
+    param.update({'Tech':combinations['Tech'],'conf':conf_aux,'ht':combinations['house_type'],
                   'EV_ID':EV_ID, 'electricity_profile':combinations['electricity_profile'],'EV_V2G':combinations['EV_V2G'],
-                  'name':combinations['electricity_profile']+EV_ID,
-                  'PV_nom':combinations['Capacity'],'App_comb':create_app_combinations(combinations['App_comb'])})
+                  'PV_nom':PV_nom,'App_comb':create_app_combinations(combinations['App_comb'])})
 
 
     return param, data_input
@@ -449,15 +475,14 @@ def pooling2(combinations):
 
         [df,aux_dict]=single_opt2(param,data_input)
         print('out of optimization')
-    except IOError as e:
-        print ("I/O error({0}): {1}".format(e.errno, e.strerror))
+    except OSError as e:
+        #print(f"OSError: {e}")
         raise
-
-    except :
-        print ("Back to main.")
+    except Exception as e:
+        #print(f"Unexpected error: {e}")
         raise
     return
-
+import re
 @fn_timer
 def main():
     '''
@@ -469,11 +494,12 @@ def main():
     print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
     print('Welcome to basopra')
     print('Here you will able to optimize the schedule of PV-coupled HP systems and an electric vehicle with electric and/or thermal storage for a given electricity demand')
-
+    buildings=load_obj('../Input/PVroof_valdebagnes')
+    keys = list(buildings.keys())
     #Define the different combinations of inputs to be run
-    dct={'Capacity':[7],'App_comb':[0],'Tech':['NMC'],'PV_nom':[4.8],'country':['CH'],'cases':['mean'],
-         'conf':[0,1,4,6],'house_type':['SFH15','SFH45','SFH100'],
-         'HP':['AS'],'EV_V2G':[0],'electricity_profile':['High'],'EV_batt_cap':[60],'EV_P_max_home':['11'],'EV_use':['Low'],
+    dct={'Capacity':[7],'App_comb':[0],'Tech':['NMC'],'PV_nom':[1],'country':['CH'],'cases':['mean'],
+         'house_type':['SFH100'],'hh':list(buildings.items())[2:],
+         'HP':['AS'],'conf':[0,4],'EV_V2G':[0],'electricity_profile':['High'],'EV_batt_cap':[60],'EV_P_max_home':['11'],'EV_use':['Low'],
          'profile_row_number':[99]}
     ''''
     conf 
@@ -486,22 +512,80 @@ def main():
     6 HP+SH+BATT
     7 HP+SH+DHW+BATT
     '''
-    Total_combs=expand_grid(dct)
-    #print(Total_combs.dtypes)
-    #print(aux)
 
-    Combs_todo=Total_combs.copy()
+    # Define the folder containing the files
+    output_folder = Path('../Output/')
+    pattern = os.path.join(output_folder, 'df_*(Building-*)_NMC_0100_*_*_SFH100.csv')
 
-    print(Combs_todo.head())
-    Combs_todo=[dict(Combs_todo.loc[i,:]) for i in Combs_todo.index]
+    # List of matched files
+    existing_files = glob.glob(pattern)
+
+
+    # Extract Respondent_id and EV_V2G_buffer from filenames
+    existing_simulations = set()
+    for file in existing_files:
+        filename = os.path.basename(file)
+        match = re.search(r'df_((?:\d+\(Building-[\d\-]+-[\dA-Z]+\)))_NMC_0100_([0-9]+)_([0-9]+)_SFH100', filename)
+        try:
+            if match:
+                
+                building_id = match.group(1)
+                configuration = match.group(3)
+                existing_simulations.add((building_id, configuration))    
+        except (IndexError, ValueError):
+            print(f"Skipping file with unexpected format: {file}")
+
+    mapping = {
+        0: '0100',
+        1: '0101',
+        2: '0110',
+        3: '0111',
+        4: '1100',
+        5: '1101',
+        6: '1110',
+        7: '1111'
+    }
+    mapping_str_to_num = {
+    '0100': 0,
+    '0101': 1,
+    '0110': 2,
+    '0111': 3,
+    '1100': 4,
+    '1101': 5,
+    '1110': 6,
+    '1111': 7
+}
+
+    expected_combinations = {(building_id, mapping[configuration]) for building_id in keys for configuration in dct['conf']}
+    missing_simulations = expected_combinations - existing_simulations
+    Combs_todo_list = []
+    for bld_id, config in missing_simulations:
+        # Retrieve the full building information using the building id as key
+        building_info = buildings.get(bld_id, None)
+        Combs_todo_list.append({'hh': building_info,'name': bld_id, 'conf': mapping_str_to_num[config]})
+
+    Combs_todo = pd.DataFrame(Combs_todo_list)
     print(len(Combs_todo))
+    Combs_todo_dicts = [
+    {
+        **row,  # Existing respondent and EV_V2G_buffer values
+        #capacity is defined in input data
+        'App_comb':0,'Tech':'NMC','PV_nom':1,'country':'CH','cases':'mean',
+         'house_type':'SFH100',
+         'HP':'AS','EV_V2G':0,'electricity_profile':'High','EV_batt_cap':60,'EV_P_max_home':'11','EV_use':'High',
+         'profile_row_number':99
+    }
+    for row in Combs_todo.to_dict(orient='records')
+    ]
+
     mp.freeze_support()
     print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-    pool=mp.Pool(processes=1)
+    mp.set_start_method("spawn")
+    pool=mp.Pool(processes=3)
     #selected_dwellings=select_data(Combs_todo)
     #print(selected_dwellings)
     #print(Combs_todo)
-    pool.map(pooling2,Combs_todo)
+    pool.map(pooling2,Combs_todo_dicts)
     pool.close()
     pool.join()
     print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')

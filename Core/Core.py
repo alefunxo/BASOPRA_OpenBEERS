@@ -144,7 +144,7 @@ def Optimize(data_input, param):
         logger.debug("Processing day index: %s", i)
         toy = 0
         data_input_ = data_input[data_input.index.dayofyear == data_input.index.dayofyear[0] + i]
-        print(data_input_)
+        #print(data_input_)
         if i == 0:
             aux_Cap_aged = Batt.Capacity
             aux_SOC_max = Batt.SOC_max
@@ -204,7 +204,7 @@ def Optimize(data_input, param):
         logger.debug("Solver initialized, starting solve for day index %s", i)
         results = opt.solve(instance)#, tee=True)
         global_lock.release()
-        results.write(num=1)
+        #results.write(num=1)
 
         if (results.solver.status == SolverStatus.ok) and (results.solver.termination_condition == TerminationCondition.optimal):
             logger.debug("Optimal solution found for day index %s", i)
@@ -271,22 +271,21 @@ def Optimize(data_input, param):
         else:
             logger.info("No App2 nor App3 selected.")
             df['price'] = data_input.Price_flat.reset_index(drop=True)[:end_d].values
-    logger.debug("First five price values: %s", df['price'].head())
+    #logger.debug("First five price values: %s", df['price'].head())
     
     # Compute inverter and converter power
     df['Inv_P'] = (df[['E_PV_load', 'E_batt_load', 'E_PV_grid', 'E_loss_inv']].sum(axis=1)) / dt
     df['Conv_P'] = (df[['E_PV_load', 'E_PV_batt', 'E_PV_grid', 'E_loss_conv']].sum(axis=1)) / dt
-
-    # Define the list of columns to map from data_input
     columns_to_map = [
-        'Req_kWh', 'Req_kWh_DHW', 'Set_T', 'Temp', 'Temp_supply',
-        'Temp_supply_tank', 'T_aux_supply', 'COP_tank', 'COP_SH', 'COP_DHW'
-    ]
-
-    # Assign values efficiently using a dictionary comprehension
-    df.update({col: data_input[col].reset_index(drop=True)[:end_d].values for col in columns_to_map})
-
+    'Req_kWh', 'Req_kWh_DHW', 'Set_T', 'Temp', 'Temp_supply',
+    'Temp_supply_tank', 'T_aux_supply', 'COP_tank', 'COP_SH', 'COP_DHW', 'E_EV_trip'
+]
+    # Define the list of columns to map from data_input
+    new_cols = {col: data_input[col].reset_index(drop=True).iloc[:end_d].values 
+                for col in columns_to_map}
+    df = df.assign(**new_cols)
     df.set_index('index', inplace=True)
+
     aux_dict = {'aux_Cap_arr': aux_Cap_arr, 'SOH_arr': SOH_arr, 'Cycle_aging_factor': Cycle_aging_factor, 'P_max_arr': P_max_arr,
                 'results_arr': results_arr, 'cycle_cal_arr': cycle_cal_arr, 'DoD_arr': DoD_arr, 'results': results}
     logger.info("Optimization process completed.")
@@ -463,7 +462,7 @@ def single_opt2(param, data_input):
         logger.info("Non-testing mode: aggregating results.")
         save_results(df, aux_dict, param)
 
-        aggregate_results(df, aux_dict, param)
+        #aggregate_results(df, aux_dict, param)
     else:
         save_results(df, aux_dict, param)
         logger.debug("Testing mode active; skipping aggregation. Data input head: %s", data_input.head())
