@@ -406,7 +406,9 @@ def aggregate_results(df, aux_dict, param):
     return
 
 def save_obj(obj, name):
-    with open('Output/' + name + '.pkl', 'wb') as f:
+    output_dir = 'Output/'
+    os.makedirs(output_dir, exist_ok=True)
+    with open(f'{output_dir}{name}.pkl', 'wb') as f:
         pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
     logger.debug("Object saved as %s.pkl", name)
 

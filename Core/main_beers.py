@@ -497,10 +497,24 @@ def main():
     buildings=load_obj('../Input/PVroof_valdebagnes')
     keys = list(buildings.keys())
     #Define the different combinations of inputs to be run
-    dct={'Capacity':[7],'App_comb':[0],'Tech':['NMC'],'PV_nom':[1],'country':['CH'],'cases':['mean'],
-         'house_type':['SFH100'],'hh':list(buildings.items())[2:],
-         'HP':['AS'],'conf':[0,4],'EV_V2G':[0],'electricity_profile':['High'],'EV_batt_cap':[60],'EV_P_max_home':['11'],'EV_use':['Low'],
-         'profile_row_number':[99]}
+    dct={
+        'Capacity':[7],
+        'App_comb':[0],
+        'Tech':['NMC'],
+        'PV_nom':[1],
+        'country':['CH'],
+        'cases':['mean'],
+        'house_type':['SFH100'],
+        'hh':list(buildings.items())[2:],
+        'HP':['AS'],
+        'conf':[0,4],
+        'EV_V2G':[0],
+        'electricity_profile':['High'],
+        'EV_batt_cap':[60],
+        'EV_P_max_home':['11'],
+        'EV_use':['Low'],
+        'profile_row_number':[99]
+    }
     ''''
     conf 
     0 only HP
