@@ -193,7 +193,7 @@ def Optimize(data_input, param):
         while global_lock.locked():
             continue
         global_lock.acquire()
-        if sys.platform == 'win32':
+        if sys.platform == 'linux' or sys.platform == 'win32':
             opt = SolverFactory('gurobi')
             opt.options["threads"] = 1
             opt.options["mipgap"] = 0.001

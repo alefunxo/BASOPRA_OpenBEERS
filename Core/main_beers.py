@@ -22,6 +22,7 @@
 
 import sys
     
+import re
 import os
 import pandas as pd
 import argparse
@@ -41,6 +42,10 @@ import csv
 from Core import single_opt2
 import post_proc as pp
 import logging
+
+INPUT_PATH = "Input/"
+OUTPUT_PATH = "Output/"
+
 
 # Configure logger
 logging.basicConfig(filename='main.log', 
@@ -89,7 +94,7 @@ def create_app_configurations(index):
     return df.loc[index,'conf']
 
 def load_prices():
-    filename_prices=Path('../Input/Prices_2017.csv')
+    filename_prices=Path(f'{INPUT_PATH}Prices_2017.csv')
     
     fields_prices=['index', 'Price_flat', 'Price_DT', 'Export_price', 'Price_flat_mod',
    'Price_DT_mod']
@@ -106,7 +111,7 @@ def load_prices():
 
 
 def load_heat_demand(combinations):
-    filename_heat=Path('../Input/preprocessed_heat_demand_2_new_Oct.csv')
+    filename_heat=Path(f'{INPUT_PATH}preprocessed_heat_demand_2_new_Oct.csv')
     
     if (combinations['house_type']=='SFH15')| (combinations['house_type']=='SFH45'):
         aux_name1='SFH15_45'
@@ -134,7 +139,7 @@ def load_heat_demand(combinations):
     return df_heat
 
 def load_electricity_demand(id_dwell):
-    filename_el=Path('../Input/Electricity_demand_supply_2017.csv')
+    filename_el=Path(f'{INPUT_PATH}Electricity_demand_supply_2017.csv')
     fields_el=['index',str(id_dwell.values[0]),'E_PV']
     new_cols=['E_demand', 'E_PV']
 
@@ -156,24 +161,25 @@ def load_EV_data(combinations, param):
     Batt_EV = pc.Battery_tech(Capacity=combinations['EV_batt_cap'], Technology='NMC')
     logger.info("Extract the id numbers")
     if combinations['EV_use'] == 'Low':
-            EV_IDs = pd.read_csv('../Input/hhnrEVLow.csv')
+            EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVLow.csv')
     
     if combinations['EV_use'] == 'Medium':
-            EV_IDs = pd.read_csv('../Input/hhnrEVMedium.csv')
+            EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVMedium.csv')
     
     if combinations['EV_use'] == 'High':
-            EV_IDs = pd.read_csv('../Input/hhnrEVHigh.csv')
+            EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVHigh.csv')
             
     if combinations['EV_use'] == 'None': #It will select a number for the model to work, but it is not used later
-            EV_IDs = pd.read_csv('../Input/hhnrEVHigh.csv')
+            EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVHigh.csv')
     
     EV_ID = EV_IDs.iloc[combinations['profile_row_number']]['HHNR_WEEKDAY_WEEKENDAY']
     
     logger.info("EV_ID: s"  + str(EV_ID))
     
-    if ( combinations['EV_P_max_home'] != '3_6' and combinations['EV_P_max_home'] != '7' and combinations['EV_P_max_home'] != '11' ): print('Invalid charging power, choose 3_6, 7, or 11')
+    if ( combinations['EV_P_max_home'] != '3_6' and combinations['EV_P_max_home'] != '7' and combinations['EV_P_max_home'] != '11' ): 
+        print('Invalid charging power, choose 3_6, 7, or 11')
     
-    filename_EV = Path('../Input/dfEVBasopra.csv')
+    filename_EV = Path(f'{INPUT_PATH}dfEVBasopra.csv')
     fields_EV=['index','energyRequired'+combinations['EV_P_max_home']+'kW'+ combinations['EV_use'],'maxPower'+ combinations['EV_use'],'energyTrip'+ combinations['EV_use']]
     
    
@@ -185,15 +191,15 @@ def load_EV_data(combinations, param):
     
     logger.info("separate EV files per profile")
     if combinations['EV_use'] == 'Low':
-            filename_EV2 = Path('../Input/dfEVLow.csv')
+            filename_EV2 = Path(f'{INPUT_PATH}dfEVLow.csv')
     elif combinations['EV_use'] == 'Medium':
-            filename_EV2 = Path('../Input/dfEVMedium.csv')
+            filename_EV2 = Path(f'{INPUT_PATH}dfEVMedium.csv')
     
     elif combinations['EV_use'] == 'High':
-            filename_EV2 = Path('../Input/dfEVHigh.csv')
+            filename_EV2 = Path(f'{INPUT_PATH}dfEVHigh.csv')
             
     else:
-            filename_EV2 = Path('../Input/dfEVNone.csv')
+            filename_EV2 = Path(f'{INPUT_PATH}dfEVNone.csv')
     
     if combinations['EV_use'] == 'None':
         aux_nameEV='1'
@@ -289,7 +295,7 @@ def configure_system_parameters(combinations, param, data_input):
         param['tank_dhw'] = pc.heat_storage_tank(mass=0, t_max=0, t_min=0, specific_heat_dhw=0, U_value_dhw=0, surface_dhw=0)
 
     logger.debug(data_input.head())
-    design_param = load_obj('../Input/dict_design_oct')
+    design_param = load_obj(f'{INPUT_PATH}dict_design_oct')
     if combinations['house_type'] == 'SFH15':
         param['Backup_heater'] = design_param['bu_15']
         param['hp'] = pc.HP_tech(technology='ASHP', power=design_param['hp_15'])
@@ -301,6 +307,7 @@ def configure_system_parameters(combinations, param, data_input):
         param['hp'] = pc.HP_tech(technology='ASHP', power=design_param['hp_100'])
     
     return param, conf_aux
+
 def load_param(combinations):
     '''
     Description
@@ -337,19 +344,23 @@ def load_param(combinations):
     '''
     print('##############')
     print('load data')
+    print(combinations['hh'])
+    specs = combinations['hh']['specs']
+    combinations['hh'].pop('specs')
+
     df_el = pd.DataFrame(combinations['hh'])
     
     logger.info("Choose the correspongind profile for electricity")
 
     if combinations['electricity_profile'] == 'Low':
             logger.info("Electricity profile Low")
-            electricity_profiles = pd.read_csv('../Input/HHLow.csv')
+            electricity_profiles = pd.read_csv(f'{INPUT_PATH}HHLow.csv')
     elif combinations['electricity_profile'] == 'Medium':
             logger.info("Electricity profile Medium")
-            electricity_profiles = pd.read_csv('../Input/HHMedium.csv')
+            electricity_profiles = pd.read_csv(f'{INPUT_PATH}HHMedium.csv')
     else :
             logger.info("Electricity profile High")
-            electricity_profiles = pd.read_csv('../Input/HHHigh.csv')
+            electricity_profiles = pd.read_csv(f'{INPUT_PATH}HHHigh.csv')
     
     combinations['electricity_profiles'] = electricity_profiles.iloc[combinations['profile_row_number']]
     param=dict()
@@ -375,8 +386,11 @@ def load_param(combinations):
     #df_el = load_electricity_demand(param['id_dwell'])
     df_el.columns=['Req_kWh','E_demand','E_PV']
     
-    PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
-    param['Capacity']=(df_el.E_PV.sum()/1000).round()  # Estimated kW ratio 1:1 with PV
+    # PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
+    # param['Capacity']=(df_el.E_PV.sum()/1000).round()  # Estimated kW ratio 1:1 with PV
+    PV_nom = specs['Roof']['pv_capacity'] + specs['Wall']['pv_capacity']
+    param["Capacity"] = specs['Roof']['pv_capacity'] + specs['Wall']['pv_capacity']
+    print(param['Capacity'])
     param['Inverter_power'] = round(PV_nom / 1.2, 1)
 
     df_prices = load_prices()
@@ -482,7 +496,8 @@ def pooling2(combinations):
         #print(f"Unexpected error: {e}")
         raise
     return
-import re
+
+
 @fn_timer
 def main():
     '''
@@ -494,7 +509,13 @@ def main():
     print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
     print('Welcome to basopra')
     print('Here you will able to optimize the schedule of PV-coupled HP systems and an electric vehicle with electric and/or thermal storage for a given electricity demand')
-    buildings=load_obj('../Input/PVroof_valdebagnes')
+
+    # files_directory = "../Input/"
+    # buildings_file = "PVroof_valdebagnes"
+    files_directory = INPUT_PATH
+    buildings_file = "test"
+    buildings_path = f"{files_directory}{buildings_file}"
+    buildings=load_obj(buildings_path)
     keys = list(buildings.keys())
     #Define the different combinations of inputs to be run
     dct={
@@ -515,6 +536,7 @@ def main():
         'EV_use':['Low'],
         'profile_row_number':[99]
     }
+    # TODO Understand why most of the entries of the dct object, outside of 'conf', don't seem to be used at all
     ''''
     conf 
     0 only HP
@@ -542,7 +564,6 @@ def main():
         match = re.search(r'df_((?:\d+\(Building-[\d\-]+-[\dA-Z]+\)))_NMC_0100_([0-9]+)_([0-9]+)_SFH100', filename)
         try:
             if match:
-                
                 building_id = match.group(1)
                 configuration = match.group(3)
                 existing_simulations.add((building_id, configuration))    
@@ -581,15 +602,24 @@ def main():
     Combs_todo = pd.DataFrame(Combs_todo_list)
     print(len(Combs_todo))
     Combs_todo_dicts = [
-    {
-        **row,  # Existing respondent and EV_V2G_buffer values
-        #capacity is defined in input data
-        'App_comb':0,'Tech':'NMC','PV_nom':1,'country':'CH','cases':'mean',
-         'house_type':'SFH100',
-         'HP':'AS','EV_V2G':0,'electricity_profile':'High','EV_batt_cap':60,'EV_P_max_home':'11','EV_use':'High',
-         'profile_row_number':99
-    }
-    for row in Combs_todo.to_dict(orient='records')
+        {
+            **row,  # Existing respondent and EV_V2G_buffer values
+            #capacity is defined in input data
+            'App_comb':0,
+            'Tech':'NMC',
+            'PV_nom':1,
+            'country':'CH',
+            'cases':'mean',
+            'house_type':'SFH100',
+            'HP':'AS',
+            'EV_V2G':0,
+            'electricity_profile':'High',
+            'EV_batt_cap':60,
+            'EV_P_max_home':'11',
+            'EV_use':'High',
+            'profile_row_number':99
+        }
+        for row in Combs_todo.to_dict(orient='records')
     ]
 
     mp.freeze_support()

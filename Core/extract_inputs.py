@@ -99,6 +99,7 @@ def extract_building_output(col):
     return None, None, None
 
 def process_citysim_output(df: pd.DataFrame):
+    # Extract unique building names
     building_names = set()
     pattern_name = re.compile(r'^(\d+\([^)]*\))')
     for col in df.columns:
@@ -108,7 +109,7 @@ def process_citysim_output(df: pd.DataFrame):
         if match:
             building_names.add(match.group(1))
     
-    outputs_of_interest = ['SolarPVProduction', 'Electricconsumption', 'Qs']
+    outputs_of_interest = ['SolarPVProduction', 'ElectricConsumption', 'Qs']
     building_outputs = {}
     for col in df.columns:
         if col.startswith('#timeStep') or col.startswith('Unnamed'):
@@ -154,8 +155,14 @@ def main():
     # retrieve output information
     df = pd.read_csv(path_to_citysim_inputs+citysim_output_file_name, sep=separator)
     building_names, building_outputs, annual_summary, summary_df = process_citysim_output(df)
+    for key in building_outputs.keys():
+        building_outputs[key]['specs'] = results[key]
+    # print(results)
+    # print(building_outputs)
+    for key, value in building_outputs.items():
+        print(key)
+        print(value.keys())
     save_obj(building_outputs, 'test')
-    print(results)
 
 
 if __name__ == "__main__":
