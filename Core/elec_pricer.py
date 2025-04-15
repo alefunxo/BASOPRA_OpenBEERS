@@ -79,15 +79,22 @@ class ElectricityPricer:
     def get_municipality_provider(self, municipality:str)->str:
         municipality_entries = self.get_municipality_entries(municipality)
         operator = municipality_entries['operator'].to_list()[0]
-        print(operator)
+        return operator
         # column_list = ['column_name'].tolist()
 
-    def get_electricity_price()->float:
-        pass
+    def get_electricity_price(self, operator:str, price_category:str)->float:
+        operator_entries = self.tarifs_listings[(self.tarifs_listings[' operatorLabel'] == operator) & (self.tarifs_listings[' category'] == price_category)]
+        print(operator_entries)
+        
 
 if __name__ == '__main__':
     pricer = ElectricityPricer()
-    print(pricer.municipality_listings.head())
+    # print(pricer.municipality_listings.head())
     print(pricer.tarifs_listings.head())
     print(pricer.get_municipality_entries("Val de Bagnes").head())
-    pricer.get_municipality_provider("Val de Bagnes")
+    operator = pricer.get_municipality_provider("Val de Bagnes")
+    print(operator)
+    print(pricer.tarifs_listings.keys())
+    # operator_entries = pricer.tarifs_listings[pricer.tarifs_listings[' operatorLabel'] == operator]
+    # print(operator_entries)
+    pricer.get_electricity_price(operator, 'C2')
