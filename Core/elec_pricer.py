@@ -62,10 +62,13 @@ def is_residential_consumption(activity_type:str)->bool:
 def get_consumption_category(activity_type:str, consumption:float)->str:
     consumption_limits = other_consumptions
     consumption_labels = other_labels
+    dummy_resullt = "C2"
     if is_residential_consumption(activity_type):
         consumption_limits = residential_consumptions
         consumption_labels = residential_labels
-    return get_category(consumption, consumption_limits, consumption_labels)
+        dummy_result = "H4"
+    # return get_category(consumption, consumption_limits, consumption_labels)
+    return dummy_result
 
 class ElectricityPricer:
     def __init__(self):
@@ -82,19 +85,20 @@ class ElectricityPricer:
         return operator
         # column_list = ['column_name'].tolist()
 
-    def get_electricity_price(self, operator:str, price_category:str)->float:
+    def get_electricity_price(self, municipality:str, price_category:str)->float:
+        operator = self.get_municipality_provider(municipality)
         operator_entries = self.tarifs_listings[(self.tarifs_listings[' operatorLabel'] == operator) & (self.tarifs_listings[' category'] == price_category)]
-        print(operator_entries)
-        
+        operator_entries.sort_values(by=' total (cts./kWh)')
+        return float(operator_entries.iloc[1][' total (cts./kWh)'])
 
 if __name__ == '__main__':
     pricer = ElectricityPricer()
     # print(pricer.municipality_listings.head())
-    print(pricer.tarifs_listings.head())
-    print(pricer.get_municipality_entries("Val de Bagnes").head())
+    # print(pricer.tarifs_listings.head())
+    # print(pricer.get_municipality_entries("Val de Bagnes").head())
     operator = pricer.get_municipality_provider("Val de Bagnes")
     print(operator)
-    print(pricer.tarifs_listings.keys())
+    # print(pricer.tarifs_listings.keys())
     # operator_entries = pricer.tarifs_listings[pricer.tarifs_listings[' operatorLabel'] == operator]
     # print(operator_entries)
-    pricer.get_electricity_price(operator, 'C2')
+    print(pricer.get_electricity_price('Val de Bagnes', 'C2'))

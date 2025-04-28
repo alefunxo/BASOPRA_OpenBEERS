@@ -5,7 +5,7 @@ import numpy as np
 from lxml.etree import _Element as Element
 from typing import Any, Mapping, Dict
 from Core import save_obj
-
+from elec_pricer import get_consumption_category, ElectricityPricer
 
 path_to_citysim_inputs = "/home/luciole/Documents/simulations/simulations/val_de_bagnes_41_climate_contemporary_pv_roof_2025/"
 inputs_file_name = "simulation.xml"
@@ -78,10 +78,11 @@ def get_element_pv(building_zone: Element, element_name:str) -> float:
     for element in building_zone.xpath(f"./{element_name}"):
         pv_capacity = calculate_pv_capacity(element)
         total_pv_capacity += pv_capacity
-    return {"pv_capacity": total_pv_capacity  / 1000, "unit": "kW"}
+    # return {"pv_capacity": total_pv_capacity  / 1000, "unit": "kW"}
+    return float(total_pv_capacity / 1000)
 
 def get_zone_pv(zone: Element) -> Dict[str, float]:
-    zone_pv_capacity = {}
+    zone_pv_capacity = {'unit': 'kW'}
     for element_name in ["Roof", "Wall"]:
         zone_pv_capacity[element_name] = get_element_pv(zone, element_name)
     return zone_pv_capacity
@@ -90,6 +91,14 @@ def get_building_pv(building: Element) -> Dict[str, Any]:
     zone = building.xpath("./Zone")[0]
     zone_pv_capacity = get_zone_pv(zone)
     return zone_pv_capacity
+
+def get_building_usage(building: Element) -> int:
+    zone = building.xpath("./Zone")[0]
+    zone_occupants = zone.xpath("./Occupants")[0]
+    return zone_occupants.attrib['activityType']
+
+def get_energy_consumption(building: Element) -> float:
+    return 6500
 
 def extract_building_output(col):
     pattern = r'^(?P<building>\d+\([^)]*\))(?::\d+)?\:(?P<output>\w+)\((?P<unit>[^)]+)\)$'
@@ -141,27 +150,49 @@ def process_citysim_output(df: pd.DataFrame):
 
 def main():
     # retrieve input information
+    electricity_pricer = ElectricityPricer()
     tree = etree.parse(path_to_citysim_inputs + inputs_file_name)
     root = tree.getroot()
 
-    results = {}
+    pv_capacities = {}
+    consumption_categories = {}
+    electricity_prices = {}
+
+    municipality_info = root.xpath('/CitySim/Climate')
+    municipality_location_file_name = municipality_info[0].get('location')
+
+    before_first_underscore = municipality_location_file_name.split('_')[0]
+
+    municipality_name = before_first_underscore.replace('-', ' ')
 
     for building in root.xpath('//Building'):
         building_id = building.get('id')
         building_name = building.get('Name')
         building_concat_name = f"{building_id}({building_name})"
-        results[building_concat_name] = get_building_pv(building)
+
+        pv_capacities[building_concat_name] = get_building_pv(building)
+
+        building_activity = get_building_usage(building)
+        consumption = get_energy_consumption(building)
+        consumption_category = get_consumption_category(building_activity, consumption)
+        consumption_categories[building_concat_name] = consumption_category
+        electricity_prices[building_concat_name] = electricity_pricer.get_electricity_price(municipality_name, consumption_category)
+
 
     # retrieve output information
     df = pd.read_csv(path_to_citysim_inputs+citysim_output_file_name, sep=separator)
+    # print(df.head())
     building_names, building_outputs, annual_summary, summary_df = process_citysim_output(df)
     for key in building_outputs.keys():
-        building_outputs[key]['specs'] = results[key]
-    # print(results)
-    # print(building_outputs)
+        building_outputs[key]['pv_capacity'] = pv_capacities[key]
+        building_outputs[key]['consumption_category'] = consumption_categories[key]
+        building_outputs[key]['elec_price'] = electricity_prices[key]
     for key, value in building_outputs.items():
         print(key)
         print(value.keys())
+        print(value['pv_capacity'])
+        print(value['consumption_category'])
+        print(value['elec_price'])
     save_obj(building_outputs, 'test')
 
 

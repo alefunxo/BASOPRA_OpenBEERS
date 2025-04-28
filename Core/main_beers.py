@@ -345,8 +345,12 @@ def load_param(combinations):
     print('##############')
     print('load data')
     print(combinations['hh'])
-    specs = combinations['hh']['specs']
-    combinations['hh'].pop('specs')
+    pv_capacity = combinations['hh']['pv_capacity']
+    consumption_category = combinations['hh']['consumption_category']
+    elec_price = combinations['hh']['elec_price']
+    combinations['hh'].pop('pv_capacity')
+    combinations['hh'].pop('consumption_category')
+    combinations['hh'].pop('elec_price')
 
     df_el = pd.DataFrame(combinations['hh'])
     
@@ -388,8 +392,8 @@ def load_param(combinations):
     
     # PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
     # param['Capacity']=(df_el.E_PV.sum()/1000).round()  # Estimated kW ratio 1:1 with PV
-    PV_nom = specs['Roof']['pv_capacity'] + specs['Wall']['pv_capacity']
-    param["Capacity"] = specs['Roof']['pv_capacity'] + specs['Wall']['pv_capacity']
+    PV_nom = pv_capacity['Roof'] + pv_capacity['Wall']
+    param["Capacity"] = pv_capacity['Roof'] + pv_capacity['Wall']
     print(param['Capacity'])
     param['Inverter_power'] = round(PV_nom / 1.2, 1)
 
@@ -401,7 +405,8 @@ def load_param(combinations):
 
     df_prices=df_prices.resample('1h').mean()
     #######################################################
-    df_prices.Price_flat=31.76 # pour val de bagnes   TO BE CHANGED ACCORDINGLY
+    # df_prices.Price_flat=31.76 # pour val de bagnes   TO BE CHANGED ACCORDINGLY
+    df_prices.Price_flat= elec_price
     #######################################################
 
     df_EV=df_EV.resample('1h').agg({'E_EV_req': 'sum', 'E_EV_trip': 'sum', 
@@ -534,7 +539,7 @@ def main():
         'EV_batt_cap':[60],
         'EV_P_max_home':['11'],
         'EV_use':['Low'],
-        'profile_row_number':[99]
+        'profile_row_number':[99],
     }
     # TODO Understand why most of the entries of the dct object, outside of 'conf', don't seem to be used at all
     ''''
@@ -578,7 +583,7 @@ def main():
         4: '1100',
         5: '1101',
         6: '1110',
-        7: '1111'
+        7: '1111',
     }
     mapping_str_to_num = {
     '0100': 0,
@@ -588,7 +593,7 @@ def main():
     '1100': 4,
     '1101': 5,
     '1110': 6,
-    '1111': 7
+    '1111': 7,
 }
 
     expected_combinations = {(building_id, mapping[configuration]) for building_id in keys for configuration in dct['conf']}
