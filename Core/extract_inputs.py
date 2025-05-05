@@ -7,8 +7,9 @@ from typing import Any, Mapping, Dict
 from Core import save_obj
 from elec_pricer import get_consumption_category, ElectricityPricer
 
-path_to_citysim_inputs = "/home/luciole/Documents/simulations/simulations/val_de_bagnes_41_climate_contemporary_pv_roof_2025/"
+path_to_citysim_inputs = "C:/Users/alejandr.penabell/Downloads/simulations (1)/simulations/val_de_bagnes_41_climate_contemporary_pv_roof_2025/"
 inputs_file_name = "simulation.xml"
+cli_file_name = "Val-de-Bagnes_Contemporary_2025.cli"
 citysim_output_file_name = "simulation_TH.out"
 separator = "\t"
 
@@ -97,9 +98,30 @@ def get_building_usage(building: Element) -> int:
     zone_occupants = zone.xpath("./Occupants")[0]
     return zone_occupants.attrib['activityType']
 
-def get_energy_consumption(building: Element) -> float:
+def get_energy_consumption(building: Element) -> float:## APB: what is this for ???
     return 6500
 
+def get_temperature(path_to_cli_file: str) -> Dict[str, float]:
+    
+    # Read all lines to locate the header
+    with open(path_to_cli_file, 'r') as f:
+        for i, line in enumerate(f):
+            if line.strip().startswith('dm'):
+                header_row = i
+                break
+
+    # Load the data into a DataFrame, using whitespace delimitation
+    df = pd.read_csv(
+        path_to_cli_file,
+        sep='\s+',
+        header=header_row-1,
+        comment=None
+    )
+
+    # Extract the Ts column
+    Ts_series = df['Ts']
+    return Ts_series
+    
 def extract_building_output(col):
     pattern = r'^(?P<building>\d+\([^)]*\))(?::\d+)?\:(?P<output>\w+)\((?P<unit>[^)]+)\)$'
     match = re.match(pattern, col)
@@ -128,7 +150,7 @@ def process_citysim_output(df: pd.DataFrame):
             if building not in building_outputs:
                 building_outputs[building] = {}
             # Convert from Wh to kWh for SolarPVProduction and Qs
-            if output in ['SolarPVProduction', 'Qs'] and unit == 'Wh':
+            if output in ['SolarPVProduction', 'Qs','Heating'] and unit == 'Wh':
                 building_outputs[building][output] = df[col] / 1000.0
             else:
                 building_outputs[building][output] = df[col] 
@@ -157,6 +179,7 @@ def main():
     pv_capacities = {}
     consumption_categories = {}
     electricity_prices = {}
+    temperature={}
 
     municipality_info = root.xpath('/CitySim/Climate')
     municipality_location_file_name = municipality_info[0].get('location')
@@ -169,7 +192,7 @@ def main():
         building_id = building.get('id')
         building_name = building.get('Name')
         building_concat_name = f"{building_id}({building_name})"
-
+        temperature[building_concat_name]=get_temperature(path_to_citysim_inputs+cli_file_name)
         pv_capacities[building_concat_name] = get_building_pv(building)
 
         building_activity = get_building_usage(building)
@@ -187,6 +210,7 @@ def main():
         building_outputs[key]['pv_capacity'] = pv_capacities[key]
         building_outputs[key]['consumption_category'] = consumption_categories[key]
         building_outputs[key]['elec_price'] = electricity_prices[key]
+        building_outputs[key]['temperature'] = temperature[key]
     for key, value in building_outputs.items():
         print(key)
         print(value.keys())

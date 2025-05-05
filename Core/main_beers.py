@@ -43,8 +43,8 @@ from Core import single_opt2
 import post_proc as pp
 import logging
 
-INPUT_PATH = "Input/"
-OUTPUT_PATH = "Output/"
+INPUT_PATH = "../Input/"
+OUTPUT_PATH = "../Output/"
 
 
 # Configure logger
@@ -630,7 +630,7 @@ def main():
     mp.freeze_support()
     print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
     mp.set_start_method("spawn")
-    pool=mp.Pool(processes=3)
+    pool=mp.Pool(processes=1)
     #selected_dwellings=select_data(Combs_todo)
     #print(selected_dwellings)
     #print(Combs_todo)
