@@ -229,11 +229,35 @@ def main():
         
         hp_sizing(dict_design,df_hp)
         get_COP(df_heat,df_hp,dict_design)
+        df_heat = df_heat.rename(columns={
+                    'Set_T': 'Set_T',
+                    'Temp': 'Temp',
+                    'SFH100_kWh': 'Req_kWh',
+                    'Temp_supply_SFH100': 'Temp_supply',
+                    'Temp_supply_SFH100_tank': 'Temp_supply_tank',
+                    'COP_SFH100': 'COP_SH',
+                    'COP_SFH100_tank': 'COP_tank',
+                    'COP_SFH100_DHW': 'COP_DHW',
+                    'hp_SFH100_el_cons': 'hp_sh_cons',
+                    'hp_SFH100_tank_el_cons': 'hp_tank_cons',
+                    'hp_SFH100_el_cons_DHW': 'hp_dhw_cons'
+                })
+        
+        df_heat = df_heat[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
+                        'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
+                        'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons']]
         test_dict[building]['df_heat']=df_heat
         test_dict[building]['dict_design']=dict_design
+
         print(df_heat.head())
 
     save_obj(test_dict,'Test')#it is saving in Output/Test
+
+Index(['Set_T', 'Temp', 'Req_kWh', 'Req_kWh_DHW', 'Temp_supply',
+       'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW', 'hp_sh_cons',
+       'hp_tank_cons', 'hp_dhw_cons'],
+      dtype='object')
+
 
 
 if __name__ == '__main__':

@@ -388,18 +388,40 @@ def load_param(combinations):
 ######################################################
 
     #df_el = load_electricity_demand(param['id_dwell'])
-    df_el.columns=['Req_kWh','E_demand','E_PV']
+    df_el.columns=['Req_kWh','E_demand','E_PV','Temp']
     
     # PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
     # param['Capacity']=(df_el.E_PV.sum()/1000).round()  # Estimated kW ratio 1:1 with PV
     PV_nom = pv_capacity['Roof'] + pv_capacity['Wall']
-    param["Capacity"] = pv_capacity['Roof'] + pv_capacity['Wall']
+    #Let-s try with the demand instead of the PV due to the high PV nom in the facade
+    param["Capacity"] = df_el.E_demand.sum()/1000 # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
     print(param['Capacity'])
     param['Inverter_power'] = round(PV_nom / 1.2, 1)
 
     df_prices = load_prices()
     
     df_heat = load_heat_demand(combinations)
+    df_heat_new = pd.read_csv('../Input/heat_demand_test.csv')
+    df_heat_new = df_heat_new.rename(columns={
+                    'Set_T': 'Set_T',
+                    'Temp': 'Temp',
+                    'SFH100_kWh': 'Req_kWh',
+                    'Temp_supply_SFH100': 'Temp_supply',
+                    'Temp_supply_SFH100_tank': 'Temp_supply_tank',
+                    'COP_SFH100': 'COP_SH',
+                    'COP_SFH100_tank': 'COP_tank',
+                    'COP_SFH100_DHW': 'COP_DHW',
+                    'hp_SFH100_el_cons': 'hp_sh_cons',
+                    'hp_SFH100_tank_el_cons': 'hp_tank_cons',
+                    'hp_SFH100_el_cons_DHW': 'hp_dhw_cons'
+                })
+        
+    df_heat_new = df_heat_new[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
+                        'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
+                        'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons']]
+
+    
+    
     [param, df_EV, EV_ID] = load_EV_data(combinations,param)
     
 
@@ -420,8 +442,11 @@ def load_param(combinations):
                                         'hp_sh_cons':'max','hp_tank_cons':'max',
                                         'hp_dhw_cons':'max'})
     df_el.index=df_heat.index
-    df_heat.Req_kWh = df_el.Req_kWh
-    df_el=df_el.drop('Req_kWh',axis=1)
+    df_heat_new.index=df_heat.index
+    df_heat_new['Req_kWh_DHW']=df_heat.Req_kWh_DHW
+    df_heat=df_heat_new
+    #df_heat.Req_kWh = df_el.Req_kWh
+    df_el=df_el.drop(['Req_kWh','Temp'],axis=1)
 
     ############ data profiles through time
     
