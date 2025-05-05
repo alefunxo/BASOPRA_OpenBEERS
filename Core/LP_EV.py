@@ -156,8 +156,6 @@ def Concrete_model(Data):
     m.Bool_dis_EV =en.Var(m.Time,within=en.Boolean,initialize=1)
     m.Bool_char_EV =en.Var(m.Time,within=en.Boolean,initialize=0)
     m.E_PV_batt_EV=en.Var(m.Time,bounds=(0,None),initialize=0)
-    m.E_loss_EV=en.Var(m.Time,bounds=(0,None),initialize=0)
-    m.E_EV_grid=en.Var(m.Time,bounds=(0,m.Batt_char_max_EV*m.dt))
     m.E_char_EV=en.Var(m.Time,bounds=(0,m.dt*m.Batt_char_max_EV))#because the power is in C terms thus, per hour
     m.E_dis_EV=en.Var(m.Time,bounds=(0,m.dt*m.Batt_dis_max_EV))#because the power is in C terms thus, per hour
     m.E_char_away=en.Var(m.Time,bounds=(0,Data['EV_P_max_away']),initialize=0)
@@ -165,7 +163,13 @@ def Concrete_model(Data):
     m.E_loss_Batt_EV=en.Var(m.Time,bounds=(0,None),initialize=0)
     m.E_batt_EV_grid=en.Var(m.Time,bounds=(0,None),initialize=0)
     m.E_batt_EV_load=en.Var(m.Time,bounds=(0,None),initialize=0)
-    m.E_grid_batt_EV=en.Var(m.Time,bounds=(0,None),initialize=0)
+    m.E_grid_batt_EV=en.Var(m.Time,bounds=(0,m.Batt_char_max*m.dt),initialize=0)
+
+    m.E_batt_EV_hp=en.Var(m.Time,bounds=(0,None),initialize=0)
+    m.E_batt_EV_hpdhw=en.Var(m.Time,bounds=(0,None),initialize=0)
+    m.E_batt_EV_bu=en.Var(m.Time,bounds=(0,None),initialize=0)
+    m.E_batt_EV_budhw=en.Var(m.Time,bounds=(0,None),initialize=0)
+    
 
     #HP variables
     m.E_PV_hp=en.Var(m.Time,bounds=(0,None),initialize=0)
@@ -304,6 +308,7 @@ def Concrete_model(Data):
     m.E_dis_EV_rule2_r=en.Constraint(m.Time,rule=E_dis_EV_rule2)
     m.min_V2X_SOC_r=en.Constraint(m.Time,rule=min_V2X_SOC)
     m.Batt_EV_SOC=en.Constraint(m.tm,rule=def_storage_state_EV_rule)
+    m.EV_Batt_losses_r=en.Constraint(m.Time,rule=EV_Batt_losses_rule)
 
     return m
 
@@ -358,7 +363,7 @@ def Balance_Batt_EV_rule(m,i):
      -------
      Balance of the battery charge, discharge and efficiency losses.
      '''
-     return sum(m.E_char_EV[i] for i in m.Time) - sum(m.E_dis_EV[i]+m.E_loss_Batt_EV[i] for i in m.Time)==0
+     return sum(m.E_char_EV[i]+m.E_char_away[i] for i in m.Time) - sum(m.E_dis_EV[i]+m.E_loss_Batt_EV[i]+m.E_EV_trip[i] for i in m.Time)==0
 
 def availability_rule_1(m,i):
     """
@@ -398,11 +403,9 @@ def E_dis_EV_rule2(m,i):
     -------
     Balance of energy discharged from the battery: energy to load, energy to grid, inverter losses.
     '''
-    if m.EV_V2G == 1:
-        return(m.E_dis_EV[i],m.E_batt_EV_load[i] + m.E_batt_EV_grid[i])
-    else:
-        return(m.E_dis_EV[i],m.E_batt_EV_load[i])
-    
+
+    return(m.E_dis_EV[i],m.E_batt_EV_load[i] + m.E_batt_EV_grid[i])
+
 def min_V2X_SOC(m,i):
     '''
     Description
@@ -425,6 +428,13 @@ def def_storage_state_EV_rule(m, t):
     else:
         return (m.SOC_EV[t] ==m.SOC_EV[t-1]+m.E_char_EV[t]-m.E_dis_EV[t]-m.E_loss_Batt_EV[t]+m.E_char_away[t]-m.E_EV_trip[t])
 
+def EV_Batt_losses_rule(m,i):
+    '''
+    Description
+    -------
+    Battery losses definition. 1-Battery_efficiency times the electricity that pass through the battery (roundtrip efficiency).
+    '''
+    return m.E_loss_Batt_EV[i] == (m.E_char_EV[i])*(1-m.Efficiency_EV)
 
 #Instance
 #Energy
