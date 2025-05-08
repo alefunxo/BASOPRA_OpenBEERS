@@ -32,8 +32,8 @@ def get_design_temperature_hp(temperature_series,df_power,dict_design):
     -------
     design_temp : float
         The estimated design ambient temperature (°C), based on the 1st percentile of deviations from a sine fit.
-    heatload_dt15 : float
-        Estimated heat load (kW) at the design temperature using a linear fit for SFH100.
+    heatload_dt_floor : float
+        Estimated heat load (kW) at the design temperature using a linear fit for SFH_radiator.
 
     Notes
     -----
@@ -57,60 +57,55 @@ def get_design_temperature_hp(temperature_series,df_power,dict_design):
     heat_load=heat_load.loc[heat_load.index<20]
     z100 = np.polyfit(heat_load.index, heat_load, 1)
 
-    fit_100=heat_load_ix*z100[0]+z100[1]
+    fitradiator=heat_load_ix*z100[0]+z100[1]
 
 
-    heatload_dt100=np.round(design_temp*z100[0]+z100[1],3)
+    heatload_dt=np.round(design_temp*z100[0]+z100[1],3)
     print('Design Temperature= {} °C'.format(design_temp))
 
-    print('The heat load at design ambient temperature for SFH15 is:{}'.format(heatload_dt100[0]))
+    print('The heat load at design ambient temperature for SFH is:{}'.format(heatload_dt[0]))
     df_sr=pd.DataFrame([heat_load_ix,heat_load_ix*0+20]).T
 
-    dict_design.update({'heatload_dt100':heatload_dt100[0],'design_temp':design_temp})
-    df_sr=supply_and_return_temps(df_sr,dict_design)
+    dict_design.update({'heatload_dt':heatload_dt[0],'design_temp':design_temp})
+    #df_sr=supply_and_return_temps(df_sr,dict_design)
 
 
-    return design_temp,heatload_dt100[0],df_sr
-def supply_and_return_temps(df1,dict_design):
-    
-    df1.columns=['Temp_mean','Set_T']
-    df1['Supply_T_100']=supply_temp(df1,dict_design['heatload_dt100'],dict_design['design_temp'],dict_design['T_dsupply_100'],dict_design['T_dsupply_100'],dict_design['rad_exp_100'])
-    df1['Supply_T_100_tank']=supply_temp(df1,dict_design['heatload_dt100'],dict_design['design_temp'],dict_design['T_dsupply_100_tank'],dict_design['T_dreturn_100_tank'],dict_design['rad_exp_100'])
-    df1['Return_T_100']=return_temp(df1,dict_design['heatload_dt100'],dict_design['design_temp'],dict_design['T_dsupply_100'],dict_design['T_dreturn_100'],dict_design['rad_exp_100'])
-    df1['Return_T_100_tank']=return_temp(df1,dict_design['heatload_dt100'],dict_design['design_temp'],dict_design['T_dsupply_100_tank'],dict_design['T_dreturn_100_tank'],dict_design['rad_exp_100'])
-    return df1
-def hp_sizing(dict_design,df_hp):
+    return design_temp,heatload_dt[0]
+
+def hp_sizing(dict_design,df_hp,flag_heating_floor):
     '''
     Get the HP rating according to the design temperature (in the interval of the input HP data) and the inlet temperature design.
     It returns the HP rating that provides the closest power to the required, if the HP cannot provide the required heat power, a backup 
     heater is required.
     '''
-    desig_temp_hp_data=df_hp.T_outside.unique()[find_interval_hp(dict_design['design_temp'],df_hp.T_outside.unique())]    
-    
-    hp_100=df_hp.loc[abs(df_hp.loc[(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_dsupply_100'])].P_th-dict_design['heatload_dt100']).idxmin(),'HP_rating']
-    bu_100=np.ceil(max(0,dict_design['heatload_dt100']-df_hp.loc[(df_hp.HP_rating==hp_100)&(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_dsupply_100']),'P_th'].values[0]))
-    dict_design.update({'hp_100':hp_100,'bu_100':bu_100})
+    desig_temp_hp_data=df_hp.T_outside.unique()[find_interval_hp(dict_design['design_temp'],df_hp.T_outside.unique())]
+    if flag_heating_floor:
+        hp=df_hp.loc[abs(df_hp.loc[(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_floor'])].P_th-dict_design['heatload_dt']).idxmin(),'HP_rating']
+        bu=np.ceil(max(0,dict_design['heatload_dt']-df_hp.loc[(df_hp.HP_rating==hp)&(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_floor']),'P_th'].values[0]))
+    else:
+        hp=df_hp.loc[abs(df_hp.loc[(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_radiator'])].P_th-dict_design['heatload_dt']).idxmin(),'HP_rating']
+        bu=np.ceil(max(0,dict_design['heatload_dt']-df_hp.loc[(df_hp.HP_rating==hp)&(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_radiator']),'P_th'].values[0]))
+    dict_design.update({'hp':hp,'buradiator':bu})
     return
 def get_COP(df,df_hp,dict_design):
     '''
     Calculates the COP for the three house types as well as the hp consumption (electricity, in kW) according to the HP rating, inlet temperature 
     and ambient temperature
-    TODO
-    -----
-    include dt (here 15 minutes)
+   
     '''
+    df['COP_DHW']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==55)&(df_hp.T_outside==x.Temp_amb_interval),'COP'].values[0],axis=1)
+    df['hp_dhw_cons']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==55)&(df_hp.T_outside==x.Temp_amb_interval),'P_el'].values[0],axis=1)
+
+
+    df['COP_SH']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==x.HP_T_SFH_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'COP'].values[0],axis=1)
     
-    df['COP_SFH100']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp_100'])&(df_hp.T_dist==x.HP_T_SFH100_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'COP'].values[0],axis=1)
+    df['COP_tank']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==x.HP_T_SFH_tank_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'COP'].values[0],axis=1)
     
-    df['COP_SFH100_tank']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp_100'])&(df_hp.T_dist==x.HP_T_SFH100_tank_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'COP'].values[0],axis=1)
+    df['hp_sh_cons']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==x.HP_T_SFH_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'P_el'].values[0],axis=1)
     
-    df['COP_SFH100_DHW']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp_100'])&(df_hp.T_dist==55)&(df_hp.T_outside==x.Temp_amb_interval),'COP'].values[0],axis=1)
+    df['hp_tank_cons']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==x.HP_T_SFH_tank_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'P_el'].values[0],axis=1)
     
-    df['hp_SFH100_el_cons']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp_100'])&(df_hp.T_dist==x.HP_T_SFH100_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'P_el'].values[0],axis=1)
     
-    df['hp_SFH100_tank_el_cons']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp_100'])&(df_hp.T_dist==x.HP_T_SFH100_tank_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'P_el'].values[0],axis=1)
-    
-    df['hp_SFH100_el_cons_DHW']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp_100'])&(df_hp.T_dist==55)&(df_hp.T_outside==x.Temp_amb_interval),'P_el'].values[0],axis=1)
     return
 def find_interval_hp(x, partition):
     '''
@@ -191,21 +186,24 @@ Part B: Buildings and Space Heat Load eq 11 pg 13 of 35. For this the ambient te
 
 
 def main():
+    '''
+    TODO: change the surface by the real surface
+    '''
     print('in sizing')
     test_dict=load_obj('../Input/test')
-    dict_design={'T_dsupply_15_45':35,'T_dreturn_15_45':30,'T_dsupply_100':50,'T_dreturn_100':40,'T_dsupply_15_45_tank':40,
-                'T_dreturn_15_45_tank':35,'T_dsupply_100_tank':55,'T_dreturn_100_tank':45,'rad_exp_15_45':1.1,'rad_exp_100':1.3}
+    dict_design={'T_d_supply_floor':35,'T_d_return_floor':30,'T_d_supply_radiator':50,'T_d_return_radiator':40,'T_d_supply_floor_tank':40,
+                'T_d_return_floor_tank':35,'T_d_supply_radiator_tank':55,'T_d_return_radiator_tank':45,'rad_exp_floor':1.1,'rad_exp_radiator':1.3}
     df_hp=pd.read_csv('../Input/HP_data.csv',sep=';')# Temperature in celcius
     df_hp.loc[:,'P_el']=df_hp.loc[:,'P_el'].str.replace(',','.').astype(float)
     df_hp.loc[:,'COP']=df_hp.loc[:,'COP'].str.replace(',','.').astype(float)
     df_hp['P_th']=df_hp.P_el*df_hp.COP
     for building in test_dict.keys():
         print(building)
-        design_temp,heatload_dt100,df1=get_design_temperature_hp(pd.DataFrame(test_dict[building]['temperature']).Ts,
+        design_temp,heatload_dt=get_design_temperature_hp(pd.DataFrame(test_dict[building]['temperature']).Ts,
                                                                  pd.DataFrame(test_dict[building]['Qs']),
                                                                  dict_design)# Qs resolution is 1 hour power and energy are then interchangeable here
         df_heat=pd.DataFrame([test_dict[building]['Qs'],test_dict[building]['temperature']]).T
-        df_heat.columns=['SFH100_kWh','Temp']
+        df_heat.columns=['Req_kWh','Temp']
         # Create datetime index for every hour of 2017
         datetime_index = pd.date_range(start='2017-01-01 00:00', end='2017-12-31 23:00', freq='h')
 
@@ -218,30 +216,36 @@ def main():
         width=200
         df_heat.loc[:,'Temp_mean']=df_heat.loc[:,'Temp_mean'].rolling(window=width).mean().bfill()
         df_heat['Set_T']=20
-        df_heat['Temp_supply_SFH100']=df_heat.apply(lambda x: supply_temp(x,dict_design['heatload_dt100'],dict_design['design_temp'],dict_design['T_dsupply_100'],
-                                                          dict_design['T_dreturn_100'],dict_design['rad_exp_100']),axis=1)
+        # here we need to select the T supply and return depending on the kWh/m2
+        ############
+        surface=350
+        ############
+        if df_heat.Req_kWh.sum()/surface < 50: 
+            flag_heating_floor=True 
+        else: 
+            flag_heating_floor=False
 
-        df_heat['Temp_supply_SFH100_tank']=df_heat.apply(lambda x: supply_temp(x,dict_design['heatload_dt100'],dict_design['design_temp'],dict_design['T_dsupply_100_tank'],
-                                                          dict_design['T_dreturn_100_tank'],dict_design['rad_exp_100']),axis=1)
-        df_heat['HP_T_SFH100_to_use']=df_heat.apply(lambda x: df_hp.T_dist.unique()[find_interval_hp(x.Temp_supply_SFH100,df_hp.T_dist.unique())],axis=1)
-        df_heat['HP_T_SFH100_tank_to_use']=df_heat.apply(lambda x: df_hp.T_dist.unique()[find_interval_hp(x.Temp_supply_SFH100_tank,df_hp.T_dist.unique())],axis=1)
+        if flag_heating_floor:
+            df_heat['Temp_supply']=df_heat.apply(lambda x: supply_temp(x,dict_design['heatload_dt'],dict_design['design_temp'],dict_design['T_d_supply_floor'],
+                                                            dict_design['T_d_return_floor'],dict_design['rad_exp_floor']),axis=1)
+
+            df_heat['Temp_supply_tank']=df_heat.apply(lambda x: supply_temp(x,dict_design['heatload_dt'],dict_design['design_temp'],dict_design['T_d_supply_floor_tank'],
+                                                            dict_design['T_d_return_floor_tank'],dict_design['rad_exp_floor']),axis=1)
+        else:
+            df_heat['Temp_supply']=df_heat.apply(lambda x: supply_temp(x,dict_design['heatload_dt'],dict_design['design_temp'],dict_design['T_d_supply_radiator'],
+                                                            dict_design['T_d_return_radiator'],dict_design['rad_exp_radiator']),axis=1)
+
+            df_heat['Temp_supply_tank']=df_heat.apply(lambda x: supply_temp(x,dict_design['heatload_dt'],dict_design['design_temp'],dict_design['T_d_supply_radiator_tank'],
+                                                            dict_design['T_d_return_radiator_tank'],dict_design['rad_exp_radiator']),axis=1)
+            
+        df_heat['HP_T_SFH_to_use']=df_heat.apply(lambda x: df_hp.T_dist.unique()[find_interval_hp(x.Temp_supply,df_hp.T_dist.unique())],axis=1)
+        df_heat['HP_T_SFH_tank_to_use']=df_heat.apply(lambda x: df_hp.T_dist.unique()[find_interval_hp(x.Temp_supply_tank,df_hp.T_dist.unique())],axis=1)
         df_heat['Temp_amb_interval']=df_heat.apply(lambda x: df_hp.T_outside.unique()[find_interval_hp(x.Temp,df_hp.T_outside.unique())],axis=1)
-        
-        hp_sizing(dict_design,df_hp)
+        # here we need to select the T supply and return depending on the kWh/m2
+        hp_sizing(dict_design,df_hp,flag_heating_floor)
+
         get_COP(df_heat,df_hp,dict_design)
-        df_heat = df_heat.rename(columns={
-                    'Set_T': 'Set_T',
-                    'Temp': 'Temp',
-                    'SFH100_kWh': 'Req_kWh',
-                    'Temp_supply_SFH100': 'Temp_supply',
-                    'Temp_supply_SFH100_tank': 'Temp_supply_tank',
-                    'COP_SFH100': 'COP_SH',
-                    'COP_SFH100_tank': 'COP_tank',
-                    'COP_SFH100_DHW': 'COP_DHW',
-                    'hp_SFH100_el_cons': 'hp_sh_cons',
-                    'hp_SFH100_tank_el_cons': 'hp_tank_cons',
-                    'hp_SFH100_el_cons_DHW': 'hp_dhw_cons'
-                })
+        
         
         df_heat = df_heat[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
                         'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
@@ -251,12 +255,9 @@ def main():
 
         print(df_heat.head())
 
-    save_obj(test_dict,'Test')#it is saving in Output/Test
+    save_obj(test_dict,'Test_floor')#it is saving in Output/Test
 
-Index(['Set_T', 'Temp', 'Req_kWh', 'Req_kWh_DHW', 'Temp_supply',
-       'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW', 'hp_sh_cons',
-       'hp_tank_cons', 'hp_dhw_cons'],
-      dtype='object')
+
 
 
 
