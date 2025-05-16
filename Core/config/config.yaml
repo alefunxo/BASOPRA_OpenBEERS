@@ -1,0 +1,18 @@
+openbeers_address: http://openbeers.hopto.org
+dest_folder: ../temp/
+
+simulation_name: val_de_bagnes_148_climate_contemporary_pv_roof_2025
+
+needed_series:
+  - Qs
+  - SolarPVProduction
+  - ElectricConsumption
+
+needed_attributes:
+  - PostCode
+  - num_floors
+  - egid
+  - area
+  - habitable_surface
+  - building_type
+  - gebaeude_nutzung
