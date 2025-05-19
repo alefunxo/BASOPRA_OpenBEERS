@@ -1,11 +1,11 @@
 # config/loader.py
 import os
 import yaml
-
+from typing import Any
 class GlobalConfig:
-    _instance = None
+    _instance: dict[str, Any] | None = None
 
-    def __new__(cls, path='config/config.yaml'):
+    def __new__(cls, path: str ='config/config.yaml') -> dict[str, Any]:
         if cls._instance is None:
             with open(path, 'r') as f:
                 config = yaml.safe_load(f)

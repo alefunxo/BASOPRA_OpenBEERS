@@ -1,5 +1,5 @@
 openbeers_address: http://openbeers.hopto.org
-dest_folder: ../temp/
+dest_folder: temp/
 
 simulation_name: val_de_bagnes_148_climate_contemporary_pv_roof_2025
 
