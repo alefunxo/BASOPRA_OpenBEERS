@@ -1,10 +1,77 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
-from openbeers_api.client import OpenBeersClient
+from config.loader import config
+from openbeers_api.api import ApiWrapper
+from openbeers_api.fileloader import cleanup, download_file_from_wap, list_files_in_directory, load_climate_file
+from openbeers_api.extract import get_all_building_attributes 
+from openbeers_api.assembler import build_basopra_input
+from elec_pricer.pricer import ElectricityPricer
+
+
+async def run_pipeline(simulation_name: str) -> dict:
+    api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
+
+    async with api_wrapper as api:
+        sim = await api.get_simulation(simulation_name)
+        buildings = await api.get_buildings(sim.zone_id)
+        attr_types = await api.get_attribute_types(config['needed_attributes'])
+        ser_types = await api.get_series_types(config['needed_series'])
+
+        attributes = {}
+        series = {}
+        for b in buildings:
+            attrs = await api.get_attributes(b.object_id)
+            attributes[b.id] = {
+                t.name: next((getattr(a, f"value_{t_}") for t_ in ["string", "integer", "float"] if getattr(a, f"value_{t_}", None) is not None),None)
+                for t in attr_types for a in attrs if a.attribute_type_id == t.id
+            }
+            s = await api.get_series(b.object_id, sim.id)
+            series[b.id] = {
+                t.name: next(
+                    (
+                        pt.data for pt in s if pt.time_series_type_id == t.id
+                    ), []) for t in ser_types
+            }
+    
+        climate = await api.get_climate(sim.climate_id)
+
+        wap_address = config['openbeers_address'] + '/simulations/' + sim.name + '/'
+        files = list_files_in_directory(wap_address, verify=False)
+        for f in files:
+            download_file_from_wap(
+                config['openbeers_address'] + "/simulations/",
+                sim.name,
+                f, 
+                config['dest_folder'],
+            )
+        
+        extracted_attributes = get_all_building_attributes(config['dest_folder'] + 'simulation.xml')
+        climate_df = load_climate_file(config['dest_folder'] + climate.climate_file)
+
+        cleanup(config['dest_folder'])
+
+        result = build_basopra_input(extracted_attributes, attributes, series, climate_df)
+        return result
+
 
 async def main() -> None:
-    client = await OpenBeersClient.from_config()
-    await client.prepare_basopra_input()
-    await client.close()
+    result = await run_pipeline(config['simulation_name']) 
+
+    # Add Electricity price for each building
+    pricer = ElectricityPricer()
+    for bid, data in result.items():
+        attributes = data['attributes']
+        price_category = pricer.get_consumption_category(attributes.iloc[0]['activity'])
+        elec_price = pricer.get_electricity_price(attributes.iloc[0]['municipality_name'], price_category)
+        attributes['elec_price'] = elec_price
+       
+    for bid, data in result.items():
+        print(f"Building {bid} → Attributes:\n", data['attributes'].to_string(index=False))
+        print(" → Series samples: \n", data['series'].head())
+
+
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -8,6 +8,7 @@ from Core import save_obj
 from elec_pricer import get_consumption_category, ElectricityPricer
 
 path_to_citysim_inputs = "C:/Users/alejandr.penabell/Downloads/simulations (1)/simulations/val_de_bagnes_41_climate_contemporary_pv_roof_2025/"
+path_to_citysim_inputs = "/home/luciole/Documents/simulations/simulations/val_de_bagnes_41_climate_contemporary_pv_roof_2025/"
 inputs_file_name = "simulation.xml"
 cli_file_name = "Val-de-Bagnes_Contemporary_2025.cli"
 citysim_output_file_name = "simulation_TH.out"
@@ -23,7 +24,7 @@ pv_pannel_types = {
 
 coord_points = ("V0", "V1", "V2")
 
-def parse_point(coord_element:Element) -> np.array:
+def parse_point(coord_element: Element) -> np.array:
     x = float(coord_element.get("x"))
     y = float(coord_element.get("y"))
     z = float(coord_element.get("z"))
@@ -101,7 +102,7 @@ def get_building_usage(building: Element) -> int:
 def get_energy_consumption(building: Element) -> float:## APB: what is this for ???
     return 6500
 
-def get_temperature(path_to_cli_file: str) -> Dict[str, float]:
+def guet_temperature(path_to_cli_file: str) -> Dict[str, float]:
     
     # Read all lines to locate the header
     with open(path_to_cli_file, 'r') as f:

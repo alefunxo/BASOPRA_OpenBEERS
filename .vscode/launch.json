@@ -10,6 +10,14 @@
             "request": "launch",
             "python": "C:/Users/apena/Anaconda3/envs/basopra_updated/python.exe",
             "program": "${file}"
+        },
+        {
+            "name": "Run data extraction pipeline",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/Core/run.py",
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
         }
     ]
 }

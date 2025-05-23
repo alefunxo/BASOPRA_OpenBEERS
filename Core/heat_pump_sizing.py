@@ -189,11 +189,13 @@ def main():
     '''
     TODO: change the surface by the real surface
     '''
+    # input_dir = '../Input'
+    input_dir = 'Input'
     print('in sizing')
-    test_dict=load_obj('../Input/test')
+    test_dict=load_obj(f'{input_dir}/test')
     dict_design={'T_d_supply_floor':35,'T_d_return_floor':30,'T_d_supply_radiator':50,'T_d_return_radiator':40,'T_d_supply_floor_tank':40,
                 'T_d_return_floor_tank':35,'T_d_supply_radiator_tank':55,'T_d_return_radiator_tank':45,'rad_exp_floor':1.1,'rad_exp_radiator':1.3}
-    df_hp=pd.read_csv('../Input/HP_data.csv',sep=';')# Temperature in celcius
+    df_hp=pd.read_csv(f'{input_dir}/HP_data.csv',sep=';')# Temperature in celcius
     df_hp.loc[:,'P_el']=df_hp.loc[:,'P_el'].str.replace(',','.').astype(float)
     df_hp.loc[:,'COP']=df_hp.loc[:,'COP'].str.replace(',','.').astype(float)
     df_hp['P_th']=df_hp.P_el*df_hp.COP

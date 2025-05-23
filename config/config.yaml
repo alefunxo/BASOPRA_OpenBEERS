@@ -1,7 +1,12 @@
 openbeers_address: http://openbeers.hopto.org
+
 dest_folder: temp/
+input_dir: Input/
+output_dir: Output/
 
 simulation_name: val_de_bagnes_148_climate_contemporary_pv_roof_2025
+municipalities_file: municipalities-data-2025.csv
+tarifs_file: elcom-data-2025.csv
 
 needed_series:
   - Qs
@@ -9,6 +14,7 @@ needed_series:
   - ElectricConsumption
 
 needed_attributes:
+  - gbez
   - PostCode
   - num_floors
   - egid
@@ -16,3 +22,8 @@ needed_attributes:
   - habitable_surface
   - building_type
   - gebaeude_nutzung
+  - TotalPower
+  - MainCategory
+  - SubCategory
+  - Municipality
+

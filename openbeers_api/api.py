@@ -10,7 +10,13 @@ class ApiWrapper:
     def __init__(self, api_client: ApiClient, api_instance: DefaultApi) -> None:
         self.api_client = api_client
         self.api = api_instance
-    
+
+    async def __aenter__(self) -> "ApiWrapper":
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.api_client.__aexit__(exc_type, exc_val, exc_tb)
+
     @classmethod
     async def from_config(cls, verify: bool = True) -> "ApiWrapper":
         configuration = Configuration(host=config['openbeers_address'])
