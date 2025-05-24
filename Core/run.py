@@ -5,7 +5,7 @@ import asyncio
 from config.loader import config
 from openbeers_api.api import ApiWrapper
 from openbeers_api.fileloader import cleanup, download_file_from_wap, list_files_in_directory, load_climate_file
-from openbeers_api.extract import get_all_building_attributes 
+from openbeers_api.extract import get_xml_building_data 
 from openbeers_api.assembler import build_basopra_input
 from elec_pricer.pricer import ElectricityPricer
 
@@ -19,16 +19,16 @@ async def run_pipeline(simulation_name: str) -> dict:
         attr_types = await api.get_attribute_types(config['needed_attributes'])
         ser_types = await api.get_series_types(config['needed_series'])
 
-        attributes = {}
-        series = {}
+        api_attributes = {}
+        api_series = {}
         for b in buildings:
             attrs = await api.get_attributes(b.object_id)
-            attributes[b.id] = {
+            api_attributes[b.id] = {
                 t.name: next((getattr(a, f"value_{t_}") for t_ in ["string", "integer", "float"] if getattr(a, f"value_{t_}", None) is not None),None)
                 for t in attr_types for a in attrs if a.attribute_type_id == t.id
             }
             s = await api.get_series(b.object_id, sim.id)
-            series[b.id] = {
+            api_series[b.id] = {
                 t.name: next(
                     (
                         pt.data for pt in s if pt.time_series_type_id == t.id
@@ -47,12 +47,12 @@ async def run_pipeline(simulation_name: str) -> dict:
                 config['dest_folder'],
             )
         
-        extracted_attributes = get_all_building_attributes(config['dest_folder'] + 'simulation.xml')
+        xml_attributes, xml_series = get_xml_building_data(config['dest_folder'] + 'simulation.xml')
         climate_df = load_climate_file(config['dest_folder'] + climate.climate_file)
 
         cleanup(config['dest_folder'])
 
-        result = build_basopra_input(extracted_attributes, attributes, series, climate_df)
+        result = build_basopra_input(api_attributes, api_series, xml_attributes, xml_series, climate_df)
         return result
 
 

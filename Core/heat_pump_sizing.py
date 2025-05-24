@@ -7,6 +7,7 @@ import math
 from main_beers import load_obj
 from scipy import optimize
 from Core import save_obj
+
 '''We want to size the HP based on the demand and the outdoor temperature. 
 The sizing is based on the Appendix A and C of The Reference Framework for 
 System Simulations of the IEA SHC Task 44 / HPP Annex 38 Part B: Buildings 
@@ -14,9 +15,12 @@ and Space Heat Load. Once the heat pump size is known, the heating system'
 supply and return temperatures for the three types of houses are calculated 
 for space heating and domestic hot water. Finally, the COP is calculated for 
 the distribution temperature and the output temperature'''
+
 def yearly_temps(times, avg, ampl, time_offset):
     return (avg
             + ampl * np.cos((times + time_offset) * 2 * np.pi / times.max()))
+
+
 def get_design_temperature_hp(temperature_series,df_power,dict_design):
     """
     Estimate the design ambient temperature and corresponding heat load for heat pump sizing.
@@ -258,9 +262,6 @@ def main():
         print(df_heat.head())
 
     save_obj(test_dict,'Test_floor')#it is saving in Output/Test
-
-
-
 
 
 if __name__ == '__main__':

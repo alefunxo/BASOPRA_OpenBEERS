@@ -1,7 +1,9 @@
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
 import numpy as np
-from typing import Dict
+from typing import Dict, List
+
+import pandas as pd
 
 pv_pannel_types = {
     "JA Solar Deep Blue JAM54D41-455/LB": {
@@ -42,6 +44,41 @@ def get_building_attributes(building: Element):
     activity = occupants.attrib.get('activityType')
     return bid, name, activity
 
+def get_dhw_profiles(root: Element):
+    day_profiles = {}
+    for dp in root.findall('.//DHWDayProfile'):
+        day_profiles[dp.attrib["id"]] = {
+            "waterConsumption": float(dp.attrib['waterConsumption']),
+            'profile': [float(dp.attrib[f"p{i}"]) for i in range(1, 25)],
+        }
+    
+    year_profiles = {}
+    for yp in root.findall('.//DHWYearProfile'):
+        profile = []
+        for i in range(1, 366):
+            profile.append(yp.attrib.get(f'd{i}'))
+        year_profiles[yp.attrib['id']] = profile
+    
+    return day_profiles, year_profiles
+
+def get_building_dhw(building: Element, day_profiles, year_profiles):
+    b_name = building.attrib["Name"]
+    occupants = building.find(".//Occupants")
+
+    n_occ = int(occupants.attrib["n"])
+    dhw_day_id = occupants.attrib["DHWType"]
+    dhw_year_id = dhw_day_id
+
+    yearly_pattern = year_profiles[dhw_year_id]
+
+    hourly_values = []
+    for day_id in yearly_pattern:
+        daily_profile = day_profiles[day_id]["profile"]
+        daily_consumption = day_profiles[day_id]["waterConsumption"] * n_occ
+        hourly_values.extend([daily_consumption * hour_value for hour_value in daily_profile])
+    
+    series = pd.Series(hourly_values, name=b_name)
+    return series
 
 def get_surface_n_PV(building: Element, surface_type: str) -> float:
     bld_id = building.attrib.get("id")
@@ -60,7 +97,6 @@ def get_surface_n_PV(building: Element, surface_type: str) -> float:
             except Exception as e:
                 print(f"Skipping malformed {surface_type} in building {bld_id}: {e}")
             
-            # pv = surface.find("PV")
             if (pv := surface.find("PV")) is not None: 
                 pv_ratio = pv.attrib.get('pvRatio')
                 pannel_capacity = get_pannel_specs(pv.attrib.get('name'))
@@ -69,10 +105,13 @@ def get_surface_n_PV(building: Element, surface_type: str) -> float:
     
     return total_area, pv_area, total_capacity
 
-def get_all_building_attributes(xml_path: str) -> Dict[str, float]:
+def get_xml_building_data(xml_path: str) -> Dict[str, float]:
     root = ET.parse(xml_path).getroot()
-    result: Dict[str, Dict[str, float]] = {}
+    building_attributes: Dict[int, Dict[str, float]] = {}
+    building_series: Dict[int, Dict[str, List]] = {}
     municipality_name = get_municipality_name(xml_path)
+
+    dhw_dailies, dhw_yearlies = get_dhw_profiles(root)
 
     for b in root.findall(".//Building"):
         bid, name, activity =  get_building_attributes(b)
@@ -87,10 +126,15 @@ def get_all_building_attributes(xml_path: str) -> Dict[str, float]:
             b_surfaces[f"{surface_type.lower()}_surface"] = surface
             b_surfaces[f"{surface_type.lower()}_pv_surface"] = pv_surface 
             b_surfaces[f"{surface_type.lower()}_pv_capacity"] = pv_capacity
+        
+        building_attributes[int(bid)] = b_surfaces
 
-        result[int(b.attrib['id'])] = b_surfaces
+        b_series: Dict[str, List] = {
+            'dhw': get_building_dhw(b, dhw_dailies, dhw_yearlies)
+        }
+        building_series[int(bid)] = b_series
 
-    return result
+    return building_attributes, building_series
 
 
 
