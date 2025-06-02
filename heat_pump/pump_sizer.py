@@ -1,12 +1,21 @@
+import pickle
+import sys
+import os
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+    from config.loader import config
+from config.loader import config
+from utils.logger import logger
+from typing import List
 import pandas as pd
 import numpy as np
-import os
-import csv
-import matplotlib.pyplot as plt
+# import csv
+# import matplotlib.pyplot as plt
 import math
-from main_beers import load_obj
+# from main_beers import load_obj
 from scipy import optimize
-from Core import save_obj
+# from Core import save_obj
 
 '''We want to size the HP based on the demand and the outdoor temperature. 
 The sizing is based on the Appendix A and C of The Reference Framework for 
@@ -16,12 +25,19 @@ supply and return temperatures for the three types of houses are calculated
 for space heating and domestic hot water. Finally, the COP is calculated for 
 the distribution temperature and the output temperature'''
 
+def save_obj(obj, name):
+    output_dir = 'Output/'
+    os.makedirs(output_dir, exist_ok=True)
+    with open(f'{output_dir}{name}.pkl', 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+    logger.info("Object saved as %s.pkl", name)
+
 def yearly_temps(times, avg, ampl, time_offset):
     return (avg
             + ampl * np.cos((times + time_offset) * 2 * np.pi / times.max()))
 
 
-def get_design_temperature_hp(temperature_series,df_power,dict_design):
+def get_design_temperature_hp(df_temperature, df_power, dict_design):
     """
     Estimate the design ambient temperature and corresponding heat load for heat pump sizing.
 
@@ -46,11 +62,16 @@ def get_design_temperature_hp(temperature_series,df_power,dict_design):
     estimates the heat load at the design temperature.
     The sizing is based on the Appendix A and C of The Reference Framework for System Simulations of the IEA SHC Task 44 / HPP Annex 38 Part B: Buildings and Space Heat Load. 
     """
+    temperature_series = df_temperature['Ts']
     y_data=temperature_series.values
     x_data=np.linspace(0,math.pi,8760)
 
-    opt_results, covariance = optimize.curve_fit(yearly_temps, x_data,
-                                        y_data, [20, 10, 0])
+    opt_results, covariance = optimize.curve_fit(
+        yearly_temps, 
+        x_data,
+        y_data, 
+        [20, 10, 0],
+    )
     temp_deviation_from_sine_fit=yearly_temps(x_data,*opt_results)-y_data
     conf_int=0.99
 
@@ -73,8 +94,8 @@ def get_design_temperature_hp(temperature_series,df_power,dict_design):
     dict_design.update({'heatload_dt':heatload_dt[0],'design_temp':design_temp})
     #df_sr=supply_and_return_temps(df_sr,dict_design)
 
-
     return design_temp,heatload_dt[0]
+
 
 def hp_sizing(dict_design,df_hp,flag_heating_floor):
     '''
@@ -91,26 +112,23 @@ def hp_sizing(dict_design,df_hp,flag_heating_floor):
         bu=np.ceil(max(0,dict_design['heatload_dt']-df_hp.loc[(df_hp.HP_rating==hp)&(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_radiator']),'P_th'].values[0]))
     dict_design.update({'hp':hp,'buradiator':bu})
     return
+
+
 def get_COP(df,df_hp,dict_design):
     '''
     Calculates the COP for the three house types as well as the hp consumption (electricity, in kW) according to the HP rating, inlet temperature 
     and ambient temperature
-   
     '''
     df['COP_DHW']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==55)&(df_hp.T_outside==x.Temp_amb_interval),'COP'].values[0],axis=1)
     df['hp_dhw_cons']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==55)&(df_hp.T_outside==x.Temp_amb_interval),'P_el'].values[0],axis=1)
-
-
     df['COP_SH']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==x.HP_T_SFH_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'COP'].values[0],axis=1)
-    
     df['COP_tank']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==x.HP_T_SFH_tank_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'COP'].values[0],axis=1)
-    
     df['hp_sh_cons']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==x.HP_T_SFH_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'P_el'].values[0],axis=1)
-    
     df['hp_tank_cons']=df.apply(lambda x: df_hp.loc[(df_hp.HP_rating==dict_design['hp'])&(df_hp.T_dist==x.HP_T_SFH_tank_to_use)&(df_hp.T_outside==x.Temp_amb_interval),'P_el'].values[0],axis=1)
     
-    
     return
+
+
 def find_interval_hp(x, partition):
     '''
     Description
@@ -129,13 +147,13 @@ def find_interval_hp(x, partition):
     TODO
     ------
     '''
-
     for i in range(0, len(partition)):
         if x <= partition[i]:
             return i
     if x >partition[i]:
         return i
     
+
 def supply_temp(df,heatload,design_temp,T_supply,T_return,rad_exp):
     '''
     Description
@@ -155,22 +173,21 @@ Part B: Buildings and Space Heat Load eq 11 pg 13 of 35. For this the ambient te
     Temperature of supply (pd.Series)
     '''
     df_sup=df.copy()
-    
     df_sup['Q_herf']=np.heaviside(15-df_sup.Temp_mean,0)*heatload*(df_sup.Set_T-df_sup.Temp_mean)/(df_sup.Set_T-design_temp)
-
     df_sup['delta_t']=0.5*(T_supply+T_return)-df_sup.Set_T
-
     df_sup['second']=(df_sup.Q_herf/heatload)**(1/rad_exp)*df_sup.delta_t
-
     df_sup['third']=df_sup.Q_herf/(2*heatload)*(T_supply-T_return)
-    return df_sup.Set_T+df_sup.second+df_sup.third
+
+    return df_sup.Set_T + df_sup.second + df_sup.third
+
 
 def return_temp(df,heatload,design_temp,T_supply,T_return,rad_exp):
     '''
     Description
     ---------
     Determines the inlet temperature according to the The Reference Framework for System Simulations of the IEA SHC Task 44 / HPP Annex 38
-Part B: Buildings and Space Heat Load eq 11 pg 13 of 35. For this the ambient temperature, the set temperature and the design temperatures are needed
+
+    Part B: Buildings and Space Heat Load eq 11 pg 13 of 35. For this the ambient temperature, the set temperature and the design temperatures are needed
     Temperatures in Celsius or Kelvin
     Parameters
     ---------
@@ -186,43 +203,33 @@ Part B: Buildings and Space Heat Load eq 11 pg 13 of 35. For this the ambient te
     df_sup=df.copy()
     df_sup['second']=(T_supply-T_return)/2*(df_sup.Set_T-df_sup.Temp_mean)/(df.Set_T-design_temp)
     df_sup['third']=((T_supply+T_return)/2-df_sup.Set_T)*((df_sup.Set_T-df_sup.Temp_mean)/(df.Set_T-design_temp))**(1/rad_exp)
+
     return df_sup.Set_T-df_sup.second+(df_sup.third)*np.heaviside(15-df_sup.Temp_mean,0)
 
 
-def main():
-    '''
-    TODO: change the surface by the real surface
-    '''
-    # input_dir = '../Input'
-    input_dir = 'Input'
-    print('in sizing')
-    test_dict=load_obj(f'{input_dir}/test')
-    dict_design={
-        'T_d_supply_floor':35,
-        'T_d_return_floor':30,
-        'T_d_supply_radiator':50,
-        'T_d_return_radiator':40,
-        'T_d_supply_floor_tank':40,
-        'T_d_return_floor_tank':35,
-        'T_d_supply_radiator_tank':55,
-        'T_d_return_radiator_tank':45,
-        'rad_exp_floor':1.1,
-        'rad_exp_radiator':1.3,
-    }
+def calculate_heat_pump_size(
+    heat_pump_data_file: str,
+    building_data: List[int],
+):
+    logger.info('Started Heat Pump Sizing Procedure')
+    # test_dict=load_obj(f'{input_dir}/test')
+    dict_design = config['dict_design']
 
-    df_hp=pd.read_csv(f'{input_dir}/HP_data.csv',sep=';')  # Temperature in celcius
+    df_hp=pd.read_csv(heat_pump_data_file,sep=';')  # Temperature in celcius
     df_hp.loc[:,'P_el']=df_hp.loc[:,'P_el'].str.replace(',','.').astype(float)
     df_hp.loc[:,'COP']=df_hp.loc[:,'COP'].str.replace(',','.').astype(float)
     df_hp['P_th']=df_hp.P_el*df_hp.COP
 
-    for building in test_dict.keys():
+    for building in building_data.keys():
         print(building)
-        design_temp,heatload_dt=get_design_temperature_hp(
-            pd.DataFrame(test_dict[building]['temperature']).Ts,
-            pd.DataFrame(test_dict[building]['Qs']),
+        b_Ts = building_data[building]['series']['Ts']
+        b_Qs = building_data[building]['series']['Qs']
+        design_temp, heatload_dt=get_design_temperature_hp(
+            pd.DataFrame(b_Ts),
+            pd.DataFrame(b_Qs),
             dict_design,
         )  # Qs resolution is 1 hour power and energy are then interchangeable here
-        df_heat=pd.DataFrame([test_dict[building]['Qs'],test_dict[building]['temperature']]).T
+        df_heat=pd.DataFrame([b_Qs,b_Ts]).T
         df_heat.columns=['Req_kWh','Temp']
         # Create datetime index for every hour of 2017
         datetime_index = pd.date_range(start='2017-01-01 00:00', end='2017-12-31 23:00', freq='h')
@@ -306,14 +313,10 @@ def main():
         df_heat = df_heat[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
                         'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
                         'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons']]
-        test_dict[building]['df_heat']=df_heat
-        test_dict[building]['dict_design']=dict_design
+        building_data[building]['df_heat']=df_heat
+        building_data[building]['dict_design']=dict_design
 
         print(df_heat.head())
 
-    save_obj(test_dict,'Test_floor')#it is saving in Output/Test
+    save_obj(building_data,'Test_floor')#it is saving in Output/Test
 
-
-if __name__ == '__main__':
-    main()
-        

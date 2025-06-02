@@ -14,4 +14,4 @@ class GlobalConfig:
         return cls._instance
 
 # Usage: from config.loader import config
-config = GlobalConfig()
+config: dict[str, Any] = GlobalConfig()

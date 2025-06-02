@@ -3,11 +3,14 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
 from config.loader import config
+from utils.logger import logger
 from openbeers_api.api import ApiWrapper
 from openbeers_api.fileloader import cleanup, download_file_from_wap, list_files_in_directory, load_climate_file
 from openbeers_api.extract import get_xml_building_data 
 from openbeers_api.assembler import build_basopra_input
 from elec_pricer.pricer import ElectricityPricer
+from heat_pump.pump_sizer import calculate_heat_pump_size
+
 
 
 async def run_pipeline(simulation_name: str) -> dict:
@@ -57,6 +60,7 @@ async def run_pipeline(simulation_name: str) -> dict:
 
 
 async def main() -> None:
+    logger.info('Entering main')
     result = await run_pipeline(config['simulation_name']) 
 
     # Add Electricity price for each building
@@ -71,6 +75,7 @@ async def main() -> None:
         print(f"Building {bid} → Attributes:\n", data['attributes'].to_string(index=False))
         print(" → Series samples: \n", data['series'].head())
 
+    calculate_heat_pump_size(f'{config['input_dir']}/HP_data.csv', result)
 
 
 if __name__ == "__main__":

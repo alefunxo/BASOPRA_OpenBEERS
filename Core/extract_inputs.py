@@ -102,7 +102,7 @@ def get_building_usage(building: Element) -> int:
 def get_energy_consumption(building: Element) -> float:## APB: what is this for ???
     return 6500
 
-def guet_temperature(path_to_cli_file: str) -> Dict[str, float]:
+def get_temperature(path_to_cli_file: str) -> Dict[str, float]:
     
     # Read all lines to locate the header
     with open(path_to_cli_file, 'r') as f:

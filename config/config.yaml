@@ -1,10 +1,10 @@
-openbeers_address: http://openbeers.hopto.org
+openbeers_address: https://lab.idiap.ch/openbeers
 
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
 
-simulation_name: val_de_bagnes_148_climate_contemporary_pv_roof_2025
+simulation_name: val_de_bagnes_41_climate_contemporary_pv_roof_2025
 municipalities_file: municipalities-data-2025.csv
 tarifs_file: elcom-data-2025.csv
 
@@ -27,3 +27,39 @@ needed_attributes:
   - SubCategory
   - Municipality
 
+# logging:
+#   level: INFO
+#   file: 'logs/app.log'
+logging:
+  version: 1
+  formatters:
+    simple:
+      format: '%(asctime)s - %(levelname)s - %(message)s'
+
+  handlers:
+    file:
+      class: logging.FileHandler
+      formatter: simple
+      filename: logs/openbeers.log
+      level: INFO
+
+    console:
+      class: logging.StreamHandler
+      formatter: simple
+      level: DEBUG
+
+  root:
+    level: DEBUG
+    handlers: [console, file]
+
+dict_design:
+  T_d_supply_floor: 35
+  T_d_return_floor: 30
+  T_d_supply_radiator: 50
+  T_d_return_radiator: 40
+  T_d_supply_floor_tank: 40
+  T_d_return_floor_tank: 35
+  T_d_supply_radiator_tank: 55
+  T_d_return_radiator_tank: 45
+  rad_exp_floor: 1.1
+  rad_exp_radiator: 1.3

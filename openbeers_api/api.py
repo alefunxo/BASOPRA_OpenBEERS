@@ -32,8 +32,11 @@ class ApiWrapper:
             print(f"API Error: {e}")
             return None
     
+    async def get_all_simulations(self) -> List[Simulation]:
+        return await self.fetch(self.api.get_simulations_api_simulations_get)
+
     async def get_simulation(self, name: str) -> Optional[Simulation]:
-        simulations = await self.fetch(self.api.get_simulations_api_simulations_get)
+        simulations = await self.get_all_simulations()
         return next((s for s in simulations if s.name == name), None)
     
     async def get_series_types(self, needed: List[str]) -> List[TimeSeriesType]:

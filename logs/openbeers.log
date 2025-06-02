@@ -1,0 +1,53 @@
+2025-06-01 22:29:02,897 - INFO - Logger initialized
+2025-06-01 22:29:02,898 - INFO - Entering main
+2025-06-01 22:33:49,445 - INFO - Logger initialized
+2025-06-01 22:33:49,447 - INFO - Entering main
+2025-06-01 22:38:27,750 - INFO - Logger initialized
+2025-06-01 22:38:27,751 - INFO - Entering main
+2025-06-01 22:47:50,780 - INFO - Logger initialized
+2025-06-01 22:47:52,868 - INFO - Entering main
+2025-06-01 23:23:43,458 - INFO - Logger initialized
+2025-06-01 23:23:45,852 - INFO - Entering main
+2025-06-01 23:25:16,318 - INFO - Logger initialized
+2025-06-01 23:25:18,647 - INFO - Entering main
+2025-06-01 23:27:22,136 - INFO - Logger initialized
+2025-06-01 23:27:24,495 - INFO - Entering main
+2025-06-01 23:27:31,024 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 10:07:57,684 - INFO - Logger initialized
+2025-06-02 10:08:00,675 - INFO - Entering main
+2025-06-02 10:20:39,190 - INFO - Logger initialized
+2025-06-02 10:20:41,831 - INFO - Entering main
+2025-06-02 11:37:26,005 - INFO - Logger initialized
+2025-06-02 11:37:28,716 - INFO - Entering main
+2025-06-02 11:37:36,371 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 11:53:10,440 - INFO - Logger initialized
+2025-06-02 11:53:13,090 - INFO - Entering main
+2025-06-02 11:53:15,226 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 11:54:09,754 - INFO - Logger initialized
+2025-06-02 11:54:12,557 - INFO - Entering main
+2025-06-02 11:54:14,772 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 12:08:16,779 - INFO - Logger initialized
+2025-06-02 12:08:19,758 - INFO - Entering main
+2025-06-02 12:08:22,175 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 14:34:51,196 - INFO - Logger initialized
+2025-06-02 14:34:54,042 - INFO - Entering main
+2025-06-02 14:34:59,124 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 14:44:18,408 - INFO - Logger initialized
+2025-06-02 14:44:21,037 - INFO - Entering main
+2025-06-02 14:44:23,739 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 14:51:34,273 - INFO - Logger initialized
+2025-06-02 14:51:36,874 - INFO - Entering main
+2025-06-02 14:51:39,626 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 14:54:01,575 - INFO - Logger initialized
+2025-06-02 14:54:04,363 - INFO - Entering main
+2025-06-02 14:54:06,655 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 15:31:50,076 - INFO - Logger initialized
+2025-06-02 15:31:52,761 - INFO - Entering main
+2025-06-02 15:31:55,044 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 15:39:45,588 - INFO - Logger initialized
+2025-06-02 15:39:48,238 - INFO - Entering main
+2025-06-02 15:39:53,943 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 15:42:41,092 - INFO - Logger initialized
+2025-06-02 15:42:43,681 - INFO - Entering main
+2025-06-02 15:42:45,748 - INFO - Started Heat Pump Sizing Procedure
+2025-06-02 15:46:14,982 - INFO - Object saved as Test_floor.pkl
