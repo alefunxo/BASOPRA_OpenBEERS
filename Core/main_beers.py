@@ -408,7 +408,8 @@ def load_param(combinations):
     df_prices = load_prices()
     
     df_heat = load_heat_demand(combinations)
-    df_heat_new = pd.read_csv(f'{INPUT_PATH}heat_demand_test.csv')
+    # df_heat_new = pd.read_csv(f'{INPUT_PATH}heat_demand_test.csv')
+    df_heat_new = pd.read_csv(f'{INPUT_PATH}Heat_demand.csv', sep=';')
     df_heat_new = df_heat_new.rename(columns={
                     'Set_T': 'Set_T',
                     'Temp': 'Temp',
@@ -422,7 +423,11 @@ def load_param(combinations):
                     'hp_SFH100_tank_el_cons': 'hp_tank_cons',
                     'hp_SFH100_el_cons_DHW': 'hp_dhw_cons'
                 })
-        
+
+    print("Columns in df_heat_new:", df_heat_new.columns.tolist())
+    print("First few rows:")
+    print(df_heat_new.head())
+
     df_heat_new = df_heat_new[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
                         'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
                         'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons']]
@@ -495,44 +500,67 @@ def load_param(combinations):
 
 
 def pooling2(combinations):
-    '''
-    Description
-    -----------
-    Calls other functions, load the data and Core_LP.
-    This function includes the variables for the tests (testing and data_input.index.week)
-    Parameters
-    ----------
-    selected_dwellings : dict
-
-    Returns
-    ------
-    bool
-        True if successful, False otherwise.
-
-
-    '''
-
-    print('##########################################')
-    print('pooling')
-    print(combinations)
-    print('##########################################')
-    param,data_input=load_param(combinations)
     try:
-        if param['nyears']>1:
-            data_input=pd.DataFrame(pd.np.tile(pd.np.array(data_input).T,
-                                   param['nyears']).T,columns=data_input.columns)
-        print('#############pool################')
-        
+        '''
+        Description
+        -----------
+        Calls other functions, load the data and Core_LP.
+        This function includes the variables for the tests (testing and data_input.index.week)
+        Parameters
+        ----------
+        selected_dwellings : dict
 
-        [df,aux_dict]=single_opt2(param,data_input)
-        print('out of optimization')
-    except OSError as e:
-        #print(f"OSError: {e}")
-        raise
-    except Exception as e:
-        #print(f"Unexpected error: {e}")
-        raise
-    return
+        Returns
+        ------
+        bool
+            True if successful, False otherwise.
+
+
+        '''
+
+        print('##########################################')
+        print('pooling')
+        print(combinations)
+        print('##########################################')
+        param,data_input=load_param(combinations)
+        try:
+            if param['nyears']>1:
+                data_input=pd.DataFrame(pd.np.tile(pd.np.array(data_input).T,
+                                       param['nyears']).T,columns=data_input.columns)
+            print('#############pool################')
+
+
+            [df,aux_dict]=single_opt2(param,data_input)
+            print('out of optimization')
+        except OSError as e:
+            #print(f"OSError: {e}")
+            raise
+        except Exception as e:
+            #print(f"Unexpected error: {e}")
+            raise
+        return
+    except Exception:
+         traceback.print_exc()
+         raise
+
+@fn_timer
+def run_basopra_simulation(big_data_object):
+    print('Loading things the old fashioned way')
+    files_directory = INPUT_PATH
+    buildings_file = "test"
+    buildings_path = f"{files_directory}{buildings_file}"
+    buildings=load_obj(buildings_path)
+    keys = list(buildings.keys())
+    print(keys)
+    #Define the different combinations of inputs to be run
+    dct = core_config['basopra_run_combinations']
+    b_items = buildings.items()
+    b_items_list = list(b_items)[2:]
+    dct['hh'] = b_items_list
+    print('Loading things the cool new way')
+    print(big_data_object.keys())
+    
+
 
 @fn_timer
 def main():

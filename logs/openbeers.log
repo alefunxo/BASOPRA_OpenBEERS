@@ -75,3 +75,33 @@
 2025-06-02 18:21:25,350 - INFO - Logger initialized
 2025-06-02 18:21:28,064 - INFO - Entering main
 2025-06-02 18:21:30,391 - INFO - Started Heat Pump Sizing Procedure
+2025-06-03 17:42:59,405 - INFO - Logger initialized
+2025-06-03 17:43:02,059 - INFO - Entering main
+2025-06-03 17:43:07,202 - INFO - Started Heat Pump Sizing Procedure
+2025-06-03 18:04:50,051 - INFO - Logger initialized
+2025-06-03 18:04:53,071 - INFO - Test message
+2025-06-03 18:04:53,072 - INFO - Entering main
+2025-06-03 18:04:57,550 - INFO - Started Heat Pump Sizing Procedure
+2025-06-03 18:07:38,880 - INFO - Saving <class 'dict'> type object to: Input/result.pkl.
+2025-06-03 18:07:38,895 - INFO - File successfully saved at Input/result.pkl.
+2025-06-03 18:08:32,419 - INFO - Logger initialized
+2025-06-03 18:08:35,318 - INFO - Test message
+2025-06-03 18:08:35,320 - INFO - Entering main
+2025-06-03 18:08:35,320 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-03 18:09:18,731 - INFO - Logger initialized
+2025-06-03 18:09:21,620 - INFO - Test message
+2025-06-03 18:09:21,622 - INFO - Entering main
+2025-06-03 18:09:21,622 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-03 18:09:21,630 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-03 18:12:05,689 - INFO - Logger initialized
+2025-06-03 18:12:08,638 - INFO - Test message
+2025-06-03 18:12:08,640 - INFO - Entering main
+2025-06-03 18:12:08,640 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-03 18:12:08,640 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-03 18:12:08,652 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-03 18:13:32,132 - INFO - Logger initialized
+2025-06-03 18:13:35,037 - INFO - Test message
+2025-06-03 18:13:35,038 - INFO - Entering main
+2025-06-03 18:13:35,038 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-03 18:13:35,038 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-03 18:13:35,050 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.

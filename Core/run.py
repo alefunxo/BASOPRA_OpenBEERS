@@ -10,6 +10,8 @@ from openbeers_api.extract import get_xml_building_data
 from openbeers_api.assembler import build_basopra_input
 from elec_pricer.pricer import ElectricityPricer
 from heat_pump.pump_sizer import calculate_heat_pump_size
+from utils.utils import pickle_save, pickle_load
+from Core.main_beers import run_basopra_simulation
 
 
 
@@ -61,21 +63,34 @@ async def run_pipeline(simulation_name: str) -> dict:
 
 async def main() -> None:
     logger.info('Entering main')
-    result = await run_pipeline(config['simulation_name']) 
+    save_file = f'{config['input_dir']}result.pkl'
 
-    # Add Electricity price for each building
-    pricer = ElectricityPricer()
-    for bid, data in result.items():
-        attributes = data['attributes']
-        price_category = pricer.get_consumption_category(attributes.iloc[0]['activity'])
-        elec_price = pricer.get_electricity_price(attributes.iloc[0]['municipality_name'], price_category)
-        attributes['elec_price'] = elec_price
-       
-    for bid, data in result.items():
-        print(f"Building {bid} → Attributes:\n", data['attributes'].to_string(index=False))
-        print(" → Series samples: \n", data['series'].head())
+    if not os.path.exists(save_file):
+        logger.info('Results file does not exist. Extracting/Computing Basopra Inputs')
+        result = await run_pipeline(config['simulation_name']) 
 
-    calculate_heat_pump_size(f'{config['input_dir']}/HP_data.csv', result)
+        # Add Electricity price for each building
+        pricer = ElectricityPricer()
+        for bid, data in result.items():
+            attributes = data['attributes']
+            price_category = pricer.get_consumption_category(attributes.iloc[0]['activity'])
+            elec_price = pricer.get_electricity_price(attributes.iloc[0]['municipality_name'], price_category)
+            attributes['elec_price'] = elec_price
+
+        for bid, data in result.items():
+            print(f"Building {bid} → Attributes:\n", data['attributes'].to_string(index=False))
+            print(" → Series samples: \n", data['series'].head())
+
+        calculate_heat_pump_size(f'{config['input_dir']}/HP_data.csv', result)
+
+        print(type(result))
+        print(result.keys())
+        pickle_save(save_file, result)
+    else:
+        logger.info('Results file exists. Loading Basopra Inputs.')
+        result = pickle_load(save_file)
+    
+    run_basopra_simulation(result)
 
 
 if __name__ == "__main__":
