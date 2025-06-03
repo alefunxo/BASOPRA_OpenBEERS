@@ -1,21 +1,14 @@
 import pickle
 import sys
 import os
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
-    from config.loader import config
 from config.loader import config
+from dataclasses import dataclass
 from utils.logger import logger
-from typing import List
+from typing import Dict, List
 import pandas as pd
 import numpy as np
-# import csv
-# import matplotlib.pyplot as plt
 import math
-# from main_beers import load_obj
 from scipy import optimize
-# from Core import save_obj
 
 '''We want to size the HP based on the demand and the outdoor temperature. 
 The sizing is based on the Appendix A and C of The Reference Framework for 
@@ -24,6 +17,11 @@ and Space Heat Load. Once the heat pump size is known, the heating system'
 supply and return temperatures for the three types of houses are calculated 
 for space heating and domestic hot water. Finally, the COP is calculated for 
 the distribution temperature and the output temperature'''
+
+@dataclass
+class HeatPumpDesign:
+    series: pd.DataFrame
+    attributes: Dict
 
 def save_obj(obj, name):
     output_dir = 'Output/'
@@ -313,10 +311,12 @@ def calculate_heat_pump_size(
         df_heat = df_heat[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
                         'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
                         'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons']]
-        building_data[building]['df_heat']=df_heat
-        building_data[building]['dict_design']=dict_design
+        heat_pump = HeatPumpDesign(
+            series=df_heat,
+            attributes=dict_design,
+        )
+        building_data[building]['heat_pump']=heat_pump
 
-        print(df_heat.head())
+    # save_obj(building_data,'Test_floor')#it is saving in Output/Test
 
-    save_obj(building_data,'Test_floor')#it is saving in Output/Test
 

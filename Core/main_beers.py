@@ -21,9 +21,10 @@
 #  Pandas, numpy, sys, glob, os, csv, pickle, functools, argparse, itertools, time, math, pyomo and multiprocessing
 
 import sys
-    
-import re
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+import re
 import pandas as pd
 import argparse
 import numpy as np
@@ -39,12 +40,18 @@ from pathlib import Path
 import traceback
 import pickle
 import csv
-from Core import single_opt2
 import post_proc as pp
 import logging
 
-INPUT_PATH = "../Input/"
-OUTPUT_PATH = "../Output/"
+
+from config.loader import config
+from Core.Core import single_opt2
+
+core_config = config['Core']
+# INPUT_PATH = "../Input/"
+# OUTPUT_PATH = "../Output/"
+INPUT_PATH = config['input_dir']
+OUTPUT_PATH = config['output_dir']
 
 
 # Configure logger
@@ -393,7 +400,7 @@ def load_param(combinations):
     # PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
     # param['Capacity']=(df_el.E_PV.sum()/1000).round()  # Estimated kW ratio 1:1 with PV
     PV_nom = pv_capacity['Roof'] + pv_capacity['Wall']
-    #Let-s try with the demand instead of the PV due to the high PV nom in the facade
+    # Let-s try with the demand instead of the PV due to the high PV nom in the facade
     param["Capacity"] = df_el.E_demand.sum()/1000 # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
     print(param['Capacity'])
     param['Inverter_power'] = round(PV_nom / 1.2, 1)
@@ -401,7 +408,7 @@ def load_param(combinations):
     df_prices = load_prices()
     
     df_heat = load_heat_demand(combinations)
-    df_heat_new = pd.read_csv('../Input/heat_demand_test.csv')
+    df_heat_new = pd.read_csv(f'{INPUT_PATH}heat_demand_test.csv')
     df_heat_new = df_heat_new.rename(columns={
                     'Set_T': 'Set_T',
                     'Temp': 'Temp',
@@ -527,7 +534,6 @@ def pooling2(combinations):
         raise
     return
 
-
 @fn_timer
 def main():
     '''
@@ -548,39 +554,12 @@ def main():
     buildings=load_obj(buildings_path)
     keys = list(buildings.keys())
     #Define the different combinations of inputs to be run
-    dct={
-        'Capacity':[7],
-        'App_comb':[0],
-        'Tech':['NMC'],
-        'PV_nom':[1],
-        'country':['CH'],
-        'cases':['mean'],
-        'house_type':['SFH100'],
-        'hh':list(buildings.items())[2:],
-        'HP':['AS'],
-        'conf':[0,4],
-        'EV_V2G':[0],
-        'electricity_profile':['High'],
-        'EV_batt_cap':[60],
-        'EV_P_max_home':['11'],
-        'EV_use':['Low'],
-        'profile_row_number':[99],
-    }
-    # TODO Understand why most of the entries of the dct object, outside of 'conf', don't seem to be used at all
-    ''''
-    conf 
-    0 only HP
-    1 HP+DHW
-    2 HP+SH
-    3 HP+SH+DHW
-    4 only Battery
-    5 HP+DHW+BATT
-    6 HP+SH+BATT
-    7 HP+SH+DHW+BATT
-    '''
-
+    dct = core_config['basopra_run_combinations']
+    dct['hh'] = list(buildings.items())[2:]
+    
+    
     # Define the folder containing the files
-    output_folder = Path('../Output/')
+    output_folder = Path(OUTPUT_PATH)
     pattern = os.path.join(output_folder, 'df_*(Building-*)_NMC_0100_*_*_SFH100.csv')
 
     # List of matched files
@@ -600,26 +579,8 @@ def main():
         except (IndexError, ValueError):
             print(f"Skipping file with unexpected format: {file}")
 
-    mapping = {
-        0: '0100',
-        1: '0101',
-        2: '0110',
-        3: '0111',
-        4: '1100',
-        5: '1101',
-        6: '1110',
-        7: '1111',
-    }
-    mapping_str_to_num = {
-    '0100': 0,
-    '0101': 1,
-    '0110': 2,
-    '0111': 3,
-    '1100': 4,
-    '1101': 5,
-    '1110': 6,
-    '1111': 7,
-}
+    mapping = core_config['mapping']
+    mapping_str_to_num = core_config['reverse_mapping']
 
     expected_combinations = {(building_id, mapping[configuration]) for building_id in keys for configuration in dct['conf']}
     missing_simulations = expected_combinations - existing_simulations
@@ -631,24 +592,9 @@ def main():
 
     Combs_todo = pd.DataFrame(Combs_todo_list)
     print(len(Combs_todo))
+    static_cfg = core_config['basopra_fixed_parameters']
     Combs_todo_dicts = [
-        {
-            **row,  # Existing respondent and EV_V2G_buffer values
-            #capacity is defined in input data
-            'App_comb':0,
-            'Tech':'NMC',
-            'PV_nom':1,
-            'country':'CH',
-            'cases':'mean',
-            'house_type':'SFH100',
-            'HP':'AS',
-            'EV_V2G':0,
-            'electricity_profile':'High',
-            'EV_batt_cap':60,
-            'EV_P_max_home':'11',
-            'EV_use':'High',
-            'profile_row_number':99
-        }
+        {**row, **static_cfg}
         for row in Combs_todo.to_dict(orient='records')
     ]
 

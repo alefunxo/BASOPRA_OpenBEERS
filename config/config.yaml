@@ -63,3 +63,66 @@ dict_design:
   T_d_return_radiator_tank: 45
   rad_exp_floor: 1.1
   rad_exp_radiator: 1.3
+
+Core:
+    # conf 
+    # 0 only HP
+    # 1 HP+DHW
+    # 2 HP+SH
+    # 3 HP+SH+DHW
+    # 4 only Battery
+    # 5 HP+DHW+BATT
+    # 6 HP+SH+BATT
+    # 7 HP+SH+DHW+BATT
+
+  basopra_run_combinations:
+    Capacity: [7]
+    App_comb: [0]
+    Tech: ["NMC"]
+    PV_nom: [1]
+    country: ["CH"]
+    cases: ["mean"]
+    house_type: ["SFH100"]
+    HP: ["AS"]
+    conf: [0, 4]
+    EV_V2G: [0]
+    electricity_profile: ["High"]
+    EV_batt_cap: [60]
+    EV_P_max_home: ["11"]
+    EV_use: ["Low"]
+    profile_row_number: [99]
+  
+  mapping:
+    0: '0100'
+    1: '0101'
+    2: '0110'
+    3: '0111'
+    4: '1100'
+    5: '1101'
+    6: '1110'
+    7: '1111'
+  
+  reverse_mapping:
+    '0100': 0
+    '0101': 1
+    '0110': 2
+    '0111': 3
+    '1100': 4
+    '1101': 5
+    '1110': 6
+    '1111': 7
+  
+  basopra_fixed_parameters:
+    'App_comb': 0
+    'Tech': 'NMC'
+    'PV_nom': 1
+    'country': 'CH'
+    'cases': 'mean'
+    'house_type': 'SFH100'
+    'HP': 'AS'
+    'EV_V2G': 0
+    'electricity_profile': 'High'
+    'EV_batt_cap': 60
+    'EV_P_max_home': '11'
+    'EV_use': 'High'
+    'profile_row_number': 99
