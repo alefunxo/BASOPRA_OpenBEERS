@@ -105,3 +105,918 @@
 2025-06-03 18:13:35,038 - INFO - Results file exists. Loading Basopra Inputs.
 2025-06-03 18:13:35,038 - INFO - Loading file: 'Input/result.pkl' as python object.
 2025-06-03 18:13:35,050 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-03 23:29:57,368 - INFO - Logger initialized
+2025-06-03 23:30:00,447 - INFO - Test message
+2025-06-03 23:30:00,448 - INFO - Entering main
+2025-06-03 23:30:00,448 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-03 23:30:00,448 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-03 23:30:00,466 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-03 23:40:04,338 - INFO - Logger initialized
+2025-06-03 23:40:07,513 - INFO - Test message
+2025-06-03 23:40:07,515 - INFO - Entering main
+2025-06-03 23:40:07,515 - INFO - Results file does not exist. Extracting/Computing Basopra Inputs
+2025-06-04 00:00:13,246 - INFO - Logger initialized
+2025-06-04 00:00:16,576 - INFO - Test message
+2025-06-04 00:00:16,577 - INFO - Entering main
+2025-06-04 00:00:16,577 - INFO - Results file does not exist. Extracting/Computing Basopra Inputs
+2025-06-04 00:00:31,931 - INFO - Started Heat Pump Sizing Procedure
+2025-06-04 00:03:35,433 - INFO - Saving <class 'dict'> type object to: Input/result.pkl.
+2025-06-04 00:03:35,455 - INFO - File successfully saved at Input/result.pkl.
+2025-06-04 09:10:07,221 - INFO - Logger initialized
+2025-06-04 09:10:12,025 - INFO - Test message
+2025-06-04 09:10:12,028 - INFO - Entering main
+2025-06-04 09:10:12,028 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 09:10:12,028 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 09:10:12,048 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 09:15:15,069 - INFO - Logger initialized
+2025-06-04 09:15:18,227 - INFO - Test message
+2025-06-04 09:15:18,229 - INFO - Entering main
+2025-06-04 09:15:18,229 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 09:15:18,229 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 09:15:18,240 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 09:24:31,591 - INFO - Logger initialized
+2025-06-04 09:24:34,980 - INFO - Test message
+2025-06-04 09:24:34,981 - INFO - Entering main
+2025-06-04 09:24:34,981 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 09:24:34,981 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 09:24:34,990 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 09:25:41,796 - INFO - Logger initialized
+2025-06-04 09:25:45,157 - INFO - Test message
+2025-06-04 09:25:45,160 - INFO - Entering main
+2025-06-04 09:25:45,160 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 09:25:45,160 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 09:25:45,168 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 09:25:59,887 - INFO - Logger initialized
+2025-06-04 09:26:03,218 - INFO - Test message
+2025-06-04 09:26:03,219 - INFO - Entering main
+2025-06-04 09:26:03,219 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 09:26:03,219 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 09:26:03,231 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 09:26:42,795 - INFO - Logger initialized
+2025-06-04 09:26:46,021 - INFO - Test message
+2025-06-04 09:26:46,023 - INFO - Entering main
+2025-06-04 09:26:46,023 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 09:26:46,023 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 09:26:46,031 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 10:39:06,298 - INFO - Logger initialized
+2025-06-04 10:39:09,600 - INFO - Test message
+2025-06-04 10:39:09,601 - INFO - Entering main
+2025-06-04 10:39:09,602 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 10:39:09,602 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 10:39:09,615 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 10:39:09,622 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 10:39:09,623 - INFO - Determining remaining simulations to run
+2025-06-04 10:39:09,623 - INFO - Following simulations to be run: {(407, '0100'), (402, '0100'), (398, '0100'), (409, '1100'), (397, '1100'), (407, '1100'), (402, '1100'), (397, '0100'), (398, '1100'), (409, '0100')}
+2025-06-04 10:39:09,625 - INFO - 10 simulations to be run
+2025-06-04 10:39:10,693 - INFO - Logger initialized
+2025-06-04 10:39:14,155 - INFO - Test message
+2025-06-04 11:20:39,234 - INFO - Logger initialized
+2025-06-04 11:20:42,552 - INFO - Test message
+2025-06-04 11:20:42,554 - INFO - Entering main
+2025-06-04 11:20:42,554 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 11:20:42,554 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 11:20:42,568 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 11:20:42,573 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 11:20:42,575 - INFO - Determining remaining simulations to run
+2025-06-04 11:20:42,575 - INFO - Following simulations to be run: {(409, '0100'), (407, '0100'), (402, '0100'), (398, '0100'), (397, '1100'), (409, '1100'), (407, '1100'), (402, '1100'), (398, '1100'), (397, '0100')}
+2025-06-04 11:20:42,576 - INFO - 10 simulations to be run
+2025-06-04 11:20:43,227 - INFO - Logger initialized
+2025-06-04 11:20:46,482 - INFO - Test message
+2025-06-04 11:35:05,479 - INFO - Logger initialized
+2025-06-04 11:35:08,970 - INFO - Test message
+2025-06-04 11:35:08,974 - INFO - Entering main
+2025-06-04 11:35:08,974 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 11:35:08,975 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 11:35:08,988 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 11:35:08,994 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 11:35:08,996 - INFO - Determining remaining simulations to run
+2025-06-04 11:35:08,996 - INFO - Following simulations to be run: {(398, '1100'), (407, '1100'), (402, '1100'), (397, '0100'), (409, '0100'), (407, '0100'), (402, '0100'), (397, '1100'), (398, '0100'), (409, '1100')}
+2025-06-04 11:35:08,998 - INFO - 10 simulations to be run
+2025-06-04 11:35:09,578 - INFO - Logger initialized
+2025-06-04 11:35:12,739 - INFO - Test message
+2025-06-04 11:43:55,954 - INFO - Logger initialized
+2025-06-04 11:43:59,202 - INFO - Test message
+2025-06-04 11:43:59,204 - INFO - Entering main
+2025-06-04 11:43:59,204 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 11:43:59,204 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 11:43:59,213 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 11:46:58,929 - INFO - Logger initialized
+2025-06-04 11:47:02,450 - INFO - Test message
+2025-06-04 11:47:02,451 - INFO - Entering main
+2025-06-04 11:47:02,451 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 11:47:02,451 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 11:47:02,463 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 11:47:07,862 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 11:47:07,864 - INFO - Determining remaining simulations to run
+2025-06-04 11:47:07,864 - INFO - Following simulations to be run: {(397, '1100'), (409, '1100'), (397, '0100'), (409, '0100'), (402, '1100'), (407, '0100'), (402, '0100'), (407, '1100'), (398, '1100'), (398, '0100')}
+2025-06-04 11:47:07,866 - INFO - 10 simulations to be run
+2025-06-04 11:47:08,963 - INFO - Logger initialized
+2025-06-04 11:47:12,357 - INFO - Test message
+2025-06-04 11:47:54,972 - INFO - Logger initialized
+2025-06-04 11:47:58,293 - INFO - Test message
+2025-06-04 11:47:58,294 - INFO - Entering main
+2025-06-04 11:47:58,294 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 11:47:58,294 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 11:47:58,307 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 11:47:58,311 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 11:47:58,312 - INFO - Determining remaining simulations to run
+2025-06-04 11:47:58,312 - INFO - Following simulations to be run: {(398, '1100'), (397, '0100'), (409, '0100'), (407, '0100'), (402, '0100'), (398, '0100'), (397, '1100'), (409, '1100'), (407, '1100'), (402, '1100')}
+2025-06-04 11:47:58,313 - INFO - 10 simulations to be run
+2025-06-04 11:47:58,896 - INFO - Logger initialized
+2025-06-04 11:48:02,147 - INFO - Test message
+2025-06-04 11:57:03,537 - INFO - Logger initialized
+2025-06-04 11:57:06,729 - INFO - Test message
+2025-06-04 11:57:06,732 - INFO - Entering main
+2025-06-04 11:57:06,732 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 11:57:06,732 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 11:57:06,742 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 11:57:06,747 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 11:57:06,748 - INFO - Determining remaining simulations to run
+2025-06-04 11:57:06,749 - INFO - Following simulations to be run: {(398, '0100'), (398, '1100'), (397, '0100'), (409, '0100'), (409, '1100'), (397, '1100'), (407, '0100'), (402, '0100'), (407, '1100'), (402, '1100')}
+2025-06-04 11:57:06,750 - INFO - 10 simulations to be run
+2025-06-04 11:57:07,776 - INFO - Logger initialized
+2025-06-04 11:57:11,145 - INFO - Test message
+2025-06-04 11:59:04,348 - INFO - Logger initialized
+2025-06-04 11:59:07,528 - INFO - Test message
+2025-06-04 11:59:07,529 - INFO - Entering main
+2025-06-04 11:59:07,529 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 11:59:07,529 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 11:59:07,538 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 11:59:07,543 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 11:59:07,545 - INFO - Determining remaining simulations to run
+2025-06-04 11:59:07,545 - INFO - Following simulations to be run: {(397, '1100'), (409, '1100'), (397, '0100'), (409, '0100'), (407, '1100'), (402, '1100'), (398, '1100'), (407, '0100'), (402, '0100'), (398, '0100')}
+2025-06-04 11:59:07,546 - INFO - 10 simulations to be run
+2025-06-04 11:59:08,577 - INFO - Logger initialized
+2025-06-04 11:59:11,839 - INFO - Test message
+2025-06-04 12:00:17,141 - INFO - Logger initialized
+2025-06-04 12:00:20,444 - INFO - Test message
+2025-06-04 12:00:20,446 - INFO - Entering main
+2025-06-04 12:00:20,446 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 12:00:20,446 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 12:00:20,456 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 12:00:20,462 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 12:00:20,464 - INFO - Determining remaining simulations to run
+2025-06-04 12:00:20,465 - INFO - Following simulations to be run: {(397, '1100'), (409, '1100'), (397, '0100'), (407, '1100'), (402, '1100'), (409, '0100'), (398, '1100'), (407, '0100'), (402, '0100'), (398, '0100')}
+2025-06-04 12:00:20,466 - INFO - 10 simulations to be run
+2025-06-04 12:00:21,554 - INFO - Logger initialized
+2025-06-04 12:00:25,324 - INFO - Test message
+2025-06-04 12:00:51,777 - INFO - Choose the correspongind profile for electricity
+2025-06-04 12:00:51,778 - INFO - Electricity profile High
+2025-06-04 12:04:42,999 - INFO - Choose the correspongind profile for electricity
+2025-06-04 12:04:42,999 - INFO - Electricity profile High
+2025-06-04 12:04:48,664 - INFO - Choose the correspongind profile for electricity
+2025-06-04 12:04:48,665 - INFO - Electricity profile High
+2025-06-04 12:04:55,831 - INFO - Choose the correspongind profile for electricity
+2025-06-04 12:04:55,831 - INFO - Electricity profile High
+2025-06-04 12:05:15,056 - INFO - Logger initialized
+2025-06-04 12:05:18,310 - INFO - Test message
+2025-06-04 12:05:18,312 - INFO - Entering main
+2025-06-04 12:05:18,312 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 12:05:18,312 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 12:05:18,324 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 12:05:18,327 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 12:05:18,328 - INFO - Determining remaining simulations to run
+2025-06-04 12:05:18,328 - INFO - Following simulations to be run: {(409, '1100'), (407, '1100'), (402, '1100'), (398, '1100'), (409, '0100'), (397, '0100'), (407, '0100'), (402, '0100'), (398, '0100'), (397, '1100')}
+2025-06-04 12:05:18,329 - INFO - 10 simulations to be run
+2025-06-04 12:05:19,384 - INFO - Logger initialized
+2025-06-04 12:05:22,646 - INFO - Test message
+2025-06-04 12:05:29,008 - INFO - Choose the corresponding profile for electricity
+2025-06-04 12:05:29,009 - INFO - Electricity profile High
+2025-06-04 12:05:41,444 - INFO - Choose the corresponding profile for electricity
+2025-06-04 12:05:41,445 - INFO - Electricity profile High
+2025-06-04 12:05:41,529 - INFO - Choose the corresponding profile for electricity
+2025-06-04 12:05:41,529 - INFO - Electricity profile High
+2025-06-04 12:05:41,607 - INFO - Choose the corresponding profile for electricity
+2025-06-04 12:05:41,607 - INFO - Electricity profile High
+2025-06-04 14:00:14,571 - INFO - Logger initialized
+2025-06-04 14:00:18,237 - INFO - Test message
+2025-06-04 14:00:18,240 - INFO - Entering main
+2025-06-04 14:00:18,240 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 14:00:18,240 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 14:00:18,254 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 14:00:18,258 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 14:00:18,260 - INFO - Determining remaining simulations to run
+2025-06-04 14:00:18,260 - INFO - Following simulations to be run: {(398, '1100'), (407, '1100'), (397, '0100'), (397, '1100'), (409, '0100'), (409, '1100'), (398, '0100'), (407, '0100'), (402, '0100'), (402, '1100')}
+2025-06-04 14:00:18,262 - INFO - 10 simulations to be run
+2025-06-04 14:00:18,896 - INFO - Logger initialized
+2025-06-04 14:00:22,334 - INFO - Test message
+2025-06-04 14:00:22,421 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:00:22,421 - INFO - Electricity profile High
+2025-06-04 14:00:22,497 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:00:22,498 - INFO - Electricity profile High
+2025-06-04 14:00:22,572 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:00:22,572 - INFO - Electricity profile High
+2025-06-04 14:00:22,634 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:00:22,634 - INFO - Electricity profile High
+2025-06-04 14:00:43,856 - INFO - Logger initialized
+2025-06-04 14:00:47,028 - INFO - Test message
+2025-06-04 14:00:47,030 - INFO - Entering main
+2025-06-04 14:00:47,030 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 14:00:47,030 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 14:00:47,043 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 14:00:47,046 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 14:00:47,047 - INFO - Determining remaining simulations to run
+2025-06-04 14:00:47,047 - INFO - Following simulations to be run: {(409, '0100'), (407, '1100'), (398, '1100'), (407, '0100'), (402, '0100'), (398, '0100'), (409, '1100'), (397, '1100'), (397, '0100'), (402, '1100')}
+2025-06-04 14:00:47,048 - INFO - 10 simulations to be run
+2025-06-04 14:00:47,617 - INFO - Logger initialized
+2025-06-04 14:00:50,770 - INFO - Test message
+2025-06-04 14:00:50,853 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:00:50,853 - INFO - Electricity profile High
+2025-06-04 14:00:55,432 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:00:55,432 - INFO - Electricity profile High
+2025-06-04 14:00:58,155 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:00:58,155 - INFO - Electricity profile High
+2025-06-04 14:01:00,138 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:01:00,138 - INFO - Electricity profile High
+2025-06-04 14:02:41,600 - INFO - Logger initialized
+2025-06-04 14:02:44,656 - INFO - Test message
+2025-06-04 14:02:44,657 - INFO - Entering main
+2025-06-04 14:02:44,657 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 14:02:44,658 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 14:02:44,667 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 14:02:44,671 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 14:02:44,672 - INFO - Determining remaining simulations to run
+2025-06-04 14:02:44,672 - INFO - Following simulations to be run: {(398, '1100'), (397, '0100'), (397, '1100'), (409, '0100'), (409, '1100'), (407, '0100'), (402, '0100'), (407, '1100'), (402, '1100'), (398, '0100')}
+2025-06-04 14:02:44,674 - INFO - 10 simulations to be run
+2025-06-04 14:02:45,244 - INFO - Logger initialized
+2025-06-04 14:02:48,284 - INFO - Test message
+2025-06-04 14:02:54,953 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:02:54,953 - INFO - Electricity profile High
+2025-06-04 14:03:03,615 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:03:03,616 - INFO - Electricity profile High
+2025-06-04 14:03:08,966 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:03:08,966 - INFO - Electricity profile High
+2025-06-04 14:03:12,661 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:03:12,661 - INFO - Electricity profile High
+2025-06-04 14:04:57,924 - INFO - Logger initialized
+2025-06-04 14:05:01,048 - INFO - Test message
+2025-06-04 14:05:01,049 - INFO - Entering main
+2025-06-04 14:05:01,049 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 14:05:01,049 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 14:05:01,058 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 14:05:01,067 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 14:05:01,069 - INFO - Determining remaining simulations to run
+2025-06-04 14:05:01,069 - INFO - Following simulations to be run: {(397, '0100'), (409, '0100'), (397, '1100'), (409, '1100'), (407, '0100'), (402, '0100'), (407, '1100'), (402, '1100'), (398, '0100'), (398, '1100')}
+2025-06-04 14:05:01,070 - INFO - 10 simulations to be run
+2025-06-04 14:05:02,099 - INFO - Logger initialized
+2025-06-04 14:05:05,323 - INFO - Test message
+2025-06-04 14:05:18,815 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:05:18,816 - INFO - Electricity profile High
+2025-06-04 14:05:31,407 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:05:31,407 - INFO - Electricity profile High
+2025-06-04 14:05:41,408 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:05:41,409 - INFO - Electricity profile High
+2025-06-04 14:05:47,308 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:05:47,309 - INFO - Electricity profile High
+2025-06-04 14:06:14,746 - INFO - Logger initialized
+2025-06-04 14:06:17,873 - INFO - Test message
+2025-06-04 14:06:17,874 - INFO - Entering main
+2025-06-04 14:06:17,874 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 14:06:17,874 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 14:06:17,889 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 14:06:17,894 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 14:06:17,896 - INFO - Determining remaining simulations to run
+2025-06-04 14:06:17,896 - INFO - Following simulations to be run: {(397, '1100'), (409, '1100'), (397, '0100'), (409, '0100'), (402, '1100'), (407, '1100'), (398, '1100'), (398, '0100'), (407, '0100'), (402, '0100')}
+2025-06-04 14:06:17,898 - INFO - 10 simulations to be run
+2025-06-04 14:06:18,955 - INFO - Logger initialized
+2025-06-04 14:06:22,028 - INFO - Test message
+2025-06-04 14:06:27,754 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:06:27,755 - INFO - Electricity profile High
+2025-06-04 14:06:29,632 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:06:29,633 - INFO - Electricity profile High
+2025-06-04 14:06:31,878 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:06:31,878 - INFO - Electricity profile High
+2025-06-04 14:06:33,902 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:06:33,902 - INFO - Electricity profile High
+2025-06-04 14:17:57,414 - INFO - Logger initialized
+2025-06-04 14:18:00,620 - INFO - Test message
+2025-06-04 14:18:00,621 - INFO - Entering main
+2025-06-04 14:18:00,621 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 14:18:00,621 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 14:18:00,630 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 14:18:00,636 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 14:18:00,637 - INFO - Determining remaining simulations to run
+2025-06-04 14:18:00,637 - INFO - Following simulations to be run: {(397, '1100'), (397, '0100'), (409, '1100'), (409, '0100'), (398, '0100'), (407, '1100'), (402, '1100'), (402, '0100'), (407, '0100'), (398, '1100')}
+2025-06-04 14:18:00,638 - INFO - 10 simulations to be run
+2025-06-04 14:18:11,565 - INFO - Choose the corresponding profile for electricity
+2025-06-04 14:18:11,565 - INFO - Electricity profile High
+2025-06-04 14:25:09,662 - INFO - Logger initialized
+2025-06-04 14:25:12,909 - INFO - Test message
+2025-06-04 14:25:12,910 - INFO - Entering main
+2025-06-04 14:25:12,910 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 14:25:12,910 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 14:25:12,922 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 14:26:56,489 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 14:26:56,491 - INFO - Determining remaining simulations to run
+2025-06-04 14:26:56,491 - INFO - Following simulations to be run: {(398, '0100'), (397, '1100'), (409, '1100'), (397, '0100'), (409, '0100'), (407, '1100'), (402, '1100'), (398, '1100'), (407, '0100'), (402, '0100')}
+2025-06-04 14:26:56,494 - INFO - 10 simulations to be run
+2025-06-04 15:24:53,123 - INFO - Logger initialized
+2025-06-04 15:24:56,214 - INFO - Test message
+2025-06-04 15:24:56,216 - INFO - Entering main
+2025-06-04 15:24:56,216 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 15:24:56,216 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 15:24:56,223 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 15:30:59,488 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 15:30:59,490 - INFO - Determining remaining simulations to run
+2025-06-04 15:30:59,490 - INFO - Following simulations to be run: {(397, '1100'), (409, '1100'), (397, '0100'), (402, '1100'), (407, '1100'), (409, '0100'), (398, '1100'), (402, '0100'), (407, '0100'), (398, '0100')}
+2025-06-04 15:30:59,492 - INFO - 10 simulations to be run
+2025-06-04 15:30:59,562 - INFO - Choose the corresponding profile for electricity
+2025-06-04 15:30:59,562 - INFO - Electricity profile High
+2025-06-04 15:46:43,580 - INFO - Logger initialized
+2025-06-04 15:46:46,598 - INFO - Test message
+2025-06-04 15:46:46,600 - INFO - Entering main
+2025-06-04 15:46:46,600 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 15:46:46,600 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 15:46:46,609 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 15:46:46,614 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 15:46:46,614 - INFO - Determining remaining simulations to run
+2025-06-04 15:46:46,614 - INFO - Following simulations to be run: {(398, '1100'), (407, '0100'), (402, '0100'), (398, '0100'), (397, '1100'), (409, '1100'), (397, '0100'), (407, '1100'), (402, '1100'), (409, '0100')}
+2025-06-04 15:46:46,615 - INFO - 10 simulations to be run
+2025-06-04 15:46:46,682 - INFO - Choose the corresponding profile for electricity
+2025-06-04 15:46:46,682 - INFO - Electricity profile High
+2025-06-04 15:47:26,953 - INFO - Logger initialized
+2025-06-04 15:47:30,023 - INFO - Test message
+2025-06-04 15:47:30,024 - INFO - Entering main
+2025-06-04 15:47:30,024 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 15:47:30,024 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 15:47:30,032 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 15:47:30,041 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 15:47:30,042 - INFO - Determining remaining simulations to run
+2025-06-04 15:47:30,042 - INFO - Following simulations to be run: {(409, '0100'), (397, '0100'), (397, '1100'), (409, '1100'), (402, '0100'), (407, '0100'), (398, '0100'), (407, '1100'), (402, '1100'), (398, '1100')}
+2025-06-04 15:47:30,043 - INFO - 10 simulations to be run
+2025-06-04 15:47:30,108 - INFO - Choose the corresponding profile for electricity
+2025-06-04 15:47:30,108 - INFO - Electricity profile High
+2025-06-04 15:48:05,987 - INFO - Logger initialized
+2025-06-04 15:48:09,030 - INFO - Test message
+2025-06-04 15:48:09,032 - INFO - Entering main
+2025-06-04 15:48:09,032 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 15:48:09,032 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 15:48:09,041 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 15:48:09,045 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 15:48:09,046 - INFO - Determining remaining simulations to run
+2025-06-04 15:48:09,046 - INFO - Following simulations to be run: {(398, '0100'), (407, '1100'), (402, '1100'), (398, '1100'), (397, '0100'), (409, '0100'), (397, '1100'), (409, '1100'), (407, '0100'), (402, '0100')}
+2025-06-04 15:48:09,047 - INFO - 10 simulations to be run
+2025-06-04 15:48:09,114 - INFO - Choose the corresponding profile for electricity
+2025-06-04 15:48:09,114 - INFO - Electricity profile High
+2025-06-04 15:48:39,312 - INFO - Logger initialized
+2025-06-04 15:48:42,419 - INFO - Test message
+2025-06-04 15:48:42,421 - INFO - Entering main
+2025-06-04 15:48:42,421 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 15:48:42,421 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 15:48:42,431 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 15:48:42,435 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 15:48:42,436 - INFO - Determining remaining simulations to run
+2025-06-04 15:48:42,436 - INFO - Following simulations to be run: {(402, '1100'), (398, '0100'), (397, '1100'), (409, '1100'), (409, '0100'), (407, '1100'), (397, '0100'), (398, '1100'), (407, '0100'), (402, '0100')}
+2025-06-04 15:48:42,438 - INFO - 10 simulations to be run
+2025-06-04 15:48:42,498 - INFO - Choose the corresponding profile for electricity
+2025-06-04 15:48:42,499 - INFO - Electricity profile High
+2025-06-04 15:49:21,570 - INFO - Extract the id numbers
+2025-06-04 15:49:21,575 - INFO - EV_ID: s340051_381548
+2025-06-04 15:49:22,159 - INFO - separate EV files per profile
+2025-06-04 15:50:26,989 - INFO - Logger initialized
+2025-06-04 15:50:30,018 - INFO - Test message
+2025-06-04 15:50:30,019 - INFO - Entering main
+2025-06-04 15:50:30,019 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 15:50:30,019 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 15:50:30,032 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 15:50:30,037 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 15:50:30,038 - INFO - Determining remaining simulations to run
+2025-06-04 15:50:30,038 - INFO - Following simulations to be run: {(407, '0100'), (402, '0100'), (402, '1100'), (407, '1100'), (398, '0100'), (398, '1100'), (397, '0100'), (409, '0100'), (409, '1100'), (397, '1100')}
+2025-06-04 15:50:30,040 - INFO - 10 simulations to be run
+2025-06-04 15:50:30,102 - INFO - Choose the corresponding profile for electricity
+2025-06-04 15:50:30,102 - INFO - Electricity profile High
+2025-06-04 15:50:32,948 - INFO - Extract the id numbers
+2025-06-04 15:50:32,950 - INFO - EV_ID: s340051_381548
+2025-06-04 15:50:33,529 - INFO - separate EV files per profile
+2025-06-04 15:50:38,329 - INFO - Starting single_opt2 process.
+2025-06-04 15:50:38,329 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-04 15:50:38,329 - INFO - App_comb stored.
+2025-06-04 15:50:38,329 - INFO - Starting optimization process.
+2025-06-04 15:50:38,329 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-04 15:50:38,329 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-04 15:50:38,425 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-04 15:50:38,721 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-04 15:50:38,721 - ERROR - Solver error: status warning for day index 0
+2025-06-04 15:58:10,762 - INFO - Logger initialized
+2025-06-04 15:58:13,760 - INFO - Test message
+2025-06-04 15:58:13,764 - INFO - Entering main
+2025-06-04 15:58:13,764 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 15:58:13,764 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 15:58:13,776 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 15:58:13,779 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 15:58:13,780 - INFO - Determining remaining simulations to run
+2025-06-04 15:58:13,780 - INFO - Following simulations to be run: {(398, '0100'), (407, '1100'), (402, '1100'), (398, '1100'), (397, '0100'), (409, '0100'), (397, '1100'), (409, '1100'), (407, '0100'), (402, '0100')}
+2025-06-04 15:58:13,781 - INFO - 10 simulations to be run
+2025-06-04 15:58:13,840 - INFO - Choose the corresponding profile for electricity
+2025-06-04 15:58:13,840 - INFO - Electricity profile High
+2025-06-04 15:58:20,495 - INFO - Extract the id numbers
+2025-06-04 15:58:20,498 - INFO - EV_ID: s340051_381548
+2025-06-04 15:58:21,086 - INFO - separate EV files per profile
+2025-06-04 15:58:21,308 - INFO - Starting single_opt2 process.
+2025-06-04 15:58:21,308 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-04 15:58:21,308 - INFO - App_comb stored.
+2025-06-04 15:58:21,309 - INFO - Starting optimization process.
+2025-06-04 15:58:21,309 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-04 15:58:21,309 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-04 15:58:21,393 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-04 15:58:21,636 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-04 15:58:21,636 - ERROR - Solver error: status warning for day index 0
+2025-06-04 16:00:22,183 - INFO - Logger initialized
+2025-06-04 16:00:25,464 - INFO - Test message
+2025-06-04 16:00:25,465 - INFO - Entering main
+2025-06-04 16:00:25,465 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 16:00:25,465 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 16:00:25,476 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 16:00:25,479 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 16:00:25,480 - INFO - Determining remaining simulations to run
+2025-06-04 16:00:25,480 - INFO - Following simulations to be run: {(407, '1100'), (402, '1100'), (398, '1100'), (397, '0100'), (409, '0100'), (407, '0100'), (402, '0100'), (397, '1100'), (398, '0100'), (409, '1100')}
+2025-06-04 16:00:25,481 - INFO - 10 simulations to be run
+2025-06-04 16:00:25,544 - INFO - Choose the corresponding profile for electricity
+2025-06-04 16:00:25,544 - INFO - Electricity profile High
+2025-06-04 16:00:27,025 - INFO - Extract the id numbers
+2025-06-04 16:00:27,026 - INFO - EV_ID: s340051_381548
+2025-06-04 16:00:27,519 - INFO - separate EV files per profile
+2025-06-04 16:00:27,813 - INFO - Starting single_opt2 process.
+2025-06-04 16:00:27,814 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-04 16:00:27,814 - INFO - App_comb stored.
+2025-06-04 16:00:27,814 - INFO - Starting optimization process.
+2025-06-04 16:00:27,814 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-04 16:00:27,814 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-04 16:00:27,892 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-04 16:00:28,158 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-04 16:00:28,158 - ERROR - Solver error: status warning for day index 0
+2025-06-04 16:49:27,212 - INFO - Logger initialized
+2025-06-04 16:49:30,619 - INFO - Test message
+2025-06-04 16:49:30,621 - INFO - Entering main
+2025-06-04 16:49:30,621 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 16:49:30,621 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 16:49:30,635 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 16:49:30,640 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 16:49:30,641 - INFO - Determining remaining simulations to run
+2025-06-04 16:49:30,641 - INFO - Following simulations to be run: {(398, '1100'), (398, '0100'), (397, '1100'), (397, '0100'), (409, '1100'), (409, '0100'), (407, '1100'), (402, '1100'), (407, '0100'), (402, '0100')}
+2025-06-04 16:49:30,642 - INFO - 10 simulations to be run
+2025-06-04 16:49:30,708 - INFO - Choose the corresponding profile for electricity
+2025-06-04 16:49:30,708 - INFO - Electricity profile High
+2025-06-04 16:49:32,085 - INFO - Extract the id numbers
+2025-06-04 16:49:32,088 - INFO - EV_ID: s340051_381548
+2025-06-04 16:49:32,563 - INFO - separate EV files per profile
+2025-06-04 16:49:32,885 - INFO - Starting single_opt2 process.
+2025-06-04 16:49:32,885 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-04 16:49:32,885 - INFO - App_comb stored.
+2025-06-04 16:49:32,885 - INFO - Starting optimization process.
+2025-06-04 16:49:32,885 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-04 16:49:32,885 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-04 16:49:32,968 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-04 16:49:33,213 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-04 16:49:33,214 - ERROR - Solver error: status warning for day index 0
+2025-06-04 16:49:56,921 - INFO - Logger initialized
+2025-06-04 16:49:59,839 - INFO - Test message
+2025-06-04 16:49:59,841 - INFO - Entering main
+2025-06-04 16:49:59,841 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 16:49:59,841 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 16:49:59,850 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 16:49:59,854 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 16:49:59,855 - INFO - Determining remaining simulations to run
+2025-06-04 16:49:59,855 - INFO - Following simulations to be run: {(407, '1100'), (402, '1100'), (398, '1100'), (397, '0100'), (407, '0100'), (409, '0100'), (397, '1100'), (398, '0100'), (409, '1100'), (402, '0100')}
+2025-06-04 16:49:59,856 - INFO - 10 simulations to be run
+2025-06-04 16:49:59,921 - INFO - Choose the corresponding profile for electricity
+2025-06-04 16:49:59,921 - INFO - Electricity profile High
+2025-06-04 16:50:01,304 - INFO - Extract the id numbers
+2025-06-04 16:50:01,305 - INFO - EV_ID: s340051_381548
+2025-06-04 16:50:01,789 - INFO - separate EV files per profile
+2025-06-04 16:50:02,095 - INFO - Starting single_opt2 process.
+2025-06-04 16:50:02,095 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-04 16:50:02,095 - INFO - App_comb stored.
+2025-06-04 23:46:23,811 - INFO - Starting optimization process.
+2025-06-04 23:46:23,812 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-04 23:46:23,812 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-04 23:48:40,596 - INFO - Logger initialized
+2025-06-04 23:48:44,018 - INFO - Test message
+2025-06-04 23:48:44,020 - INFO - Entering main
+2025-06-04 23:48:44,021 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 23:48:44,021 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 23:48:44,034 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 23:48:44,040 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 23:48:44,041 - INFO - Determining remaining simulations to run
+2025-06-04 23:48:44,041 - INFO - Following simulations to be run: {(397, '0100'), (409, '1100'), (409, '0100'), (407, '1100'), (402, '1100'), (407, '0100'), (402, '0100'), (398, '1100'), (398, '0100'), (397, '1100')}
+2025-06-04 23:48:44,043 - INFO - 10 simulations to be run
+2025-06-04 23:48:44,123 - INFO - Choose the corresponding profile for electricity
+2025-06-04 23:48:44,123 - INFO - Electricity profile High
+2025-06-04 23:48:46,016 - INFO - Extract the id numbers
+2025-06-04 23:48:46,018 - INFO - EV_ID: s340051_381548
+2025-06-04 23:48:46,497 - INFO - separate EV files per profile
+2025-06-04 23:48:46,855 - INFO - Starting single_opt2 process.
+2025-06-04 23:48:46,855 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-04 23:48:46,855 - INFO - App_comb stored.
+2025-06-04 23:49:09,949 - INFO - Starting optimization process.
+2025-06-04 23:49:09,949 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-04 23:49:09,949 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-04 23:49:53,821 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-04 23:49:54,192 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-04 23:49:54,193 - ERROR - Solver error: status warning for day index 0
+2025-06-04 23:51:05,047 - INFO - Logger initialized
+2025-06-04 23:51:09,378 - INFO - Test message
+2025-06-04 23:51:09,379 - INFO - Entering main
+2025-06-04 23:51:09,380 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 23:51:09,380 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 23:51:09,391 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 23:51:09,395 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 23:51:09,397 - INFO - Determining remaining simulations to run
+2025-06-04 23:51:09,397 - INFO - Following simulations to be run: {(398, '0100'), (397, '0100'), (409, '0100'), (397, '1100'), (409, '1100'), (407, '1100'), (402, '1100'), (407, '0100'), (402, '0100'), (398, '1100')}
+2025-06-04 23:51:09,398 - INFO - 10 simulations to be run
+2025-06-04 23:51:09,481 - INFO - Choose the corresponding profile for electricity
+2025-06-04 23:51:09,481 - INFO - Electricity profile High
+2025-06-04 23:51:11,428 - INFO - Extract the id numbers
+2025-06-04 23:51:11,429 - INFO - EV_ID: s340051_381548
+2025-06-04 23:51:11,967 - INFO - separate EV files per profile
+2025-06-04 23:51:12,341 - INFO - Starting single_opt2 process.
+2025-06-04 23:51:12,341 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-04 23:51:12,341 - INFO - App_comb stored.
+2025-06-04 23:51:30,007 - INFO - Starting optimization process.
+2025-06-04 23:51:30,008 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-04 23:51:30,008 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-04 23:51:30,232 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-04 23:51:30,582 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-04 23:51:30,582 - ERROR - Solver error: status warning for day index 0
+2025-06-04 23:55:01,291 - INFO - Logger initialized
+2025-06-04 23:55:04,830 - INFO - Test message
+2025-06-04 23:55:04,831 - INFO - Entering main
+2025-06-04 23:55:04,831 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-04 23:55:04,831 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-04 23:55:04,846 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-04 23:55:04,851 - INFO - Searching for all done basopra simulations in Output/
+2025-06-04 23:55:04,852 - INFO - Determining remaining simulations to run
+2025-06-04 23:55:04,852 - INFO - Following simulations to be run: {(407, '0100'), (402, '0100'), (407, '1100'), (398, '0100'), (397, '1100'), (409, '1100'), (397, '0100'), (409, '0100'), (402, '1100'), (398, '1100')}
+2025-06-04 23:55:04,854 - INFO - 10 simulations to be run
+2025-06-04 23:55:04,928 - INFO - Choose the corresponding profile for electricity
+2025-06-04 23:55:04,928 - INFO - Electricity profile High
+2025-06-04 23:55:06,355 - INFO - Extract the id numbers
+2025-06-04 23:55:06,358 - INFO - EV_ID: s340051_381548
+2025-06-04 23:55:06,825 - INFO - separate EV files per profile
+2025-06-05 00:08:22,404 - INFO - Logger initialized
+2025-06-05 00:08:25,457 - INFO - Test message
+2025-06-05 00:08:25,459 - INFO - Entering main
+2025-06-05 00:08:25,459 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 00:08:25,459 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 00:08:25,468 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 00:08:25,476 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 00:08:25,478 - INFO - Determining remaining simulations to run
+2025-06-05 00:08:25,478 - INFO - Following simulations to be run: {(397, '1100'), (409, '1100'), (409, '0100'), (397, '0100'), (407, '1100'), (402, '1100'), (402, '0100'), (407, '0100'), (398, '1100'), (398, '0100')}
+2025-06-05 00:08:25,480 - INFO - 10 simulations to be run
+2025-06-05 00:08:25,558 - INFO - Choose the corresponding profile for electricity
+2025-06-05 00:08:25,558 - INFO - Electricity profile High
+2025-06-05 00:11:53,317 - INFO - Logger initialized
+2025-06-05 00:11:56,350 - INFO - Test message
+2025-06-05 00:11:56,351 - INFO - Entering main
+2025-06-05 00:11:56,351 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 00:11:56,351 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 00:11:56,363 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 00:11:56,371 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 00:11:56,372 - INFO - Determining remaining simulations to run
+2025-06-05 00:11:56,372 - INFO - Following simulations to be run: {(397, '0100'), (407, '1100'), (402, '1100'), (409, '0100'), (398, '1100'), (407, '0100'), (402, '0100'), (398, '0100'), (397, '1100'), (409, '1100')}
+2025-06-05 00:11:56,374 - INFO - 10 simulations to be run
+2025-06-05 00:11:56,452 - INFO - Choose the corresponding profile for electricity
+2025-06-05 00:11:56,452 - INFO - Electricity profile High
+2025-06-05 00:14:29,088 - INFO - Logger initialized
+2025-06-05 00:14:32,090 - INFO - Test message
+2025-06-05 00:14:32,092 - INFO - Entering main
+2025-06-05 00:14:32,092 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 00:14:32,092 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 00:14:32,100 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 00:14:32,107 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 00:14:32,109 - INFO - Determining remaining simulations to run
+2025-06-05 00:14:32,109 - INFO - Following simulations to be run: {(397, '0100'), (407, '1100'), (409, '0100'), (402, '1100'), (398, '1100'), (407, '0100'), (402, '0100'), (398, '0100'), (397, '1100'), (409, '1100')}
+2025-06-05 00:14:32,111 - INFO - 10 simulations to be run
+2025-06-05 00:14:32,187 - INFO - Choose the corresponding profile for electricity
+2025-06-05 00:14:32,187 - INFO - Electricity profile High
+2025-06-05 00:14:39,963 - INFO - Extract the id numbers
+2025-06-05 00:14:39,972 - INFO - EV_ID: s340051_381548
+2025-06-05 00:14:40,702 - INFO - separate EV files per profile
+2025-06-05 00:14:45,731 - INFO - Starting single_opt2 process.
+2025-06-05 00:14:45,732 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-05 00:14:45,732 - INFO - App_comb stored.
+2025-06-05 00:14:45,732 - INFO - Starting optimization process.
+2025-06-05 00:14:45,733 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-05 00:14:45,733 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-05 00:14:45,840 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-05 00:14:46,197 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-05 00:14:46,197 - ERROR - Solver error: status warning for day index 0
+2025-06-05 11:31:02,169 - INFO - Logger initialized
+2025-06-05 11:31:05,734 - INFO - Test message
+2025-06-05 11:31:05,736 - INFO - Entering main
+2025-06-05 11:31:05,736 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:31:05,736 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:31:05,755 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:31:05,761 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:31:05,763 - INFO - Determining remaining simulations to run
+2025-06-05 11:31:05,763 - INFO - Following simulations to be run: {('26932(Building-190183183-CH113098523737)', '0100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26931(Building-902142-CH963752308786)', '0100'), ('26933(Building-902139-CH503730975261)', '1100'), ('26930(Building-902138-CH895237183088)', '1100'), ('26931(Building-902142-CH963752308786)', '1100'), ('26934(Building-902141-CH513082523745)', '0100')}
+2025-06-05 11:31:15,665 - INFO - Logger initialized
+2025-06-05 11:31:19,081 - INFO - Test message
+2025-06-05 11:31:19,083 - INFO - Entering main
+2025-06-05 11:31:19,083 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:31:19,083 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:31:19,096 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:31:19,100 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:31:19,101 - INFO - Determining remaining simulations to run
+2025-06-05 11:31:19,101 - INFO - Following simulations to be run: {('26934(Building-902141-CH513082523745)', '0100'), ('26933(Building-902139-CH503730975261)', '1100'), ('26931(Building-902142-CH963752308786)', '0100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26930(Building-902138-CH895237183088)', '1100'), ('26932(Building-190183183-CH113098523737)', '0100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26931(Building-902142-CH963752308786)', '1100')}
+2025-06-05 11:31:37,389 - INFO - Logger initialized
+2025-06-05 11:31:40,832 - INFO - Test message
+2025-06-05 11:31:40,833 - INFO - Entering main
+2025-06-05 11:31:40,833 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:31:40,833 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:31:40,843 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:31:40,849 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:31:40,849 - INFO - Determining remaining simulations to run
+2025-06-05 11:31:40,849 - INFO - Following simulations to be run: {('26931(Building-902142-CH963752308786)', '0100'), ('26931(Building-902142-CH963752308786)', '1100'), ('26930(Building-902138-CH895237183088)', '1100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26933(Building-902139-CH503730975261)', '1100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26932(Building-190183183-CH113098523737)', '0100'), ('26934(Building-902141-CH513082523745)', '0100')}
+2025-06-05 11:32:15,564 - INFO - Logger initialized
+2025-06-05 11:32:18,952 - INFO - Test message
+2025-06-05 11:32:18,953 - INFO - Entering main
+2025-06-05 11:32:18,953 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:32:18,953 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:32:18,961 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:32:18,966 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:32:18,969 - INFO - Determining remaining simulations to run
+2025-06-05 11:32:18,970 - INFO - Following simulations to be run: {('26933(Building-902139-CH503730975261)', '1100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26934(Building-902141-CH513082523745)', '0100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26931(Building-902142-CH963752308786)', '1100'), ('26930(Building-902138-CH895237183088)', '1100'), ('26932(Building-190183183-CH113098523737)', '0100'), ('26931(Building-902142-CH963752308786)', '0100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26934(Building-902141-CH513082523745)', '1100')}
+2025-06-05 11:33:56,573 - INFO - Logger initialized
+2025-06-05 11:34:00,041 - INFO - Test message
+2025-06-05 11:34:00,042 - INFO - Entering main
+2025-06-05 11:34:00,042 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:34:00,042 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:34:00,053 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:34:00,058 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:34:00,059 - INFO - Determining remaining simulations to run
+2025-06-05 11:34:11,208 - INFO - Logger initialized
+2025-06-05 11:34:14,478 - INFO - Test message
+2025-06-05 11:34:14,480 - INFO - Entering main
+2025-06-05 11:34:14,481 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:34:14,481 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:34:14,492 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:34:14,495 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:34:14,496 - INFO - Determining remaining simulations to run
+2025-06-05 11:36:52,923 - INFO - Logger initialized
+2025-06-05 11:36:56,299 - INFO - Test message
+2025-06-05 11:36:56,301 - INFO - Entering main
+2025-06-05 11:36:56,301 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:36:56,301 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:36:56,309 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:36:56,313 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:36:56,314 - INFO - Determining remaining simulations to run
+2025-06-05 11:37:07,959 - INFO - Logger initialized
+2025-06-05 11:37:11,361 - INFO - Test message
+2025-06-05 11:37:11,363 - INFO - Entering main
+2025-06-05 11:37:11,363 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:37:11,363 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:37:11,378 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:37:11,384 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:37:11,386 - INFO - Determining remaining simulations to run
+2025-06-05 11:39:48,521 - INFO - Logger initialized
+2025-06-05 11:39:51,874 - INFO - Test message
+2025-06-05 11:39:51,877 - INFO - Entering main
+2025-06-05 11:39:51,877 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:39:51,877 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:39:51,888 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:39:51,892 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:39:51,893 - INFO - Determining remaining simulations to run
+2025-06-05 11:44:00,253 - INFO - Logger initialized
+2025-06-05 11:44:03,651 - INFO - Test message
+2025-06-05 11:44:03,653 - INFO - Entering main
+2025-06-05 11:44:03,654 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:44:03,654 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:44:03,665 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:44:03,668 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:44:03,669 - INFO - Determining remaining simulations to run
+2025-06-05 11:45:10,487 - INFO - Logger initialized
+2025-06-05 11:45:13,854 - INFO - Test message
+2025-06-05 11:45:13,856 - INFO - Entering main
+2025-06-05 11:45:13,857 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:45:13,857 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:45:13,870 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:45:13,875 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:45:13,876 - INFO - Determining remaining simulations to run
+2025-06-05 11:47:32,104 - INFO - Logger initialized
+2025-06-05 11:47:35,462 - INFO - Test message
+2025-06-05 11:47:35,463 - INFO - Entering main
+2025-06-05 11:47:35,463 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:47:35,463 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:47:35,473 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:47:35,476 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:47:35,477 - INFO - Determining remaining simulations to run
+2025-06-05 11:47:58,544 - INFO - Logger initialized
+2025-06-05 11:48:01,728 - INFO - Test message
+2025-06-05 11:48:01,729 - INFO - Entering main
+2025-06-05 11:48:01,729 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:48:01,729 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:48:01,737 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:48:01,741 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:48:01,741 - INFO - Determining remaining simulations to run
+2025-06-05 11:48:01,742 - INFO - Following simulations to be run: {('26930(Building-902138-CH895237183088)', '1100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26931(Building-902142-CH963752308786)', '0100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26934(Building-902141-CH513082523745)', '0100'), ('26931(Building-902142-CH963752308786)', '1100'), ('26933(Building-902139-CH503730975261)', '1100'), ('26932(Building-190183183-CH113098523737)', '0100')}
+2025-06-05 11:48:01,744 - INFO - 10 simulations to be run
+2025-06-05 11:48:01,773 - INFO - Loading data for Basopra Optimization
+2025-06-05 11:48:10,427 - INFO - Choose the corresponding profile for electricity
+2025-06-05 11:48:10,427 - INFO - Electricity profile High
+2025-06-05 11:49:16,865 - INFO - Logger initialized
+2025-06-05 11:49:20,042 - INFO - Test message
+2025-06-05 11:49:20,043 - INFO - Entering main
+2025-06-05 11:49:20,043 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:49:20,043 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:49:20,055 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:49:20,057 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:49:20,058 - INFO - Determining remaining simulations to run
+2025-06-05 11:49:20,059 - INFO - Following simulations to be run: {('26932(Building-190183183-CH113098523737)', '0100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26930(Building-902138-CH895237183088)', '1100'), ('26934(Building-902141-CH513082523745)', '0100'), ('26933(Building-902139-CH503730975261)', '1100'), ('26931(Building-902142-CH963752308786)', '0100'), ('26931(Building-902142-CH963752308786)', '1100')}
+2025-06-05 11:49:20,061 - INFO - 10 simulations to be run
+2025-06-05 11:49:20,086 - INFO - Loading data for Basopra Optimization
+2025-06-05 11:49:20,088 - INFO - Choose the corresponding profile for electricity
+2025-06-05 11:49:20,088 - INFO - Electricity profile High
+2025-06-05 11:49:21,589 - INFO - Extract the id numbers
+2025-06-05 11:49:21,592 - INFO - EV_ID: s340051_381548
+2025-06-05 11:49:22,088 - INFO - separate EV files per profile
+2025-06-05 11:49:22,388 - INFO - Starting single_opt2 process.
+2025-06-05 11:49:22,388 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-05 11:49:22,388 - INFO - App_comb stored.
+2025-06-05 11:49:22,388 - INFO - Starting optimization process.
+2025-06-05 11:49:22,388 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-05 11:49:22,388 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-05 11:49:22,578 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-05 11:49:22,891 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-05 11:49:22,891 - ERROR - Solver error: status warning for day index 0
+2025-06-05 11:51:55,726 - INFO - Logger initialized
+2025-06-05 11:51:59,005 - INFO - Test message
+2025-06-05 11:51:59,007 - INFO - Entering main
+2025-06-05 11:51:59,007 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:51:59,007 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:51:59,019 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:51:59,022 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:51:59,023 - INFO - Determining remaining simulations to run
+2025-06-05 11:51:59,025 - INFO - Following simulations to be run: {('26932(Building-190183183-CH113098523737)', '1100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26932(Building-190183183-CH113098523737)', '0100'), ('26931(Building-902142-CH963752308786)', '0100'), ('26933(Building-902139-CH503730975261)', '1100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26934(Building-902141-CH513082523745)', '0100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26930(Building-902138-CH895237183088)', '1100'), ('26931(Building-902142-CH963752308786)', '1100')}
+2025-06-05 11:51:59,027 - INFO - 10 simulations to be run
+2025-06-05 11:51:59,051 - INFO - Loading data for Basopra Optimization
+2025-06-05 11:51:59,052 - INFO - Choose the corresponding profile for electricity
+2025-06-05 11:51:59,052 - INFO - Electricity profile High
+2025-06-05 11:52:00,697 - INFO - Extract the id numbers
+2025-06-05 11:52:00,700 - INFO - EV_ID: s340051_381548
+2025-06-05 11:52:01,207 - INFO - separate EV files per profile
+2025-06-05 11:52:01,576 - INFO - Starting single_opt2 process.
+2025-06-05 11:52:01,576 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-05 11:52:01,576 - INFO - App_comb stored.
+2025-06-05 11:52:01,576 - INFO - Starting optimization process.
+2025-06-05 11:52:01,576 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-05 11:52:01,576 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-05 11:52:01,671 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-05 11:52:01,938 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-05 11:52:01,938 - ERROR - Solver error: status warning for day index 0
+2025-06-05 11:52:16,160 - INFO - Logger initialized
+2025-06-05 11:52:19,400 - INFO - Test message
+2025-06-05 11:52:19,402 - INFO - Entering main
+2025-06-05 11:52:19,402 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 11:52:19,402 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 11:52:19,414 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 11:52:19,418 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 11:52:19,420 - INFO - Determining remaining simulations to run
+2025-06-05 11:52:19,420 - INFO - Following simulations to be run: {(397, '0100'), (409, '0100'), (397, '1100'), (407, '0100'), (402, '0100'), (409, '1100'), (398, '0100'), (407, '1100'), (402, '1100'), (398, '1100')}
+2025-06-05 11:52:19,421 - INFO - 10 simulations to be run
+2025-06-05 11:52:19,460 - INFO - Loading data for Basopra Optimization
+2025-06-05 11:52:19,461 - INFO - Choose the corresponding profile for electricity
+2025-06-05 11:52:19,461 - INFO - Electricity profile High
+2025-06-05 11:52:21,036 - INFO - Extract the id numbers
+2025-06-05 11:52:21,037 - INFO - EV_ID: s340051_381548
+2025-06-05 11:52:21,558 - INFO - separate EV files per profile
+2025-06-05 11:52:21,909 - INFO - Starting single_opt2 process.
+2025-06-05 11:52:21,909 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-05 11:52:21,909 - INFO - App_comb stored.
+2025-06-05 11:52:21,909 - INFO - Starting optimization process.
+2025-06-05 11:52:21,909 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-05 11:52:21,909 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-05 11:52:22,005 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-05 11:52:22,304 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-05 11:52:22,305 - ERROR - Solver error: status warning for day index 0
+2025-06-05 13:33:15,590 - INFO - Logger initialized
+2025-06-05 13:33:18,821 - INFO - Test message
+2025-06-05 13:33:18,823 - INFO - Entering main
+2025-06-05 13:33:18,823 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 13:33:18,823 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 13:33:18,838 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 13:33:18,845 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 13:33:18,847 - INFO - Determining remaining simulations to run
+2025-06-05 13:33:18,847 - INFO - Following simulations to be run: {(402, '0100'), (398, '0100'), (397, '1100'), (397, '0100'), (409, '1100'), (407, '1100'), (409, '0100'), (402, '1100'), (398, '1100'), (407, '0100')}
+2025-06-05 13:33:18,848 - INFO - 10 simulations to be run
+2025-06-05 13:33:18,885 - INFO - Loading data for Basopra Optimization
+2025-06-05 13:33:18,886 - INFO - Choose the corresponding profile for electricity
+2025-06-05 13:33:18,886 - INFO - Electricity profile High
+2025-06-05 13:33:20,315 - INFO - Extract the id numbers
+2025-06-05 13:33:20,317 - INFO - EV_ID: s340051_381548
+2025-06-05 13:33:20,797 - INFO - separate EV files per profile
+2025-06-05 13:33:21,103 - INFO - Starting single_opt2 process.
+2025-06-05 13:33:21,103 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-05 13:33:21,104 - INFO - App_comb stored.
+2025-06-05 13:33:21,104 - INFO - Starting optimization process.
+2025-06-05 13:33:21,104 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-05 13:33:21,104 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-05 13:33:21,194 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-05 13:33:21,451 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-05 13:33:21,451 - ERROR - Solver error: status warning for day index 0
+2025-06-05 13:49:13,810 - INFO - Logger initialized
+2025-06-05 13:49:16,814 - INFO - Test message
+2025-06-05 13:49:16,816 - INFO - Entering main
+2025-06-05 13:49:16,816 - INFO - Results file exists. Loading Basopra Inputs.
+2025-06-05 13:49:16,816 - INFO - Loading file: 'Input/result.pkl' as python object.
+2025-06-05 13:49:16,828 - INFO - File 'Input/result.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-05 13:49:16,830 - INFO - Searching for all done basopra simulations in Output/
+2025-06-05 13:49:16,831 - INFO - Determining remaining simulations to run
+2025-06-05 13:49:16,833 - INFO - Following simulations to be run: {('26933(Building-902139-CH503730975261)', '1100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26931(Building-902142-CH963752308786)', '0100'), ('26930(Building-902138-CH895237183088)', '1100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26934(Building-902141-CH513082523745)', '0100'), ('26932(Building-190183183-CH113098523737)', '0100'), ('26931(Building-902142-CH963752308786)', '1100'), ('26930(Building-902138-CH895237183088)', '0100')}
+2025-06-05 13:49:16,834 - INFO - 10 simulations to be run
+2025-06-05 13:49:16,854 - INFO - Loading data for Basopra Optimization
+2025-06-05 13:49:16,855 - INFO - Choose the corresponding profile for electricity
+2025-06-05 13:49:16,855 - INFO - Electricity profile High
+2025-06-05 13:49:18,257 - INFO - Extract the id numbers
+2025-06-05 13:49:18,260 - INFO - EV_ID: s340051_381548
+2025-06-05 13:49:18,727 - INFO - separate EV files per profile
+2025-06-05 13:49:19,038 - INFO - Starting single_opt2 process.
+2025-06-05 13:49:19,038 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-05 13:49:19,038 - INFO - App_comb stored.
+2025-06-05 13:49:19,038 - INFO - Starting optimization process.
+2025-06-05 13:49:19,038 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-05 13:49:19,038 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-05 13:49:19,123 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-05 13:49:19,359 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-05 13:49:19,360 - ERROR - Solver error: status warning for day index 0
+2025-06-05 13:56:23,229 - INFO - Logger initialized
+2025-06-05 13:56:26,361 - INFO - Test message
+2025-06-05 13:56:26,362 - INFO - Entering main
+2025-06-05 13:56:41,635 - INFO - Logger initialized
+2025-06-05 13:56:44,681 - INFO - Test message
+2025-06-05 13:56:44,683 - INFO - Entering main
+2025-06-05 13:56:44,684 - INFO - Starting loop through simulations
+2025-06-05 13:57:01,095 - INFO - Logger initialized
+2025-06-05 13:57:04,465 - INFO - Test message
+2025-06-05 13:57:04,466 - INFO - Entering main
+2025-06-05 13:57:04,467 - INFO - Starting loop through simulations
+2025-06-05 13:57:31,030 - INFO - Logger initialized
+2025-06-05 13:57:34,203 - INFO - Test message
+2025-06-05 13:57:34,204 - INFO - Entering main
+2025-06-05 13:57:34,205 - INFO - Starting loop through simulations
+2025-06-05 16:04:22,914 - INFO - Logger initialized
+2025-06-05 16:04:25,892 - INFO - Test message
+2025-06-05 16:04:25,893 - INFO - Entering main
+2025-06-05 16:04:25,893 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-05 16:04:25,893 - INFO - Starting loop through simulations
+2025-06-05 16:05:11,941 - INFO - Logger initialized
+2025-06-05 16:05:14,900 - INFO - Test message
+2025-06-05 16:05:14,901 - INFO - Entering main
+2025-06-05 16:05:14,901 - INFO - Entering single simulation mode.
+2025-06-05 16:05:14,901 - INFO - From config.yaml, simulation to process is: fval_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-05 16:05:29,864 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-05 16:05:29,865 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-05 16:05:33,996 - INFO - Started Heat Pump Sizing Procedure
+2025-06-05 16:08:24,250 - INFO - Saving <class 'dict'> type object to: extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-05 17:45:55,559 - INFO - Logger initialized
+2025-06-05 17:45:58,947 - INFO - Test message
+2025-06-05 17:45:58,948 - INFO - Entering main
+2025-06-05 17:45:58,948 - INFO - Entering single simulation mode.
+2025-06-05 17:45:58,948 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-05 17:46:47,466 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-05 17:46:47,468 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-05 17:46:50,148 - INFO - Started Heat Pump Sizing Procedure
+2025-06-05 17:49:28,897 - INFO - Saving <class 'dict'> type object to: extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-05 17:58:49,199 - INFO - Logger initialized
+2025-06-05 17:58:52,108 - INFO - Test message
+2025-06-05 17:58:52,109 - INFO - Entering main
+2025-06-05 17:58:52,109 - INFO - Entering single simulation mode.
+2025-06-05 17:58:52,109 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-05 17:58:52,901 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-05 17:58:52,903 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-05 17:58:55,113 - INFO - Started Heat Pump Sizing Procedure
+2025-06-05 18:01:32,432 - INFO - Saving <class 'dict'> type object to: extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-05 18:01:32,443 - INFO - File successfully saved at extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-05 18:01:32,443 - INFO - Saving <class 'NoneType'> type object to: basopra_outputs/basopra_output.pkl.
+2025-06-05 18:01:32,444 - INFO - File successfully saved at basopra_outputs/basopra_output.pkl.
+2025-06-05 18:02:08,600 - INFO - Logger initialized
+2025-06-05 18:02:11,623 - INFO - Test message
+2025-06-05 18:02:11,624 - INFO - Entering main
+2025-06-05 18:02:11,624 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-05 18:02:11,624 - INFO - Starting loop through simulations
+2025-06-05 18:02:12,536 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-05 18:02:12,538 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050

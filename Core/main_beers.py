@@ -350,18 +350,31 @@ def load_param(combinations):
     -----
     '''
     print('##############')
-    print('load data')
-    print(combinations['hh'])
-    pv_capacity = combinations['hh']['pv_capacity']
-    consumption_category = combinations['hh']['consumption_category']
-    elec_price = combinations['hh']['elec_price']
-    combinations['hh'].pop('pv_capacity')
-    combinations['hh'].pop('consumption_category')
-    combinations['hh'].pop('elec_price')
+    logger.info('Loading data for Basopra Optimization')
+    if core_config['oldschool']:
+        pv_capacity = combinations['hh']['pv_capacity']
+        pv_capacity = pv_capacity['Roof'] + pv_capacity['Wall']
+        consumption_category = combinations['hh']['consumption_category']
+        elec_price = combinations['hh']['elec_price']
+        heat_pump = combinations['hh']['heat_pump']
+        combinations['hh'].pop('pv_capacity')
+        combinations['hh'].pop('consumption_category')
+        combinations['hh'].pop('elec_price')
+        combinations['hh'].pop('heat_pump')
+        df_el = pd.DataFrame(combinations['hh'])
+    else: 
+        series = combinations['hh']['series']
+        attributes = combinations['hh']['attributes']
+        heat_pump = combinations['hh']['heat_pump']
+        df_el = series[['Qs', 'ElectricConsumption', 'SolarPVProduction', 'Ts']]
+        pv_roof_capacity = attributes['roof_pv_capacity'].iloc[0]
+        pv_wall_capacity = attributes['wall_pv_capacity'].iloc[0]
+        pv_capacity = pv_roof_capacity + pv_wall_capacity
+        elec_price = attributes['elec_price'].iloc[0]
 
-    df_el = pd.DataFrame(combinations['hh'])
+    # df_el = pd.DataFrame(combinations['hh'])
     
-    logger.info("Choose the correspongind profile for electricity")
+    logger.info("Choose the corresponding profile for electricity")
 
     if combinations['electricity_profile'] == 'Low':
             logger.info("Electricity profile Low")
@@ -374,22 +387,23 @@ def load_param(combinations):
             electricity_profiles = pd.read_csv(f'{INPUT_PATH}HHHigh.csv')
     
     combinations['electricity_profiles'] = electricity_profiles.iloc[combinations['profile_row_number']]
-    param=dict()
+    param = core_config['param_load_fixed_parameters']
+    # param=dict()
     param['name']=combinations['name']
 
     
     param['App_comb']=combinations['App_comb']
     param['id_dwell']=electricity_profiles.iloc[combinations['profile_row_number']]#combinations['building_name'] # To be added for citysim
 #####################################################
-    param['aging'] = True
-    param['Curtailment'] = 0
-    param['Inverter_efficiency'] = 0.95
-    param['Converter_efficiency_HP'] = 0.98
-    param['delta_t'] = 1
-    param['Capacity_tariff'] = 0
-    param['nyears'] = 1
-    param['days'] = 365
-    param['testing'] = False
+    # param['aging'] = True
+    # param['Curtailment'] = 0
+    # param['Inverter_efficiency'] = 0.95
+    # param['Converter_efficiency_HP'] = 0.98
+    # param['delta_t'] = 1
+    # param['Capacity_tariff'] = 0
+    # param['nyears'] = 1
+    # param['days'] = 365
+    # param['testing'] = False
     week = 1
 
 ######################################################
@@ -399,38 +413,53 @@ def load_param(combinations):
     
     # PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
     # param['Capacity']=(df_el.E_PV.sum()/1000).round()  # Estimated kW ratio 1:1 with PV
-    PV_nom = pv_capacity['Roof'] + pv_capacity['Wall']
+    PV_nom = pv_capacity
     # Let-s try with the demand instead of the PV due to the high PV nom in the facade
     param["Capacity"] = df_el.E_demand.sum()/1000 # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
     print(param['Capacity'])
-    param['Inverter_power'] = round(PV_nom / 1.2, 1)
+    param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
 
     df_prices = load_prices()
     
     df_heat = load_heat_demand(combinations)
     # df_heat_new = pd.read_csv(f'{INPUT_PATH}heat_demand_test.csv')
-    df_heat_new = pd.read_csv(f'{INPUT_PATH}Heat_demand.csv', sep=';')
-    df_heat_new = df_heat_new.rename(columns={
-                    'Set_T': 'Set_T',
-                    'Temp': 'Temp',
-                    'SFH100_kWh': 'Req_kWh',
-                    'Temp_supply_SFH100': 'Temp_supply',
-                    'Temp_supply_SFH100_tank': 'Temp_supply_tank',
-                    'COP_SFH100': 'COP_SH',
-                    'COP_SFH100_tank': 'COP_tank',
-                    'COP_SFH100_DHW': 'COP_DHW',
-                    'hp_SFH100_el_cons': 'hp_sh_cons',
-                    'hp_SFH100_tank_el_cons': 'hp_tank_cons',
-                    'hp_SFH100_el_cons_DHW': 'hp_dhw_cons'
-                })
+    df_heat_new = heat_pump.series[[
+        'Set_T', 
+        'Temp', 
+        'Req_kWh', 
+        'Temp_supply', 
+        'Temp_supply_tank',
+        'COP_SH',
+        'COP_tank',
+        'COP_DHW',
+        'hp_sh_cons',
+        'hp_tank_cons',
+        'hp_dhw_cons',
+    ]]
+    df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
+    print(df_heat_new.head())
+    # df_heat_new = pd.read_csv(f'{INPUT_PATH}Heat_demand.csv', sep=';')
+    # df_heat_new = df_heat_new.rename(columns={
+    #                 'Set_T': 'Set_T',
+    #                 'Temp': 'Temp',
+    #                 'SFH100_kWh': 'Req_kWh',
+    #                 'Temp_supply_SFH100': 'Temp_supply',
+    #                 'Temp_supply_SFH100_tank': 'Temp_supply_tank',
+    #                 'COP_SFH100': 'COP_SH',
+    #                 'COP_SFH100_tank': 'COP_tank',
+    #                 'COP_SFH100_DHW': 'COP_DHW',
+    #                 'hp_SFH100_el_cons': 'hp_sh_cons',
+    #                 'hp_SFH100_tank_el_cons': 'hp_tank_cons',
+    #                 'hp_SFH100_el_cons_DHW': 'hp_dhw_cons'
+    #             })
 
     print("Columns in df_heat_new:", df_heat_new.columns.tolist())
     print("First few rows:")
     print(df_heat_new.head())
 
-    df_heat_new = df_heat_new[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
-                        'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
-                        'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons']]
+    # df_heat_new = df_heat_new[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
+    #                     'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
+    #                     'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons']]
 
     
     
@@ -465,11 +494,7 @@ def load_param(combinations):
     data_input=pd.concat([df_el,df_heat,df_prices,df_EV],axis=1,copy=True,sort=False)
 
     #skip the first DHW data since cannot be produced simultaneously with SH    data_input.loc[(data_input.index.hour<2),'Req_kWh_DHW']=0
-
-
     #data_input.loc[:,'E_PV']=data_input.loc[:,'E_PV']*PV_nom
-
-    
 
     data_input['Temp']=data_input['Temp'].apply(celsius_to_kelvin)
     data_input['Set_T']=data_input['Set_T'].apply(celsius_to_kelvin)
@@ -490,11 +515,9 @@ def load_param(combinations):
     
     logger.debug("Initialized EV battery with capacity %s", param['EV_batt_cap'])
 
-    
     param.update({'Tech':combinations['Tech'],'conf':conf_aux,'ht':combinations['house_type'],
                   'EV_ID':EV_ID, 'electricity_profile':combinations['electricity_profile'],'EV_V2G':combinations['EV_V2G'],
                   'PV_nom':PV_nom,'App_comb':create_app_combinations(combinations['App_comb'])})
-
 
     return param, data_input
 
@@ -514,15 +537,13 @@ def pooling2(combinations):
         ------
         bool
             True if successful, False otherwise.
-
-
         '''
 
         print('##########################################')
         print('pooling')
         print(combinations)
         print('##########################################')
-        param,data_input=load_param(combinations)
+        param, data_input=load_param(combinations)
         try:
             if param['nyears']>1:
                 data_input=pd.DataFrame(pd.np.tile(pd.np.array(data_input).T,
@@ -530,7 +551,7 @@ def pooling2(combinations):
             print('#############pool################')
 
 
-            [df,aux_dict]=single_opt2(param,data_input)
+            [df,aux_dict]=single_opt2(param, data_input)
             print('out of optimization')
         except OSError as e:
             #print(f"OSError: {e}")
@@ -555,12 +576,69 @@ def run_basopra_simulation(big_data_object):
     #Define the different combinations of inputs to be run
     dct = core_config['basopra_run_combinations']
     b_items = buildings.items()
-    b_items_list = list(b_items)[2:]
-    dct['hh'] = b_items_list
+    b_items_list = list(b_items)
+    b_items_list_cut = list(b_items)[2:]
+    dct['hh'] = b_items_list_cut
     print('Loading things the cool new way')
     print(big_data_object.keys())
-    
 
+    output_folder = OUTPUT_PATH
+    logger.info(f"Searching for all done basopra simulations in {output_folder}")
+    pattern = os.path.join(output_folder, 'df_*(Building-*)_NMC_0100_*_*_SFH100.csv')
+    existing_files = glob.glob(pattern)
+
+    logger.info("Determining remaining simulations to run")
+    existing_simulations = set()
+    for file in existing_files:
+        filename = os.path.basename(file)
+        match = re.search(r'df_((?:\d+\(Building-[\d\-]+-[\dA-Z]+\)))_NMC_0100_([0-9]+)_([0-9]+)_SFH100', filename)
+        try:
+            if match:
+                building_id = match.group(1)
+                configuration = match.group(3)
+                existing_simulations.add((building_id, configuration))
+        except (IndexError, ValueError):
+            print(f"Skipping file with unexpected format: {file}")
+
+    if core_config['oldschool']:
+        buildings_data = buildings
+        for building in buildings_data:
+            match = re.search(r'\d+\(Building-([\d\-]+)-[\dA-Z]+\)', building)
+            egid = match.group(1)
+            for build in big_data_object:
+                if egid == big_data_object[build]['attributes']['egid'].iloc[0]:
+                    buildings_data[building]['heat_pump'] = big_data_object[build]['heat_pump']
+    else:
+        buildings_data = big_data_object
+    
+    mapping = core_config['mapping']
+    mapping_str_to_num = core_config['reverse_mapping']
+    expected_combinations = {(building_id, mapping[configuration]) for building_id in buildings_data.keys() for configuration in dct['conf']}
+                  
+    missing_simulations = expected_combinations - existing_simulations
+    logger.info(f"Following simulations to be run: {missing_simulations}")
+    Combs_todo_list = []
+    for bld_id, config in missing_simulations:
+        building_data = buildings_data.get(bld_id, None)
+        Combs_todo_list.append({'hh': building_data, 'name': bld_id, 'conf': mapping_str_to_num[config]})
+    Combs_todo = pd.DataFrame(Combs_todo_list)
+    logger.info(f'{len(Combs_todo)} simulations to be run')
+
+    static_cfg = core_config['basopra_fixed_parameters']
+    Combs_todo_dicts = [
+        {**row, **static_cfg}
+        for row in Combs_todo.to_dict(orient='records')
+    ]
+
+    if core_config['multiprocessing']:
+        mp.freeze_support()
+        mp.set_start_method("spawn")
+        with mp.Pool(processes=core_config['basopra_processes']) as pool:
+            pool.map(pooling2, Combs_todo_dicts)
+    else:
+        for comb in Combs_todo_dicts:
+            pooling2(comb)
+    
 
 @fn_timer
 def main():
@@ -585,14 +663,12 @@ def main():
     dct = core_config['basopra_run_combinations']
     dct['hh'] = list(buildings.items())[2:]
     
-    
     # Define the folder containing the files
     output_folder = Path(OUTPUT_PATH)
     pattern = os.path.join(output_folder, 'df_*(Building-*)_NMC_0100_*_*_SFH100.csv')
 
     # List of matched files
     existing_files = glob.glob(pattern)
-
 
     # Extract Respondent_id and EV_V2G_buffer from filenames
     existing_simulations = set()
