@@ -1020,3 +1020,1390 @@
 2025-06-05 18:02:11,624 - INFO - Starting loop through simulations
 2025-06-05 18:02:12,536 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
 2025-06-05 18:02:12,538 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 09:01:43,097 - INFO - Logger initialized
+2025-06-06 09:01:46,776 - INFO - Test message
+2025-06-06 09:01:46,778 - INFO - Entering main
+2025-06-06 09:01:46,778 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-06 09:01:46,778 - INFO - Starting loop through simulations
+2025-06-06 09:01:47,507 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 09:01:47,507 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 10:21:27,716 - INFO - Logger initialized
+2025-06-06 10:21:31,238 - INFO - Test message
+2025-06-06 10:21:31,241 - INFO - Entering main
+2025-06-06 10:21:31,241 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-06 10:21:31,241 - INFO - Starting loop through simulations
+2025-06-06 10:21:31,944 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 10:21:31,945 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 11:04:40,673 - INFO - Logger initialized
+2025-06-06 11:04:43,770 - INFO - Test message
+2025-06-06 11:04:43,772 - INFO - Entering main
+2025-06-06 11:04:43,772 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-06 11:04:43,773 - INFO - Starting loop through simulations
+2025-06-06 11:04:44,307 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 11:04:44,308 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 14:17:19,530 - INFO - Logger initialized
+2025-06-06 14:17:22,468 - INFO - Test message
+2025-06-06 14:17:22,469 - INFO - Entering main
+2025-06-06 14:17:22,469 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-06 14:17:22,469 - INFO - Starting loop through simulations
+2025-06-06 14:17:23,211 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 14:17:23,211 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:02:34,465 - INFO - Logger initialized
+2025-06-06 18:02:37,479 - INFO - Test message
+2025-06-06 18:02:37,481 - INFO - Entering main
+2025-06-06 18:02:37,481 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-06 18:02:37,481 - INFO - Starting loop through simulations
+2025-06-06 18:02:38,176 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:02:38,177 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:08:39,055 - INFO - Logger initialized
+2025-06-06 18:08:41,719 - INFO - Test message
+2025-06-06 18:08:41,721 - INFO - Entering main
+2025-06-06 18:08:41,721 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-06 18:08:41,721 - INFO - Starting loop through simulations
+2025-06-06 18:08:42,353 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:08:42,355 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:12:28,873 - INFO - Logger initialized
+2025-06-06 18:12:31,593 - INFO - Test message
+2025-06-06 18:12:31,594 - INFO - Entering main
+2025-06-06 18:12:31,594 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-06 18:12:31,594 - INFO - Starting loop through simulations
+2025-06-06 18:12:32,243 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:12:32,243 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:12:58,747 - INFO - Logger initialized
+2025-06-06 18:13:01,447 - INFO - Test message
+2025-06-06 18:13:01,448 - INFO - Entering main
+2025-06-06 18:13:01,448 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-06 18:13:01,448 - INFO - Starting loop through simulations
+2025-06-06 18:13:02,041 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:13:02,041 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:19:34,442 - INFO - Logger initialized
+2025-06-06 18:19:37,119 - INFO - Test message
+2025-06-06 18:19:37,120 - INFO - Entering main
+2025-06-06 18:19:37,121 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-06 18:19:37,121 - INFO - Starting loop through simulations
+2025-06-06 18:19:38,056 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-06 18:19:38,056 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 10:49:48,700 - INFO - Logger initialized
+2025-06-09 10:49:52,197 - INFO - Test message
+2025-06-09 10:49:52,198 - INFO - Entering main
+2025-06-09 10:49:52,198 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 10:49:52,198 - INFO - Starting loop through simulations
+2025-06-09 10:49:55,368 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 10:49:55,368 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 10:52:37,042 - INFO - Logger initialized
+2025-06-09 10:52:40,119 - INFO - Test message
+2025-06-09 10:52:40,121 - INFO - Entering main
+2025-06-09 10:52:40,122 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 10:52:40,122 - INFO - Starting loop through simulations
+2025-06-09 10:52:40,571 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 10:52:40,571 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 10:52:46,243 - INFO - Logger initialized
+2025-06-09 10:52:49,261 - INFO - Test message
+2025-06-09 10:52:49,263 - INFO - Entering main
+2025-06-09 10:52:49,263 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 10:52:49,263 - INFO - Starting loop through simulations
+2025-06-09 10:52:49,708 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 10:52:49,708 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 10:52:54,356 - INFO - Logger initialized
+2025-06-09 10:52:57,308 - INFO - Test message
+2025-06-09 10:52:57,309 - INFO - Entering main
+2025-06-09 10:52:57,309 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 10:52:57,309 - INFO - Starting loop through simulations
+2025-06-09 10:52:57,743 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 10:52:57,743 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:27:30,402 - INFO - Logger initialized
+2025-06-09 11:27:30,831 - INFO - Logger initialized
+2025-06-09 11:27:36,637 - INFO - Logger initialized
+2025-06-09 11:27:39,640 - INFO - Test message
+2025-06-09 11:27:39,641 - INFO - Entering main
+2025-06-09 11:27:39,641 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 11:27:39,641 - INFO - Starting loop through simulations
+2025-06-09 11:27:42,736 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:27:42,736 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:33:29,946 - INFO - Logger initialized
+2025-06-09 11:33:32,967 - INFO - Test message
+2025-06-09 11:33:32,969 - INFO - Entering main
+2025-06-09 11:33:32,969 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 11:33:32,969 - INFO - Starting loop through simulations
+2025-06-09 11:33:33,433 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:33:33,434 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:48:31,866 - INFO - Logger initialized
+2025-06-09 11:48:34,933 - INFO - Test message
+2025-06-09 11:48:34,934 - INFO - Entering main
+2025-06-09 11:48:34,934 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 11:48:34,934 - INFO - Starting loop through simulations
+2025-06-09 11:48:35,546 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:48:35,546 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:54:04,886 - INFO - Logger initialized
+2025-06-09 11:54:08,006 - INFO - Test message
+2025-06-09 11:54:08,007 - INFO - Entering main
+2025-06-09 11:54:08,007 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 11:54:08,007 - INFO - Starting loop through simulations
+2025-06-09 11:54:40,890 - INFO - Logger initialized
+2025-06-09 11:54:44,071 - INFO - Test message
+2025-06-09 11:54:44,073 - INFO - Entering main
+2025-06-09 11:54:44,073 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 11:54:44,073 - INFO - Starting loop through simulations
+2025-06-09 11:55:39,868 - INFO - Logger initialized
+2025-06-09 11:55:42,999 - INFO - Test message
+2025-06-09 11:55:43,000 - INFO - Entering main
+2025-06-09 11:55:43,000 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 11:55:43,000 - INFO - Starting loop through simulations
+2025-06-09 11:55:43,673 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:55:43,673 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:56:51,611 - INFO - Logger initialized
+2025-06-09 11:56:54,659 - INFO - Test message
+2025-06-09 11:56:54,660 - INFO - Entering main
+2025-06-09 11:56:54,660 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 11:56:54,660 - INFO - Starting loop through simulations
+2025-06-09 11:56:55,107 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 11:56:55,107 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 13:25:57,689 - INFO - Logger initialized
+2025-06-09 13:26:00,881 - INFO - Test message
+2025-06-09 13:26:00,883 - INFO - Entering main
+2025-06-09 13:26:00,883 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 13:26:00,883 - INFO - Starting loop through simulations
+2025-06-09 13:26:04,014 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 13:26:04,014 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 13:28:33,508 - INFO - Logger initialized
+2025-06-09 13:28:36,839 - INFO - Test message
+2025-06-09 13:28:36,841 - INFO - Entering main
+2025-06-09 13:28:36,841 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 13:28:36,841 - INFO - Starting loop through simulations
+2025-06-09 13:28:37,589 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 13:28:37,590 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 13:39:54,556 - INFO - Logger initialized
+2025-06-09 13:39:57,729 - INFO - Test message
+2025-06-09 13:39:57,731 - INFO - Entering main
+2025-06-09 13:39:57,731 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 13:39:57,731 - INFO - Starting loop through simulations
+2025-06-09 13:40:07,306 - INFO - Logger initialized
+2025-06-09 13:40:10,056 - INFO - Test message
+2025-06-09 13:40:10,057 - INFO - Entering main
+2025-06-09 13:40:10,057 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 13:40:10,057 - INFO - Starting loop through simulations
+2025-06-09 13:44:55,084 - INFO - Logger initialized
+2025-06-09 13:44:58,079 - INFO - Test message
+2025-06-09 13:44:58,080 - INFO - Entering main
+2025-06-09 13:44:58,080 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 13:44:58,080 - INFO - Starting loop through simulations
+2025-06-09 13:55:24,983 - INFO - Logger initialized
+2025-06-09 13:55:28,147 - INFO - Test message
+2025-06-09 13:55:28,149 - INFO - Entering main
+2025-06-09 13:55:28,149 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 13:55:28,149 - INFO - Starting loop through simulations
+2025-06-09 13:55:28,806 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 13:55:28,806 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:19:34,868 - INFO - Logger initialized
+2025-06-09 14:19:37,953 - INFO - Test message
+2025-06-09 14:19:37,955 - INFO - Entering main
+2025-06-09 14:19:37,955 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 14:19:37,955 - INFO - Starting loop through simulations
+2025-06-09 14:19:40,875 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:19:40,875 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:19:51,556 - INFO - Started Heat Pump Sizing Procedure
+2025-06-09 14:34:19,850 - INFO - Logger initialized
+2025-06-09 14:34:22,849 - INFO - Test message
+2025-06-09 14:34:22,850 - INFO - Entering main
+2025-06-09 14:34:22,850 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 14:34:22,850 - INFO - Starting loop through simulations
+2025-06-09 14:34:25,999 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:34:25,999 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:34:31,971 - INFO - Started Heat Pump Sizing Procedure
+2025-06-09 14:43:04,547 - INFO - Logger initialized
+2025-06-09 14:43:07,336 - INFO - Test message
+2025-06-09 14:43:07,337 - INFO - Entering main
+2025-06-09 14:43:07,337 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 14:43:07,337 - INFO - Starting loop through simulations
+2025-06-09 14:43:10,461 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:43:10,461 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:43:16,079 - INFO - Started Heat Pump Sizing Procedure
+2025-06-09 14:49:13,510 - INFO - Logger initialized
+2025-06-09 14:49:16,168 - INFO - Test message
+2025-06-09 14:49:16,170 - INFO - Entering main
+2025-06-09 14:49:16,170 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 14:49:16,170 - INFO - Starting loop through simulations
+2025-06-09 14:49:16,625 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:49:16,625 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:49:21,536 - INFO - Started Heat Pump Sizing Procedure
+2025-06-09 14:52:19,467 - INFO - Logger initialized
+2025-06-09 14:52:22,407 - INFO - Test message
+2025-06-09 14:52:22,408 - INFO - Entering main
+2025-06-09 14:52:22,408 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 14:52:22,408 - INFO - Starting loop through simulations
+2025-06-09 14:52:22,864 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:52:22,864 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 14:52:28,539 - INFO - Started Heat Pump Sizing Procedure
+2025-06-09 16:10:46,485 - INFO - Logger initialized
+2025-06-09 16:10:49,817 - INFO - Test message
+2025-06-09 16:10:49,818 - INFO - Entering main
+2025-06-09 16:10:49,818 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 16:10:49,818 - INFO - Starting loop through simulations
+2025-06-09 16:10:52,895 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 16:10:52,895 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 16:11:09,947 - INFO - Started Heat Pump Sizing Procedure
+2025-06-09 16:21:49,442 - INFO - Logger initialized
+2025-06-09 16:21:52,658 - INFO - Test message
+2025-06-09 16:21:52,659 - INFO - Entering main
+2025-06-09 16:21:52,659 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 16:21:52,659 - INFO - Starting loop through simulations
+2025-06-09 16:21:53,158 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 16:21:53,158 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 16:21:58,666 - INFO - Started Heat Pump Sizing Procedure
+2025-06-09 16:57:27,419 - INFO - Logger initialized
+2025-06-09 16:57:30,567 - INFO - Test message
+2025-06-09 16:57:30,569 - INFO - Entering main
+2025-06-09 16:57:30,569 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 16:57:30,569 - INFO - Starting loop through simulations
+2025-06-09 16:57:35,640 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 16:57:35,640 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 16:58:24,861 - INFO - Started Heat Pump Sizing Procedure
+2025-06-09 17:00:02,681 - INFO - Logger initialized
+2025-06-09 17:00:05,404 - INFO - Test message
+2025-06-09 17:00:05,405 - INFO - Entering main
+2025-06-09 17:00:05,405 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-09 17:00:05,405 - INFO - Starting loop through simulations
+2025-06-09 17:00:07,801 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 17:00:07,802 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-09 17:01:26,120 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 10:24:49,457 - INFO - Logger initialized
+2025-06-10 10:24:52,685 - INFO - Test message
+2025-06-10 10:24:52,687 - INFO - Entering main
+2025-06-10 10:24:52,687 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-10 10:24:52,687 - INFO - Starting loop through simulations
+2025-06-10 10:24:55,507 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 10:24:55,507 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 10:25:12,014 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 10:36:48,272 - INFO - Logger initialized
+2025-06-10 10:36:51,401 - INFO - Test message
+2025-06-10 10:36:51,403 - INFO - Entering main
+2025-06-10 10:36:51,403 - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-10 10:36:51,403 - INFO - Starting loop through simulations
+2025-06-10 10:36:52,229 - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 10:36:52,229 - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 10:36:56,989 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 10:42:35,576 - INFO - Logger initialized
+2025-06-10 10:42:38,510 - INFO - Test message
+2025-06-10 10:42:38,511 - INFO - Entering main
+2025-06-10 10:42:38,512 - INFO - Entering single simulation mode.
+2025-06-10 10:42:38,512 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:42:41,406 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:42:41,406 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:42:41,406 - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:42:41,406 - INFO - Loading file: 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-10 10:42:41,421 - INFO - File 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-10 10:42:41,421 - INFO - Saving <class 'NoneType'> type object to: basopra_outputs/basopra_output.pkl.
+2025-06-10 10:42:41,422 - INFO - File successfully saved at basopra_outputs/basopra_output.pkl.
+2025-06-10 10:44:02,256 - INFO - Logger initialized
+2025-06-10 10:44:05,494 - INFO - Test message
+2025-06-10 10:44:05,495 - INFO - Entering main
+2025-06-10 10:44:05,495 - INFO - Entering single simulation mode.
+2025-06-10 10:44:05,495 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:44:05,942 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:44:05,942 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:44:10,677 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 10:47:15,202 - INFO - Saving <class 'dict'> type object to: extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 10:47:15,212 - INFO - File successfully saved at extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 10:47:15,213 - INFO - Saving <class 'NoneType'> type object to: basopra_outputs/basopra_output.pkl.
+2025-06-10 10:47:15,213 - INFO - File successfully saved at basopra_outputs/basopra_output.pkl.
+2025-06-10 10:55:48,090 - INFO - Logger initialized
+2025-06-10 10:55:51,217 - INFO - Test message
+2025-06-10 10:55:51,218 - INFO - Entering main
+2025-06-10 10:55:51,218 - INFO - Entering single simulation mode.
+2025-06-10 10:55:51,218 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:55:51,684 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:55:51,684 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:55:51,684 - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:55:51,684 - INFO - Loading file: 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-10 10:55:51,689 - INFO - File 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-10 10:55:51,694 - INFO - Searching for all done basopra simulations in Output/
+2025-06-10 10:55:51,695 - INFO - Determining remaining simulations to run
+2025-06-10 10:55:51,696 - INFO - Following simulations to be run: {('26930(Building-902138-CH895237183088)', '1100'), ('26934(Building-902141-CH513082523745)', '0100'), ('26931(Building-902142-CH963752308786)', '1100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26933(Building-902139-CH503730975261)', '1100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26931(Building-902142-CH963752308786)', '0100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26932(Building-190183183-CH113098523737)', '0100'), ('26933(Building-902139-CH503730975261)', '0100')}
+2025-06-10 10:55:51,697 - INFO - 10 simulations to be run
+2025-06-10 10:55:51,715 - INFO - Loading data for Basopra Optimization
+2025-06-10 10:55:51,716 - INFO - Choose the corresponding profile for electricity
+2025-06-10 10:55:51,716 - INFO - Electricity profile High
+2025-06-10 10:55:53,171 - INFO - Extract the id numbers
+2025-06-10 10:55:53,174 - INFO - EV_ID: s340051_381548
+2025-06-10 10:55:53,744 - INFO - separate EV files per profile
+2025-06-10 10:55:53,981 - INFO - Starting single_opt2 process.
+2025-06-10 10:55:53,981 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 10:55:53,981 - INFO - App_comb stored.
+2025-06-10 10:55:53,981 - INFO - Starting optimization process.
+2025-06-10 10:55:53,981 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 10:55:53,981 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 10:55:54,075 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-10 10:55:54,378 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-10 10:55:54,378 - ERROR - Solver error: status warning for day index 0
+2025-06-10 10:57:36,467 - INFO - Logger initialized
+2025-06-10 10:57:43,131 - INFO - Logger initialized
+2025-06-10 10:57:46,016 - INFO - Test message
+2025-06-10 10:57:46,017 - INFO - Entering main
+2025-06-10 10:57:46,017 - INFO - Entering single simulation mode.
+2025-06-10 10:57:46,017 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:57:46,450 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:57:46,450 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:57:46,450 - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 10:57:46,450 - INFO - Loading file: 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-10 10:57:46,456 - INFO - File 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-10 10:57:46,458 - INFO - Searching for all done basopra simulations in Output/
+2025-06-10 10:57:46,459 - INFO - Determining remaining simulations to run
+2025-06-10 10:57:46,462 - INFO - Following simulations to be run: {('26933(Building-902139-CH503730975261)', '1100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26930(Building-902138-CH895237183088)', '1100'), ('26931(Building-902142-CH963752308786)', '0100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26934(Building-902141-CH513082523745)', '0100'), ('26932(Building-190183183-CH113098523737)', '0100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26931(Building-902142-CH963752308786)', '1100')}
+2025-06-10 10:57:46,462 - INFO - 10 simulations to be run
+2025-06-10 10:57:46,482 - INFO - Loading data for Basopra Optimization
+2025-06-10 10:57:46,483 - INFO - Choose the corresponding profile for electricity
+2025-06-10 10:57:46,483 - INFO - Electricity profile High
+2025-06-10 10:57:47,804 - INFO - Extract the id numbers
+2025-06-10 10:57:47,807 - INFO - EV_ID: s340051_381548
+2025-06-10 10:57:48,352 - INFO - separate EV files per profile
+2025-06-10 10:57:48,573 - INFO - Starting single_opt2 process.
+2025-06-10 10:57:48,573 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 10:57:48,573 - INFO - App_comb stored.
+2025-06-10 10:57:48,574 - INFO - Starting optimization process.
+2025-06-10 10:57:48,574 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 10:57:48,574 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 10:57:48,669 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-10 10:57:48,923 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-10 10:57:48,924 - ERROR - Solver error: status warning for day index 0
+2025-06-10 12:47:16,043 - INFO - Logger initialized
+2025-06-10 12:47:19,049 - INFO - Test message
+2025-06-10 12:47:19,053 - INFO - Entering main
+2025-06-10 12:47:19,053 - INFO - Entering single simulation mode.
+2025-06-10 12:47:19,053 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 12:47:22,018 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 12:47:22,018 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 12:47:23,903 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 13:25:57,549 - INFO - Logger initialized
+2025-06-10 13:26:00,563 - INFO - Test message
+2025-06-10 13:26:00,566 - INFO - Entering main
+2025-06-10 13:26:00,566 - INFO - Entering single simulation mode.
+2025-06-10 13:26:00,566 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:26:01,050 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:26:01,050 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:26:02,918 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 13:31:50,241 - INFO - Logger initialized
+2025-06-10 13:31:53,191 - INFO - Test message
+2025-06-10 13:31:53,192 - INFO - Entering main
+2025-06-10 13:31:53,192 - INFO - Entering single simulation mode.
+2025-06-10 13:31:53,192 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:31:53,642 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:31:53,642 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:31:55,768 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 13:32:46,368 - INFO - Logger initialized
+2025-06-10 13:32:49,393 - INFO - Test message
+2025-06-10 13:32:49,395 - INFO - Entering main
+2025-06-10 13:32:49,395 - INFO - Entering single simulation mode.
+2025-06-10 13:32:49,395 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:32:49,839 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:32:49,839 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:32:52,195 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 13:33:04,143 - INFO - Logger initialized
+2025-06-10 13:33:07,075 - INFO - Test message
+2025-06-10 13:33:07,076 - INFO - Entering main
+2025-06-10 13:33:07,077 - INFO - Entering single simulation mode.
+2025-06-10 13:33:07,077 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:33:09,953 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:33:09,953 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:33:12,314 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 13:34:39,030 - INFO - Logger initialized
+2025-06-10 13:34:42,078 - INFO - Test message
+2025-06-10 13:34:42,080 - INFO - Entering main
+2025-06-10 13:34:42,080 - INFO - Entering single simulation mode.
+2025-06-10 13:34:42,080 - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:34:42,767 - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:34:42,767 - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 13:34:45,066 - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 13:38:10,865 - INFO - Saving <class 'dict'> type object to: extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 13:38:10,880 - INFO - File successfully saved at extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 13:38:10,882 - INFO - Searching for all done basopra simulations in Output/
+2025-06-10 13:38:10,883 - INFO - Determining remaining simulations to run
+2025-06-10 13:38:10,884 - INFO - Following simulations to be run: {('26932(Building-190183183-CH113098523737)', '0100'), ('26930(Building-902138-CH895237183088)', '0100'), ('26934(Building-902141-CH513082523745)', '1100'), ('26933(Building-902139-CH503730975261)', '1100'), ('26931(Building-902142-CH963752308786)', '1100'), ('26933(Building-902139-CH503730975261)', '0100'), ('26930(Building-902138-CH895237183088)', '1100'), ('26934(Building-902141-CH513082523745)', '0100'), ('26932(Building-190183183-CH113098523737)', '1100'), ('26931(Building-902142-CH963752308786)', '0100')}
+2025-06-10 13:38:10,884 - INFO - 10 simulations to be run
+2025-06-10 13:38:10,899 - INFO - Loading data for Basopra Optimization
+2025-06-10 13:38:10,900 - INFO - Choose the corresponding profile for electricity
+2025-06-10 13:38:10,900 - INFO - Electricity profile High
+2025-06-10 13:38:12,329 - INFO - Extract the id numbers
+2025-06-10 13:38:12,330 - INFO - EV_ID: s340051_381548
+2025-06-10 13:38:12,844 - INFO - separate EV files per profile
+2025-06-10 13:38:13,062 - INFO - Starting single_opt2 process.
+2025-06-10 13:38:13,062 - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 13:38:13,062 - INFO - App_comb stored.
+2025-06-10 13:38:13,062 - INFO - Starting optimization process.
+2025-06-10 13:38:13,062 - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 13:38:13,062 - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 13:38:13,153 - WARNING - Setting Var 'T_dhwst[-1]' to a numeric value `313.15` outside the bounds (0.0, 0.0).
+2025-06-10 13:38:13,517 - WARNING - Loading a SolverResults object with a warning status into model.name="unknown";
+  - termination condition: infeasibleOrUnbounded
+  - message from solver: Problem proven to be infeasible or unbounded.
+2025-06-10 13:38:13,517 - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:44:09,501 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:44:13,015 - openbeers.default - INFO - Entering main
+2025-06-10 14:44:13,015 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:44:13,015 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:44:15,956 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:44:15,956 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:44:15,956 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:44:15,956 - openbeers.default - INFO - Loading file: 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-10 14:44:15,967 - openbeers.default - INFO - File 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-10 14:44:18,474 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:44:18,474 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:44:18,474 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:44:18,474 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:44:18,474 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:44:18,474 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:44:18,807 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:44:18,807 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:44:18,807 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:44:18,807 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:44:18,807 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:44:21,084 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:44:21,084 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:44:21,084 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:44:21,085 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:44:21,085 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:44:21,085 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:44:21,376 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:44:21,377 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:44:21,377 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:44:21,377 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:44:21,377 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:45:11,251 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:45:14,604 - openbeers.default - INFO - Entering main
+2025-06-10 14:45:14,604 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:45:14,604 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:45:15,064 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:45:15,064 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:45:15,064 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:45:15,064 - openbeers.default - INFO - Loading file: 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-10 14:45:15,071 - openbeers.default - INFO - File 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-10 14:45:38,736 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:45:41,894 - openbeers.default - INFO - Entering main
+2025-06-10 14:45:41,894 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:45:41,894 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:45:42,371 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:45:42,371 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:46:20,413 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:46:23,607 - openbeers.default - INFO - Entering main
+2025-06-10 14:46:23,607 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:46:23,607 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:46:24,045 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:46:24,045 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:48:49,036 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:48:52,313 - openbeers.default - INFO - Entering main
+2025-06-10 14:48:52,313 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:48:52,313 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:48:52,743 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:48:52,743 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:49:38,824 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:49:42,072 - openbeers.default - INFO - Entering main
+2025-06-10 14:49:42,073 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:49:42,073 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:49:42,521 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:49:42,522 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:50:51,440 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:50:54,649 - openbeers.default - INFO - Entering main
+2025-06-10 14:50:54,649 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:50:54,649 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:50:55,100 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:50:55,100 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:50:56,557 - openbeers.default - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 14:51:20,353 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:51:23,485 - openbeers.default - INFO - Entering main
+2025-06-10 14:51:23,485 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:51:23,485 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:51:23,953 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:51:23,953 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:51:25,813 - openbeers.default - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 14:52:24,778 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:52:28,005 - openbeers.default - INFO - Entering main
+2025-06-10 14:52:28,005 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:52:28,005 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:52:28,438 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:52:28,438 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:52:30,809 - openbeers.default - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 14:55:46,343 - openbeers.default - INFO - Saving <class 'dict'> type object to: extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 14:55:46,361 - openbeers.default - INFO - File successfully saved at extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 14:56:19,631 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 14:56:22,931 - openbeers.default - INFO - Entering main
+2025-06-10 14:56:22,931 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 14:56:22,931 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:56:23,385 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:56:23,385 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:56:23,385 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 14:56:23,385 - openbeers.default - INFO - Loading file: 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-10 14:56:23,394 - openbeers.default - INFO - File 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-10 14:56:25,837 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:25,837 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:25,837 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:25,838 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:25,838 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:25,838 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:26,094 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:26,094 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:26,094 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:26,095 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:26,095 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:28,318 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:28,318 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:28,318 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:28,318 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:28,318 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:28,318 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:28,569 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:28,570 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:28,570 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:28,570 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:28,570 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:30,986 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:30,986 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:30,986 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:30,987 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:30,987 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:30,987 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:31,235 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:31,235 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:31,235 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:31,235 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:31,235 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:33,484 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:33,484 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:33,484 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:33,484 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:33,484 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:33,484 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:33,751 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:33,752 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:33,752 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:33,752 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:33,752 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:35,926 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:35,926 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:35,926 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:35,926 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:35,926 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:35,926 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:36,285 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:36,285 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:36,285 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:36,285 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:36,285 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:38,440 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:38,440 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:38,440 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:38,440 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:38,440 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:38,440 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:38,694 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:38,694 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:38,694 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:38,694 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:38,694 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:40,875 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:40,876 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:40,876 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:40,876 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:40,876 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:40,876 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:41,126 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:41,126 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:41,127 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:41,127 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:41,127 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:43,391 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:43,391 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:43,391 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:43,391 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:43,391 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:43,391 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:43,649 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:43,649 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:43,649 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:43,649 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:43,649 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:45,827 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:45,827 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:45,827 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:45,827 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:45,827 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:45,827 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:46,067 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:46,067 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:46,067 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:46,067 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:46,067 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:48,228 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 14:56:48,228 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 14:56:48,228 - openbeers.default - INFO - App_comb stored.
+2025-06-10 14:56:48,228 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 14:56:48,228 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 14:56:48,228 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 14:56:48,569 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 14:56:48,569 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 14:56:48,569 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 14:56:48,569 - openbeers.default - ERROR - Save Failed.
+2025-06-10 14:56:48,569 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 14:56:48,569 - openbeers.default - INFO - Saving <class 'NoneType'> type object to: basopra_outputs/basopra_output.pkl.
+2025-06-10 14:56:48,570 - openbeers.default - INFO - File successfully saved at basopra_outputs/basopra_output.pkl.
+2025-06-10 15:42:27,427 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 15:42:30,708 - openbeers.default - INFO - Entering main
+2025-06-10 15:42:30,708 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 15:42:30,708 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:42:31,195 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:42:31,196 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:42:31,196 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:42:31,196 - openbeers.default - INFO - Loading file: 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-10 15:42:31,206 - openbeers.default - INFO - File 'extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-10 15:42:33,535 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:33,535 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:33,535 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:33,535 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:33,535 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:33,535 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:33,797 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:33,797 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:33,797 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:33,797 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:33,797 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:35,943 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:35,943 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:35,943 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:35,943 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:35,943 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:35,943 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:36,177 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:36,177 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:36,177 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:36,177 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:36,177 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:38,468 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:38,468 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:38,468 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:38,468 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:38,468 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:38,468 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:38,714 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:38,714 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:38,714 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:38,714 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:38,714 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:40,856 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:40,856 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:40,856 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:40,856 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:40,856 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:40,856 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:41,103 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:41,103 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:41,103 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:41,103 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:41,103 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:43,322 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:43,322 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:43,322 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:43,322 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:43,322 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:43,322 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:43,667 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:43,667 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:43,667 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:43,667 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:43,667 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:45,867 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:45,867 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:45,867 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:45,867 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:45,867 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:45,867 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:46,103 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:46,103 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:46,103 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:46,103 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:46,103 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:48,278 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:48,278 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:48,278 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:48,278 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:48,278 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:48,278 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:48,516 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:48,516 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:48,516 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:48,516 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:48,516 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:50,835 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:50,835 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:50,835 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:50,835 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:50,835 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:50,835 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:51,078 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:51,078 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:51,078 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:51,078 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:51,078 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:53,241 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:53,241 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:53,241 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:53,241 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:53,241 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:53,241 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:53,484 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:53,484 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:53,484 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:53,484 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:53,484 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:55,683 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:42:55,683 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:42:55,683 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:42:55,683 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:42:55,683 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:42:55,683 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:42:56,042 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:42:56,042 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:42:56,042 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:42:56,042 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:42:56,042 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:42:56,042 - openbeers.default - INFO - Saving <class 'NoneType'> type object to: basopra_outputs/basopra_output.pkl.
+2025-06-10 15:42:56,043 - openbeers.default - INFO - File successfully saved at basopra_outputs/basopra_output.pkl.
+2025-06-10 15:43:59,619 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 15:44:02,818 - openbeers.default - INFO - Entering main
+2025-06-10 15:44:02,819 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 15:44:02,819 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:44:06,817 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:44:06,817 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:49:47,932 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 15:49:56,772 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 15:50:47,729 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 15:50:50,930 - openbeers.default - INFO - Entering main
+2025-06-10 15:50:50,930 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 15:50:50,930 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:50:55,121 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:50:55,121 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 15:51:20,106 - openbeers.default - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 15:54:19,758 - openbeers.default - INFO - Saving <class 'dict'> type object to: extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 15:54:19,772 - openbeers.default - INFO - File successfully saved at extraction_outputs//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 15:54:21,964 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:21,964 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:21,964 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:21,964 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:21,964 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:21,964 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:22,221 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:22,221 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:22,221 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:22,221 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:22,221 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:24,388 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:24,389 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:24,389 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:24,389 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:24,389 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:24,389 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:24,626 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:24,626 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:24,626 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:24,626 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:24,626 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:26,700 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:26,700 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:26,700 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:26,700 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:26,700 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:26,700 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:26,932 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:26,932 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:26,932 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:26,932 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:26,932 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:29,161 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:29,161 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:29,161 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:29,161 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:29,161 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:29,161 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:29,404 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:29,405 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:29,405 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:29,405 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:29,405 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:31,498 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:31,498 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:31,498 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:31,498 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:31,498 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:31,498 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:31,739 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:31,739 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:31,739 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:31,739 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:31,739 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:33,838 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:33,838 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:33,838 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:33,838 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:33,838 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:33,838 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:34,178 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:34,178 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:34,178 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:34,178 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:34,178 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:36,258 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:36,258 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:36,258 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:36,258 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:36,258 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:36,258 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:36,502 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:36,502 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:36,502 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:36,502 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:36,502 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:38,572 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:38,572 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:38,572 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:38,572 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:38,572 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:38,572 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:38,802 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:38,802 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:38,802 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:38,802 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:38,802 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:41,002 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:41,002 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:41,002 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:41,002 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:41,002 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:41,002 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:41,246 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:41,246 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:41,246 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:41,246 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:41,246 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:43,378 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 15:54:43,378 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 15:54:43,378 - openbeers.default - INFO - App_comb stored.
+2025-06-10 15:54:43,378 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 15:54:43,378 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 15:54:43,378 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 15:54:43,613 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 15:54:43,613 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 15:54:43,613 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 15:54:43,613 - openbeers.default - ERROR - Save Failed.
+2025-06-10 15:54:43,613 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 15:54:43,613 - openbeers.default - INFO - Saving <class 'NoneType'> type object to: basopra_outputs/basopra_output.pkl.
+2025-06-10 15:54:43,613 - openbeers.default - INFO - File successfully saved at basopra_outputs/basopra_output.pkl.
+2025-06-10 16:04:23,137 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 16:04:26,410 - openbeers.default - INFO - Entering main
+2025-06-10 16:04:26,410 - openbeers.default - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-10 16:04:26,411 - openbeers.default - INFO - Starting loop through simulations
+2025-06-10 16:04:26,868 - openbeers.default - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:04:26,869 - openbeers.default - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:13:47,550 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 16:13:50,462 - openbeers.default - INFO - Entering main
+2025-06-10 16:13:50,462 - openbeers.default - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-10 16:13:50,462 - openbeers.default - INFO - Starting loop through simulations
+2025-06-10 16:13:50,931 - openbeers.default - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:13:50,931 - openbeers.default - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:15:00,261 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 16:15:03,128 - openbeers.default - INFO - Entering main
+2025-06-10 16:15:03,128 - openbeers.default - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-10 16:15:03,128 - openbeers.default - INFO - Starting loop through simulations
+2025-06-10 16:15:03,590 - openbeers.default - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:15:03,590 - openbeers.default - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:15:31,923 - openbeers.default - INFO - Removing building: 4771 due to invalid data content.
+2025-06-10 16:17:30,325 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 16:17:33,090 - openbeers.default - INFO - Entering main
+2025-06-10 16:17:33,090 - openbeers.default - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-10 16:17:33,090 - openbeers.default - INFO - Starting loop through simulations
+2025-06-10 16:17:33,532 - openbeers.default - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:17:33,532 - openbeers.default - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:17:38,812 - openbeers.default - INFO - Removing building: 4771 due to invalid data content.
+2025-06-10 16:18:01,488 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 16:18:04,222 - openbeers.default - INFO - Entering main
+2025-06-10 16:18:04,222 - openbeers.default - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-10 16:18:04,222 - openbeers.default - INFO - Starting loop through simulations
+2025-06-10 16:18:04,658 - openbeers.default - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:18:04,658 - openbeers.default - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:18:09,240 - openbeers.default - INFO - Removing building: 4771 due to invalid data content.
+2025-06-10 16:18:09,297 - openbeers.default - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 16:29:06,966 - openbeers.default - INFO - Saving <class 'dict'> type object to: extraction_outputs//collombey_muraz_1_climate_rcp85_pv_roof_2050.pkl.
+2025-06-10 16:29:07,017 - openbeers.default - INFO - File successfully saved at extraction_outputs//collombey_muraz_1_climate_rcp85_pv_roof_2050.pkl.
+2025-06-10 16:29:09,142 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:09,142 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:09,142 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:09,142 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:09,142 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:09,142 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:09,388 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:09,388 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:09,389 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:09,389 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:09,389 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:11,380 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:11,380 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:11,380 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:11,380 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:11,380 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:11,380 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:11,607 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:11,607 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:11,607 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:11,607 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:11,607 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:13,709 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:13,709 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:13,709 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:13,709 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:13,709 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:13,709 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:13,936 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:13,936 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:13,936 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:13,936 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:13,936 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:15,926 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:15,926 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:15,926 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:15,926 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:15,926 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:15,926 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:20,508 - openbeers.default - ERROR - Solver error: status warning for day index 15
+2025-06-10 16:29:20,508 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:20,508 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:20,508 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:20,508 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:23,057 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:23,057 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:23,057 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:23,057 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:23,057 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:23,057 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:23,313 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:23,314 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:23,314 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:23,314 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:23,314 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:25,476 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:25,476 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:25,476 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:25,476 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:25,476 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:25,476 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:25,720 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:25,720 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:25,720 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:25,720 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:25,720 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:28,049 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:28,049 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:28,049 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:28,049 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:28,049 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:28,049 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:28,287 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:28,287 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:28,287 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:28,287 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:28,287 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:30,613 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:30,613 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:30,613 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:30,613 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:30,613 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:30,613 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:30,956 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:30,956 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:30,956 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:30,956 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:30,956 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:33,349 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:33,349 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:33,349 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:33,350 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:33,350 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:33,350 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:33,603 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:33,603 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:33,603 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:33,603 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:33,603 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:35,907 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:35,908 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:35,908 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:35,908 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:35,908 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:35,908 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:40,040 - openbeers.default - ERROR - Solver error: status warning for day index 15
+2025-06-10 16:29:40,040 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:40,040 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:40,040 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:40,040 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:42,398 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:42,398 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:42,398 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:42,398 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:42,398 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:42,398 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:42,652 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:42,652 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:42,652 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:42,652 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:42,652 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:44,854 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:44,854 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:44,854 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:44,854 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:44,854 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:44,854 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:45,088 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:45,088 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:45,088 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:45,088 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:45,088 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:47,296 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:47,296 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:47,296 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:47,296 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:47,296 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:47,296 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:47,553 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:47,554 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:47,554 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:47,554 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:47,554 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:49,943 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:49,943 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:49,943 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:49,944 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:49,944 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:49,944 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:50,193 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:50,193 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:50,193 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:50,193 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:50,193 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:52,403 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:52,403 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:52,403 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:52,403 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:52,403 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:52,403 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:52,657 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:52,657 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:52,657 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:52,657 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:52,657 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:55,000 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:55,000 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:55,000 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:55,001 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:55,001 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:55,001 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:55,245 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:55,245 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:55,245 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:55,245 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:55,245 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:57,422 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:57,422 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:57,422 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:57,423 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:57,423 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:57,423 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:29:57,668 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:29:57,668 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:29:57,668 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:29:57,668 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:29:57,668 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:29:59,875 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:29:59,875 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:29:59,875 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:29:59,875 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:29:59,875 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:29:59,875 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:00,219 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:00,220 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:00,220 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:00,220 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:00,220 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:02,452 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:02,453 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:02,453 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:02,453 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:02,453 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:02,453 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:02,706 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:02,706 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:02,706 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:02,706 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:02,706 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:04,904 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:04,904 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:04,904 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:04,904 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:04,904 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:04,904 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:05,157 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:05,157 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:05,157 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:05,157 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:05,157 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:07,503 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:07,503 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:07,503 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:07,503 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:07,503 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:07,503 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:07,754 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:07,754 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:07,754 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:07,754 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:07,754 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:09,972 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:09,972 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:09,972 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:09,972 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:09,972 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:09,972 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:10,226 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:10,226 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:10,226 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:10,226 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:10,226 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:12,442 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:12,442 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:12,442 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:12,442 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:12,442 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:12,442 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:12,807 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:12,807 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:12,807 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:12,807 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:12,807 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:15,014 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:15,014 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:15,014 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:15,014 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:15,014 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:15,014 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:15,259 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:15,259 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:15,259 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:15,259 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:15,259 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:17,438 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:17,438 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:17,438 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:17,438 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:17,438 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:17,438 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:17,691 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:17,691 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:17,691 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:17,691 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:17,691 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:20,032 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:20,032 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:20,032 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:20,032 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:20,032 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:20,032 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:20,284 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:20,284 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:20,284 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:20,285 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:20,285 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:22,510 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:22,510 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:22,510 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:22,510 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:22,510 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:22,510 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:22,771 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:22,772 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:22,772 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:22,772 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:22,772 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:24,992 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:24,992 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:24,992 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:24,992 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:24,992 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:24,992 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:25,363 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:25,363 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:25,363 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:25,363 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:25,363 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:27,575 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:27,575 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:27,575 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:27,575 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:27,575 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:27,575 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:27,826 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:27,826 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:27,826 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:27,826 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:27,826 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:30,049 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:30,050 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:30,050 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:30,050 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:30,050 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:30,050 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:30,300 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:30,300 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:30,300 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:30,300 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:30,300 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:32,655 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:32,655 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:32,655 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:32,655 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:32,655 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:32,655 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:32,895 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:32,895 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:32,895 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:32,895 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:32,895 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:35,089 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:35,089 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:35,089 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:35,089 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:35,089 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:35,089 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:35,335 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:35,336 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:35,336 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:35,336 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:35,336 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:37,603 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:37,604 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:37,604 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:37,604 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:37,604 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:37,604 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:37,960 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:37,960 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:37,960 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:37,960 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:37,960 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:40,201 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:40,201 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:40,201 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:40,201 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:40,201 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:40,201 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:40,448 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:40,448 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:40,448 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:40,448 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:40,448 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:42,679 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:42,679 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:42,679 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:42,679 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:42,679 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:42,679 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:42,941 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:42,941 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:42,941 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:42,941 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:42,941 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:45,289 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 16:30:45,289 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 16:30:45,289 - openbeers.default - INFO - App_comb stored.
+2025-06-10 16:30:45,289 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 16:30:45,289 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 16:30:45,289 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 16:30:45,543 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 16:30:45,543 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 16:30:45,543 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 16:30:45,543 - openbeers.default - ERROR - Save Failed.
+2025-06-10 16:30:45,543 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 16:30:45,543 - openbeers.default - INFO - Saving <class 'NoneType'> type object to: basopra_outputs/basopra_output.pkl.
+2025-06-10 16:30:45,543 - openbeers.default - INFO - File successfully saved at basopra_outputs/basopra_output.pkl.
+2025-06-10 16:30:45,543 - openbeers.default - INFO - Processing val_de_bagnes_1_climate_rcp26_pv_roof_2050
+2025-06-10 16:30:45,543 - openbeers.default - INFO - Extracting all data from simulation: 3535 - val_de_bagnes_1_climate_rcp26_pv_roof_2050
+2025-06-10 16:31:18,016 - openbeers.default - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 16:52:13,795 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 16:52:17,142 - openbeers.default - INFO - Entering main
+2025-06-10 16:52:17,143 - openbeers.default - INFO - Entering loop_mode. All Simulations found will be processed
+2025-06-10 16:52:17,143 - openbeers.default - INFO - Starting loop through simulations
+2025-06-10 16:52:20,025 - openbeers.default - INFO - Processing collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 16:52:20,025 - openbeers.default - INFO - Extracting all data from simulation: 4941 - collombey_muraz_1_climate_rcp85_pv_roof_2050
+2025-06-10 17:03:15,906 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 17:03:19,249 - openbeers.default - INFO - Entering main
+2025-06-10 17:03:19,249 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 17:03:19,250 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:03:19,715 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:03:19,715 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:03:44,326 - openbeers.default - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 17:06:58,878 - openbeers.default - INFO - Saving <class 'dict'> type object to: outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 17:06:58,897 - openbeers.default - INFO - File successfully saved at outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 17:07:01,416 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 17:07:01,417 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 17:07:01,417 - openbeers.default - INFO - App_comb stored.
+2025-06-10 17:07:01,417 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 17:07:01,417 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 17:07:01,417 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 17:07:01,688 - openbeers.default - ERROR - Solver error: status warning for day index 0
+2025-06-10 17:07:01,688 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 17:07:01,688 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 17:07:01,688 - openbeers.default - ERROR - Save Failed.
+2025-06-10 17:07:01,688 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-10 17:26:21,162 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 17:26:24,562 - openbeers.default - INFO - Entering main
+2025-06-10 17:26:24,563 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 17:26:24,563 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:26:25,037 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:26:25,037 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:55:20,615 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 17:55:23,909 - openbeers.default - INFO - Entering main
+2025-06-10 17:55:23,909 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 17:55:23,909 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:55:26,778 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:55:26,778 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:58:38,634 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 17:58:41,827 - openbeers.default - INFO - Entering main
+2025-06-10 17:58:41,827 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 17:58:41,828 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:58:42,293 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 17:58:42,293 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 18:00:56,021 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 18:00:59,269 - openbeers.default - INFO - Entering main
+2025-06-10 18:00:59,269 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 18:00:59,269 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 18:00:59,707 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 18:00:59,707 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 18:01:18,143 - openbeers.default - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 18:04:36,286 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-10 18:04:39,520 - openbeers.default - INFO - Entering main
+2025-06-10 18:04:39,520 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-10 18:04:39,520 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 18:04:39,966 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 18:04:39,966 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-10 18:04:41,557 - openbeers.default - INFO - Started Heat Pump Sizing Procedure
+2025-06-10 18:07:47,406 - openbeers.default - INFO - Saving <class 'dict'> type object to: outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 18:07:47,422 - openbeers.default - INFO - File successfully saved at outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl.
+2025-06-10 18:08:02,517 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-10 18:08:02,517 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-10 18:08:02,517 - openbeers.default - INFO - App_comb stored.
+2025-06-10 18:08:02,517 - openbeers.default - INFO - Starting optimization process.
+2025-06-10 18:08:02,517 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-10 18:08:02,517 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-10 18:09:45,421 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-10 18:09:45,434 - openbeers.default - INFO - Optimization process completed.
+2025-06-10 18:09:58,925 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-10 18:09:58,926 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-10 18:09:58,936 - openbeers.default - ERROR - Save Failed.
+2025-06-10 18:09:58,936 - openbeers.default - INFO - single_opt2 process completed.

@@ -20,7 +20,7 @@
 # ------------
 # Pandas, numpy, pyomo, pickle, math, sys, glob, time
 
-import logging
+from utils.logger import logger
 import pandas as pd
 import paper_classes as pc
 from pyomo.opt import SolverFactory, SolverStatus, TerminationCondition
@@ -36,10 +36,6 @@ import csv
 import os
 import post_proc as pp
 import threading
-
-# Configure logger
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 def fn_timer(function):
     @wraps(function)
@@ -202,9 +198,9 @@ def Optimize(data_input, param):
             opt.options["threads"] = 1
             opt.options["mipgap"] = 0.001
         logger.debug("Solver initialized, starting solve for day index %s", i)
-        results = opt.solve(instance)#, tee=True)
+        results = opt.solve(instance, tee=True)
         global_lock.release()
-        #results.write(num=1)
+        results.write(num=1)
 
         if (results.solver.status == SolverStatus.ok) and (results.solver.termination_condition == TerminationCondition.optimal):
             logger.debug("Optimal solution found for day index %s", i)
@@ -251,10 +247,10 @@ def Optimize(data_input, param):
                     break
         elif (results.solver.termination_condition == TerminationCondition.infeasible):
             logger.error("Model infeasible for day index %s", i)
-            return (None, None, None, None, None, None, None, None, results)
+            return (None, results)
         else:
             logger.error("Solver error: status %s for day index %s", results.solver.status, i)
-            return (None, None, None, None, None, None, None, None, results)
+            return (None, results)
     end_d = df.shape[0]
     df = pd.concat([df, data_input.loc[data_input.index[:end_d], ['E_demand', 'E_PV', 'Export_price']].reset_index()], axis=1)
     if param['App_comb'][2] == True:

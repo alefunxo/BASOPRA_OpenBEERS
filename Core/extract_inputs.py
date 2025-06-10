@@ -114,7 +114,7 @@ def get_temperature(path_to_cli_file: str) -> Dict[str, float]:
     # Load the data into a DataFrame, using whitespace delimitation
     df = pd.read_csv(
         path_to_cli_file,
-        sep='\s+',
+        sep=r'\s+',
         header=header_row-1,
         comment=None
     )

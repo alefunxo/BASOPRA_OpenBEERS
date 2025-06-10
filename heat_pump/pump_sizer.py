@@ -243,7 +243,7 @@ def calculate_heat_pump_size(
         df_heat['Set_T']=20
         # here we need to select the T supply and return depending on the kWh/m2
         ############
-        surface=350
+        surface = building_data[building]['attributes']['habitable_surface']
         ############
         if df_heat.Req_kWh.sum()/surface < 50: 
             flag_heating_floor=True 

@@ -4,10 +4,10 @@ dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
 
-loop_mode: True 
+loop_mode: False
 simulation_name: val_de_bagnes_41_climate_contemporary_pv_roof_2025
-simulation_extraction_dir: extraction_outputs/
-basopra_output_dir: basopra_outputs/
+simulation_extraction_dir: outputs_extraction/
+basopra_output_dir: outputs_basopra/
 municipalities_file: municipalities-data-2025.csv
 tarifs_file: elcom-data-2025.csv
 
@@ -32,15 +32,24 @@ needed_attributes:
 
 logging:
   version: 1
+
   formatters:
+    detailed:
+      format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     simple:
-      format: '%(asctime)s - %(levelname)s - %(message)s'
+      format: '%(levelname)s - %(message)s'
 
   handlers:
-    file:
+    code_file:
       class: logging.FileHandler
-      formatter: simple
+      formatter: detailed
       filename: logs/openbeers.log
+      level: INFO 
+
+    data_file:
+      class: logging.FileHandler
+      formatter: detailed
+      filename: logs/data_issues.log
       level: INFO
 
     console:
@@ -48,9 +57,20 @@ logging:
       formatter: simple
       level: DEBUG
 
+  loggers:
+    openbeers.default:
+      level: INFO 
+      handlers: [code_file, console]
+      propagate: no
+
+    openbeers.data:
+      level: INFO
+      handlers: [data_file, console]
+      propagate: no
+
   root:
-    level: DEBUG
-    handlers: [console, file]
+    level: WARNING
+    handlers: [console]
 
 dict_design:
   T_d_supply_floor: 35
@@ -65,7 +85,7 @@ dict_design:
   rad_exp_radiator: 1.3
 
 Core:
-  oldschool: True # Testint parameter used to switch between old parameter loading style and new one for comparison purposes
+  oldschool: False # Testint parameter used to switch between old parameter loading style and new one for comparison purposes
   multiprocessing: False
   basopra_processes: 1
 

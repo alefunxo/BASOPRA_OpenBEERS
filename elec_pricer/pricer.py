@@ -74,6 +74,10 @@ class ElectricityPricer:
 
     def get_municipality_entries(self, municipality:str)->DataFrame:
         filtered_df = self.municipality_listings[self.municipality_listings['municipalityName'] == municipality]
+        if filtered_df.empty:
+            filtered_df = self.municipality_listings[
+                self.municipality_listings['municipalityName'].astype(str).str.contains(municipality, na=False)
+            ]
         return filtered_df
 
     def get_consumption_category(activity_type:str, consumption:float)->str:
@@ -105,9 +109,9 @@ if __name__ == '__main__':
     # print(pricer.municipality_listings.head())
     # print(pricer.tarifs_listings.head())
     # print(pricer.get_municipality_entries("Val de Bagnes").head())
-    operator = pricer.get_municipality_provider("Val de Bagnes")
+    operator = pricer.get_municipality_provider("Collombey")
     print(operator)
     # print(pricer.tarifs_listings.keys())
     # operator_entries = pricer.tarifs_listings[pricer.tarifs_listings[' operatorLabel'] == operator]
     # print(operator_entries)
-    print(pricer.get_electricity_price('Val de Bagnes', 'C2'))
+    print(pricer.get_electricity_price('Collombey', 'C2'))

@@ -367,10 +367,10 @@ def load_param(combinations):
         attributes = combinations['hh']['attributes']
         heat_pump = combinations['hh']['heat_pump']
         df_el = series[['Qs', 'ElectricConsumption', 'SolarPVProduction', 'Ts']]
-        pv_roof_capacity = attributes['roof_pv_capacity'].iloc[0]
-        pv_wall_capacity = attributes['wall_pv_capacity'].iloc[0]
+        pv_roof_capacity = attributes['roof_pv_capacity']
+        pv_wall_capacity = attributes['wall_pv_capacity']
         pv_capacity = pv_roof_capacity + pv_wall_capacity
-        elec_price = attributes['elec_price'].iloc[0]
+        elec_price = attributes['elec_price']
 
     # df_el = pd.DataFrame(combinations['hh'])
     
@@ -630,10 +630,10 @@ def run_basopra_simulation(big_data_object):
         for row in Combs_todo.to_dict(orient='records')
     ]
 
-    if core_config['multiprocessing']:
+    if core_config.multiprocessing:
         mp.freeze_support()
         mp.set_start_method("spawn")
-        with mp.Pool(processes=core_config['basopra_processes']) as pool:
+        with mp.Pool(processes=core_config.basopra_processes) as pool:
             pool.map(pooling2, Combs_todo_dicts)
     else:
         for comb in Combs_todo_dicts:

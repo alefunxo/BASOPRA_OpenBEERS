@@ -1,5 +1,6 @@
 import sys
 import os
+from typing import Any, Dict
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
 from config.loader import config
@@ -15,7 +16,6 @@ from utils.utils import pickle_save, pickle_load
 from Core.main_beers import run_basopra_simulation
 
 
-
 async def run_pipeline(simulation: Simulation) -> dict:
     api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
 
@@ -29,8 +29,15 @@ async def run_pipeline(simulation: Simulation) -> dict:
         api_series = {}
         for b in buildings:
             attrs = await api.get_attributes(b.object_id)
+            for at in attrs:
+                if at.attribute_type_id == 27:
+                    print(at)
             api_attributes[b.id] = {
-                t.name: next((getattr(a, f"value_{t_}") for t_ in ["string", "integer", "float"] if getattr(a, f"value_{t_}", None) is not None),None)
+                t.name: next((
+                    getattr(a, f"value_{t_}") 
+                    for t_ in ["string", "integer", "float"] 
+                    if getattr(a, f"value_{t_}", None) is not None
+                ),None)
                 for t in attr_types for a in attrs if a.attribute_type_id == t.id
             }
             s = await api.get_series(b.object_id, simulation.id)
@@ -40,6 +47,8 @@ async def run_pipeline(simulation: Simulation) -> dict:
                         pt.data for pt in s if pt.time_series_type_id == t.id
                     ), []) for t in ser_types
             }
+            api_series[b.id]['Qs'] = [ val / 1000 for val in api_series[b.id]['Qs']]
+            api_series[b.id]['SolarPVProduction'] = [ val / 1000 for val in api_series[b.id]['SolarPVProduction']]
     
         climate = await api.get_climate(simulation.climate_id)
 
@@ -64,7 +73,7 @@ async def run_pipeline(simulation: Simulation) -> dict:
 async def extract_simulation_data(
         simulation: Simulation,
         elec_pricer: ElectricityPricer,
-    ) -> None:
+    ) -> Dict[str, Dict[str, Any]]:
     logger.info(f"Extracting all data from simulation: {simulation.id} - {simulation.name}")
     save_file = f'{config['simulation_extraction_dir']}/{simulation.name}.pkl'
 
@@ -75,8 +84,8 @@ async def extract_simulation_data(
     extraction = await run_pipeline(simulation)
     for bid, data in extraction.items():
         attributes = data['attributes']
-        price_category = elec_pricer.get_consumption_category(attributes.iloc[0]['activity'])
-        elec_price = elec_pricer.get_electricity_price(attributes.iloc[0]['municipality_name'], price_category)
+        price_category = elec_pricer.get_consumption_category(attributes.get('activity'))
+        elec_price = elec_pricer.get_electricity_price(attributes.get('municipality_name'), price_category)
         attributes['elec_price'] = elec_price
 
     calculate_heat_pump_size(f'{config['input_dir']}/HP_data.csv', extraction)
@@ -85,15 +94,16 @@ async def extract_simulation_data(
     return extraction
 
 def basopra_optimization(extraction):
-    return None
-    # return run_basopra_simulation(extraction)
+    # return None
+    return run_basopra_simulation(extraction)
 
 async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None:
     logger.info(f"Processing {sim.name}")
     extraction = await extract_simulation_data(sim, pricer)
     basopra_output = basopra_optimization(extraction)
-    dummy_name = f'{config['basopra_output_dir']}basopra_output.pkl'
-    pickle_save(dummy_name, basopra_output)
+    for bid, b_data in extraction.items():
+        output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{b_data['attributes']['name']}_dummy.pkl'
+        pickle_save(output_file_name, basopra_output[bid])
 
 async def basopra_loop():
     logger.info('Starting loop through simulations')
@@ -107,7 +117,7 @@ async def basopra_loop():
 
 async def main() -> None:
     logger.info('Entering main')
-    if config['loop_mode']:
+    if config.loop_mode:
         logger.info('Entering loop_mode. All Simulations found will be processed')
         await basopra_loop()
     else:
