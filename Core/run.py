@@ -102,11 +102,12 @@ async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None
     basopra_output = basopra_optimization(extraction)
     conf_mapping = config.Core.conf_mapping
     for bid, cid in basopra_output.keys():
-        egid = basopra_output[(bid, cid)]['simulation_inputs']['hh']['attributes']['egid']
-        conf_name = conf_mapping[cid]
-        output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{egid}_{conf_name}'
-        pickle_save(f'{output_file_name}.pkl', basopra_output[(bid, cid)]['simulation_outputs'])
-        basopra_output[(bid, cid)]['simulation_outputs'].to_csv(f'{output_file_name}.csv', index=False)
+        if basopra_output[(bid, cid)]['simulation_outputs'] is not None:
+            egid = basopra_output[(bid, cid)]['simulation_inputs']['hh']['attributes']['egid']
+            conf_name = conf_mapping[cid]
+            output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{egid}_{conf_name}'
+            pickle_save(f'{output_file_name}.pkl', basopra_output[(bid, cid)]['simulation_outputs'])
+            basopra_output[(bid, cid)]['simulation_outputs'].to_csv(f'{output_file_name}.csv', index=False)
 
 async def basopra_loop():
     logger.info('Starting loop through simulations')
