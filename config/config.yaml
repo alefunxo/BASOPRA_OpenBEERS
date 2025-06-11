@@ -87,7 +87,7 @@ dict_design:
 Core:
   oldschool: False # Testint parameter used to switch between old parameter loading style and new one for comparison purposes
   multiprocessing: True 
-  basopra_processes: 8
+  basopra_processes: 10
 
   Optimizer:
     solver_verbose: False

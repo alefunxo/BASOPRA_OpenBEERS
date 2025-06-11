@@ -640,13 +640,14 @@ def run_basopra_simulation(big_data_object):
         for comb in Combs_todo_dicts:
             results.append(pooling2(comb))
     
+    results = [res[0].loc[:, ~res[0].columns.str.startswith("Bool_")] for res in results]
     basopra_results = {}
     for i in range(len(results)):
         building_id = Combs_todo_dicts[i]['name']
         conf_id = Combs_todo_dicts[i]['conf']
         basopra_results[(building_id, conf_id)] = {
             'simulation_inputs': Combs_todo_dicts[i],
-            'simulation_outputs': results[i][0],
+            'simulation_outputs': results[i],
         }
 
     return basopra_results
