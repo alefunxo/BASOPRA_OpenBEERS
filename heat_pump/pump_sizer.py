@@ -318,5 +318,37 @@ def calculate_heat_pump_size(
         building_data[building]['heat_pump']=heat_pump
 
     # save_obj(building_data,'Test_floor')#it is saving in Output/Test
+# Define a function to generate extrapolated heat pump data
+def cop_model(delta_T):
+    return 68.455 * delta_T ** -0.76 #from Arpagaus, Bless, Bertsch & Schiffmann. Wärmepumpen für die Industrie: Eine aktuelle Übersicht. 2019 
+# https://www.ost.ch/fileadmin/dateiliste/3_forschung_dienstleistung/institute/ies/projekte/projekte_tes/91_sccer-eip/arpagaus_et_al._2019_wp-tagung_burgdorf_-_waermepumpen_fuer_die_industrie_-_eine_aktuelle_uebersicht.pdf
 
+def generate_extrapolated_hp_data(hp_ratings, T_dists, T_outsides):
+    """
+    Generates extrapolated COP and electrical power input (P_el) data
+    for a range of heat pump nominal capacities based on the empirical COP model:
+    COP_H = 68.455 * ΔT^-0.76, where ΔT = T_dist - T_outside.
 
+    Parameters:
+        hp_ratings (list): List of nominal heat pump ratings in kW.
+        T_dists (list): List of distribution temperatures in °C.
+        T_outsides (list or array): List or array of outside temperatures in °C.
+
+    Returns:
+        pd.DataFrame: A DataFrame with columns [HP_rating, T_dist, T_outside, P_el, COP].
+    """
+    rows = []
+    for hp in hp_ratings:
+        for T_dist in T_dists:
+            for T_out in T_outsides:
+                delta_T = T_dist - T_out
+                cop = cop_model(delta_T)
+                P_el = hp / cop
+                rows.append({
+                    "HP_rating": hp,
+                    "T_dist": T_dist,
+                    "T_outside": T_out,
+                    "P_el": round(P_el, 2),
+                    "COP": round(cop, 2)
+                })
+    return pd.DataFrame(rows)
