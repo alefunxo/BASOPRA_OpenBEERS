@@ -21,6 +21,7 @@
 # Pandas, numpy, pyomo, pickle, math, sys, glob, time
 
 from utils.logger import logger
+from config.loader import config
 import pandas as pd
 import paper_classes as pc
 from pyomo.opt import SolverFactory, SolverStatus, TerminationCondition
@@ -36,6 +37,8 @@ import csv
 import os
 import post_proc as pp
 import threading
+
+core_config = config.Core
 
 def fn_timer(function):
     @wraps(function)
@@ -198,9 +201,10 @@ def Optimize(data_input, param):
             opt.options["threads"] = 1
             opt.options["mipgap"] = 0.001
         logger.debug("Solver initialized, starting solve for day index %s", i)
-        results = opt.solve(instance, tee=True)
+        results = opt.solve(instance, tee=core_config.Optimizer.solver_verbose)
         global_lock.release()
-        results.write(num=1)
+        if core_config.Optimizer.solver_results_write:
+            results.write(num=1)
 
         if (results.solver.status == SolverStatus.ok) and (results.solver.termination_condition == TerminationCondition.optimal):
             logger.debug("Optimal solution found for day index %s", i)

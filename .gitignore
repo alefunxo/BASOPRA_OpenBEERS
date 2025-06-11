@@ -2,3 +2,6 @@ __pycache__/
 *.csv
 Output/
 Core/temp/
+outputs_basopra/
+outputs_extraction/
+logs/

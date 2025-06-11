@@ -2407,3 +2407,1261 @@
 2025-06-10 18:09:58,926 - openbeers.default - INFO - Non-testing mode: aggregating results.
 2025-06-10 18:09:58,936 - openbeers.default - ERROR - Save Failed.
 2025-06-10 18:09:58,936 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:23:08,730 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 09:23:12,314 - openbeers.default - INFO - Entering main
+2025-06-11 09:23:12,315 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 09:23:12,315 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:23:15,458 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:23:15,459 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:23:15,459 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:23:15,459 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 09:23:15,470 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 09:23:31,083 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 09:23:34,307 - openbeers.default - INFO - Entering main
+2025-06-11 09:23:34,307 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 09:23:34,307 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:23:35,386 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:23:35,386 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:23:35,386 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:23:35,386 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 09:23:35,393 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 09:23:37,807 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:23:37,808 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:23:37,808 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:23:37,808 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:23:37,808 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:23:37,808 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:25:14,239 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 09:25:14,252 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 09:25:14,252 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 09:25:14,252 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 09:25:14,258 - openbeers.default - ERROR - Save Failed.
+2025-06-11 09:25:14,258 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:25:16,505 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:25:16,505 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:25:16,505 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:25:16,505 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:25:16,505 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:25:16,505 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:26:49,686 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 09:26:49,698 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 09:26:49,699 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 09:26:49,699 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 09:26:49,699 - openbeers.default - ERROR - Save Failed.
+2025-06-11 09:26:49,699 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:26:51,920 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:26:51,920 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:26:51,921 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:26:51,921 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:26:51,921 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:26:51,921 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:28:19,206 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 09:28:19,216 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 09:28:19,216 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 09:28:19,216 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 09:28:19,216 - openbeers.default - ERROR - Save Failed.
+2025-06-11 09:28:19,216 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:28:21,458 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:28:21,458 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:28:21,458 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:28:21,458 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:28:21,458 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:28:21,458 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:29:56,530 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 09:29:56,538 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 09:29:56,538 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 09:29:56,538 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 09:29:56,538 - openbeers.default - ERROR - Save Failed.
+2025-06-11 09:29:56,538 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:29:58,849 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:29:58,850 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:29:58,850 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:29:58,850 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:29:58,850 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:29:58,850 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:31:35,950 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 09:31:35,960 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 09:31:35,960 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 09:31:35,960 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 09:31:35,961 - openbeers.default - ERROR - Save Failed.
+2025-06-11 09:31:35,961 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:31:38,170 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:31:38,171 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:31:38,171 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:31:38,171 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:31:38,171 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:31:38,171 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:33:25,676 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 09:33:25,688 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 09:33:25,688 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 09:33:25,688 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 09:33:25,689 - openbeers.default - ERROR - Save Failed.
+2025-06-11 09:33:25,689 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:33:27,932 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:33:27,932 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:33:27,932 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:33:27,932 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:33:27,932 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:33:27,932 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:54:45,200 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 09:54:47,966 - openbeers.default - INFO - Entering main
+2025-06-11 09:54:47,966 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 09:54:47,966 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:54:48,763 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:54:48,763 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:54:48,763 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 09:54:48,763 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 09:54:48,768 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 09:54:50,884 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:54:50,884 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:54:50,884 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:54:50,884 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:54:50,884 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:54:50,884 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:56:14,771 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 09:56:14,780 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 09:56:14,780 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 09:56:14,780 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 09:56:14,784 - openbeers.default - ERROR - Save Failed.
+2025-06-11 09:56:14,784 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:56:16,823 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:56:16,823 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:56:16,823 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:56:16,823 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:56:16,823 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:56:16,823 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:57:40,882 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 09:57:40,890 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 09:57:40,890 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 09:57:40,890 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 09:57:40,891 - openbeers.default - ERROR - Save Failed.
+2025-06-11 09:57:40,891 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:57:43,033 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:57:43,034 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:57:43,034 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:57:43,034 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:57:43,034 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:57:43,034 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 09:59:05,724 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 09:59:05,731 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 09:59:05,731 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 09:59:05,731 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 09:59:05,732 - openbeers.default - ERROR - Save Failed.
+2025-06-11 09:59:05,732 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 09:59:08,053 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 09:59:08,053 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 09:59:08,053 - openbeers.default - INFO - App_comb stored.
+2025-06-11 09:59:08,053 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 09:59:08,053 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 09:59:08,054 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:00:42,491 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:00:42,498 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:00:42,498 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:00:42,498 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:00:42,500 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:00:42,500 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:00:44,966 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:00:44,966 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:00:44,966 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:00:44,966 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:00:44,966 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:00:44,966 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:02:14,338 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:02:14,347 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:02:14,347 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:02:14,347 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:02:14,348 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:02:14,348 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:02:16,345 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:02:16,345 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:02:16,345 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:02:16,345 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:02:16,345 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:02:16,346 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:03:43,162 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:03:43,168 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:03:43,168 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:03:43,168 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:03:43,169 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:03:43,169 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:03:45,186 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:03:45,186 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:03:45,186 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:03:45,186 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:03:45,186 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:03:45,186 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:05:10,551 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:05:10,560 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:05:10,561 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:05:10,561 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:05:10,561 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:05:10,561 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:05:12,611 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:05:12,611 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:05:12,611 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:05:12,611 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:05:12,611 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:05:12,611 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:06:42,765 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:06:42,772 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:06:42,772 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:06:42,772 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:06:42,773 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:06:42,773 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:06:45,057 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:06:45,057 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:06:45,057 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:06:45,057 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:06:45,057 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:06:45,057 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:08:23,173 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:08:23,184 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:08:23,184 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:08:23,184 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:08:23,184 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:08:23,184 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:08:25,364 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:08:25,364 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:08:25,364 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:08:25,364 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:08:25,364 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:08:25,364 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:09:57,633 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:09:57,641 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:09:57,641 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:09:57,642 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:09:57,642 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:09:57,642 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:39:43,982 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:39:47,016 - openbeers.default - INFO - Entering main
+2025-06-11 10:39:47,017 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 10:39:47,017 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:39:50,238 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:39:50,238 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:39:50,238 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:39:50,238 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 10:39:50,244 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 10:39:51,020 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:39:51,544 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:39:52,071 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:39:56,506 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:39:56,506 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:39:56,506 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:39:56,506 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:39:56,506 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:39:56,506 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:39:57,054 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:39:57,054 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:39:57,054 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:39:57,055 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:39:57,055 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:39:57,055 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:39:57,678 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:39:57,678 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:39:57,678 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:39:57,678 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:39:57,678 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:39:57,678 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:41:35,969 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:41:35,979 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:41:35,979 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:41:35,979 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:41:35,983 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:41:35,984 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:41:36,929 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:41:36,943 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:41:36,943 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:41:36,944 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:41:36,946 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:41:36,946 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:41:38,547 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:41:38,547 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:41:38,547 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:41:38,548 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:41:38,548 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:41:38,548 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:41:39,490 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:41:39,490 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:41:39,490 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:41:39,490 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:41:39,490 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:41:39,491 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:41:42,414 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:41:42,424 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:41:42,424 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:41:42,424 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:41:42,428 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:41:42,428 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:41:45,026 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:41:45,026 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:41:45,026 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:41:45,026 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:41:45,026 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:41:45,026 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:43:21,281 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:43:21,290 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:43:21,290 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:43:21,290 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:43:21,291 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:43:21,291 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:43:23,742 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:43:23,742 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:43:23,742 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:43:23,743 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:43:23,743 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:43:23,743 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:43:24,436 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:43:24,448 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:43:24,448 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:43:24,448 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:43:24,448 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:43:24,448 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:43:26,867 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:43:26,867 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:43:26,867 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:43:26,867 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:43:26,867 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:43:26,867 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:43:27,317 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:43:27,327 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:43:27,327 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:43:27,328 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:43:27,328 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:43:27,328 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:43:29,807 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:43:29,808 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:43:29,808 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:43:29,808 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:43:29,808 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:43:29,808 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:45:13,186 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:45:13,198 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:45:13,198 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:45:13,198 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:45:13,199 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:45:13,199 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:45:13,223 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:45:13,234 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:45:13,234 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:45:13,234 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:45:13,235 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:45:13,235 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:45:15,549 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:45:15,549 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:45:15,549 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:45:15,549 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:45:15,549 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:45:15,549 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:45:18,017 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:45:18,026 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:45:18,026 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:45:18,026 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:45:18,026 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:45:18,026 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:46:42,497 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:46:42,508 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:46:42,508 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:46:42,508 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:46:42,509 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:46:42,509 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:48:19,883 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:48:22,918 - openbeers.default - INFO - Entering main
+2025-06-11 10:48:22,918 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 10:48:22,918 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:48:23,896 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:48:23,896 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:48:23,896 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:48:23,896 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 10:48:23,901 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 10:48:24,614 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:48:25,581 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:48:26,067 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:48:30,004 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:48:30,004 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:48:30,004 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:48:30,005 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:48:30,005 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:48:30,005 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:48:31,185 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:48:31,185 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:48:31,185 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:48:31,186 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:48:31,186 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:48:31,186 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:48:31,591 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:48:31,591 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:48:31,591 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:48:31,591 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:48:31,591 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:48:31,591 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:49:12,906 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:49:15,958 - openbeers.default - INFO - Entering main
+2025-06-11 10:49:15,958 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 10:49:15,959 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:49:17,132 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:49:17,132 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:49:17,133 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:49:17,133 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 10:49:17,138 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 10:49:17,862 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:49:18,346 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:49:18,829 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:49:19,309 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:49:19,880 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:49:20,373 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:49:24,120 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:49:24,120 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:49:24,120 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:49:24,121 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:49:24,121 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:49:24,121 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:49:24,924 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:49:24,924 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:49:24,924 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:49:24,925 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:49:24,925 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:49:24,925 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:49:25,610 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:49:25,610 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:49:25,610 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:49:25,611 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:49:25,611 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:49:25,611 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:49:26,192 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:49:26,192 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:49:26,192 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:49:26,193 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:49:26,193 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:49:26,193 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:49:26,917 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:49:26,917 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:49:26,917 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:49:26,917 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:49:26,917 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:49:26,917 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:49:27,594 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:49:27,594 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:49:27,594 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:49:27,594 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:49:27,595 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:49:27,595 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:51:37,066 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:51:37,081 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:51:37,082 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:51:37,082 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:51:37,086 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:51:37,086 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:51:37,572 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:51:37,588 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:51:37,589 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:51:37,589 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:51:37,594 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:51:37,594 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:51:39,200 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:51:39,218 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:51:39,218 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:51:39,218 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:51:39,223 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:51:39,223 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:51:40,351 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:51:40,351 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:51:40,351 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:51:40,351 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:51:40,352 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:51:40,352 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:51:40,833 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:51:40,833 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:51:40,833 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:51:40,833 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:51:40,833 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:51:40,833 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:51:42,445 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:51:42,460 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:51:42,460 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:51:42,460 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:51:42,463 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:51:42,464 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:51:42,530 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:51:42,530 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:51:42,530 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:51:42,530 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:51:42,531 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:51:42,531 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:51:44,140 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:51:44,159 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:51:44,159 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:51:44,159 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:51:44,164 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:51:44,164 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:51:45,605 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:51:45,605 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:51:45,605 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:51:45,605 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:51:45,605 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:51:45,605 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:51:45,622 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:51:45,635 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:51:45,636 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:51:45,636 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:51:45,640 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:51:45,640 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:53:37,539 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:53:37,548 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:53:37,548 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:53:37,548 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:53:37,549 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:53:37,549 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:53:39,321 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:53:39,341 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:53:39,341 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:53:39,341 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:53:39,342 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:53:39,342 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:53:40,239 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:53:40,264 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:53:40,265 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:53:40,265 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:53:40,267 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:53:40,268 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:53:45,444 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:53:45,450 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:53:45,451 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:53:45,451 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:53:45,453 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:53:45,453 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:54:25,803 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:54:29,374 - openbeers.default - INFO - Entering main
+2025-06-11 10:54:29,374 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 10:54:29,374 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:54:30,156 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:54:30,157 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:54:30,157 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 10:54:30,157 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 10:54:30,170 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 10:54:30,974 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:54:31,453 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:54:32,419 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:54:32,931 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:54:33,460 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:54:34,038 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:54:34,513 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:54:35,067 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 10:54:38,275 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:54:38,276 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:54:38,276 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:54:38,276 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:54:38,276 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:54:38,276 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:54:38,774 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:54:38,774 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:54:38,774 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:54:38,775 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:54:38,775 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:54:38,775 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:54:40,366 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:54:40,366 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:54:40,366 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:54:40,366 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:54:40,366 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:54:40,366 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:54:41,039 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:54:41,039 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:54:41,039 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:54:41,040 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:54:41,040 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:54:41,040 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:54:42,084 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:54:42,085 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:54:42,085 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:54:42,085 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:54:42,085 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:54:42,085 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:54:43,200 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:54:43,200 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:54:43,200 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:54:43,200 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:54:43,200 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:54:43,200 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:54:43,707 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:54:43,708 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:54:43,708 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:54:43,708 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:54:43,708 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:54:43,708 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:54:44,673 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:54:44,673 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:54:44,674 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:54:44,674 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:54:44,674 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:54:44,675 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:57:45,751 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:57:45,773 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:57:45,773 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:57:45,773 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:57:45,784 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:57:45,784 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:57:46,256 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:57:46,282 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:57:46,282 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:57:46,282 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:57:46,291 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:57:46,292 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:57:48,279 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:57:48,304 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:57:48,305 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:57:48,305 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:57:48,310 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:57:48,310 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:57:49,138 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:57:49,156 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:57:49,156 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:57:49,156 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:57:49,163 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:57:49,164 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:57:49,889 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:57:49,889 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:57:49,889 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:57:49,889 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:57:49,889 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:57:49,889 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:57:50,339 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 10:57:50,340 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 10:57:50,340 - openbeers.default - INFO - App_comb stored.
+2025-06-11 10:57:50,340 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 10:57:50,340 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 10:57:50,340 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 10:57:51,149 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:57:51,165 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:57:51,166 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:57:51,166 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:57:51,169 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:57:51,170 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:57:55,420 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:57:55,443 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:57:55,443 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:57:55,443 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:57:55,449 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:57:55,449 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:57:56,254 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:57:56,265 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:57:56,265 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:57:56,265 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:57:56,268 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:57:56,268 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:57:56,803 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:57:56,818 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:57:56,819 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:57:56,819 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:57:56,823 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:57:56,823 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:59:36,853 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:59:36,864 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:59:36,864 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:59:36,865 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:59:36,865 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:59:36,865 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 10:59:38,662 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 10:59:38,676 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 10:59:38,676 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 10:59:38,676 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 10:59:38,677 - openbeers.default - ERROR - Save Failed.
+2025-06-11 10:59:38,677 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:00:21,654 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:00:25,100 - openbeers.default - INFO - Entering main
+2025-06-11 11:00:25,100 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 11:00:25,100 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:00:26,180 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:00:26,180 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:00:26,180 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:00:26,180 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 11:00:26,186 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 11:00:26,984 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:00:27,499 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:00:28,002 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:00:28,488 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:00:28,979 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:00:30,014 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:00:30,606 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:00:31,185 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:00:34,344 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:00:34,344 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:00:34,344 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:00:34,344 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:00:34,345 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:00:34,345 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:00:35,032 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:00:35,032 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:00:35,032 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:00:35,032 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:00:35,032 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:00:35,032 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:00:35,777 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:00:35,777 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:00:35,777 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:00:35,778 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:00:35,778 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:00:35,778 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:00:36,764 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:00:36,765 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:00:36,765 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:00:36,765 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:00:36,766 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:00:36,766 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:00:37,354 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:00:37,354 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:00:37,354 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:00:37,355 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:00:37,355 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:00:37,355 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:00:38,925 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:00:38,925 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:00:38,925 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:00:38,926 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:00:38,926 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:00:38,926 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:00:39,803 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:00:39,803 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:00:39,804 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:00:39,804 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:00:39,804 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:00:39,804 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:00:40,426 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:00:40,426 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:00:40,426 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:00:40,427 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:00:40,427 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:00:40,427 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:03:44,264 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:03:44,294 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:03:44,294 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:03:44,294 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:03:44,302 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:03:44,303 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:03:46,236 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:03:46,258 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:03:46,259 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:03:46,259 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:03:46,268 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:03:46,269 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:03:49,165 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:03:49,166 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:03:49,166 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:03:49,166 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:03:49,166 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:03:49,166 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:03:50,759 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:03:50,784 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:03:50,785 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:03:50,786 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:03:50,794 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:03:50,794 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:03:50,814 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:03:50,814 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:03:50,814 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:03:50,815 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:03:50,815 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:03:50,815 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:03:51,455 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:03:51,468 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:03:51,468 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:03:51,469 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:03:51,474 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:03:51,475 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:03:52,129 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:03:52,146 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:03:52,147 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:03:52,147 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:03:52,151 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:03:52,151 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:03:53,933 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:03:53,956 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:03:53,957 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:03:53,957 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:03:53,964 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:03:53,964 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:03:54,514 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:03:54,528 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:03:54,529 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:03:54,529 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:03:54,532 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:03:54,532 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:03:55,950 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:03:55,966 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:03:55,966 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:03:55,966 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:03:55,974 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:03:55,974 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:05:39,140 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:05:39,156 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:05:39,156 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:05:39,156 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:05:39,157 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:05:39,157 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:05:41,947 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:05:41,962 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:05:41,962 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:05:41,962 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:05:41,963 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:05:41,963 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:05:42,043 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only Battery.pkl.
+2025-06-11 11:05:42,050 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only Battery.pkl.
+2025-06-11 11:05:42,050 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only Battery.pkl.
+2025-06-11 11:05:42,055 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only Battery.pkl.
+2025-06-11 11:05:42,056 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only HP.pkl.
+2025-06-11 11:05:42,063 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only HP.pkl.
+2025-06-11 11:05:42,064 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only Battery.pkl.
+2025-06-11 11:05:42,069 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only Battery.pkl.
+2025-06-11 11:05:42,070 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only Battery.pkl.
+2025-06-11 11:05:42,077 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only Battery.pkl.
+2025-06-11 11:11:47,075 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:11:50,288 - openbeers.default - INFO - Entering main
+2025-06-11 11:11:50,289 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 11:11:50,289 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:11:53,504 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:11:53,504 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:11:53,504 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:11:53,504 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 11:11:53,515 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 11:11:54,371 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:11:54,896 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:11:55,431 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:11:56,010 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:11:56,536 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:11:57,096 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:11:57,637 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:11:58,809 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:12:01,260 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:12:01,260 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:12:01,261 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:12:01,261 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:12:01,261 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:12:01,261 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:12:02,134 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:12:02,135 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:12:02,135 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:12:02,135 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:12:02,135 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:12:02,135 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:12:02,773 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:12:02,773 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:12:02,773 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:12:02,774 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:12:02,774 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:12:02,774 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:12:03,824 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:12:03,824 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:12:03,824 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:12:03,824 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:12:03,824 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:12:03,824 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:12:04,889 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:12:04,889 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:12:04,889 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:12:04,890 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:12:04,890 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:12:04,890 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:12:05,736 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:12:05,736 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:12:05,736 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:12:05,736 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:12:05,737 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:12:05,737 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:12:06,487 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:12:06,487 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:12:06,487 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:12:06,488 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:12:06,488 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:12:06,488 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:12:08,269 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:12:08,270 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:12:08,270 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:12:08,270 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:12:08,270 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:12:08,270 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:14:57,558 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:14:57,574 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:14:57,575 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:14:57,575 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:14:57,579 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:14:57,580 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:14:58,316 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:14:58,334 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:14:58,334 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:14:58,334 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:14:58,339 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:14:58,339 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:15:00,666 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:15:00,687 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:15:00,687 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:15:00,687 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:15:00,697 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:15:00,698 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:15:01,783 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:15:01,807 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:15:01,808 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:15:01,808 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:15:01,812 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:15:01,813 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:15:01,922 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:15:01,923 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:15:01,923 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:15:01,923 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:15:01,923 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:15:01,923 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:15:02,468 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:15:02,468 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:15:02,468 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:15:02,468 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:15:02,468 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:15:02,468 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:15:04,114 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:15:04,138 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:15:04,138 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:15:04,138 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:15:04,146 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:15:04,146 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:15:04,798 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:15:04,815 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:15:04,815 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:15:04,815 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:15:04,819 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:15:04,820 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:15:05,553 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:15:05,571 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:15:05,571 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:15:05,572 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:15:05,579 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:15:05,579 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:15:07,126 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:15:07,142 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:15:07,143 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:15:07,143 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:15:07,149 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:15:07,149 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:16:42,219 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:16:42,231 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:16:42,231 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:16:42,231 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:16:42,231 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:16:42,231 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:16:45,103 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:16:45,110 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:16:45,110 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:16:45,110 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:16:45,111 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:16:45,111 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:17:57,042 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:03,671 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:06,800 - openbeers.default - INFO - Entering main
+2025-06-11 11:18:06,801 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 11:18:06,801 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:18:07,599 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:18:07,599 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:18:07,599 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:18:07,599 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 11:18:07,608 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 11:18:08,389 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:09,380 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:09,870 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:10,371 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:10,926 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:11,395 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:11,908 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:12,490 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:18:15,380 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:18:15,380 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:18:15,380 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:18:15,380 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:18:15,380 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:18:15,381 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:18:17,004 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:18:17,004 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:18:17,004 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:18:17,005 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:18:17,005 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:18:17,005 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:18:17,690 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:18:17,691 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:18:17,691 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:18:17,692 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:18:17,692 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:18:17,693 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:18:18,411 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:18:18,411 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:18:18,411 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:18:18,411 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:18:18,411 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:18:18,411 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:18:19,450 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:18:19,450 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:18:19,450 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:18:19,451 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:18:19,451 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:18:19,451 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:18:20,201 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:18:20,202 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:18:20,202 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:18:20,202 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:18:20,202 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:18:20,208 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:18:20,703 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:18:20,704 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:18:20,704 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:18:20,704 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:18:20,705 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:18:20,705 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:18:21,234 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:18:21,235 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:18:21,235 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:18:21,235 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:18:21,235 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:18:21,235 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:21:15,135 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:21:15,157 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:21:15,158 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:21:15,158 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:21:15,165 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:21:15,166 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:21:16,661 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:21:16,689 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:21:16,689 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:21:16,689 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:21:16,700 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:21:16,701 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:21:19,503 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:21:19,504 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:21:19,504 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:21:19,504 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:21:19,504 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:21:19,504 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:21:19,943 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:21:19,968 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:21:19,969 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:21:19,969 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:21:19,979 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:21:19,979 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:21:21,158 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:21:21,158 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:21:21,159 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:21:21,159 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:21:21,159 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:21:21,159 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:21:21,339 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:21:21,365 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:21:21,365 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:21:21,366 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:21:21,379 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:21:21,379 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:21:22,057 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:21:22,075 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:21:22,076 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:21:22,076 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:21:22,084 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:21:22,084 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:21:23,630 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:21:23,646 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:21:23,646 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:21:23,646 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:21:23,650 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:21:23,650 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:21:23,798 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:21:23,820 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:21:23,820 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:21:23,821 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:21:23,827 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:21:23,827 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:21:25,060 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:21:25,072 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:21:25,073 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:21:25,074 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:21:25,078 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:21:25,078 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:23:07,162 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:23:07,173 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:23:07,174 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:23:07,174 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:23:07,174 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:23:07,174 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:23:08,269 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:23:08,282 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:23:08,282 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:23:08,283 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:23:08,283 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:23:08,283 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:23:08,355 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only Battery.pkl.
+2025-06-11 11:23:08,364 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only Battery.pkl.
+2025-06-11 11:23:08,364 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only HP.pkl.
+2025-06-11 11:23:08,376 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only HP.pkl.
+2025-06-11 11:23:08,376 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only Battery.pkl.
+2025-06-11 11:23:08,381 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only Battery.pkl.
+2025-06-11 11:23:08,381 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only HP.pkl.
+2025-06-11 11:23:08,390 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only HP.pkl.
+2025-06-11 11:23:08,390 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only Battery.pkl.
+2025-06-11 11:23:08,395 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only Battery.pkl.
+2025-06-11 11:23:08,395 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only Battery.pkl.
+2025-06-11 11:23:08,403 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only Battery.pkl.
+2025-06-11 11:23:08,403 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only Battery.pkl.
+2025-06-11 11:23:08,408 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only Battery.pkl.
+2025-06-11 11:23:08,408 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only HP.pkl.
+2025-06-11 11:23:08,413 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only HP.pkl.
+2025-06-11 11:23:08,413 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only HP.pkl.
+2025-06-11 11:23:08,420 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only HP.pkl.
+2025-06-11 11:23:08,420 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only HP.pkl.
+2025-06-11 11:23:08,428 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only HP.pkl.
+2025-06-11 11:25:29,252 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:25:32,495 - openbeers.default - INFO - Entering main
+2025-06-11 11:25:32,495 - openbeers.default - INFO - Entering single simulation mode.
+2025-06-11 11:25:32,495 - openbeers.default - INFO - From config.yaml, simulation to process is: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:25:33,265 - openbeers.default - INFO - Processing val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:25:33,265 - openbeers.default - INFO - Extracting all data from simulation: 3559 - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:25:33,265 - openbeers.default - INFO - Simulation extraction file already exists. val_de_bagnes_41_climate_contemporary_pv_roof_2025
+2025-06-11 11:25:33,265 - openbeers.default - INFO - Loading file: 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' as python object.
+2025-06-11 11:25:33,273 - openbeers.default - INFO - File 'outputs_extraction//val_de_bagnes_41_climate_contemporary_pv_roof_2025.pkl' successfully loaded as <class 'dict'> type object.
+2025-06-11 11:25:34,066 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:25:35,061 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:25:35,587 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:25:36,141 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:25:36,632 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:25:37,143 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:25:37,719 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:25:38,224 - openbeers.default - INFO - Logger 'openbeers.default' initialized
+2025-06-11 11:25:42,033 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:25:42,036 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:25:42,042 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:25:42,043 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:25:42,043 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:25:42,043 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:25:43,704 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:25:43,705 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:25:43,705 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:25:43,705 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:25:43,706 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:25:43,706 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:25:44,216 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:25:44,217 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:25:44,217 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:25:44,217 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:25:44,218 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:25:44,218 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:25:44,966 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:25:44,966 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:25:44,967 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:25:44,967 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:25:44,967 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:25:44,967 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:25:45,801 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:25:45,802 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:25:45,802 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:25:45,802 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:25:45,803 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:25:45,803 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:25:46,335 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:25:46,335 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:25:46,335 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:25:46,336 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:25:46,336 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:25:46,336 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:25:47,352 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:25:47,352 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:25:47,352 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:25:47,352 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:25:47,353 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:25:47,353 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:25:48,029 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:25:48,030 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:25:48,030 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:25:48,030 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:25:48,030 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:25:48,030 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:28:42,088 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:28:42,109 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:28:42,109 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:28:42,109 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:28:42,121 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:28:42,121 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:28:44,225 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:28:44,247 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:28:44,248 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:28:44,248 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:28:44,259 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:28:44,259 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:28:45,288 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:28:45,308 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:28:45,308 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:28:45,309 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:28:45,316 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:28:45,316 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:28:46,347 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:28:46,347 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:28:46,347 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:28:46,347 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:28:46,347 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:28:46,348 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:28:46,858 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:28:46,890 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:28:46,891 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:28:46,891 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:28:46,900 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:28:46,900 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:28:47,492 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:28:47,514 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:28:47,514 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:28:47,514 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:28:47,518 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:28:47,519 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:28:48,295 - openbeers.default - INFO - Starting single_opt2 process.
+2025-06-11 11:28:48,295 - openbeers.default - INFO - Begin single_opt2: Starting optimization sequence.
+2025-06-11 11:28:48,295 - openbeers.default - INFO - App_comb stored.
+2025-06-11 11:28:48,295 - openbeers.default - INFO - Starting optimization process.
+2025-06-11 11:28:48,295 - openbeers.default - INFO - Optimizing for 1 day(s) with a window of 24 timesteps.
+2025-06-11 11:28:48,295 - openbeers.default - INFO - %%%%%%%%% Optimizing %%%%%%%%%%%%%%%
+2025-06-11 11:28:49,506 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:28:49,519 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:28:49,519 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:28:49,519 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:28:49,525 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:28:49,526 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:28:50,292 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:28:50,309 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:28:50,310 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:28:50,310 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:28:50,314 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:28:50,314 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:28:51,556 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:28:51,569 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:28:51,570 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:28:51,570 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:28:51,574 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:28:51,574 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:30:30,835 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:30:30,842 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:30:30,843 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:30:30,843 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:30:30,843 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:30:30,843 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:30:32,288 - openbeers.default - INFO - No App2 nor App3 selected.
+2025-06-11 11:30:32,297 - openbeers.default - INFO - Optimization process completed.
+2025-06-11 11:30:32,297 - openbeers.default - INFO - Optimization complete; proceeding with saving results.
+2025-06-11 11:30:32,298 - openbeers.default - INFO - Non-testing mode: aggregating results.
+2025-06-11 11:30:32,299 - openbeers.default - ERROR - Save Failed.
+2025-06-11 11:30:32,299 - openbeers.default - INFO - single_opt2 process completed.
+2025-06-11 11:30:32,378 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only HP.pkl.
+2025-06-11 11:30:32,393 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only HP.pkl.
+2025-06-11 11:30:32,742 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only Battery.pkl.
+2025-06-11 11:30:32,748 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only Battery.pkl.
+2025-06-11 11:30:33,092 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only Battery.pkl.
+2025-06-11 11:30:33,096 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_190183183_only Battery.pkl.
+2025-06-11 11:30:33,440 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only HP.pkl.
+2025-06-11 11:30:33,444 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only HP.pkl.
+2025-06-11 11:30:33,794 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only HP.pkl.
+2025-06-11 11:30:33,798 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only HP.pkl.
+2025-06-11 11:30:34,142 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only Battery.pkl.
+2025-06-11 11:30:34,146 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902142_only Battery.pkl.
+2025-06-11 11:30:34,514 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only Battery.pkl.
+2025-06-11 11:30:34,521 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902139_only Battery.pkl.
+2025-06-11 11:30:34,885 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only HP.pkl.
+2025-06-11 11:30:34,891 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only HP.pkl.
+2025-06-11 11:30:35,235 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only Battery.pkl.
+2025-06-11 11:30:35,243 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902141_only Battery.pkl.
+2025-06-11 11:30:35,620 - openbeers.default - INFO - Saving <class 'pandas.core.frame.DataFrame'> type object to: outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only HP.pkl.
+2025-06-11 11:30:35,627 - openbeers.default - INFO - File successfully saved at outputs_basopra/val_de_bagnes_41_climate_contemporary_pv_roof_2025/df_902138_only HP.pkl.

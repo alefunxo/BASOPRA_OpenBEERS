@@ -86,8 +86,12 @@ dict_design:
 
 Core:
   oldschool: False # Testint parameter used to switch between old parameter loading style and new one for comparison purposes
-  multiprocessing: False
-  basopra_processes: 1
+  multiprocessing: True 
+  basopra_processes: 8
+
+  Optimizer:
+    solver_verbose: False
+    solver_results_write: False
 
   basopra_run_combinations:
     Capacity: [7]
@@ -126,6 +130,16 @@ Core:
     '1110': 6
     '1111': 7
   
+  conf_mapping:
+    0: 'only HP'
+    1: 'HP+DHW'
+    2: 'HP+SH'
+    3: 'HP+SH+DHW'
+    4: 'only Battery'
+    5: 'HP+DHW+BATT'
+    6: 'HP+SH+BATT'
+    7: 'HP+SH+DHW+BATT'
+  
   basopra_fixed_parameters:
     App_comb: 0
     Tech: 'NMC'
@@ -142,7 +156,7 @@ Core:
     profile_row_number: 99
   
   param_load_fixed_parameters:
-    aging: True
+    aging: False
     Curtailment: 0
     Inverter_efficiency: 0.95
     Converter_efficiency_HP: 0.98

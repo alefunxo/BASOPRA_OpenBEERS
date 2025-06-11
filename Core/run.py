@@ -20,18 +20,15 @@ async def run_pipeline(simulation: Simulation) -> dict:
     api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
 
     async with api_wrapper as api:
-        # sim = await api.get_simulation(simulation_name)
         buildings = await api.get_buildings(simulation.zone_id)
         attr_types = await api.get_attribute_types(config['needed_attributes'])
         ser_types = await api.get_series_types(config['needed_series'])
 
+        # Data retrieval through Openbeers API
         api_attributes = {}
         api_series = {}
         for b in buildings:
             attrs = await api.get_attributes(b.object_id)
-            for at in attrs:
-                if at.attribute_type_id == 27:
-                    print(at)
             api_attributes[b.id] = {
                 t.name: next((
                     getattr(a, f"value_{t_}") 
@@ -40,11 +37,11 @@ async def run_pipeline(simulation: Simulation) -> dict:
                 ),None)
                 for t in attr_types for a in attrs if a.attribute_type_id == t.id
             }
-            s = await api.get_series(b.object_id, simulation.id)
+            series = await api.get_series(b.object_id, simulation.id)
             api_series[b.id] = {
                 t.name: next(
                     (
-                        pt.data for pt in s if pt.time_series_type_id == t.id
+                        pt.data for pt in series if pt.time_series_type_id == t.id
                     ), []) for t in ser_types
             }
             api_series[b.id]['Qs'] = [ val / 1000 for val in api_series[b.id]['Qs']]
@@ -52,6 +49,7 @@ async def run_pipeline(simulation: Simulation) -> dict:
     
         climate = await api.get_climate(simulation.climate_id)
 
+        # Data retrieval through web server directory
         wap_address = config['openbeers_address'] + '/simulations/' + simulation.name + '/'
         files = list_files_in_directory(wap_address, verify=False)
         for f in files:
@@ -67,6 +65,7 @@ async def run_pipeline(simulation: Simulation) -> dict:
 
         cleanup(config['dest_folder'])
 
+        # Combining data from different sources
         result = build_basopra_input(api_attributes, api_series, xml_attributes, xml_series, climate_df)
         return result
 
@@ -101,9 +100,13 @@ async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None
     logger.info(f"Processing {sim.name}")
     extraction = await extract_simulation_data(sim, pricer)
     basopra_output = basopra_optimization(extraction)
-    for bid, b_data in extraction.items():
-        output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{b_data['attributes']['name']}_dummy.pkl'
-        pickle_save(output_file_name, basopra_output[bid])
+    conf_mapping = config.Core.conf_mapping
+    for bid, cid in basopra_output.keys():
+        egid = basopra_output[(bid, cid)]['simulation_inputs']['hh']['attributes']['egid']
+        conf_name = conf_mapping[cid]
+        output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{egid}_{conf_name}'
+        pickle_save(f'{output_file_name}.pkl', basopra_output[(bid, cid)]['simulation_outputs'])
+        basopra_output[(bid, cid)]['simulation_outputs'].to_csv(f'{output_file_name}.csv', index=False)
 
 async def basopra_loop():
     logger.info('Starting loop through simulations')

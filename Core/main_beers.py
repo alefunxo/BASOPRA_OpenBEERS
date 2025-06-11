@@ -559,7 +559,7 @@ def pooling2(combinations):
         except Exception as e:
             #print(f"Unexpected error: {e}")
             raise
-        return
+        return df, aux_dict
     except Exception:
          traceback.print_exc()
          raise
@@ -630,14 +630,26 @@ def run_basopra_simulation(big_data_object):
         for row in Combs_todo.to_dict(orient='records')
     ]
 
+    results = []
     if core_config.multiprocessing:
         mp.freeze_support()
         mp.set_start_method("spawn")
         with mp.Pool(processes=core_config.basopra_processes) as pool:
-            pool.map(pooling2, Combs_todo_dicts)
+            results = pool.map(pooling2, Combs_todo_dicts)
     else:
         for comb in Combs_todo_dicts:
-            pooling2(comb)
+            results.append(pooling2(comb))
+    
+    basopra_results = {}
+    for i in range(len(results)):
+        building_id = Combs_todo_dicts[i]['name']
+        conf_id = Combs_todo_dicts[i]['conf']
+        basopra_results[(building_id, conf_id)] = {
+            'simulation_inputs': Combs_todo_dicts[i],
+            'simulation_outputs': results[i][0],
+        }
+
+    return basopra_results
     
 
 @fn_timer
