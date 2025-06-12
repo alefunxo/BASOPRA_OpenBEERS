@@ -101,8 +101,7 @@ class ElectricityPricer:
     def get_electricity_price(self, municipality:str, price_category:str)->float:
         operator = self.get_municipality_provider(municipality)
         operator_entries = self.tarifs_listings[(self.tarifs_listings[' operatorLabel'] == operator) & (self.tarifs_listings[' category'] == price_category)]
-        operator_entries.sort_values(by=' total (cts./kWh)')
-        return float(operator_entries.iloc[1][' total (cts./kWh)'])
+        return float(operator_entries[' total (cts./kWh)'].mean())
 
 if __name__ == '__main__':
     pricer = ElectricityPricer()
