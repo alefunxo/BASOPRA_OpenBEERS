@@ -46,6 +46,7 @@ import logging
 
 from config.loader import config
 from Core.Core import single_opt2
+from utils.multiprocessing_utils import run_parallel
 
 core_config = config['Core']
 # INPUT_PATH = "../Input/"
@@ -626,27 +627,29 @@ def run_basopra_simulation(big_data_object):
 
     static_cfg = core_config['basopra_fixed_parameters']
     Combs_todo_dicts = [
-        {**row, **static_cfg}
+        {'combinations':{**row, **static_cfg}}
         for row in Combs_todo.to_dict(orient='records')
     ]
 
-    results = []
-    if core_config.multiprocessing:
-        mp.freeze_support()
-        mp.set_start_method("spawn")
-        with mp.Pool(processes=core_config.basopra_processes) as pool:
-            results = pool.map(pooling2, Combs_todo_dicts)
-    else:
-        for comb in Combs_todo_dicts:
-            results.append(pooling2(comb))
-    
+    results = run_parallel(
+        pooling2,
+        Combs_todo_dicts,
+        core_config.multiprocessing,
+        processes=core_config.basopra_processes,
+        mode='kwargs',
+    )
+    results = [
+        res[0].loc[:, ~res[0].columns.str.startswith("Bool_")] 
+        if res[0] is not None else None
+        for res in results
+    ]
     basopra_results = {}
     for i in range(len(results)):
-        building_id = Combs_todo_dicts[i]['name']
-        conf_id = Combs_todo_dicts[i]['conf']
+        building_id = Combs_todo_dicts[i]['combinations']['name']
+        conf_id = Combs_todo_dicts[i]['combinations']['conf']
         basopra_results[(building_id, conf_id)] = {
-            'simulation_inputs': Combs_todo_dicts[i],
-            'simulation_outputs': results[i][0],
+            'simulation_inputs': Combs_todo_dicts[i]['combinations'],
+            'simulation_outputs': results[i],
         }
 
     return basopra_results
