@@ -66,7 +66,7 @@ async def run_pipeline(simulation: Simulation) -> dict:
         cleanup(config['dest_folder'])
 
         # Combining data from different sources
-        result = build_basopra_input(api_attributes, api_series, xml_attributes, xml_series, climate_df)
+        result = build_basopra_input(simulation.name, api_attributes, api_series, xml_attributes, xml_series, climate_df)
         return result
 
 async def extract_simulation_data(

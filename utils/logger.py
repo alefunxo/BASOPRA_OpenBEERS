@@ -15,9 +15,18 @@ def _setup_logger(name: str) -> logging.Logger:
     logging.config.dictConfig(log_config)
 
     logger = logging.getLogger(name)
-    logger.info(f"Logger '{name}' initialized")
+    if not logger.handlers or not logger.hasHandlers():
+        logger.info(f"Logger '{name}' initialized")
     return logger 
 
-logger = _setup_logger('openbeers.default')
-data_logger = _setup_logger('openbeers.data')
+_main_logger = None
+_data_logger = None
+
+if _main_logger is None:
+    _main_logger = _setup_logger('openbeers.default')
+if _data_logger is None:
+    _data_logger = _setup_logger('openbeers.data')
+
+logger = _main_logger
+data_logger = _data_logger
 

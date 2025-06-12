@@ -5,7 +5,8 @@ input_dir: Input/
 output_dir: Output/
 
 loop_mode: True
-simulation_name: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+# simulation_name: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+simulation_name: val_de_bagnes_201_climate_rcp85_pv_none_2040
 simulation_extraction_dir: outputs_extraction/
 basopra_output_dir: outputs_basopra/
 municipalities_file: municipalities-data-2025.csv
@@ -77,7 +78,7 @@ logging:
 
 heat_pump:
   multiprocessing: True
-  max_processes: 0 # value of null or 0 will use max possible processes. Negative value will use max processes - value
+  max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
   dict_design:
     T_d_supply_floor: 35
@@ -93,8 +94,8 @@ heat_pump:
 
 Core:
   oldschool: False # Testint parameter used to switch between old parameter loading style and new one for comparison purposes
-  multiprocessing: True 
-  basopra_processes: 0 # value of null or 0 will use max possible processes. Negative value will use max processes - value
+  multiprocessing: True
+  basopra_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
   Optimizer:
     solver_verbose: False
