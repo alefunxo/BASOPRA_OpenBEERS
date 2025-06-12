@@ -115,11 +115,51 @@ import pyomo.environ as en
 from pyomo.opt import SolverFactory
 import paper_classes as pp
 import LP_EV as LP
-from Core import Get_output
+#from Core import Get_output
 import matplotlib.pyplot as plt
 import pandas as pd
+from pyomo.core import Var
 
-
+import threading
+import numpy as np
+import os
+import csv
+def Get_output(instance):
+    '''
+    Gets the model output and transforms it into a pandas dataframe with the desired names.
+    Parameters
+    ----------
+    instance : instance of pyomo
+    Returns
+    -------
+    df : DataFrame
+    P_max_ : vector of daily maximum power
+    '''
+    #logger.debug("Entering Get_output function.")
+    # to write in a csv goes faster than actualizing a df
+    global_lock = threading.Lock()
+    while global_lock.locked():
+        continue
+    global_lock.acquire()
+    np.random.seed()
+    filename = 'out' + str(np.random.randint(1, 10, 10))[1:-1].replace(" ", "") + '.csv'
+    #logger.debug("Temporary output filename: %s", filename)
+    with open(filename, 'a') as f:
+        writer = csv.writer(f, delimiter=';')
+        for v in instance.component_objects(Var, active=True):
+            varobject = getattr(instance, str(v))
+            for index in varobject:
+                if str(v) == 'P_max_day':
+                    P_max_ = (v[index].value)
+                else:
+                    writer.writerow([index, varobject[index].value, v])
+    df = pd.read_csv(filename, sep=';', names=['val', 'var'])
+    os.remove(filename)
+    global_lock.release()
+    df = df.pivot_table(values='val', columns='var', index=df.index)
+    df = df.drop(-1)
+    #logger.debug("Output dataframe and P_max retrieved successfully.")
+    return [df, P_max_]
 # Create instances with minimal values
 batt = pp.Battery_tech(Capacity=10,Technology='NMC')
 EV_Batt= pp.Battery_tech(Capacity=75,Technology='NMC')
@@ -194,7 +234,8 @@ Data = {
     'public_charging_price':0.5,
     'EV_minSOC':0.5,
 }
-
+print(EV_Batt.P_max_dis)
+print(EV_Batt.P_max_char)
 
 # Import the Concrete_model function from your script.
 # It is assumed that the provided script with Concrete_model and all constraints is in scope.
