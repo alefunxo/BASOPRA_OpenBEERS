@@ -12,7 +12,7 @@ from openbeers_api.assembler import build_basopra_input
 from openbeers.models import Simulation
 from elec_pricer.pricer import ElectricityPricer
 from heat_pump.pump_sizer import calculate_heat_pump_size
-from utils.utils import pickle_save, pickle_load
+from utils.utils import generate_aggregated_zone_data, pickle_save, pickle_load
 from Core.main_beers import run_basopra_simulation
 
 
@@ -99,7 +99,7 @@ async def extract_simulation_data(
 def input_aggregator(extraction: Dict[str, Any])-> Dict[str, Any]:
     basopra_input = {}
     if config.building_aggregation:
-        pass
+        basopra_input['0'] = generate_aggregated_zone_data(extraction)
 
     if config.building_separation:
         for key, value in extraction.items():
