@@ -4,16 +4,16 @@ dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
 
-loop_mode: True
-# simulation_name: val_de_bagnes_41_climate_contemporary_pv_roof_2025
-simulation_name: val_de_bagnes_201_climate_rcp85_pv_none_2040
+loop_mode: False
+simulation_name: val_de_bagnes_41_climate_contemporary_pv_roof_2025
+# simulation_name: val_de_bagnes_201_climate_rcp85_pv_none_2040
 simulation_extraction_dir: outputs_extraction/
 basopra_output_dir: outputs_basopra/
 municipalities_file: municipalities-data-2025.csv
 tarifs_file: elcom-data-2025.csv
 
-extraction:
-  zone_aggregated_buildings: True
+building_aggregation: True
+building_separation: True
 
 needed_series:
   - Qs
@@ -33,6 +33,132 @@ needed_attributes:
   - MainCategory
   - SubCategory
   - Municipality
+
+aggregation_methods:
+  attributes:
+    egid: 0
+    gbez: null
+    building_type: null
+    num_floors: null
+    area: sum
+    habitable_surface: sum
+    municipality_name: any
+    roof_surface: sum
+    roof_pv_surface: sum
+    roof_pv_capacity: sum
+    wall_surface: sum
+    wall_pv_surface: sum
+    wall_pv_capacity: sum
+    floor_surface: sum
+    floor_pv_surface: sum
+    floor_pv_capacity: sum
+    elec_price: mean
+  series:
+    DD: mean
+    ElectricConsumption: sum
+    FF: null
+    G_Bn: null
+    G_Dh: null
+    N: null
+    Qs: sum
+    RH: null
+    RR: null
+    SolarPVProduction: sum
+    Ta: null
+    Ts: null
+    h: null
+    dhw: null
+    dm: null
+    m: null
+  heat_pump:
+    attributes:
+      T_d_supply_floor: any
+      T_d_return_floor: any
+      T_d_supply_radiator: any
+      T_d_return_radiator: any
+      T_d_supply_floor_tank: any
+      T_d_return_floor_tank: any
+      T_d_supply_radiator_tank: any
+      T_d_return_radiator_tank: any
+      rad_exp_floor: any
+      rad_exp_radiator: any
+      buradiator: null
+      design_temp: null
+      heatload_dt: null
+      hp: null
+    series:
+      Set_T: null
+      Temp: null
+      Req_kWh: null
+      Temp_supply: null
+      Temp_supply_tank: null
+      COP_SH: null
+      COP_tank: null
+      COP_DHW: null
+      hp_sh_cons: null
+      hp_tank_cons: null
+      hp_dhw_cons: null
+
+
+logging:
+  version: 1
+
+  formatters:
+    detailed:
+      format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    simple:
+      format: '%(levelname)s - %(message)s'
+
+  handlers:
+    code_file:
+      class: logging.FileHandler
+      formatter: detailed
+      filename: logs/openbeers.log
+      level: INFO 
+
+    data_file:
+      class: logging.FileHandler
+      formatter: detailed
+      filename: logs/data_issues.log
+      level: INFO
+
+    console:
+      class: logging.StreamHandler
+      formatter: simple
+      level: DEBUG
+
+  loggers:
+  DD: "mean"
+
+logging:
+  version: 1
+
+  formatters:
+    detailed:
+      format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    simple:
+      format: '%(levelname)s - %(message)s'
+
+  handlers:
+    code_file:
+      class: logging.FileHandler
+      formatter: detailed
+      filename: logs/openbeers.log
+      level: INFO 
+
+    data_file:
+      class: logging.FileHandler
+      formatter: detailed
+      filename: logs/data_issues.log
+      level: INFO
+
+    console:
+      class: logging.StreamHandler
+      formatter: simple
+      level: DEBUG
+
+  loggers:
+  DD: "mean"
 
 logging:
   version: 1

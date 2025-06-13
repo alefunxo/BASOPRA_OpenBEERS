@@ -1,6 +1,6 @@
 import sys
 import os
-from typing import Any, Dict
+from typing import Any, Dict, Optional
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
 from config.loader import config
@@ -69,6 +69,13 @@ async def run_pipeline(simulation: Simulation) -> dict:
         result = build_basopra_input(simulation.name, api_attributes, api_series, xml_attributes, xml_series, climate_df)
         return result
 
+def get_elec_prices(buildings_data:Dict[str, Any], elec_pricer: ElectricityPricer) -> None:
+    for data in buildings_data.values():
+        attributes = data['attributes']
+        price_category = elec_pricer.get_consumption_category(attributes.get('activity'))
+        elec_price = elec_pricer.get_electricity_price(attributes.get('municipality_name'), price_category)
+        attributes['elec_price'] = elec_price
+
 async def extract_simulation_data(
         simulation: Simulation,
         elec_pricer: ElectricityPricer,
@@ -81,25 +88,32 @@ async def extract_simulation_data(
         return pickle_load(save_file)
     
     extraction = await run_pipeline(simulation)
-    for bid, data in extraction.items():
-        attributes = data['attributes']
-        price_category = elec_pricer.get_consumption_category(attributes.get('activity'))
-        elec_price = elec_pricer.get_electricity_price(attributes.get('municipality_name'), price_category)
-        attributes['elec_price'] = elec_price
 
+    get_elec_prices(extraction, elec_pricer)
+        
     calculate_heat_pump_size(f'{config['input_dir']}/HP_data.csv', extraction)
 
     pickle_save(save_file, extraction)
     return extraction
 
-def basopra_optimization(extraction):
-    # return None
-    return run_basopra_simulation(extraction)
+def input_aggregator(extraction: Dict[str, Any])-> Dict[str, Any]:
+    basopra_input = {}
+    if config.building_aggregation:
+        pass
+
+    if config.building_separation:
+        for key, value in extraction.items():
+            basopra_input[key] = value
+
+    return basopra_input
+
 
 async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None:
     logger.info(f"Processing {sim.name}")
     extraction = await extract_simulation_data(sim, pricer)
-    basopra_output = basopra_optimization(extraction)
+    basopra_input = input_aggregator(extraction)
+    basopra_output = run_basopra_simulation(basopra_input)
+
     conf_mapping = config.Core.conf_mapping
     for bid, cid in basopra_output.keys():
         if basopra_output[(bid, cid)]['simulation_outputs'] is not None:
@@ -131,6 +145,7 @@ async def main() -> None:
         api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
         async with api_wrapper as api:
             simulation = await api.get_simulation(simulation_name)
+
         pricer = ElectricityPricer()
         await process_simulation(simulation, pricer)
 

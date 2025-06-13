@@ -80,7 +80,7 @@ class ElectricityPricer:
             ]
         return filtered_df
 
-    def get_consumption_category(activity_type:str, consumption:float)->str:
+    def get_consumption_category(self, activity_type:str, consumption:float = 0)->str:
         consumption_limits = other_consumptions
         consumption_labels = other_labels
         dummy_result = "C2"
