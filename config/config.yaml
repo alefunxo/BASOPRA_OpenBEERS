@@ -34,7 +34,7 @@ needed_attributes:
   - SubCategory
   - Municipality
 
-aggregation_methods:
+aggregation_methods:  # supports mean, median, sum, random, custom
   attributes:
     egid: 0
     gbez: null
@@ -56,19 +56,19 @@ aggregation_methods:
   series:
     DD: mean
     ElectricConsumption: sum
-    FF: null
+    FF: median
     G_Bn: null
     G_Dh: null
-    N: null
+    N: first
     Qs: sum
     RH: null
     RR: null
     SolarPVProduction: sum
     Ta: null
     Ts: null
-    h: null
+    h: random
     dhw: null
-    dm: null
+    dm: hello
     m: null
   heat_pump:
     attributes:

@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from pathlib import Path
 import pickle
 
@@ -72,6 +75,8 @@ def apply_aggregations(dfs: List[DataFrame], aggregation_methods: Dict[str, str]
     aggregated_data = pd.DataFrame()
     # Columns with aggregation functions
     for col, agg_func in per_column_aggregation.items():
+        if dfs[0].get(col) is None:
+            continue
         stacked = pd.concat([df[col] for df in dfs], axis=1)
         aggregated_data[col] = stacked.apply(agg_func, axis=1)
     # Columns with default values
@@ -118,3 +123,36 @@ def generate_aggregated_zone_data(buildings_data: Dict[str, Dict[str, Any]]) -> 
     }
 
     return aggregated_building_data
+
+if __name__ == "__main__":
+    import sys
+    import os
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+    df_1 = DataFrame({
+        'DD':                   [1, 2, 3],
+        'ElectricConsumption':  [1, 2, 3],
+        'FF':                   [1, 2, 3],
+        'N':                    [1, 2, 3],
+        'h':                    [1, 2, 3],
+        'dm':                   [1, 2, 3],
+    })
+    df_2 = DataFrame({
+        'DD':                   [4, 5, 6],
+        'ElectricConsumption':  [4, 5, 6],
+        'FF':                   [4, 5, 6],
+        'N':                    [4, 5, 6],
+        'h':                    [4, 5, 6],
+        'dm':                   [4, 5, 6],
+    })
+    df_3 = DataFrame({
+        'DD':                   [7, 8, 9],
+        'ElectricConsumption':  [7, 8, 9],
+        'FF':                   [7, 8, 9],
+        'N':                    [7, 8, 9],
+        'h':                    [7, 8, 9],
+        'dm':                   [7, 8, 9],
+    })
+    pds = [df_1, df_2, df_3]
+    pd = apply_aggregations(pds, config.aggregation_methods.series)
+    print(pd)
