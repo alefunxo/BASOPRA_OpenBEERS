@@ -13,7 +13,7 @@ municipalities_file: municipalities-data-2025.csv
 tarifs_file: elcom-data-2025.csv
 
 building_aggregation: True
-building_separation: True
+building_separation: False
 
 needed_series:
   - Qs
@@ -36,129 +36,69 @@ needed_attributes:
 
 aggregation_methods:  # supports mean, median, sum, random, custom
   attributes:
-    egid: 0
-    gbez: null
-    building_type: null
-    num_floors: null
-    area: sum
-    habitable_surface: sum
-    municipality_name: any
-    roof_surface: sum
-    roof_pv_surface: sum
-    roof_pv_capacity: sum
-    wall_surface: sum
-    wall_pv_surface: sum
-    wall_pv_capacity: sum
-    floor_surface: sum
-    floor_pv_surface: sum
-    floor_pv_capacity: sum
-    elec_price: mean
+    egid:               0
+    bid:                0
+    gbez:               null
+    building_type:      null
+    num_floors:         null
+    area:               sum
+    habitable_surface:  sum
+    municipality_name:  first
+    roof_surface:       sum
+    roof_pv_surface:    sum
+    roof_pv_capacity:   sum
+    wall_surface:       sum
+    wall_pv_surface:    sum
+    wall_pv_capacity:   sum
+    floor_surface:      sum
+    floor_pv_surface:   sum
+    floor_pv_capacity:  sum
+    elec_price:         mean
   series:
-    DD: mean
-    ElectricConsumption: sum
-    FF: median
-    G_Bn: null
-    G_Dh: null
-    N: first
-    Qs: sum
-    RH: null
-    RR: null
-    SolarPVProduction: sum
-    Ta: null
-    Ts: null
-    h: random
-    dhw: null
-    dm: hello
-    m: null
+    DD:                   mean
+    ElectricConsumption:  sum
+    FF:                   median
+    G_Bn:                 mean
+    G_Dh:                 mean
+    N:                    first
+    Qs:                   sum
+    RH:                   mean
+    RR:                   sum
+    SolarPVProduction:    sum
+    Ta:                   mean
+    Ts:                   mean
+    h:                    first
+    dhw:                  sum
+    dm:                   mean
+    m:                    sum
   heat_pump:
     attributes:
-      T_d_supply_floor: any
-      T_d_return_floor: any
-      T_d_supply_radiator: any
-      T_d_return_radiator: any
-      T_d_supply_floor_tank: any
-      T_d_return_floor_tank: any
-      T_d_supply_radiator_tank: any
-      T_d_return_radiator_tank: any
-      rad_exp_floor: any
-      rad_exp_radiator: any
-      buradiator: null
-      design_temp: null
-      heatload_dt: null
-      hp: null
+      T_d_supply_floor:           first
+      T_d_return_floor:           first
+      T_d_supply_radiator:        first
+      T_d_return_radiator:        first
+      T_d_supply_floor_tank:      first
+      T_d_return_floor_tank:      first
+      T_d_supply_radiator_tank:   first
+      T_d_return_radiator_tank:   first
+      rad_exp_floor:              first
+      rad_exp_radiator:           first
+      buradiator:                 mean
+      design_temp:                first
+      heatload_dt:                mean
+      hp:                         first
     series:
-      Set_T: null
-      Temp: null
-      Req_kWh: null
-      Temp_supply: null
-      Temp_supply_tank: null
-      COP_SH: null
-      COP_tank: null
-      COP_DHW: null
-      hp_sh_cons: null
-      hp_tank_cons: null
-      hp_dhw_cons: null
-
-
-logging:
-  version: 1
-
-  formatters:
-    detailed:
-      format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    simple:
-      format: '%(levelname)s - %(message)s'
-
-  handlers:
-    code_file:
-      class: logging.FileHandler
-      formatter: detailed
-      filename: logs/openbeers.log
-      level: INFO 
-
-    data_file:
-      class: logging.FileHandler
-      formatter: detailed
-      filename: logs/data_issues.log
-      level: INFO
-
-    console:
-      class: logging.StreamHandler
-      formatter: simple
-      level: DEBUG
-
-  loggers:
-  DD: "mean"
-
-logging:
-  version: 1
-
-  formatters:
-    detailed:
-      format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    simple:
-      format: '%(levelname)s - %(message)s'
-
-  handlers:
-    code_file:
-      class: logging.FileHandler
-      formatter: detailed
-      filename: logs/openbeers.log
-      level: INFO 
-
-    data_file:
-      class: logging.FileHandler
-      formatter: detailed
-      filename: logs/data_issues.log
-      level: INFO
-
-    console:
-      class: logging.StreamHandler
-      formatter: simple
-      level: DEBUG
-
-  loggers:
-  DD: "mean"
+      Set_T:            first 
+      Temp:             mean
+      Req_kWh:          sum
+      Temp_supply:      mean
+      Temp_supply_tank: mean
+      COP_SH:           mean
+      COP_tank:         mean
+      COP_DHW:          mean
+      hp_sh_cons:       sum
+      hp_tank_cons:     sum
+      hp_dhw_cons:      sum
 
 logging:
   version: 1
@@ -203,7 +143,7 @@ logging:
     handlers: [console]
 
 heat_pump:
-  multiprocessing: True
+  multiprocessing: False
   max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
   dict_design:
@@ -220,7 +160,7 @@ heat_pump:
 
 Core:
   oldschool: False # Testint parameter used to switch between old parameter loading style and new one for comparison purposes
-  multiprocessing: True
+  multiprocessing: False
   basopra_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
   Optimizer:

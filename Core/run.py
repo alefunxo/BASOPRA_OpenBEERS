@@ -14,6 +14,7 @@ from elec_pricer.pricer import ElectricityPricer
 from heat_pump.pump_sizer import calculate_heat_pump_size
 from utils.utils import generate_aggregated_zone_data, pickle_save, pickle_load
 from Core.main_beers import run_basopra_simulation
+from deepdiff import DeepDiff
 
 
 async def run_pipeline(simulation: Simulation) -> dict:
@@ -79,7 +80,7 @@ def get_elec_prices(buildings_data:Dict[str, Any], elec_pricer: ElectricityPrice
 async def extract_simulation_data(
         simulation: Simulation,
         elec_pricer: ElectricityPricer,
-    ) -> Dict[str, Dict[str, Any]]:
+    ) -> Dict[int, Dict[str, Any]]:
     logger.info(f"Extracting all data from simulation: {simulation.id} - {simulation.name}")
     save_file = f'{config['simulation_extraction_dir']}/{simulation.name}.pkl'
 
@@ -96,14 +97,17 @@ async def extract_simulation_data(
     pickle_save(save_file, extraction)
     return extraction
 
-def input_aggregator(extraction: Dict[str, Any])-> Dict[str, Any]:
+def input_aggregator(extraction: Dict[int, Any])-> Dict[int, Any]:
     basopra_input = {}
     if config.building_aggregation:
-        basopra_input['0'] = generate_aggregated_zone_data(extraction)
+        basopra_input[0] = generate_aggregated_zone_data(extraction)
 
     if config.building_separation:
         for key, value in extraction.items():
             basopra_input[key] = value
+
+    # diff = DeepDiff(extraction[397], basopra_input[0], ignore_type_in_groups=[])
+    # print(diff)
 
     return basopra_input
 
