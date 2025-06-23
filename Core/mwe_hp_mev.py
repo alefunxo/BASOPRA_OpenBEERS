@@ -43,70 +43,32 @@ Data Structure:
     - Inverter_eff (float): Efficiency of the inverter.
 
 - EV Charging & V2G Parameters:
-    - Batt_EV- conf (list[bool]): Flags for enabling/disabling components in the optimization:
-    - E_storage (bool): Enable/disable electrical storage.
-    - heating (bool): Enable/disable heating system.
-    - T_storage (bool): Enable/disable thermal storage.
-    - DHW (bool): Enable/disable domestic hot water system.
-
-- Time & Simulation Parameters:
-    - Set_declare (set): Time indices for optimization.
-    - delta_t (int): Time step resolution (e.g., hourly).
-    - dayofyear (int): Specifies the simulation day (valid range: 120-274).
-    - toy (int): Indicator affecting conditional model branching.
-
-- Energy Supply & Demand:
-    - E_PV (dict[int, float]): Solar power generation profile (kW) for each time step.
-    - E_demand (dict[int, float]): Household electricity consumption (kW) per time step.
-    - Req_kWh (dict[int, float]): Space heating energy demand (kWh).
-    - Req_kWh_DHW (dict[int, float]): Domestic hot water energy demand (kWh).
-    - hp_sh_cons, hp_tank_cons, hp_dhw_cons (dict[int, float]): Available power for heat pumps (kW).
-    - Temp_supply (dict[int, float]): Supply temperature for heating (K).
-    - Set_T (dict[int, float]): Target room temperature (K).
-    - COP_SH, COP_DHW, COP_tank (dict[int, float]): Coefficients of performance for heat pumps.
-
-- Electricity Pricing:
-    - retail_price (dict[int, float]): Electricity purchase price (€/kWh).
-    - Export_price (dict[int, float]): Revenue from selling electricity to the grid (€/kWh).
-    - Capacity_tariff (float): Cost associated with peak power usage (€/kW).
-    - public_charging_price (float): Cost of charging an EV at a public station (€/kWh).
-
-- Battery Storage Parameters:
-    - Batt (object): Battery model containing capacity and efficiency properties.
-    - Converter_Efficiency_Batt (float): Efficiency of battery charge/discharge cycles.
-    - SOC_max (float): Maximum state of charge (SOC) for battery storage.
-    - Max_inj (float): Maximum allowable grid injection power (kW).
-    - Inv_power (float): Inverter power capacity (kW).
-    - Inverter_eff (float): Efficiency of the inverter.
-
-- EV Charging & V2G Parameters:
+    - Batt_EV- conf (list[bool]): Flags for enabling/disabling components in the optimization:  # TODO NOT FOUND IN CODE
     - Batt_EV (object): Electric vehicle battery model.
-    - SOC_max_EV (float): Maximum SOC for EV battery.
+    - DHW (bool): Enable/disable domestic hot water system.
+    - E_storage (bool): Enable/disable electrical storage.
     - E_EV_start (float): Initial stored energy in the EV battery (kWh).
     - EV_P_max_home, EV_P_max_away (float): Max charging power at home/away (kW).
     - EV_V2G (bool): Flag for enabling/disabling vehicle-to-grid (V2G) functionality.
     - EV_home, EV_away (dict[int, bool]): Defines EV availability at home/away over time.
     - E_EV_trip (dict[int, float]): Energy required for EV trips (kWh).
     - EV_minSOC (float): Minimum SOC level for EV to ensure usability.
-
+    - heating (bool): Enable/disable heating system.
+    - SOC_max_EV (float): Maximum SOC for EV battery.
+    - T_storage (bool): Enable/disable thermal storage.
+    
 - Thermal Storage:
     - tank_dhw, tank_sh (object): Storage models for domestic hot water and space heating.
     - T_aux_supply (dict[int, float]): Auxiliary supply temperature for heating (K).
     - T_init (float): Initial storage temperature (K).
     - Backup_heater (float): Backup heating power capacity (kW). (object): Electric vehicle battery model.
     - SOC_max_EV (float): Maximum SOC for EV battery.
-    - E_EV_start (float): Initial stored energy in the EV battery (kWh).
+    - E_EV_start (float): Initial stored energy in the EV battery (kWh).  # TODO why are there EV settings in the Termal storage settings?
     - EV_P_max_home, EV_P_max_away (float): Max charging power at home/away (kW).
     - EV_V2G (bool): Flag for enabling/disabling vehicle-to-grid (V2G) functionality.
     - EV_home, EV_away (dict[int, bool]): Defines EV availability at home/away over time.
     - E_EV_trip (dict[int, float]): Energy required for EV trips (kWh).
     - EV_minSOC (float): Minimum SOC level for EV to ensure usability.
-
-- Thermal Storage:
-    - tank_dhw, tank_sh (object): Storage models for domestic hot water and space heating.
-    - T_aux_supply (dict[int, float]): Auxiliary supply temperature for heating (K).
-    - T_init (float): Initial storage temperature (K).
-    - Backup_heater (float): Backup heating power capacity (kW).
 
 This dataset serves as input for the energy optimization model, ensuring a structured representation
 of energy flows, cost parameters, and operational constraints.
@@ -125,8 +87,6 @@ import numpy as np
 import os
 import csv
 def Get_output(instance):
-    
-
     # 1) Dump raw rows
     lock = threading.Lock()
     while lock.locked():

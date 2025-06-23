@@ -6,7 +6,7 @@ import pandas as pd
 from pandas import DataFrame
 from utils.logger import logger
 from config.loader import config
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
 # TODO remove this import from here and move the logic that uses it elsewhere
 from heat_pump.pump_sizer import HeatPumpDesign
 
@@ -70,7 +70,6 @@ def generate_aggregated_zone_data(buildings_data: Dict[int, Dict[str, Any]]) -> 
     attributes_aggregation = apply_aggregations(attribute_dfs, aggregation_methods.attributes)
     attributes_dict = attributes_aggregation.iloc[0].to_dict()
 
-
     # series:
     series_dfs = []
     for data in buildings_data.values():
@@ -99,6 +98,27 @@ def generate_aggregated_zone_data(buildings_data: Dict[int, Dict[str, Any]]) -> 
     }
 
     return aggregated_building_data
+
+def generate_aggregated_basopra_output_data(buildings_data: Dict[Tuple[int, int], DataFrame]) -> Dict[Tuple[int, int], DataFrame]:
+    aggregated_buildings = {}
+    scenarios_found = []
+    for key in buildings_data.keys():
+        if key[0] == 0:
+            scenarios_found.append(key[1])
+    for scenario in scenarios_found:
+        aggregated_buildings[(0, scenario)] = buildings_data.pop((0, scenario))
+
+    columns_to_aggregate = config.output_aggregations
+
+    output_series: Dict[int, List[DataFrame]] = {scenario: [] for scenario in scenarios_found}
+    for key, data in buildings_data.items():
+        output_series[key[1]].append(data)
+    for scenario in scenarios_found:
+        aggregation = apply_aggregations(output_series[scenario], columns_to_aggregate)
+        common_cols = aggregated_buildings[(0, scenario)].columns.intersection(aggregation.columns)
+        aggregated_buildings[(0, scenario)][common_cols] = aggregation[common_cols]
+    return aggregated_buildings
+
 
 # if __name__ == "__main__":
 #     import sys

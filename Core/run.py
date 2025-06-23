@@ -12,7 +12,7 @@ from openbeers_api.assembler import build_basopra_input
 from openbeers.models import Simulation
 from elec_pricer.pricer import ElectricityPricer
 from heat_pump.pump_sizer import calculate_heat_pump_size
-from utils.utils import generate_aggregated_zone_data, pickle_save, pickle_load
+from utils.utils import generate_aggregated_basopra_output_data, generate_aggregated_zone_data, pickle_save, pickle_load
 from Core.main_beers import run_basopra_simulation
 from deepdiff import DeepDiff
 
@@ -102,21 +102,26 @@ def input_aggregator(extraction: Dict[int, Any])-> Dict[int, Any]:
     if config.building_aggregation:
         basopra_input[0] = generate_aggregated_zone_data(extraction)
 
-    if config.building_separation:
-        for key, value in extraction.items():
-            basopra_input[key] = value
-
-    # diff = DeepDiff(extraction[397], basopra_input[0], ignore_type_in_groups=[])
-    # print(diff)
+    for key, value in extraction.items():
+        basopra_input[key] = value
 
     return basopra_input
+
+def output_aggregator(basopra_output: Dict[int, Any])->Any:
+    if config.building_aggregation:
+       pass 
 
 
 async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None:
     logger.info(f"Processing {sim.name}")
     extraction = await extract_simulation_data(sim, pricer)
     basopra_input = input_aggregator(extraction)
+
     basopra_output = run_basopra_simulation(basopra_input)
+    to_concatenate = {key: value['simulation_outputs'] for key, value in basopra_output.items()}
+    agregated_output = generate_aggregated_basopra_output_data(to_concatenate)
+    for key, value in agregated_output.items():
+        basopra_output[key]['simulation_outputs'] = value
 
     conf_mapping = config.Core.conf_mapping
     for bid, cid in basopra_output.keys():
