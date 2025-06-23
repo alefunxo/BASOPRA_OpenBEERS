@@ -1,6 +1,8 @@
+from __future__ import annotations
 import os
 import multiprocessing as mp
 from typing import Callable, Iterable, Any
+
 
 def run_parallel(
     func: Callable,
@@ -54,7 +56,7 @@ def _wrapper_kwargs(args: tuple) -> Any:
     func, func_kwargs = args
     return func(**func_kwargs)
 
-def resolve_num_processes(requested: int | None) -> int:
+def resolve_num_processes(requested: int | None) -> int: # For python > 3.9
     cpu_total = os.cpu_count() or 1  # Fallback in case cpu_count() returns None
 
     if requested is None or requested == 0:

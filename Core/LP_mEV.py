@@ -107,7 +107,7 @@ def Concrete_model(Data):
 
     def make_ts_param(ev_dict):
         def rule(m, ev, t):
-            return ev_dict[ev][t]
+            return ev_dict[ev][int(t)]
         return rule
     def soc_init_param_rule(m, ev):
         return Data['E_EV_start'][ev]
