@@ -28,7 +28,7 @@ from pyomo.opt import SolverFactory, SolverStatus, TerminationCondition
 from pyomo.core import Var
 import time
 import numpy as np
-import LP_EV as optim
+import LP_mEV as optim
 import math
 import pickle
 import sys
@@ -37,6 +37,7 @@ import csv
 import os
 import post_proc as pp
 import threading
+import ast
 
 core_config = config.Core
 
@@ -49,43 +50,69 @@ def fn_timer(function):
         logger.debug("Function '%s' executed in %s seconds", function.__name__, t1 - t0)
         return result
     return function_timer
-
 def Get_output(instance):
-    '''
-    Gets the model output and transforms it into a pandas dataframe with the desired names.
-    Parameters
-    ----------
-    instance : instance of pyomo
-    Returns
-    -------
-    df : DataFrame
-    P_max_ : vector of daily maximum power
-    '''
-    logger.debug("Entering Get_output function.")
-    # to write in a csv goes faster than actualizing a df
-    global_lock = threading.Lock()
-    while global_lock.locked():
-        continue
-    global_lock.acquire()
-    np.random.seed()
-    filename = 'out' + str(np.random.randint(1, 10, 10))[1:-1].replace(" ", "") + '.csv'
-    logger.debug("Temporary output filename: %s", filename)
-    with open(filename, 'a') as f:
+    import threading, numpy as np, csv, os, pandas as pd
+    from pyomo.core.base.var import Var
+
+    # 1) Dump raw rows
+    lock = threading.Lock()
+    while lock.locked(): pass
+    lock.acquire()
+    fname = 'out' + str(np.random.randint(1,1e9)) + '.csv'
+    with open(fname, 'w', newline='') as f:
         writer = csv.writer(f, delimiter=';')
         for v in instance.component_objects(Var, active=True):
-            varobject = getattr(instance, str(v))
-            for index in varobject:
+            varobj = getattr(instance, str(v))
+            for idx in varobj:
                 if str(v) == 'P_max_day':
-                    P_max_ = (v[index].value)
+                    P_max_ = varobj[idx].value
                 else:
-                    writer.writerow([index, varobject[index].value, v])
-    df = pd.read_csv(filename, sep=';', names=['val', 'var'])
-    os.remove(filename)
-    global_lock.release()
-    df = df.pivot_table(values='val', columns='var', index=df.index)
-    df = df.drop(-1)
-    logger.debug("Output dataframe and P_max retrieved successfully.")
-    return [df, P_max_]
+                    # split index into ev, time
+                    if isinstance(idx, tuple) and len(idx)==2:
+                        ev, t = idx
+                    else:
+                        ev, t = '', idx
+                    writer.writerow([t, str(v), ev, varobj[idx].value])
+    lock.release()
+
+    # 2) Read back, preserving empty ev fields
+    df = pd.read_csv(
+        fname, sep=';', names=['time','var','ev','val'],
+        dtype={'time':str,'var':str,'ev':str,'val':float},
+        keep_default_na=False,  # ← do not convert empty to NaN
+        na_filter=False         # ← also don’t do any NA filtering
+    )
+    os.remove(fname)
+
+    # 3) … drop t=-1, convert time …
+    df = df[df['time']!='-1']
+    df['time'] = df['time'].astype(int)
+
+    # 4) Now splitting will work:
+    #    non-EV rows have ev=='', EV rows have ev in {'EV1','EV2',…}
+    df_noev = df[df.ev == '']
+    df_evs  = df[df.ev != '']
+
+    # 5a) pivot non-EV
+    pivot_noev = df_noev.pivot_table(
+        index='time', columns='var', values='val', aggfunc='first'
+    )
+
+    # 5b) pivot EV
+    pivot_evs = df_evs.pivot_table(
+        index='time', columns=['var','ev'], values='val', aggfunc='first'
+    )
+    pivot_evs.columns = [f"{var}_{ev}" for var,ev in pivot_evs.columns]
+
+    # 6) stitch them together
+    result = pd.concat([pivot_noev, pivot_evs], axis=1).sort_index()
+
+    # 7) collect P_max_day as before
+    P_max_ = getattr(instance, 'P_max_day', None).value
+    return result, P_max_
+
+
+
 
 @fn_timer
 def Optimize(data_input, param):
@@ -177,6 +204,31 @@ def Optimize(data_input, param):
         Set_declare = np.arange(-1, data_input_.shape[0])
         if i == 0:
             logger.debug("Retail price dictionary (first day): %s", retail_price_dict)
+        
+        param['Batt_EV']=dict(param['Batt_EV'])
+        # assume EV_list = ['EV1','EV2',…]
+
+        # build the per‐EV time‐series dicts from the DataFrame
+        param['EV_home']   = {
+            ev: data_input[f"{ev}_EV_home"].reset_index(drop=True).to_dict()
+            for ev in param['EV_list']
+        }
+        param['EV_away']   = {
+            ev: data_input[f"{ev}_EV_away"].reset_index(drop=True).to_dict()
+            for ev in param['EV_list']
+        }
+        param['E_EV_trip'] = {
+            ev: data_input[f"{ev}_E_EV_trip"].reset_index(drop=True).to_dict()
+            for ev in param['EV_list']
+        }
+
+        # and if you still need E_EV_req:
+        param['E_EV_req']  = {
+            ev: data_input[f"{ev}_E_EV_req"].reset_index(drop=True).to_dict()
+            for ev in param['EV_list']
+        }
+
+        
         param.update({'dayofyear': data_input.index.dayofyear[0] + i,
                       'SOC_max': aux_SOC_max,
                       'toy': toy,
@@ -278,8 +330,8 @@ def Optimize(data_input, param):
     df['Conv_P'] = (df[['E_PV_load', 'E_PV_batt', 'E_PV_grid', 'E_loss_conv']].sum(axis=1)) / dt
     columns_to_map = [
     'Req_kWh', 'Req_kWh_DHW', 'Set_T', 'Temp', 'Temp_supply',
-    'Temp_supply_tank', 'T_aux_supply', 'COP_tank', 'COP_SH', 'COP_DHW', 'E_EV_trip'
-]
+    'Temp_supply_tank', 'T_aux_supply', 'COP_tank', 'COP_SH', 'COP_DHW'
+]#, 'E_EV_trip'
     # Define the list of columns to map from data_input
     new_cols = {col: data_input[col].reset_index(drop=True).iloc[:end_d].values 
                 for col in columns_to_map}
@@ -431,7 +483,7 @@ def save_results(df, aux_dict, param):
         name_comb = col[0] + col[1] + col[2] + col[3]
         col2 = ["%i" % x for x in param['conf']]
         name_conf = col2[0] + col2[1] + col2[2] + col2[3]
-        filename_save = ('../Output/df_%(name)s_%(Tech)s_%(App_comb)s_%(Cap)s_%(conf)s_%(house_type)s.csv' %
+        filename_save = ('Output/df_%(name)s_%(Tech)s_%(App_comb)s_%(Cap)s_%(conf)s_%(house_type)s.csv' %
                          {'name': param['name'], 'Tech': param['Tech'], 'App_comb': name_comb, 'Cap': int(param['Capacity']),
                           'conf': name_conf, 'house_type': param['ht']})
         df.to_csv(filename_save)

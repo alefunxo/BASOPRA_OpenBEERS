@@ -82,7 +82,7 @@ async def extract_simulation_data(
         elec_pricer: ElectricityPricer,
     ) -> Dict[int, Dict[str, Any]]:
     logger.info(f"Extracting all data from simulation: {simulation.id} - {simulation.name}")
-    save_file = f'{config['simulation_extraction_dir']}/{simulation.name}.pkl'
+    save_file = f"{config['simulation_extraction_dir']}/{simulation.name}.pkl"
 
     if os.path.exists(save_file):
         logger.info(f"Simulation extraction file already exists. {simulation.name}")
@@ -92,7 +92,7 @@ async def extract_simulation_data(
 
     get_elec_prices(extraction, elec_pricer)
         
-    calculate_heat_pump_size(f'{config['input_dir']}/HP_data.csv', extraction)
+    calculate_heat_pump_size(f"{config['input_dir']}/HP_data.csv", extraction)
 
     pickle_save(save_file, extraction)
     return extraction
