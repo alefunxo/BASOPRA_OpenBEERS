@@ -12,7 +12,7 @@ from openbeers_api.assembler import build_basopra_input
 from openbeers.models import Simulation
 from elec_pricer.pricer import ElectricityPricer
 from heat_pump.pump_sizer import calculate_heat_pump_size
-from utils.utils import generate_aggregated_basopra_output_data, generate_aggregated_zone_data, pickle_save, pickle_load
+from utils.utils import dataframe_save, generate_aggregated_basopra_output_data, generate_aggregated_zone_data, pickle_save, pickle_load
 from Core.main_beers import run_basopra_simulation
 from deepdiff import DeepDiff
 
@@ -61,13 +61,13 @@ async def run_pipeline(simulation: Simulation) -> dict:
                 config['dest_folder'],
             )
         
-        xml_attributes, xml_series = get_xml_building_data(config['dest_folder'] + 'simulation.xml')
+        xml_attributes, xml_series, heat_tank, dhw_tank = get_xml_building_data(config['dest_folder'] + 'simulation.xml')
         climate_df = load_climate_file(config['dest_folder'] + climate.climate_file)
 
         cleanup(config['dest_folder'])
 
         # Combining data from different sources
-        result = build_basopra_input(simulation.name, api_attributes, api_series, xml_attributes, xml_series, climate_df)
+        result = build_basopra_input(simulation.name, api_attributes, api_series, xml_attributes, xml_series, climate_df, heat_tank, dhw_tank)
         return result
 
 def get_elec_prices(buildings_data:Dict[str, Any], elec_pricer: ElectricityPricer) -> None:
@@ -129,8 +129,7 @@ async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None
             egid = basopra_output[(bid, cid)]['simulation_inputs']['hh']['attributes']['egid']
             conf_name = conf_mapping[cid]
             output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{egid}_{conf_name}'
-            # pickle_save(f'{output_file_name}.pkl', basopra_output[(bid, cid)]['simulation_outputs'])
-            basopra_output[(bid, cid)]['simulation_outputs'].to_csv(f'{output_file_name}.csv', index=False)
+            dataframe_save(f'{output_file_name}.csv', basopra_output[(bid, cid)]['simulation_outputs'])
 
 async def basopra_loop():
     logger.info('Starting loop through simulations')
@@ -148,15 +147,17 @@ async def main() -> None:
         logger.info('Entering loop_mode. All Simulations found will be processed')
         await basopra_loop()
     else:
-        logger.info('Entering single simulation mode.')
-        simulation_name = config['simulation_name']
-        logger.info(f'From config.yaml, simulation to process is: {simulation_name}')
-        api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
-        async with api_wrapper as api:
-            simulation = await api.get_simulation(simulation_name)
-
-        pricer = ElectricityPricer()
-        await process_simulation(simulation, pricer)
+        logger.info('Entering list mode. Only given simulation names will be processed')
+        simulation_names = config.simulation_names
+        for name in simulation_names:
+            logger.info(f'From config.yaml, simulation to process is: {name}')
+            api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
+            async with api_wrapper as api:
+                simulation = await api.get_simulation(name)
+            if simulation is None:
+                continue
+            pricer = ElectricityPricer()
+            await process_simulation(simulation, pricer)
 
 if __name__ == "__main__":
     asyncio.run(main())

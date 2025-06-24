@@ -19,3 +19,29 @@ Core contains the code in different scripts: main_beers.py (main script from whi
 Input contains the data input files, including generation and demand profiles for the PV installation, the household load, the electric vehicle, and heat pump and other technical specifications. Several files need to be unzipped before the program can run.
 
 This is an ongoing project, and the interaction with [CitySim] (https://github.com/kaemco/CitySim-Solver/tree/master) is not yet fully included
+
+
+# Setup
+To get this to work, you should create a conda environment using the `environment.yml` file.
+```bash
+conda env create -f environment.yml  # creates the basopra_clean environment
+```
+or update an environment with the following
+```bash
+conda env update -n basopra_clean -f environment.yml
+```
+
+Once your conda environment is setup access it and install the openbeers library from the gitlab repository (registration on the gitlab needed to get username and password)
+```bash
+conda activate basopra_clean
+pip install git+https://gitlab.idiap.ch/energy/openbeers/openbeers-py.git
+```
+
+Also make sure you have the Gurobi solver installed
+
+# Run
+You can modify settings before running in `config/config.yaml`
+You can run the program from the top level with
+```bash
+python Core/run.py
+```
