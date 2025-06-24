@@ -1,6 +1,6 @@
 import sys
 import os
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Tuple
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
 from config.loader import config
@@ -107,21 +107,21 @@ def input_aggregator(extraction: Dict[int, Any])-> Dict[int, Any]:
 
     return basopra_input
 
-def output_aggregator(basopra_output: Dict[int, Any])->Any:
+def output_aggregator(basopra_output: Dict[Tuple[int,int], Any])->Any:
     if config.building_aggregation:
-       pass 
-
-
+        to_concatenate = {key: value['simulation_outputs'] for key, value in basopra_output.items()}
+        aggregated_output = generate_aggregated_basopra_output_data(to_concatenate)
+        for key, value in aggregated_output.items():
+            basopra_output[key]['simulation_outputs'] = value
+        return basopra_output
+    return basopra_output
+    
 async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None:
     logger.info(f"Processing {sim.name}")
     extraction = await extract_simulation_data(sim, pricer)
     basopra_input = input_aggregator(extraction)
-
     basopra_output = run_basopra_simulation(basopra_input)
-    to_concatenate = {key: value['simulation_outputs'] for key, value in basopra_output.items()}
-    agregated_output = generate_aggregated_basopra_output_data(to_concatenate)
-    for key, value in agregated_output.items():
-        basopra_output[key]['simulation_outputs'] = value
+    basopra_output = output_aggregator(basopra_output)
 
     conf_mapping = config.Core.conf_mapping
     for bid, cid in basopra_output.keys():
@@ -129,7 +129,7 @@ async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None
             egid = basopra_output[(bid, cid)]['simulation_inputs']['hh']['attributes']['egid']
             conf_name = conf_mapping[cid]
             output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{egid}_{conf_name}'
-            pickle_save(f'{output_file_name}.pkl', basopra_output[(bid, cid)]['simulation_outputs'])
+            # pickle_save(f'{output_file_name}.pkl', basopra_output[(bid, cid)]['simulation_outputs'])
             basopra_output[(bid, cid)]['simulation_outputs'].to_csv(f'{output_file_name}.csv', index=False)
 
 async def basopra_loop():

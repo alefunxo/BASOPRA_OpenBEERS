@@ -12,7 +12,7 @@ basopra_output_dir: outputs_basopra/
 municipalities_file: municipalities-data-2025.csv
 tarifs_file: elcom-data-2025.csv
 
-building_aggregation: True
+building_aggregation: False
 building_separation: False  # TODO Make sure that if this is False we don't recompute the individual buildings
 
 needed_series:
@@ -71,34 +71,34 @@ aggregation_methods:  # supports mean, median, sum, random, custom
     dhw:                  sum
     dm:                   mean
     m:                    sum
-  heat_pump:
+  heat_pump:  # TODO find out how to deal with heat pumps in aggregated scenarios
     attributes:
-      T_d_supply_floor:           null  # first
-      T_d_return_floor:           null  # first
-      T_d_supply_radiator:        null  # first
-      T_d_return_radiator:        null  # first
-      T_d_supply_floor_tank:      null  # first
-      T_d_return_floor_tank:      null  # first
-      T_d_supply_radiator_tank:   null  # first
-      T_d_return_radiator_tank:   null  # first
-      rad_exp_floor:              null  # first
-      rad_exp_radiator:           null  # first
-      buradiator:                 null  # mean
-      design_temp:                null  # first
-      heatload_dt:                null  # mean
-      hp:                         null  # first
+      T_d_supply_floor:           first
+      T_d_return_floor:           first
+      T_d_supply_radiator:        first
+      T_d_return_radiator:        first
+      T_d_supply_floor_tank:      first
+      T_d_return_floor_tank:      first
+      T_d_supply_radiator_tank:   first
+      T_d_return_radiator_tank:   first
+      rad_exp_floor:              first
+      rad_exp_radiator:           first
+      buradiator:                 mean
+      design_temp:                first
+      heatload_dt:                mean
+      hp:                         first
     series:
-      Set_T:            null  # first 
-      Temp:             null  # mean
-      Req_kWh:          null  # sum
-      Temp_supply:      null  # mean
-      Temp_supply_tank: null  # mean
-      COP_SH:           null  # mean
-      COP_tank:         null  # mean
-      COP_DHW:          null  # mean
-      hp_sh_cons:       null  # sum
-      hp_tank_cons:     null  # sum
-      hp_dhw_cons:      null  # sum
+      Set_T:            first 
+      Temp:             mean
+      Req_kWh:          sum
+      Temp_supply:      mean
+      Temp_supply_tank: mean
+      COP_SH:           mean
+      COP_tank:         mean
+      COP_DHW:          mean
+      hp_sh_cons:       sum
+      hp_tank_cons:     sum
+      hp_dhw_cons:      sum
 output_aggregations:  # Uncomment the ones that you want to aggrefate from the results of the basopra optimization
   E_PV_batt:            sum
   E_PV_batt_EV:         sum
@@ -313,4 +313,3 @@ Core:
     nyears: 1
     days: 365
     testing: False
-

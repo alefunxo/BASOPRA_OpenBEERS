@@ -624,9 +624,9 @@ class heat_storage_tank(object):
     hp object with power and COP_static
     '''
 
-    def __init__(self,mass,  **kwargs):
+    def __init__(self, mass, **kwargs):
         #super().__init__(**kwargs)
-        self.mass = mass#in kg of water
+        self.mass = mass  #in kg/L of water
         
         defaults = {
         'investment_cost': 1608*self.mass,#Swisstore project data; cost per kW_th
