@@ -10,6 +10,12 @@ from typing import Any, Dict, List, Tuple
 # TODO remove this import from here and move the logic that uses it elsewhere
 from heat_pump.pump_sizer import HeatPumpDesign
 
+def dataframe_save(path: str, df: DataFrame) -> None:
+    logger.info(f"Saving {type(df)} type object to: {path}.")
+    path_obj = Path(path)
+    path_obj.parent.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
+    df.to_csv(path, index=False)
+
 def pickle_save(path: str, any_object: Any) -> None:
     logger.info(f"Saving {type(any_object)} type object to: {path}.")
     path_obj = Path(path)

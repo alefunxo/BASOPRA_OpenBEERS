@@ -1,5 +1,6 @@
 import pandas as pd
 from typing import Dict, Any
+from Core.paper_classes import heat_storage_tank
 from openbeers_api.integrity_checker import conduct_building_sanity_check
 from utils.logger import data_logger
 
@@ -12,6 +13,8 @@ def build_basopra_input(
     xml_attributes: Dict[str, Dict[str, float]],
     xml_series: Dict[str, Dict[str, list]],
     climate: pd.DataFrame,
+    heat_tank: heat_storage_tank,
+    dhw_tank: heat_storage_tank,
 ) -> Dict[str, Dict[str, pd.DataFrame]]:
     output = {}
     for bid in api_attributes:
@@ -45,6 +48,8 @@ def build_basopra_input(
             output[bid] = {
                 'attributes': attributes,
                 'series': ser_df,
+                'heat_tank': heat_tank,
+                'dhw_tank': dhw_tank,
             }
 
     conduct_building_sanity_check(output)

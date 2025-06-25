@@ -1,9 +1,11 @@
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
 import numpy as np
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import pandas as pd
+
+from Core.paper_classes import heat_storage_tank
 
 pv_pannel_types = {
     "JA Solar Deep Blue JAM54D41-455/LB": {
@@ -105,6 +107,22 @@ def get_surface_n_PV(building: Element, surface_type: str) -> float:
     
     return total_area, pv_area, total_capacity
 
+def get_inhabitants(building: Element):
+    bld_id = building.attrib.get('id')
+    bld_occupants = 0
+    for zone in building.findall("Zone"):
+        occupants = zone.find('Occupants')
+        bld_occupants += int(occupants.attrib['n'])
+    return bld_occupants
+
+def get_tank(building: Element, tank_type: str) -> Optional[heat_storage_tank]:
+    tank = building.find(tank_type)
+    if tank is None:
+        return None
+    tank_volume = tank.attrib["V"]
+    tank_class = heat_storage_tank(tank_volume)
+    return tank_class
+
 def get_xml_building_data(xml_path: str) -> Dict[str, float]:
     root = ET.parse(xml_path).getroot()
     building_attributes: Dict[int, Dict[str, float]] = {}
@@ -120,6 +138,7 @@ def get_xml_building_data(xml_path: str) -> Dict[str, float]:
             'bid': bid,
             'name': name,
             'activity': activity,
+            'occupants': get_inhabitants(b),
         }
         for surface_type in ['Roof', 'Wall', 'Floor']:
             surface, pv_surface, pv_capacity = get_surface_n_PV(b, surface_type)
@@ -134,7 +153,10 @@ def get_xml_building_data(xml_path: str) -> Dict[str, float]:
         }
         building_series[int(bid)] = b_series
 
-    return building_attributes, building_series
+        heat_tank = get_tank(b, 'HeatTank')
+        dhw_tank = get_tank(b, 'DHWTank')
+
+    return building_attributes, building_series, heat_tank, dhw_tank
 
 
 
