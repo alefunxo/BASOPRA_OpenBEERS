@@ -1,13 +1,17 @@
+import asyncio
 from openbeers import ApiClient, Configuration, DefaultApi
 from config.loader import config
 from openbeers.rest import ApiException
-from typing import Any, List, Optional
+from typing import Any, Dict, List, Optional
 from openbeers.models import (
-    Simulation, Building, TimeSeriesType, TimeSeries, AttributeType, Attribute, Climate
+    Simulation, Building, TimeSeriesType, TimeSeries, AttributeType, Attribute, Climate, Zone
 )
+
+from utils.multiprocessing_utils import run_parallel
 
 class ApiWrapper:
     def __init__(self, api_client: ApiClient, api_instance: DefaultApi) -> None:
+        self.semaphore = asyncio.Semaphore(10)
         self.api_client = api_client
         self.api = api_instance
 
@@ -27,9 +31,16 @@ class ApiWrapper:
     
     async def fetch (self, func: Any, *args: Any) -> Any:
         try:
-            return await func(*args)
+            async with self.semaphore:
+                return await func(*args)
         except ApiException as e:
             print(f"API Error: {e}")
+            return None
+        except asyncio.TimeoutError:
+            print("Request timed out")
+            return None
+        except Exception as e:
+            print(f"Unexpected error: {e}")
             return None
     
     async def get_all_simulations(self) -> List[Simulation]:
@@ -58,3 +69,40 @@ class ApiWrapper:
 
     async def get_series(self, object_id: int, sim_id: int) -> List[TimeSeries]:
         return await self.fetch(self.api.get_time_series_object_id_simulation_id_api_time_series_s_object_object_id_simulation_simulation_id_get, object_id, sim_id)
+    
+    async def get_all_zones(self) -> List[Zone]:
+        return await self.fetch(self.api.get_all_zones_api_zones_all_get)
+
+    async def get_attributes_for_buildings(self, buildings: List[Building], attribute_types: List[AttributeType]) -> Dict[int|None, Dict[str, Any|None]]:
+        tasks = {
+            b.id: self.get_attributes(b.object_id)
+            for b in buildings
+        }
+        keys = list(tasks.keys())
+        values = list(tasks.values())
+
+        # awaited_attributes = await asyncio.gather(*values)
+        awaited_attributes = await gather_in_batches(values, batch_size=10)
+        b_attributes = dict(zip(keys, awaited_attributes))
+
+        attributes = {}
+        for b in buildings:
+            attrs = b_attributes[b.id]
+            attributes[b.id] = {
+                t.name: next((
+                    getattr(a, f"value_{t_}") 
+                    for t_ in ["string", "integer", "float"] 
+                    if getattr(a, f"value_{t_}", None) is not None
+                ),None)
+                for t in attribute_types for a in attrs if a.attribute_type_id == t.id
+            }
+        return attributes
+
+async def gather_in_batches(coros: list, batch_size: int = 10):
+    results = []
+    for i in range(0, len(coros), batch_size):
+        batch = coros[i:i + batch_size]
+        batch_result = await asyncio.gather(*batch)
+        results.extend(batch_result)
+        print(f"Retrieved batch {i}")
+    return results

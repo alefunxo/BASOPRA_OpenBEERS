@@ -1,0 +1,49 @@
+testing: False
+test_cases: 10
+seed: 42
+people_per_household: 2
+vehicles_per_household: 1.43
+no_cache: True
+
+save_file: Output/renovation_planning.csv
+
+needed_attributes:
+  - num_occupants
+  - gwaerzh1
+  - gwaerdath1
+  - gwaerzh2
+  - gwaerdath2
+
+years_of_interest:
+  - 2025
+  - 2035
+  - 2045
+  - 2050
+
+codification_heat_generator:
+  7400: "Pas de générateur de chaleur"
+  7410: "Pompe à chaleur PAC pour un seul bâtiment"
+  7411: "Pompe à chaleur PAC pour plusieurs bâtiments"
+  7420: "Installation solaire thermique pour un seul bâtiment"
+  7421: "Installation solaire thermique pour plusieurs bâtiments"
+  7430: "Chaudière (générique) pour un seul bâtiment"
+  7431: "Chaudière (générique) pour plusieurs bâtiments"
+  7432: "Chaudière standard pour un seul bâtiment"
+  7433: "Chaudière standard pour plusieurs bâtiments"
+  7434: "Chaudière à condensation pour un seul bâtiment"
+  7435: "Chaudière à condensation pour plusieurs bâtiments"
+  7436: "Poêle"
+  7440: "Installation couplage chaleur-force pour un seul bâtiment"
+  7441: "Installation couplage chaleur-force pour plusieurs bâtiments"
+  7450: "Chauffage central électrique pour un seul bâtiment"
+  7451: "Chauffage central électrique pour plusieurs bâtiments"
+  7452: "Chauffage électrique direct (y compris radiateur infra-rouge)"
+  7460: "Echangeur de chaleur (y compris pour chauffage à distance) pour un seul bâtiment"
+  7461: "Echangeur de chaleur (y compris pour chauffage à distance) pour plusieurs bâtiments"
+  7499: "Autre"
+
+ev_inclusion_rate:
+  2025: 0.05
+  2035: 0.1
+  2045: 0.35
+  2050: 0.55

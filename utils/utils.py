@@ -10,11 +10,21 @@ from typing import Any, Dict, List, Tuple
 # TODO remove this import from here and move the logic that uses it elsewhere
 from heat_pump.pump_sizer import HeatPumpDesign
 
-def dataframe_save(path: str, df: DataFrame) -> None:
+def dataframe_save(path: str, df: DataFrame, index: bool = False) -> None:
     logger.info(f"Saving {type(df)} type object to: {path}.")
     path_obj = Path(path)
     path_obj.parent.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
-    df.to_csv(path, index=False)
+    df.to_csv(path, index=index)
+
+def dataframe_load(path: str, index_col: int | str | None = None) -> DataFrame:
+    path_obj = Path(path)
+
+    if not path_obj.is_file():
+        raise FileNotFoundError(f"CSV file not found: {path}")
+
+    df = pd.read_csv(path, index_col=index_col)
+    logger.info(f"Loaded DataFrame with shape {df.shape} from: {path}")
+    return df
 
 def pickle_save(path: str, any_object: Any) -> None:
     logger.info(f"Saving {type(any_object)} type object to: {path}.")

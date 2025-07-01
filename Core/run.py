@@ -1,6 +1,7 @@
 import sys
 import os
 from typing import Any, Dict, Optional, Tuple
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
 from config.loader import config
@@ -14,8 +15,21 @@ from elec_pricer.pricer import ElectricityPricer
 from heat_pump.pump_sizer import calculate_heat_pump_size
 from utils.utils import dataframe_save, generate_aggregated_basopra_output_data, generate_aggregated_zone_data, pickle_save, pickle_load
 from Core.main_beers import run_basopra_simulation
+from Core.renovation_planner import RenovationPlanning
 from deepdiff import DeepDiff
 
+async def get_attributes_for_building(api, buildings, attribute_types):
+    attributes = {}
+    for b in buildings:
+        attrs = await api.get_attributes(b.object_id)
+        attributes[b.id] = {
+            t.name: next((
+                getattr(a, f"value_{t_}") 
+                for t_ in ["string", "integer", "float"] 
+                if getattr(a, f"value_{t_}", None) is not None
+            ),None)
+            for t in attribute_types for a in attrs if a.attribute_type_id == t.id
+        }
 
 async def run_pipeline(simulation: Simulation) -> dict:
     api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
@@ -28,16 +42,17 @@ async def run_pipeline(simulation: Simulation) -> dict:
         # Data retrieval through Openbeers API
         api_attributes = {}
         api_series = {}
+        api_attributes = await api.get_attributes_for_buildings(buildings, attr_types)
         for b in buildings:
-            attrs = await api.get_attributes(b.object_id)
-            api_attributes[b.id] = {
-                t.name: next((
-                    getattr(a, f"value_{t_}") 
-                    for t_ in ["string", "integer", "float"] 
-                    if getattr(a, f"value_{t_}", None) is not None
-                ),None)
-                for t in attr_types for a in attrs if a.attribute_type_id == t.id
-            }
+            # attrs = await api.get_attributes(b.object_id)
+            # api_attributes[b.id] = {
+            #     t.name: next((
+            #         getattr(a, f"value_{t_}") 
+            #         for t_ in ["string", "integer", "float"] 
+            #         if getattr(a, f"value_{t_}", None) is not None
+            #     ),None)
+            #     for t in attr_types for a in attrs if a.attribute_type_id == t.id
+            # }
             series = await api.get_series(b.object_id, simulation.id)
             api_series[b.id] = {
                 t.name: next(
@@ -84,11 +99,15 @@ async def extract_simulation_data(
     logger.info(f"Extracting all data from simulation: {simulation.id} - {simulation.name}")
     save_file = f"{config['simulation_extraction_dir']}/{simulation.name}.pkl"
 
-    if os.path.exists(save_file):
+    if os.path.exists(save_file) and not config.no_cache:
         logger.info(f"Simulation extraction file already exists. {simulation.name}")
         return pickle_load(save_file)
     
     extraction = await run_pipeline(simulation)
+
+    # Add tags allowing to know if building is equipped with EV, Battery, and a HP
+    renovation_planner = RenovationPlanning(config.renovation_planning.save_file)
+    renovation_planner.add_EV_counts(extraction, simulation)
 
     get_elec_prices(extraction, elec_pricer)
         
@@ -119,6 +138,7 @@ def output_aggregator(basopra_output: Dict[Tuple[int,int], Any])->Any:
 async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None:
     logger.info(f"Processing {sim.name}")
     extraction = await extract_simulation_data(sim, pricer)
+
     basopra_input = input_aggregator(extraction)
     basopra_output = run_basopra_simulation(basopra_input)
     basopra_output = output_aggregator(basopra_output)
