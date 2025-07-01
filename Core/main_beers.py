@@ -619,16 +619,16 @@ def pooling2(combinations):
             True if successful, False otherwise.
         '''
 
-        print('##########################################')
-        print('pooling')
-        print(combinations)
-        print('##########################################')
+        #print('##########################################')
+        #print('pooling')
+        #print(combinations)
+        #print('##########################################')
         param, data_input=load_param(combinations)
         try:
             if param['nyears']>1:
                 data_input=pd.DataFrame(pd.np.tile(pd.np.array(data_input).T,
                                        param['nyears']).T,columns=data_input.columns)
-            print('#############pool################')
+            #print('#############pool################')
 
 
             [df,aux_dict]=single_opt2(param, data_input)
