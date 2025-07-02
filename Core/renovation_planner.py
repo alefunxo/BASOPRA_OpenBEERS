@@ -18,7 +18,8 @@ from openbeers.models import AttributeType, Building, Simulation, Zone
 
 from utils.utils import dataframe_load, dataframe_save
 
-np.random.seed(config.renovation_planning.seed)
+planner_config = config.renovation_planning
+np.random.seed(planner_config.seed)
 
 async def load_from_api(save_file: str) -> pd.DataFrame:
     api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
@@ -38,15 +39,15 @@ async def load_from_api(save_file: str) -> pd.DataFrame:
         buildings_list: List[Building] = list(buildings.values())
         print(f"Found {len(buildings_list)} buildings")
 
-        if config.renovation_planning.testing:
-            buildings_list = buildings_list[:config.renovation_planning.test_cases]
+        if planner_config.testing:
+            buildings_list = buildings_list[:planner_config.test_cases]
 
         print("Retrieving attribute types")
-        attribute_types: List[AttributeType] = await api.get_attribute_types(config.renovation_planning.needed_attributes)
+        attribute_types: List[AttributeType] = await api.get_attribute_types(planner_config.needed_attributes)
         attributes = await api.get_attributes_for_buildings(buildings_list, attribute_types)
 
         print("Converting attribute types")
-        codification_heat_generator = config.renovation_planning.codification_heat_generator
+        codification_heat_generator = planner_config.codification_heat_generator
 
         for attrs in attributes.values():
             for attr in ['gwaerzh1', 'gwaerzh2']:
@@ -59,8 +60,8 @@ async def load_from_api(save_file: str) -> pd.DataFrame:
     return df
 
 def estimate_vehicles_per_building(df: pd.DataFrame) -> pd.DataFrame:
-    people_per_houselhold = config.renovation_planning.people_per_household
-    vehicles_per_household = config.renovation_planning.vehicles_per_household
+    people_per_houselhold = planner_config.people_per_household
+    vehicles_per_household = planner_config.vehicles_per_household
     inhabitants_per_building = df['num_occupants']
     # CAUTION: assumption made that a one person building still counts as a household
     households_per_building = np.maximum(1, np.round(inhabitants_per_building / people_per_houselhold).astype(int))
@@ -85,7 +86,7 @@ def estimate_vehicles_per_building(df: pd.DataFrame) -> pd.DataFrame:
 
 def add_evs(df: pd.DataFrame) -> pd.DataFrame:
     vehicle_counts = df['total_vehicle_count']
-    ev_ratios = config.renovation_planning.ev_inclusion_rate
+    ev_ratios = planner_config.ev_inclusion_rate
     building_ids = list(vehicle_counts.keys())
 
     flat_vehicle_building_ids = np.concatenate([
@@ -139,7 +140,7 @@ def add_evs(df: pd.DataFrame) -> pd.DataFrame:
     return buildings_df
 
 def add_HP(df: pd.DataFrame) -> pd.DataFrame:
-    years_of_interest = config.renovation_planning.years_of_interest
+    years_of_interest = planner_config.years_of_interest
 
     # existing hp and district heating
     hp_presence = df["gwaerzh1"].isin([7410, 7411])
@@ -161,7 +162,26 @@ def add_HP(df: pd.DataFrame) -> pd.DataFrame:
     
     hp_per_year = pd.DataFrame(hp_installed_per_year)
     buildings_df = df.merge(hp_per_year, left_index=True, right_index=True, how="left")
+
+    # Adding HP pumps up to projected HP ratio
+    hp_inclusion_rates = dataframe_load(planner_config.hp_inclusion_rates)
+    hp_inclusion_rates = hp_inclusion_rates[
+        (hp_inclusion_rates['Canton'] == planner_config.canton) &
+        (hp_inclusion_rates['quantile'] == planner_config.quantile)
+    ]
+
+    municipalities = buildings_df["commune"].str.replace(r"\s*\(.*?\)", "", regex=True).unique()
+    municipalities_hp_inclusion_rates = hp_inclusion_rates[hp_inclusion_rates['MunicipalityName'].isin(municipalities)]
+
+    print(municipalities_hp_inclusion_rates.head())
+
     return buildings_df 
+
+def prep_battery_prob(df: pd.DataFrame) -> pd.DataFrame:
+    will_have_battery_if_PV = np.random.rand(len(df)) <= planner_config.battery_install_ratio
+    df["install_battery"] = will_have_battery_if_PV
+    return df
+
     
 class RenovationPlanning:
     def __init__(self, renovation_plan_path: str) -> None:
@@ -182,10 +202,10 @@ class RenovationPlanning:
 
 
 async def main() -> None:
-    save_file = config.renovation_planning.save_file
+    save_file = planner_config.save_file
 
     df = None
-    if os.path.exists(save_file) and not config.renovation_planning.no_cache:
+    if os.path.exists(save_file) and not planner_config.no_cache:
         df = dataframe_load(save_file)
     else: 
         df = await load_from_api(save_file)
@@ -193,6 +213,7 @@ async def main() -> None:
     df = estimate_vehicles_per_building(df)
     df = add_evs(df)
     df = add_HP(df)
+    df = prep_battery_prob(df)
     print(df.head)
     dataframe_save(save_file, df, index=True)
             

@@ -1,14 +1,21 @@
 testing: False
 test_cases: 10
 seed: 42
+no_cache: False
+save_file: Output/renovation_planning.csv
+canton: VS
+
 people_per_household: 2
 vehicles_per_household: 1.43
-no_cache: True
 
-save_file: Output/renovation_planning.csv
+battery_install_ratio: 0.8
+
+hp_inclusion_rates: Input/Projections_municipality_2024_2050_Heat_pump_usedpot_perc.csv
+quantile: 0.5
 
 needed_attributes:
   - num_occupants
+  - commune
   - gwaerzh1
   - gwaerdath1
   - gwaerzh2
@@ -47,3 +54,4 @@ ev_inclusion_rate:
   2035: 0.1
   2045: 0.35
   2050: 0.55
+  

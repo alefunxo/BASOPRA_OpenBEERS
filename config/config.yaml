@@ -48,6 +48,8 @@ needed_attributes:
   - MainCategory
   - SubCategory
   - Municipality
+  - commune
+  - plz_plz6
 
 aggregation_methods:  # supports mean, median, sum, random, custom
   attributes:
