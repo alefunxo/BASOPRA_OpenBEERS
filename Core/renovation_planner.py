@@ -81,7 +81,7 @@ def estimate_vehicles_per_building(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     df['total_vehicle_count'] = vehicle_counts
-
+    print(df.head())
     return df
 
 def add_evs(df: pd.DataFrame) -> pd.DataFrame:
@@ -139,43 +139,97 @@ def add_evs(df: pd.DataFrame) -> pd.DataFrame:
 
     return buildings_df
 
-def add_HP(df: pd.DataFrame) -> pd.DataFrame:
-    years_of_interest = planner_config.years_of_interest
+def add_current_HP(df: pd.DataFrame) -> pd.DataFrame:
+    df['hp_installed_2025'] = df["gwaerzh1"].isin([7410, 7411])
+    return df
 
-    # existing hp and district heating
-    hp_presence = df["gwaerzh1"].isin([7410, 7411])
-    district_heating_presence = df["gwaerzh1"].isin([7460, 7461])
-
-    # calculating all dates where a renovation of heating system should be done
+def add_HP_when_renovated(df: pd.DataFrame, years_of_interest: List[int]) -> pd.DataFrame:
     # CAUTION: Assumption made that any absent renovation date is due to the renovation being exceedingly old
+    district_heating_presence = df["gwaerzh1"].isin([7460, 7461])
     renovation_dates = pd.to_datetime(df['gwaerdath1'], format = "%d.%m.%Y", errors='coerce')
     dummy_date = pd.Timestamp("1900-01-01")
     renovation_dates = renovation_dates.fillna(dummy_date)
     renovation_dates_plus_20 = renovation_dates.apply(lambda d: d + relativedelta(years=20))
 
     # Determining what buildings should have been equipped with a HP at each year of interest
+    hp_presence = df['hp_installed_2025']
     hp_installed_per_year = {}
     for year in years_of_interest:
         cutoff = pd.Timestamp(f"{year}-01-01")
         renovated = renovation_dates_plus_20 < cutoff
         hp_installed_per_year[f'hp_installed_{year}'] = (hp_presence | renovated) & ~district_heating_presence
-    
-    hp_per_year = pd.DataFrame(hp_installed_per_year)
-    buildings_df = df.merge(hp_per_year, left_index=True, right_index=True, how="left")
+        print(year, hp_installed_per_year[f'hp_installed_{year}'].sum()/len(hp_installed_per_year[f'hp_installed_{year}']))
 
-    # Adding HP pumps up to projected HP ratio
+    hp_per_year = pd.DataFrame(hp_installed_per_year, index=df.index)
+    df = df.drop(columns=['hp_installed_2025'])
+    buildings_df = df.merge(hp_per_year, left_index=True, right_index=True, how="left")
+    return buildings_df
+
+def add_HP_to_projected_ratio(df: pd.DataFrame, years_of_interest: List[int]) -> pd.DataFrame:
     hp_inclusion_rates = dataframe_load(planner_config.hp_inclusion_rates)
     hp_inclusion_rates = hp_inclusion_rates[
         (hp_inclusion_rates['Canton'] == planner_config.canton) &
         (hp_inclusion_rates['quantile'] == planner_config.quantile)
     ]
 
-    municipalities = buildings_df["commune"].str.replace(r"\s*\(.*?\)", "", regex=True).unique()
+    municipalities = df["commune"].unique()
     municipalities_hp_inclusion_rates = hp_inclusion_rates[hp_inclusion_rates['MunicipalityName'].isin(municipalities)]
 
-    print(municipalities_hp_inclusion_rates.head())
+    municipality_dfs = {
+        municipality: group.copy()
+        for municipality, group in df.groupby('commune')
+    }
+    for year in years_of_interest:
+        for municipality, buildings in municipality_dfs.items():
+            column = f'hp_installed_{year}'
+            actual_rate = buildings[column].sum()/len(buildings[column])
+            hp_rate = municipalities_hp_inclusion_rates[municipalities_hp_inclusion_rates['MunicipalityName'] == municipality][str(year)].iloc[0]/100
+            print(year, municipality, actual_rate, hp_rate)
+            if hp_rate < actual_rate:
+                continue
+            total_hp_needed = round(hp_rate * len(buildings[column]))
+            hp_to_add = total_hp_needed - buildings[column].sum()
+            false_indices = buildings[buildings[column] is False].index
+            flip_indices = np.random.choice(false_indices, size=hp_to_add, replace=False)
+            df.loc[flip_indices, column] = True
+    full_df = pd.concat(municipality_dfs.values())
+    return full_df
 
-    return buildings_df 
+def add_HP(df: pd.DataFrame) -> pd.DataFrame:
+    years_of_interest = planner_config.years_of_interest
+    df['commune'] = df["commune"].str.replace(r"\s*\(.*?\)", "", regex=True)
+
+    hp_inclusion_rates = dataframe_load(planner_config.hp_inclusion_rates)
+    hp_inclusion_rates = hp_inclusion_rates[
+        (hp_inclusion_rates['Canton'] == planner_config.canton) &
+        (hp_inclusion_rates['quantile'] == planner_config.quantile)
+    ]
+
+    municipalities = df["commune"].unique()
+    municipalities_hp_inclusion_rates = hp_inclusion_rates[hp_inclusion_rates['MunicipalityName'].isin(municipalities)]
+
+    # existing hp and district heating
+    df = add_current_HP(df)
+    for year in [2025]:
+        for municipality, group in df.groupby('commune'):
+            column = f'hp_installed_{year}'
+            actual_rate = group[column].sum()/len(group[column])
+            hp_rate = municipalities_hp_inclusion_rates[municipalities_hp_inclusion_rates['MunicipalityName'] == municipality][str(year)].iloc[0]/100
+            print(year, municipality, actual_rate, hp_rate)
+
+    # calculating all dates where a renovation of heating system should be done
+    df = add_HP_when_renovated(df, years_of_interest)
+    for year in years_of_interest:
+        for municipality, group in df.groupby('commune'):
+            column = f'hp_installed_{year}'
+            actual_rate = group[column].sum()/len(group[column])
+            hp_rate = municipalities_hp_inclusion_rates[municipalities_hp_inclusion_rates['MunicipalityName'] == municipality][str(year)].iloc[0]/100
+            print(year, municipality, actual_rate, hp_rate)
+
+    # Adding HP pumps up to projected HP ratio
+    df = add_HP_to_projected_ratio(df, years_of_interest)
+
+    return df 
 
 def prep_battery_prob(df: pd.DataFrame) -> pd.DataFrame:
     will_have_battery_if_PV = np.random.rand(len(df)) <= planner_config.battery_install_ratio
@@ -206,7 +260,7 @@ async def main() -> None:
 
     df = None
     if os.path.exists(save_file) and not planner_config.no_cache:
-        df = dataframe_load(save_file)
+        df = dataframe_load(save_file, index_col=0)
     else: 
         df = await load_from_api(save_file)
         
