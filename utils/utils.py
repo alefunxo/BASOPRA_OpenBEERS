@@ -6,6 +6,8 @@ import pandas as pd
 from pandas import DataFrame
 from utils.logger import logger
 from config.loader import config
+from typing import Union
+
 from typing import Any, Dict, List, Tuple
 # TODO remove this import from here and move the logic that uses it elsewhere
 from heat_pump.pump_sizer import HeatPumpDesign
@@ -16,7 +18,7 @@ def dataframe_save(path: str, df: DataFrame, index: bool = False) -> None:
     path_obj.parent.mkdir(parents=True, exist_ok=True)  # Ensure the directory exists
     df.to_csv(path, index=index)
 
-def dataframe_load(path: str, index_col: int | str | None = None) -> DataFrame:
+def dataframe_load(path: str, index_col: Union[int, str, None] = None) -> DataFrame:
     path_obj = Path(path)
 
     if not path_obj.is_file():

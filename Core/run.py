@@ -175,6 +175,7 @@ async def main() -> None:
             async with api_wrapper as api:
                 simulation = await api.get_simulation(name)
             if simulation is None:
+                logger.info(f'Simulation is None')
                 continue
             pricer = ElectricityPricer()
             await process_simulation(simulation, pricer)

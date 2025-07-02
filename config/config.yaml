@@ -7,8 +7,8 @@ no_cache: True
 
 loop_mode: False
 simulation_names: 
-  - val_de_bagnes_41_climate_contemporary_pv_none_2025 
-  - val_de_bagnes_41_climate_contemporary_pv_roof_2025 
+  - val_de_bagnes_41_climate_contemporary_pv_none_2025
+  - val_de_bagnes_41_climate_contemporary_pv_roof_2025
   - val_de_bagnes_41_climate_rcp26_pv_none_2040/       
   - val_de_bagnes_41_climate_rcp26_pv_none_2050/       
   - val_de_bagnes_41_climate_rcp26_pv_roof_2040/       
@@ -265,7 +265,7 @@ Core:
     cases: ["mean"]
     house_type: ["SFH100"]
     HP: ["AS"]
-    conf: [0, 4]  # 0 only HP; 1 HP+DHW; 2 HP+SH; 3 HP+SH+DHW; 4 only Battery; 5 HP+DHW+BATT; 6 HP+SH+BATT; 7 HP+SH+DHW+BATT
+    conf: [7]  # 0 only HP; 1 HP+DHW; 2 HP+SH; 3 HP+SH+DHW; 4 only Battery; 5 HP+DHW+BATT; 6 HP+SH+BATT; 7 HP+SH+DHW+BATT
     ev_profiles:
       EV1:
         EV_batt_cap:     75

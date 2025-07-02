@@ -73,7 +73,7 @@ class ApiWrapper:
     async def get_all_zones(self) -> List[Zone]:
         return await self.fetch(self.api.get_all_zones_api_zones_all_get)
 
-    async def get_attributes_for_buildings(self, buildings: List[Building], attribute_types: List[AttributeType]) -> Dict[int|None, Dict[str, Any|None]]:
+    async def get_attributes_for_buildings(self, buildings: List[Building], attribute_types: List[AttributeType]) ->Dict[Optional[int], Dict[str, Optional[Any]]]:
         tasks = {
             b.id: self.get_attributes(b.object_id)
             for b in buildings
