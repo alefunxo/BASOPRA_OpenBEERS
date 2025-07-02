@@ -119,7 +119,7 @@ def get_tank(building: Element, tank_type: str) -> Optional[heat_storage_tank]:
     tank = building.find(tank_type)
     if tank is None:
         return None
-    tank_volume = tank.attrib["V"]
+    tank_volume = float(tank.attrib["V"])
     tank_class = heat_storage_tank(tank_volume)
     return tank_class
 

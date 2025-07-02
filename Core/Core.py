@@ -148,8 +148,7 @@ def Optimize(data_input, param):
     logger.info("Optimizing for %s day(s) with a window of %s timesteps.", days, window)
     logger.info("%%%%%%%%% Optimizing %%%%%%%%%%%%%%%")
 
-    Batt = pc.Battery_tech(Capacity=param['Capacity'], Technology=param['Tech'])
-    logger.debug("Initialized Battery_tech: %s", Batt.Technology)
+    
 
     aux_Cap_arr = np.zeros(param['ndays'])
     SOC_max_arr = np.zeros(param['ndays'])

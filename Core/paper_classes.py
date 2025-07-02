@@ -1,3 +1,4 @@
+
 import pandas as pd
 import numpy as np
 class Hardware_Prices:
@@ -624,19 +625,21 @@ class heat_storage_tank(object):
     hp object with power and COP_static
     '''
 
-    def __init__(self, mass, **kwargs):
+    def __init__(self, volume, **kwargs):
         #super().__init__(**kwargs)
-        self.mass = mass  #in kg/L of water
-        
+        self.volume = volume  #L of water
+        self.diameter = (2 * volume/100 / np.pi) ** (1 / 3)
+        self.height = 2*self.diameter
+        self.surface = np.pi * self.diameter * self.height + 2 * np.pi * (self.diameter / 2) ** 2
+
         defaults = {
-        'investment_cost': 1608*self.mass,#Swisstore project data; cost per kW_th
+        'investment_cost': 1608*self.volume,#Swisstore project data; cost per kW_th
         'calendar_life': 20,
         'operation_costs': 190,#cost per year
-        'installation_costs':158*self.mass,#cost per kW_th
+        'installation_costs':158*self.volume,#cost per kW_th
         'specific_heat':0.00116, #kWh/(l*K)
         #'mass':200, #l for a 200 liter tank
         'U_value':0.36/1000, #kW/(m2*K)
-        'surface':2.39, # For a 200 liter tank with 0.26 height and .5 radius (m2)
         't_max':333.15, #60°C
         't_min':323.15 #50°C
         }

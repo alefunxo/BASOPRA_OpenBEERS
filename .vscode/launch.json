@@ -8,7 +8,7 @@
             "name": "Run original BASOPRA OpenBeers",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/Core/main_beers.py",
+            "program": "${workspaceFolder}/Core/run.py",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
         },
