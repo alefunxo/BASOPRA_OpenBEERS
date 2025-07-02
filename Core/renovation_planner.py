@@ -244,7 +244,7 @@ class RenovationPlanning:
         for b, values in buildings.items():
             ev_count = 0
             if b in self.renovation_plan.index:
-                ev_count = self.renovation_plan.loc[b, f'ev_count_{sim_year}']
+                ev_count = 1#self.renovation_plan.loc[b, f'ev_count_{sim_year}']
 
             values['attributes']['ev_count'] = ev_count
 

@@ -142,14 +142,14 @@ def Optimize(data_input, param):
     logger.info("Starting optimization process.")
     days = 1
     dt = param['delta_t']
+    Batt = param['Batt']
     end_d = int(param['ndays'] * 24 / dt)
     window = int(24 * days / dt)
 
     logger.info("Optimizing for %s day(s) with a window of %s timesteps.", days, window)
     logger.info("%%%%%%%%% Optimizing %%%%%%%%%%%%%%%")
 
-    Batt = pc.Battery_tech(Capacity=param['Capacity'], Technology=param['Tech'])
-    logger.debug("Initialized Battery_tech: %s", Batt.Technology)
+    
 
     aux_Cap_arr = np.zeros(param['ndays'])
     SOC_max_arr = np.zeros(param['ndays'])
@@ -167,6 +167,7 @@ def Optimize(data_input, param):
     #data_input.loc[:, 'Temp_supply_tank'] = data_input['Temp_supply_tank'].copy().rolling(window=width).mean().bfill()
     data_input['T_aux_supply'] = data_input.apply(lambda row: row.Temp_supply + 10, axis=1)
     for i in range(int(param['ndays'] / days)):
+        logger.info("Processing day index: %s", i)
         logger.debug("Processing day index: %s", i)
         toy = 0
         data_input_ = data_input[data_input.index.dayofyear == data_input.index.dayofyear[0] + i]
@@ -176,11 +177,13 @@ def Optimize(data_input, param):
             aux_SOC_max = Batt.SOC_max
             SOH = 1
             T_init = data_input[data_input.index.dayofyear == data_input.index.dayofyear[0] + i].Temp_supply.iloc[0]
+            T_init_dhw = 50+273.15
         else:
             aux_Cap_aged = aux_Cap
             aux_SOC_max = SOC_max_
             SOH = SOH_aux
             T_init = T_init_
+            T_init_dhw = T_init_dhw_
 
         if data_input.index.dayofyear[0] + i == 120:
             toy = 1
@@ -236,6 +239,7 @@ def Optimize(data_input, param):
                       'Batt': Batt,
                       'Set_declare': Set_declare,
                       'T_init': T_init,
+                      'T_init_dhw': T_init_dhw,
                       'retail_price': retail_price_dict,
                       'App_comb_mod': dict(enumerate(param['App_comb']))})
         param['Max_inj'] = param['Curtailment'] * param['PV_nom']
@@ -245,7 +249,7 @@ def Optimize(data_input, param):
             continue
         global_lock.acquire()
         if sys.platform == 'linux' or sys.platform == 'win32':
-            opt = SolverFactory('gurobi')
+            opt = SolverFactory('gurobi_persistent')
             opt.options["threads"] = 1
             opt.options["mipgap"] = 0.001
         else:
@@ -253,8 +257,15 @@ def Optimize(data_input, param):
             opt.options["threads"] = 1
             opt.options["mipgap"] = 0.001
         logger.debug("Solver initialized, starting solve for day index %s", i)
-        results = opt.solve(instance, tee=core_config.Optimizer.solver_verbose)
+        opt.set_instance(instance)
+
+        # 1) disable dual reductions so Gurobi separates unbounded from infeasible
+        opt.options['DualReductions'] = 0
+        # 2) ask for unbounded‐info so it will compute and retain a ray if unbounded
+        opt.options['InfUnbdInfo']  = 1
+        results = opt.solve(instance, tee=True)#core_config.Optimizer.solver_verbose)
         global_lock.release()
+        
         if core_config.Optimizer.solver_results_write:
             results.write(num=1)
 
@@ -262,6 +273,7 @@ def Optimize(data_input, param):
             logger.debug("Optimal solution found for day index %s", i)
             [df_1, P_max] = Get_output(instance)
             T_init_ = df_1.loc[df_1.index[-1], 'T_ts']
+            T_init_dhw_ = df_1.loc[df_1.index[-1], 'T_dhwst']
             if param['aging']:
                 [SOC_max_, aux_Cap, SOH_aux, Cycle_aging_factor, cycle_cal, DoD] = aging_day(
                     df_1.E_char, SOH, Batt.SOC_min, Batt, aux_Cap_aged)
@@ -272,7 +284,10 @@ def Optimize(data_input, param):
                 SOC_max_arr[i] = SOC_max_
                 SOH_arr[i] = SOH_aux
             else:
-                DoD_arr[i] = df_1.E_dis.sum() / Batt.Capacity
+                if Batt.Capacity == 0:
+                    DoD_arr[i] = 0
+                else:
+                    DoD_arr[i] = df_1.E_dis.sum() / Batt.Capacity
                 cycle_cal_arr[i] = 0
                 P_max_arr[i] = P_max
                 aux_Cap_arr[i] = aux_Cap
@@ -331,11 +346,19 @@ def Optimize(data_input, param):
     columns_to_map = [
     'Req_kWh', 'Req_kWh_DHW', 'Set_T', 'Temp', 'Temp_supply',
     'Temp_supply_tank', 'T_aux_supply', 'COP_tank', 'COP_SH', 'COP_DHW'
-]#, 'E_EV_trip'
+]#, 'E_EV_trip' '
     # Define the list of columns to map from data_input
     new_cols = {col: data_input[col].reset_index(drop=True).iloc[:end_d].values 
                 for col in columns_to_map}
     df = df.assign(**new_cols)
+    new_cols = {}
+    for ev in param['EV_list']:
+        new_cols[f"{ev}_EV_home"]   = data_input[f"{ev}_EV_home"].reset_index(drop=True).iloc[:end_d].values
+        new_cols[f"{ev}_EV_away"]   = data_input[f"{ev}_EV_away"].reset_index(drop=True).iloc[:end_d].values
+        new_cols[f"{ev}_E_EV_trip"] = data_input[f"{ev}_E_EV_trip"].reset_index(drop=True).iloc[:end_d].values
+
+    df = df.assign(**new_cols)
+
     df.set_index('index', inplace=True)
 
     aux_dict = {'aux_Cap_arr': aux_Cap_arr, 'SOH_arr': SOH_arr, 'Cycle_aging_factor': Cycle_aging_factor, 'P_max_arr': P_max_arr,

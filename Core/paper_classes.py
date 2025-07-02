@@ -1,3 +1,4 @@
+
 import pandas as pd
 import numpy as np
 class Hardware_Prices:
@@ -592,7 +593,7 @@ class HP_tech(hp):
                     setattr(self, key, val)
                 self.__dict__.update(kwargs)
         elif self.technology=='GSHP':
-                print('warning: data must be actualized')
+                print('warning: data must be updated')
                 defaults = {
                 'investment_cost': 1*self.power,#Swisstore project data; cost per kW_th
                 'calendar_life': 1,
@@ -607,40 +608,94 @@ class HP_tech(hp):
         else:
                 raise ValueError
 #-------------------------------------------------------------------------------
+import numpy as np
 
 class heat_storage_tank(object):
-    '''
+    """
     Heat storage tank object definition
     
     Parameters
     ----------
-    Power: float; Thermal power [lookup table only available for 4,6,8,11,14,16] otherwise use COP_static @ 2.5
-    TODO
-    ------
-    Actualize the default values
-    
-    Returns
-    ------
-    hp object with power and COP_static
-    '''
+    volume : float
+        Volume of the tank in liters.
+    **kwargs :
+        Optional overrides for default parameters.
 
-    def __init__(self, mass, **kwargs):
-        #super().__init__(**kwargs)
-        self.mass = mass  #in kg/L of water
-        
+    Attributes
+    ----------
+    volume : float
+        Tank volume in liters.
+    diameter : float
+        Tank diameter in meters.
+    height : float
+        Tank height in meters.
+    surface : float
+        Tank surface area in m^2.
+    investment_cost : float
+        Investment cost in currency units.
+    calendar_life : int
+        Lifetime in years.
+    operation_costs : float
+        Annual operation cost.
+    installation_costs : float
+        Installation cost in currency units.
+    specific_heat : float
+        Specific heat in kWh/(l*K).
+    U_value : float
+        Heat loss coefficient in kW/(m^2*K).
+    t_max : float
+        Maximum temperature in K.
+    t_min : float
+        Minimum temperature in K.
+    """
+
+    def __init__(self, volume, **kwargs):
+        # Initialize dependent geometry and store volume
+        self._volume = None
+        self._recalc(volume)
+
+        # Default economic and thermophysical parameters
         defaults = {
-        'investment_cost': 1608*self.mass,#Swisstore project data; cost per kW_th
-        'calendar_life': 20,
-        'operation_costs': 190,#cost per year
-        'installation_costs':158*self.mass,#cost per kW_th
-        'specific_heat':0.00116, #kWh/(l*K)
-        #'mass':200, #l for a 200 liter tank
-        'U_value':0.36/1000, #kW/(m2*K)
-        'surface':2.39, # For a 200 liter tank with 0.26 height and .5 radius (m2)
-        't_max':333.15, #60°C
-        't_min':323.15 #50°C
+            'investment_cost': 1608 * self._volume,
+            'calendar_life': 20,
+            'operation_costs': 190,
+            'installation_costs': 158 * self._volume,
+            'specific_heat': 0.00116,
+            'U_value': 0.36 / 1000,
+            't_max': 343.15,
+            't_min': 323.15,
         }
-
         for key, val in defaults.items():
             setattr(self, key, val)
+
+        # Override any defaults with user-provided kwargs
         self.__dict__.update(kwargs)
+
+    def _recalc(self, volume):
+        """
+        Recalculate geometry when volume changes.
+        """
+        self._volume = volume
+        # Convert liters to cubic meters for geometry: 1 L = 0.001 m^3
+        vol_m3 = volume * 0.001
+        # Assuming cylindrical tank: height = 2 * diameter
+        # Volume = π * (d/2)^2 * height = π * (d/2)^2 * (2d) = π * d^3 / 2
+        # Solve for d: d = (2 * vol_m3 / π)^(1/3)
+        self.diameter = (2 * vol_m3 / np.pi) ** (1/3)
+        self.height = 2 * self.diameter
+        self.surface = (np.pi * self.diameter * self.height
+                        + 2 * np.pi * (self.diameter / 2) ** 2)
+
+    @property
+    def volume(self):
+        """
+        Volume getter (in liters).
+        """
+        return self._volume
+
+    @volume.setter
+    def volume(self, new_volume):
+        """
+        Volume setter: updates volume and recalculates geometry.
+        """
+        self._recalc(new_volume)

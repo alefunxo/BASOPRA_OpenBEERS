@@ -116,6 +116,7 @@ def load_prices():
         
 
 
+
 def load_heat_demand(combinations):
     filename_heat=Path(f'{INPUT_PATH}preprocessed_heat_demand_2_new_Oct.csv')
     
@@ -291,14 +292,13 @@ def load_multi_EV_data(ev_profiles,param):
     return param, dfs
 
 
-def configure_system_parameters(combinations, param, data_input):
+def configure_system_parameters(combinations, heat_pump, param):
     """
     Configure system parameters based on the input 'combinations' dictionary.
     
     Parameters:
         combinations (dict): Contains configuration flags (e.g. 'conf' and 'house_type').
         param (dict): Dictionary to store various system parameters.
-        data_input (pd.DataFrame): Data used for logging or further configuration.
         
         
     Returns:
@@ -313,52 +313,59 @@ def configure_system_parameters(combinations, param, data_input):
     # configuration = [Batt, HP, TS, DHW]
     # if all false, only PV is used
     conf_aux = [False, True, False, False]  # [Batt, HP, TS, DHW]
-    
+    dhw_tank = combinations['hh']['dhw_tank']
+    heat_tank = combinations['hh']['heat_tank']
     # For some settings the heat pump is removed
     if combinations['house_type'] == 'NoHeatPump':
         conf_aux[1] = False
 
     if conf < 4:  # No battery
         logger.debug('No battery')
-        param['Converter_efficiency_batt'] = 1
+        param['Batt'] = pc.Battery_tech(Capacity=0, Technology=combinations['Tech'])
+
     else:
         logger.debug('Battery present')
         conf_aux[0] = True
-        param['Converter_efficiency_batt'] = 0.98
+        # The Batt will come defined by the citysim preprocessing
+        # I added it here for completeness in the meanwhile
+        param['Batt'] = pc.Battery_tech(Capacity=param['Capacity'], Technology=combinations['Tech'])
+
+        
 
     if (conf != 0) & (conf != 1) & (conf != 4) & (conf != 5) & (conf != 8) & (conf != 9):  # TS present
         logger.debug('TS present')
         conf_aux[2] = True
         if (combinations['house_type'] == 'SFH15') | (combinations['house_type'] == 'SFH45'):
             logger.debug('SHF 15 or 45')
-            param['tank_sh'] = pc.heat_storage_tank(mass=1500, surface=6)
+            param['tank_sh'] = pc.heat_storage_tank(volume=20*heat_pump.attributes['hp'])
         else:
             logger.debug('SHF 100')
-            param['tank_sh'] = pc.heat_storage_tank(mass=1500, surface=6)
+            param['tank_sh'] = pc.heat_storage_tank(volume=20*heat_pump.attributes['hp'])
     else:  # No TS
         logger.debug('SHF 100')
-        param['tank_sh'] = pc.heat_storage_tank(mass=0, surface=0.41)
+        param['tank_sh'] = pc.heat_storage_tank(volume=20*heat_pump.attributes['hp'])
 
     if (conf == 1) | (conf == 3) | (conf == 5) | (conf == 7):  # DHW present
         logger.debug('DHW present')
         conf_aux[3] = True
-        param['tank_dhw'] = pc.heat_storage_tank(mass=200, t_max=60 + 273.15, t_min=40 + 273.15, surface=1.6564)
+        dhw_tank.volume=dhw_tank.volume*1000
+        param['tank_dhw'] = dhw_tank
     else:  # No DHW
         logger.debug('No DHW')
-        param['tank_dhw'] = pc.heat_storage_tank(mass=0, t_max=0, t_min=0, specific_heat_dhw=0, U_value_dhw=0, surface_dhw=0)
-
-    logger.debug(data_input.head())
+        param['tank_dhw'] = pc.heat_storage_tank(volume=0,  specific_heat_dhw=0, U_value_dhw=0, surface_dhw=0)
+    '''
     design_param = load_obj(f'{INPUT_PATH}dict_design_oct')
     if combinations['house_type'] == 'SFH15':
-        param['Backup_heater'] = design_param['bu_15']
+        param['Backup_heater'] = 10000000 # Big number to run all design_param['bu_15']
         param['hp'] = pc.HP_tech(technology='ASHP', power=design_param['hp_15'])
     elif combinations['house_type'] == 'SFH45':
-        param['Backup_heater'] = design_param['bu_45']
+        param['Backup_heater'] = 10000000 #design_param['bu_45']
         param['hp'] = pc.HP_tech(technology='ASHP', power=design_param['hp_45'])
     else:
-        param['Backup_heater'] = design_param['bu_100']
+        param['Backup_heater'] = 10000000 #design_param['bu_100']
         param['hp'] = pc.HP_tech(technology='ASHP', power=design_param['hp_100'])
-    
+    '''
+    param['Backup_heater'] = 10000000 #design_param['bu_100']
     return param, conf_aux
 
 def load_param(combinations):
@@ -395,33 +402,19 @@ def load_param(combinations):
     Comments
     -----
     '''
-    ##print('##############')
     logger.info('Loading data for Basopra Optimization')
-    # if core_config['oldschool']:
-    #     pv_capacity = combinations['hh']['pv_capacity']
-    #     pv_capacity = pv_capacity['Roof'] + pv_capacity['Wall']
-    #     consumption_category = combinations['hh']['consumption_category']
-    #     elec_price = combinations['hh']['elec_price']
-    #     heat_pump = combinations['HP'] # not in hh combinations['hh']['heat_pump]
-    #     ev_profiles = combinations['hh']['ev_profiles']
-    #     combinations['hh'].pop('pv_capacity')
-    #     combinations['hh'].pop('consumption_category')
-    #     combinations['hh'].pop('elec_price')
-    #     combinations['hh'].pop('ev_profiles')
-    #     #combinations['hh'].pop('heat_pump')
-    #     df_el = pd.DataFrame(combinations['hh'])
-    # else: 
+
     series = combinations['hh']['series']
     attributes = combinations['hh']['attributes']
     heat_pump = combinations['hh']['heat_pump']
-    df_el = series[['Qs', 'ElectricConsumption', 'SolarPVProduction', 'Ts']]
+    df_el = series[['ElectricConsumption', 'SolarPVProduction','dhw']]
     pv_roof_capacity = attributes['roof_pv_capacity']
     pv_wall_capacity = attributes['wall_pv_capacity']
     pv_capacity = pv_roof_capacity + pv_wall_capacity
-    elec_price = attributes['elec_price']
+    elec_price = attributes['elec_price']/100
     ev_profiles = combinations['hh']['ev_profiles']
-
-    # df_el = pd.DataFrame(combinations['hh'])
+    
+    Export_price = 0.06
     
     logger.info("Choose the corresponding profile for electricity")
 
@@ -443,36 +436,21 @@ def load_param(combinations):
     
     param['App_comb']=combinations['App_comb']
     param['id_dwell']=electricity_profiles.iloc[combinations['profile_row_number']]#combinations['building_name'] # To be added for citysim
-#####################################################
-    # param['aging'] = True
-    # param['Curtailment'] = 0
-    # param['Inverter_efficiency'] = 0.95
-    # param['Converter_efficiency_HP'] = 0.98
-    # param['delta_t'] = 1
-    # param['Capacity_tariff'] = 0
-    # param['nyears'] = 1
-    # param['days'] = 365
-    # param['testing'] = False
+
     week = 1
 
-######################################################
 
-    #df_el = load_electricity_demand(param['id_dwell'])
-    df_el.columns=['Req_kWh','E_demand','E_PV','Temp']
+    df_el.columns=['E_demand','E_PV','dhw']
     
     # PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
-    # param['Capacity']=(df_el.E_PV.sum()/1000).round()  # Estimated kW ratio 1:1 with PV
-    PV_nom = pv_capacity
+    PV_nom = np.round(pv_capacity,1)
+    logger.info('PV_nom : {PV_nom}')
     # Let-s try with the demand instead of the PV due to the high PV nom in the facade
-    param["Capacity"] = df_el.E_demand.sum()/1000 # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
-    #print(param['Capacity'])
+    param["Capacity"] = np.round(df_el.E_demand.sum()/1000,0) # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
+    logger.info('Battery Capacity : {Capacity}')
     param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
 
-    df_prices = load_prices()
-    
-    df_heat = load_heat_demand(combinations)
-    # df_heat_new =df_heat.copy()
-    # df_heat_new = pd.read_csv(f'{INPUT_PATH}heat_demand_test.csv')
+
     df_heat_new = heat_pump.series[[
         'Set_T', 
         'Temp', 
@@ -486,30 +464,7 @@ def load_param(combinations):
         'hp_tank_cons',
         'hp_dhw_cons',
     ]]
-    df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
-    #print(df_heat_new.head())
-    # df_heat_new = pd.read_csv(f'{INPUT_PATH}Heat_demand.csv', sep=';') # TODO sth off wiht this part
-    # df_heat_new = df_heat_new.rename(columns={
-    #                 'Set_T': 'Set_T',
-    #                 'Temp': 'Temp',
-    #                 'SFH100_kWh': 'Req_kWh',
-    #                 'Temp_supply_SFH100': 'Temp_supply',
-    #                 'Temp_supply_SFH100_tank': 'Temp_supply_tank',
-    #                 'COP_SFH100': 'COP_SH',
-    #                 'COP_SFH100_tank': 'COP_tank',
-    #                 'COP_SFH100_DHW': 'COP_DHW',
-    #                 'hp_SFH100_el_cons': 'hp_sh_cons',
-    #                 'hp_SFH100_tank_el_cons': 'hp_tank_cons',
-    #                 'hp_SFH100_el_cons_DHW': 'hp_dhw_cons'
-    #             })
-
-    #print("Columns in df_heat_new:", df_heat_new.columns.tolist())
-    #print("First few rows:")
-    #print(df_heat_new.head())
-
-    # df_heat_new = df_heat_new[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
-    #                     'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
-    #                     'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons']]
+    #df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
 
     
     ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
@@ -517,13 +472,7 @@ def load_param(combinations):
     #[param, df_EV, EV_ID] = load_EV_data(combinations,param)
     
 
-    df_prices=df_prices.resample('1h').mean()
-    #######################################################
-    # df_prices.Price_flat=31.76 # pour val de bagnes   TO BE CHANGED ACCORDINGLY
-    df_prices.Price_flat= elec_price
-    #######################################################
     for ev, df in df_EVs.items():
-        # 1h resample and aggregate exactly as before
         df_hourly = df.resample('1h').agg({
             'E_EV_req':  'sum',
             'E_EV_trip': 'sum',
@@ -534,26 +483,17 @@ def load_param(combinations):
 
         # store it back
         df_EVs[ev] = df_hourly
-
-        # if you need to update your param dict from these:
-        param['EV_home'][ev]   = df_hourly['EV_home'].to_dict()
-        param['EV_away'][ev]   = df_hourly['EV_away'].to_dict()
-        param['E_EV_trip'][ev] = df_hourly['E_EV_trip'].to_dict()
-
-    df_heat_new=df_heat.resample('1h').agg({'Set_T': 'mean', 'Temp': 'mean', 
-                                     'Req_kWh': 'sum', 'Req_kWh_DHW':'sum',
-                                       'Temp_supply':'mean', 'Temp_supply_tank':'mean',
-                                        'COP_SH':'mean', 'COP_tank':'mean',
-                                        'COP_DHW':'mean',
-                                        'hp_sh_cons':'max','hp_tank_cons':'max',
-                                        'hp_dhw_cons':'max'})
+        '''
+        param['EV_home'][ev]   = df_hourly['EV_home'].reset_index(drop=True).to_dict()
+        param['EV_away'][ev]   = df_hourly['EV_away'].reset_index(drop=True).to_dict()
+        param['E_EV_trip'][ev] = df_hourly['E_EV_trip'].reset_index(drop=True).to_dict()
+        '''
     df_el.index=df_heat_new.index
-    #df_heat_new.index=df_heat.index
-    df_heat_new['Req_kWh_DHW']=df_heat.Req_kWh_DHW
-    df_heat=df_heat_new
-    #df_heat.Req_kWh = df_el.Req_kWh
-    df_el=df_el.drop(['Req_kWh','Temp'],axis=1)
-
+    df_el['Price_flat']=elec_price
+    df_el['Export_price']=Export_price
+    df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
+    df_el['Req_kWh_DHW']/=10
+    df_el['Req_kWh_DHW']=5
     ############ data profiles through time
     # 1) Concatenate all EV frames into one, with top‐level EV names
     df_EVs = pd.concat(df_EVs, axis=1)
@@ -564,8 +504,8 @@ def load_param(combinations):
         f"{ev}_{col}"
         for ev, col in df_EVs.columns
     ]
-
-    data_input=pd.concat([df_el,df_heat,df_prices,df_EVs],axis=1,copy=True,sort=False)
+    df_EVs.index=df_heat_new.index
+    data_input=pd.concat([df_el,df_heat_new,df_EVs],axis=1,copy=True,sort=False)
 
     #skip the first DHW data since cannot be produced simultaneously with SH    data_input.loc[(data_input.index.hour<2),'Req_kWh_DHW']=0
     #data_input.loc[:,'E_PV']=data_input.loc[:,'E_PV']*PV_nom
@@ -585,7 +525,7 @@ def load_param(combinations):
         days=365
         ndays=365
     param['ndays']=days*nyears
-    param, conf_aux=configure_system_parameters(combinations, param, data_input)
+    param, conf_aux=configure_system_parameters(combinations, heat_pump, param)
     
     param.update({
         'Tech': combinations['Tech'],

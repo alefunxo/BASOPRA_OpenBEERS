@@ -165,7 +165,7 @@ tank_dhw = pp.heat_storage_tank(mass=100, surface=0.41)
 tank_dhw.t_max = 333.15
 tank_dhw.t_min = 293.15
 
-tank_sh = pp.heat_storage_tank(mass=1000, surface=0.41)
+tank_sh = pp.heat_storage_tank(mass=1000, surface=4.1)
 tank_sh.U_value = 0.5
 tank_sh.specific_heat = 0.00116
 
@@ -182,7 +182,7 @@ Batt_EV = {
 }
 # -- Build Data dictionary for one EV --
 Data = {
-    'conf': [False, True, False, False],
+    'conf': [True, True, True, True],
     'Set_declare': time_set,
     'delta_t': 1,
     'dayofyear': 150,
