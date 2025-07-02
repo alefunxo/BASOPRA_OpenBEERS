@@ -6,16 +6,13 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 import numpy as np
 import asyncio
 from typing import Any, Dict, List
-
 import pandas as pd
 
 from config.loader import config
-
 from dateutil.relativedelta import relativedelta
-
 from openbeers_api.api import ApiWrapper
 from openbeers.models import AttributeType, Building, Simulation, Zone
-
+import paper_classes as pc
 from utils.utils import dataframe_load, dataframe_save
 
 planner_config = config.renovation_planning
@@ -244,8 +241,6 @@ class RenovationPlanning:
     def add_EV_counts(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
         sim_year = simulation.year
         # ev_counts_year = self.renovation_plan[f'ev_count_{sim_year}']
-        print(self.renovation_plan.head())
-        print(len(self.renovation_plan))
         for b, values in buildings.items():
             ev_count = 0
             if b in self.renovation_plan.index:
@@ -253,7 +248,55 @@ class RenovationPlanning:
 
             values['attributes']['ev_count'] = ev_count
 
+    def add_batteries(self, buildings: Dict[int, Any]) -> None:
+        surfaces = ['roof', 'wall', 'floor']
+        battery_type = planner_config.battery_type
+        for b, values in buildings.items():
+            pv = sum(
+                [values['attributes'][f'{surface}_pv_capacity']
+                for surface in surfaces]
+            )
+            print(values['series'].head())
+            if pv>0 and self.renovation_plan.loc[b, 'install_battery']:
+                values['attributes']['has_battery'] = True
+                battery_capacity = values['series']['ElectricConsumption'].sum()/1000
+                battery = pc.Battery_tech(Capacity=battery_capacity, Technology=battery_type)
+                values['battery'] = battery
+    
+    def add_HP_flags(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
+        sim_year = simulation.year
+        citysim_hp_flag_name = planner_config.citysim_hp_flag
+        citysim_hp = {}
+        for b, values in buildings.items():
+            citysim_hp[b] = {
+                'municipality': values['attributes']['commune'],
+                citysim_hp_flag_name: values['attributes'].get(citysim_hp_flag_name, False),
+            }
+        citysim_hp = pd.DataFrame(citysim_hp).T
+        precomputed_has_hp = self.renovation_plan.loc[citysim_hp.index.intersection(self.renovation_plan.index)]
 
+        aligned = precomputed_has_hp[[f'hp_installed_{sim_year}']].join(citysim_hp[['citysim_hp']],how='inner')
+        flags_to_turn_True = aligned[
+            (~aligned[f"hp_installed_{sim_year}"]) 
+            & (aligned["citysim_hp"])
+        ].index.to_list()
+        ok_but_different = aligned[
+            (aligned[f"hp_installed_{sim_year}"]) 
+            & (~aligned["citysim_hp"])
+        ].index.to_list()
+
+        number_of_flags_to_change = len(flags_to_turn_True)
+        number_of_ok_differences = len(ok_but_different)
+        print(number_of_flags_to_change, number_of_ok_differences)
+        flags_to_turn_False = np.random.choice(ok_but_different, size=number_of_flags_to_change, replace=False)
+
+        for b, values in buildings.items():
+            has_HP = self.renovation_plan.loc[b, f'hp_installed_{sim_year}']
+            if b in flags_to_turn_False:
+                has_HP = False
+            if b in flags_to_turn_True:
+                has_HP = True
+            values['attributes']['has_HP'] = has_HP
 
 async def main() -> None:
     save_file = planner_config.save_file

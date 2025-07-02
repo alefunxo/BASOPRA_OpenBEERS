@@ -4,7 +4,7 @@ import os
 from config.loader import config
 from dataclasses import dataclass
 from utils.logger import logger
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 import pandas as pd
 import numpy as np
 import math
@@ -211,8 +211,10 @@ def calculate_one_heat_pump_size(
     building_id: int,
     building_data: Dict[str, Any],
     heat_pumps_df: pd.DataFrame,
-) -> HeatPumpDesign:
+) -> Optional[HeatPumpDesign]:
     logger.info(f"Starting dimensioning of heat pump for building: {building_id}")
+    if building_data['attributes']['has_HP']:
+        return None
     dict_design = hp_config.dict_design
     b_Ts = building_data['series']['Ts']
     b_Qs = building_data['series']['Qs']
