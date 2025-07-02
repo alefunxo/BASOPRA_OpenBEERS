@@ -321,12 +321,14 @@ def configure_system_parameters(combinations, heat_pump, param):
 
     if conf < 4:  # No battery
         logger.debug('No battery')
+        param['Batt'] = pc.Battery_tech(Capacity=0, Technology=combinations['Tech'])
+
     else:
         logger.debug('Battery present')
         conf_aux[0] = True
         # The Batt will come defined by the citysim preprocessing
         # I added it here for completeness in the meanwhile
-        Batt = pc.Battery_tech(Capacity=param['Capacity'], Technology=param['Tech'])
+        param['Batt'] = pc.Battery_tech(Capacity=param['Capacity'], Technology=combinations['Tech'])
 
         
 
@@ -335,23 +337,23 @@ def configure_system_parameters(combinations, heat_pump, param):
         conf_aux[2] = True
         if (combinations['house_type'] == 'SFH15') | (combinations['house_type'] == 'SFH45'):
             logger.debug('SHF 15 or 45')
-            param['tank_sh'] = pc.heat_storage_tank(mass=20*heat_pump.attributes['hp'], surface=6)
+            param['tank_sh'] = pc.heat_storage_tank(volume=20*heat_pump.attributes['hp'])
         else:
             logger.debug('SHF 100')
-            param['tank_sh'] = pc.heat_storage_tank(mass=1500, surface=6)
+            param['tank_sh'] = pc.heat_storage_tank(volume=20*heat_pump.attributes['hp'])
     else:  # No TS
         logger.debug('SHF 100')
-        param['tank_sh'] = pc.heat_storage_tank(mass=0, surface=0.41)
+        param['tank_sh'] = pc.heat_storage_tank(volume=20*heat_pump.attributes['hp'])
 
     if (conf == 1) | (conf == 3) | (conf == 5) | (conf == 7):  # DHW present
         logger.debug('DHW present')
         conf_aux[3] = True
+        dhw_tank.volume=dhw_tank.volume*1000
         param['tank_dhw'] = dhw_tank
-        pc.heat_storage_tank(mass=200, t_max=60 + 273.15, t_min=40 + 273.15, surface=1.6564)
     else:  # No DHW
         logger.debug('No DHW')
-        param['tank_dhw'] = pc.heat_storage_tank(mass=0, t_max=0, t_min=0, specific_heat_dhw=0, U_value_dhw=0, surface_dhw=0)
-
+        param['tank_dhw'] = pc.heat_storage_tank(volume=0,  specific_heat_dhw=0, U_value_dhw=0, surface_dhw=0)
+    '''
     design_param = load_obj(f'{INPUT_PATH}dict_design_oct')
     if combinations['house_type'] == 'SFH15':
         param['Backup_heater'] = 10000000 # Big number to run all design_param['bu_15']
@@ -362,7 +364,8 @@ def configure_system_parameters(combinations, heat_pump, param):
     else:
         param['Backup_heater'] = 10000000 #design_param['bu_100']
         param['hp'] = pc.HP_tech(technology='ASHP', power=design_param['hp_100'])
-    
+    '''
+    param['Backup_heater'] = 10000000 #design_param['bu_100']
     return param, conf_aux
 
 def load_param(combinations):
@@ -461,7 +464,7 @@ def load_param(combinations):
         'hp_tank_cons',
         'hp_dhw_cons',
     ]]
-    df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
+    #df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
 
     
     ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
@@ -479,17 +482,18 @@ def load_param(combinations):
         df_hourly['EV_away'] = 1 - df_hourly['EV_home']
 
         # store it back
-        df_EVs[ev] = df_hourly.reset_index(drop=True)
-        
+        df_EVs[ev] = df_hourly
+        '''
         param['EV_home'][ev]   = df_hourly['EV_home'].reset_index(drop=True).to_dict()
         param['EV_away'][ev]   = df_hourly['EV_away'].reset_index(drop=True).to_dict()
         param['E_EV_trip'][ev] = df_hourly['E_EV_trip'].reset_index(drop=True).to_dict()
-
+        '''
     df_el.index=df_heat_new.index
     df_el['Price_flat']=elec_price
     df_el['Export_price']=Export_price
     df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
-
+    df_el['Req_kWh_DHW']/=10
+    df_el['Req_kWh_DHW']=10
     ############ data profiles through time
     # 1) Concatenate all EV frames into one, with top‐level EV names
     df_EVs = pd.concat(df_EVs, axis=1)
@@ -500,7 +504,7 @@ def load_param(combinations):
         f"{ev}_{col}"
         for ev, col in df_EVs.columns
     ]
-
+    df_EVs.index=df_heat_new.index
     data_input=pd.concat([df_el,df_heat_new,df_EVs],axis=1,copy=True,sort=False)
 
     #skip the first DHW data since cannot be produced simultaneously with SH    data_input.loc[(data_input.index.hour<2),'Req_kWh_DHW']=0

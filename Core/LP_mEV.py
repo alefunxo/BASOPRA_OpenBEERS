@@ -141,16 +141,17 @@ def Concrete_model(Data):
     m.T_min_dhw=en.Param(initialize=Data['tank_dhw'].t_min)# In K
 
     m.T_init=en.Param(initialize=Data['T_init'])# In K
+    m.T_init_dhw=en.Param(initialize=Data['T_init_dhw'])# In K
 
     m.A=en.Param(initialize=Data['tank_sh'].surface)#m2
     m.U=en.Param(initialize=Data['tank_sh'].U_value)#kW/(m2*K)!!!
     m.c_p=en.Param(initialize=Data['tank_sh'].specific_heat)#kWh/(K*l)
-    m.m=en.Param(initialize=Data['tank_sh'].mass)#liters
+    m.m=en.Param(initialize=Data['tank_sh'].volume)#liters
 
     m.A_dhw=en.Param(initialize=Data['tank_dhw'].surface)#m2
     m.U_dhw=en.Param(initialize=Data['tank_dhw'].U_value)#kW/(m2*K)!!!
     m.c_p_dhw=en.Param(initialize=Data['tank_dhw'].specific_heat)#kWh/(K*l)
-    m.m_dhw=en.Param(initialize=Data['tank_dhw'].mass)#liters
+    m.m_dhw=en.Param(initialize=Data['tank_dhw'].volume)#liters
 
     #Variables
     m.E_cons=en.Var(m.Time,bounds=(0,None),initialize=0)
@@ -212,12 +213,12 @@ def Concrete_model(Data):
     m.E_batt_EV_grid=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
     m.E_batt_EV_load=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
     m.E_grid_batt_EV=en.Var(m.EVs,m.Time,bounds=ev_char_bounds,initialize=0)
-
+    '''
     m.E_batt_EV_hp=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
     m.E_batt_EV_hpdhw=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
     m.E_batt_EV_bu=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
     m.E_batt_EV_budhw=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
-    
+    ''' 
 
     #HP variables
     m.E_PV_hp=en.Var(m.Time,bounds=(0,None),initialize=0)
@@ -245,7 +246,7 @@ def Concrete_model(Data):
 
     #DHW
     m.Q_dhwst_hd=en.Var(m.Time,bounds=(0,None),initialize=0)
-    m.T_dhwst=en.Var(m.tm,bounds=(m.T_min_dhw,m.T_max_dhw),initialize=40+273.15)#Temperature storage
+    m.T_dhwst=en.Var(m.tm,bounds=(m.T_min_dhw,m.T_max_dhw),initialize=m.T_init_dhw)#Temperature storage
     m.Q_loss_dhwst=en.Var(m.Time,bounds=(0,None),initialize=0)
 
     #Backup_heater
@@ -286,7 +287,7 @@ def Concrete_model(Data):
     m.Balance_DHW_demand_r=en.Constraint(m.Time,rule=Balance_DHW_demand)
     m.Balance_hp_supply_r2=en.Constraint(m.Time,rule=Balance_hp_supply_rule2)#
     m.DHWST_losses_r=en.Constraint(m.Time,rule=DHWST_losses)
-    m.Balance_dhwst_r=en.Constraint(m.tm,rule=Balance_dhwst)
+    #m.Balance_dhwst_r=en.Constraint(m.tm,rule=Balance_dhwst)
     m.def_dhwst_state_r=en.Constraint(m.tm,rule=def_dhwst_state_rule)
 
     m.hp_ch1=en.Constraint(m.Time,rule=Bool_hp_rule_1)
@@ -543,7 +544,7 @@ def Change_tank_thermal_energy_rule(m,i):
     '''
     Description
     -------
-    Change in tank thermal energy (Q_ts_delta [kWh]) is given by the change in tank temperature times the mass times the specific heat of water.
+    Change in tank thermal energy (Q_ts_delta [kWh]) is given by the change in tank temperature times the volume times the specific heat of water.
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
@@ -568,7 +569,7 @@ def Available_tank_thermal_energy_rule(m,i):
     '''
     Description
     -------
-    Thermal energy available in the tank (Q_ts [kWh]) is given by the temperature of the tank at time t (T_ts) and the minimum temperature accepted in the tank (T_min) times the mass times the specific heat of water. 
+    Thermal energy available in the tank (Q_ts [kWh]) is given by the temperature of the tank at time t (T_ts) and the minimum temperature accepted in the tank (T_min) times the volume times the specific heat of water. 
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
@@ -576,7 +577,7 @@ def Available_tank_thermal_energy_rule(m,i):
         if not en.value(m.T_storage):
             if m.DHW:
                 if (m.doy>=120)and(m.doy<=274):
-                    return m.Q_ts[i]==(0)*m.m*m.c_p
+                    return m.Q_ts[i]==0
                 else:
                     return m.Q_ts[i]==(m.T_ts[i]-m.T_supply[i])*m.m*m.c_p
             else:
@@ -808,7 +809,9 @@ def Balance_dhwst(m,t):
             if t==-1:
                 return en.Constraint.Skip
             else:
-                return sum(m.E_hpdhw[t]*m.COP_DHW[t]+m.E_budhw[t]for t in m.Time)-sum(((m.T_dhwst[t]-m.T_dhwst[t-1])*m.m_dhw*m.c_p_dhw)+m.Q_dhwst_hd[t]+m.Q_loss_dhwst[t] for t in m.Time)==0 #Balance
+                #return sum(m.E_hpdhw[t]*m.COP_DHW[t]+m.E_budhw[t]for t in m.Time)-sum(((m.T_dhwst[t]-m.T_dhwst[t-1])*m.m_dhw*m.c_p_dhw)+m.Q_dhwst_hd[t]+m.Q_loss_dhwst[t] for t in m.Time)==0 #Balance
+                return (sum(m.E_hpdhw[i]*m.COP_DHW[i] + m.E_budhw[i] for i in m.Time)*m.dt) == sum((m.T_dhwst[i] - m.T_dhwst[i-1])*m.m_dhw*m.c_p_dhw + m.Q_dhwst_hd[i] + m.Q_loss_dhwst[i] for i in m.Time)
+
 
 
 def def_dhwst_state_rule(m, t):
@@ -827,7 +830,7 @@ def def_dhwst_state_rule(m, t):
             return en.Constraint.Skip
         else:
             if t==-1:
-                return m.T_dhwst[t]==m.T_min_dhw
+                return m.T_dhwst[t]==m.T_init_dhw
             else:
                 return en.Constraint.Skip
 ############################################################

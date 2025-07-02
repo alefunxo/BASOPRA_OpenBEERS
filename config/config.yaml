@@ -267,18 +267,18 @@ Core:
     cases: ["mean"]
     house_type: ["SFH100"] # ['NoHeatPump','SFH100']
     HP: ["AS"]
-    conf: [2]  # 0 only HP; 1 HP+DHW; 2 HP+SH; 3 HP+SH+DHW; 4 only Battery; 5 HP+DHW+BATT; 6 HP+SH+BATT; 7 HP+SH+DHW+BATT
+    conf: [1]  # 0 only HP; 1 HP+DHW; 2 HP+SH; 3 HP+SH+DHW; 4 only Battery + HP; 5 HP+DHW+BATT; 6 HP+SH+BATT; 7 HP+SH+DHW+BATT
     ev_profiles:
       EV1:
         EV_batt_cap:     75
         EV_P_max_home:  '7'
         EV_use:         'High'
         profile_row_number: 99
-      EV2:
-        EV_batt_cap:     60
-        EV_P_max_home:  '11'
-        EV_use:         'High'
-        profile_row_number: 98
+#      EV2:
+#        EV_batt_cap:     60
+#        EV_P_max_home:  '11'
+#        EV_use:         'High'
+#        profile_row_number: 98
     
     
   mapping:
@@ -330,7 +330,7 @@ Core:
     aging: False
     Curtailment: 0
     Inverter_efficiency: 0.95
-    Converter_efficiency_HP: 0.98
+    Converter_efficiency_batt: 0.98
     delta_t: 1
     Capacity_tariff: 0
     nyears: 1
