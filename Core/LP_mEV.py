@@ -70,6 +70,7 @@ def Concrete_model(Data):
     m.Efficiency=en.Param(initialize=Data['Batt'].Efficiency)
     m.Batt_dis_max=en.Param(initialize=-Data['Batt'].P_max_dis)
     m.Batt_char_max=en.Param(initialize=Data['Batt'].P_max_char)
+    m.backup_penalty = en.Param(initialize=1)  # €/kWh or relative weight
 
     #EV
     '''
@@ -263,6 +264,7 @@ def Concrete_model(Data):
     m.total_cost = en.Objective(rule=Obj_fcn,sense=en.minimize)
 
     #Constraints
+    #m.bill_r=en.Constraint(m.EVs,m.Time,rule=bill)
 
     # HP Constraints
     m.Balance_bu_demand_r=en.Constraint(m.Time,rule=Balance_bu_demand_rule)
@@ -287,8 +289,8 @@ def Concrete_model(Data):
     m.Balance_DHW_demand_r=en.Constraint(m.Time,rule=Balance_DHW_demand)
     m.Balance_hp_supply_r2=en.Constraint(m.Time,rule=Balance_hp_supply_rule2)#
     m.DHWST_losses_r=en.Constraint(m.Time,rule=DHWST_losses)
-    #m.Balance_dhwst_r=en.Constraint(m.tm,rule=Balance_dhwst)
-    m.def_dhwst_state_r=en.Constraint(m.tm,rule=def_dhwst_state_rule)
+    m.Balance_dhwst_r=en.Constraint(m.tm,rule=Balance_dhwst)
+    #m.def_dhwst_state_r=en.Constraint(m.tm,rule=def_dhwst_state_rule)
 
     m.hp_ch1=en.Constraint(m.Time,rule=Bool_hp_rule_1)
     m.hp_ch2=en.Constraint(m.Time,rule=Bool_hp_rule_2)
@@ -1246,7 +1248,30 @@ def DLS_rule(m,i):
         return en.Constraint.Skip
     else:
         return m.E_grid_batt[i]==0
+def bill(m,ev,i):
+    '''
+    Description
+    -------
+    The bill is calculated in two parts, the energy related part is the retail price times the energy consumed from the grid minus the export price times the PV injection. If there is demand peak shaving (a capacity tariff is applied) the maximum power taken from the grid (in kW) is multiplied by the DAILY capacity tariff ($/kW per day).
+    '''
+    # 1) First, build the time‐series cost/revenue sum
+    cost_rev = sum(
+        # retail purchase + public charging cost for all EVs
+        m.retail_price[i]*m.E_cons[i]
+        + sum(m.E_char_away[ev, i]*m.public_charging_price
+              for ev in m.EVs)
+        # minus export revenue for all EVs
+        - sum(m.export_price[i]*m.E_batt_EV_grid[ev, i]
+              for ev in m.EVs)
+        for i in m.Time
+    )
+    # 2) Multiply by your PVSC switch flag
+    term1 = cost_rev * m.PVSC
 
+    # 3) Add the capacity‐tariff term (already scalar × scalar)
+    term2 = m.P_max_day * m.capacity_tariff * m.DPS
+    
+    return term1 + term2 
 #Objective
 
 def Obj_fcn(m):
@@ -1271,5 +1296,8 @@ def Obj_fcn(m):
 
     # 3) Add the capacity‐tariff term (already scalar × scalar)
     term2 = m.P_max_day * m.capacity_tariff * m.DPS
+    bu_penalty = m.backup_penalty * (
+            sum(m.E_bu[i] + m.E_budhw[i] for i in m.Time)
+        )
 
-    return term1 + term2
+    return term1 + term2 + bu_penalty

@@ -249,7 +249,7 @@ def Optimize(data_input, param):
             continue
         global_lock.acquire()
         if sys.platform == 'linux' or sys.platform == 'win32':
-            opt = SolverFactory('gurobi')
+            opt = SolverFactory('gurobi_persistent')
             opt.options["threads"] = 1
             opt.options["mipgap"] = 0.001
         else:
@@ -257,10 +257,15 @@ def Optimize(data_input, param):
             opt.options["threads"] = 1
             opt.options["mipgap"] = 0.001
         logger.debug("Solver initialized, starting solve for day index %s", i)
-        results = opt.solve(instance, tee=core_config.Optimizer.solver_verbose)
+        opt.set_instance(instance)
+
+        # 1) disable dual reductions so Gurobi separates unbounded from infeasible
+        opt.options['DualReductions'] = 0
+        # 2) ask for unbounded‐info so it will compute and retain a ray if unbounded
+        opt.options['InfUnbdInfo']  = 1
+        results = opt.solve(instance, tee=True)#core_config.Optimizer.solver_verbose)
         global_lock.release()
-        if i == 8:
-            print('stop')
+        
         if core_config.Optimizer.solver_results_write:
             results.write(num=1)
 

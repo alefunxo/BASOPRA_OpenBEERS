@@ -3,7 +3,7 @@ openbeers_address: https://lab.idiap.ch/openbeers
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
-no_cache: False
+no_cache: True
 
 loop_mode: False
 simulation_names: 

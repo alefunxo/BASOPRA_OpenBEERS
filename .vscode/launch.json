@@ -11,6 +11,9 @@
             "program": "${workspaceFolder}/Core/run.py",
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
+            "env": {
+                    "PYDEVD_WARN_EVALUATION_TIMEOUT": "60"
+                }
         },
 
     ]
