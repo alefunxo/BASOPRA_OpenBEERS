@@ -73,9 +73,7 @@ def fn_timer(function):
         t0 = time.time()
         result = function(*args, **kwargs)
         t1 = time.time()
-        print ("Total time running %s: %s seconds" %
-               (function.__name__, str(t1-t0))
-               )
+        
         return result
     return function_timer
 
@@ -187,8 +185,8 @@ def load_EV_data(combinations, single_param):
     
     logger.info("EV_ID: s"  + str(EV_ID))
     
-    if ( combinations['EV_P_max_home'] != '3_6' and combinations['EV_P_max_home'] != '7' and combinations['EV_P_max_home'] != '11' ): 
-        print('Invalid charging power, choose 3_6, 7, or 11')
+    #if ( combinations['EV_P_max_home'] != '3_6' and combinations['EV_P_max_home'] != '7' and combinations['EV_P_max_home'] != '11' ): 
+        #print('Invalid charging power, choose 3_6, 7, or 11')
     
     filename_EV = Path(f'{INPUT_PATH}dfEVBasopra.csv')
     fields_EV=['index','energyRequired'+combinations['EV_P_max_home']+'kW'+ combinations['EV_use'],'maxPower'+ combinations['EV_use'],'energyTrip'+ combinations['EV_use']]
@@ -306,11 +304,11 @@ def configure_system_parameters(combinations, param, data_input):
     Returns:
         tuple: Updated 'param' dictionary and a configuration auxiliary list (conf_aux).
     """
-    print('##############')
-    print('load parameters')
+    #print('##############')
+    #print('load parameters')
     conf = combinations['conf']
-    print('conf')
-    print(conf)
+    #print('conf')
+    #print(conf)
 
     # configuration = [Batt, HP, TS, DHW]
     # if all false, only PV is used
@@ -397,7 +395,7 @@ def load_param(combinations):
     Comments
     -----
     '''
-    print('##############')
+    ##print('##############')
     logger.info('Loading data for Basopra Optimization')
     # if core_config['oldschool']:
     #     pv_capacity = combinations['hh']['pv_capacity']
@@ -467,7 +465,7 @@ def load_param(combinations):
     PV_nom = pv_capacity
     # Let-s try with the demand instead of the PV due to the high PV nom in the facade
     param["Capacity"] = df_el.E_demand.sum()/1000 # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
-    print(param['Capacity'])
+    #print(param['Capacity'])
     param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
 
     df_prices = load_prices()
@@ -489,7 +487,7 @@ def load_param(combinations):
         'hp_dhw_cons',
     ]]
     df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
-    print(df_heat_new.head())
+    #print(df_heat_new.head())
     # df_heat_new = pd.read_csv(f'{INPUT_PATH}Heat_demand.csv', sep=';') # TODO sth off wiht this part
     # df_heat_new = df_heat_new.rename(columns={
     #                 'Set_T': 'Set_T',
@@ -505,9 +503,9 @@ def load_param(combinations):
     #                 'hp_SFH100_el_cons_DHW': 'hp_dhw_cons'
     #             })
 
-    print("Columns in df_heat_new:", df_heat_new.columns.tolist())
-    print("First few rows:")
-    print(df_heat_new.head())
+    #print("Columns in df_heat_new:", df_heat_new.columns.tolist())
+    #print("First few rows:")
+    #print(df_heat_new.head())
 
     # df_heat_new = df_heat_new[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
     #                     'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
@@ -619,24 +617,24 @@ def pooling2(combinations):
             True if successful, False otherwise.
         '''
 
-        #print('##########################################')
-        #print('pooling')
-        #print(combinations)
-        #print('##########################################')
+        ##print('##########################################')
+        ##print('pooling')
+        ##print(combinations)
+        ##print('##########################################')
         param, data_input=load_param(combinations)
         try:
             if param['nyears']>1:
                 data_input=pd.DataFrame(pd.np.tile(pd.np.array(data_input).T,
                                        param['nyears']).T,columns=data_input.columns)
-            #print('#############pool################')
+            ##print('#############pool################')
 
 
             [df,aux_dict]=single_opt2(param, data_input)
         except OSError as e:
-            #print(f"OSError: {e}")
+            ##print(f"OSError: {e}")
             raise
         except Exception as e:
-            #print(f"Unexpected error: {e}")
+            ##print(f"Unexpected error: {e}")
             raise
         return df, aux_dict
     except Exception:
@@ -645,21 +643,21 @@ def pooling2(combinations):
 
 @fn_timer
 def run_basopra_simulation(big_data_object):
-    # print('Loading things the old fashioned way')
+    # #print('Loading things the old fashioned way')
     # files_directory = INPUT_PATH
     # buildings_file = "test"
     # buildings_path = f"{files_directory}{buildings_file}"
     # buildings=load_obj(buildings_path)
     # keys = list(buildings.keys())
-    # print(keys)
+    # #print(keys)
     # Define the different combinations of inputs to be run
     dct = core_config['basopra_run_combinations']
     # b_items = buildings.items()
     # b_items_list = list(b_items)
     # b_items_list_cut = list(b_items)[2:]
     # dct['hh'] = b_items_list_cut
-    print('Loading things the cool new way')
-    print(big_data_object.keys())
+    #print('Loading things the cool new way')
+    #print(big_data_object.keys())
 
     # TODO move the file finding logic from here to the run.py logic
     output_folder = OUTPUT_PATH
@@ -678,7 +676,8 @@ def run_basopra_simulation(big_data_object):
                 configuration = match.group(3)
                 existing_simulations.add((building_id, configuration))
         except (IndexError, ValueError):
-            print(f"Skipping file with unexpected format: {file}")
+            raise
+            #print(f"Skipping file with unexpected format: {file}")
 
     # if core_config['oldschool']:
     #     buildings_data = buildings
@@ -743,10 +742,10 @@ def run_basopra_simulation(big_data_object):
 # 	(CH or US). For the moment is done automatically if working in windows
 # 	the country is US. It opens a pool of 4 processes to process in parallel, if several dwellings are assessed.
 #     '''
-#     print(os.getcwd())
-#     print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-#     print('Welcome to basopra')
-#     print('Here you will able to optimize the schedule of PV-coupled HP systems and an electric vehicle with electric and/or thermal storage for a given electricity demand')
+#     #print(os.getcwd())
+#     #print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+#     #print('Welcome to basopra')
+#     #print('Here you will able to optimize the schedule of PV-coupled HP systems and an electric vehicle with electric and/or thermal storage for a given electricity demand')
 # 
 #     files_directory = INPUT_PATH
 #     buildings_file = "test"
@@ -779,7 +778,7 @@ def run_basopra_simulation(big_data_object):
 #                 configuration = match.group(3)
 #                 existing_simulations.add((building_id, configuration))    
 #         except (IndexError, ValueError):
-#             print(f"Skipping file with unexpected format: {file}")
+#             #print(f"Skipping file with unexpected format: {file}")
 # 
 #     mapping = core_config['mapping']
 #     mapping_str_to_num = core_config['reverse_mapping']
@@ -793,7 +792,7 @@ def run_basopra_simulation(big_data_object):
 #         Combs_todo_list.append({'hh': building_info,'name': bld_id, 'conf': mapping_str_to_num[config]})
 # 
 #     Combs_todo = pd.DataFrame(Combs_todo_list)
-#     print(len(Combs_todo))
+#     #print(len(Combs_todo))
 #     static_cfg = core_config['basopra_fixed_parameters']
 #     Combs_todo_dicts = [
 #         {**row, **static_cfg}
@@ -801,16 +800,16 @@ def run_basopra_simulation(big_data_object):
 #     ]
 # 
 #     mp.freeze_support()
-#     print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+#     #print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
 #     mp.set_start_method("spawn")
 #     pool=mp.Pool(processes=1)
 #     #selected_dwellings=select_data(Combs_todo)
-#     #print(selected_dwellings)
-#     #print(Combs_todo)
+#     ##print(selected_dwellings)
+#     ##print(Combs_todo)
 #     pool.map(pooling2,Combs_todo_dicts)
 #     pool.close()
 #     pool.join()
-#     print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+#     #print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
 # 
 # if __name__ == '__main__':
 #     main()
