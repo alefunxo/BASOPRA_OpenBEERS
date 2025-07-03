@@ -1,0 +1,40 @@
+version: 1
+
+formatters:
+  detailed:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  simple:
+    format: '%(levelname)s - %(message)s'
+
+handlers:
+  code_file:
+    class: logging.FileHandler
+    formatter: detailed
+    filename: logs/openbeers.log
+    level: INFO 
+
+  data_file:
+    class: logging.FileHandler
+    formatter: detailed
+    filename: logs/data_issues.log
+    level: INFO
+
+  console:
+    class: logging.StreamHandler
+    formatter: simple
+    level: DEBUG
+
+loggers:
+  openbeers.default:
+    level: INFO 
+    handlers: [code_file, console]
+    propagate: no
+
+  openbeers.data:
+    level: INFO
+    handlers: [data_file, console]
+    propagate: no
+
+root:
+  level: WARNING
+  handlers: [console]

@@ -22,6 +22,7 @@
 
 import sys
 import os
+from typing import Any, Dict
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from box import Box
 import re
@@ -580,6 +581,14 @@ def pooling2(combinations):
     except Exception:
          traceback.print_exc()
          raise
+
+def get_conf_for_building(b_data: Dict[str, Any]) -> int:
+    has_heat_pump = True if b_data.get('heat_pump') is not None else False
+    has_DHW = True if b_data['series'].get('dhw') is not None else False
+
+    return 0
+    
+
 
 @fn_timer
 def run_basopra_simulation(big_data_object):
