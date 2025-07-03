@@ -9,9 +9,11 @@ people_per_household: 2
 vehicles_per_household: 1.43
 
 battery_install_ratio: 0.8
+battery_type: NMC
 
 hp_inclusion_rates: Input/Projections_municipality_2024_2050_Heat_pump_usedpot_perc.csv
 quantile: 0.5
+citysim_hp_flag: citysim_hp
 
 needed_attributes:
   - num_occupants

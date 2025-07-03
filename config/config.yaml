@@ -9,18 +9,23 @@ loop_mode: False
 simulation_names: 
 #  - val_de_bagnes_41_climate_contemporary_pv_none_2025
   - val_de_bagnes_41_climate_contemporary_pv_roof_2025
-  - val_de_bagnes_41_climate_rcp26_pv_none_2040/       
-  - val_de_bagnes_41_climate_rcp26_pv_none_2050/       
-  - val_de_bagnes_41_climate_rcp26_pv_roof_2040/       
-  - val_de_bagnes_41_climate_rcp26_pv_roof_2050/       
-  - val_de_bagnes_41_climate_rcp26_pv_roof_walls_2040/ 
-  - val_de_bagnes_41_climate_rcp26_pv_roof_walls_2050/ 
-  - val_de_bagnes_41_climate_rcp85_pv_none_2040/       
-  - val_de_bagnes_41_climate_rcp85_pv_none_2050/       
-  - val_de_bagnes_41_climate_rcp85_pv_roof_2040/       
-  - val_de_bagnes_41_climate_rcp85_pv_roof_2050/       
-  - val_de_bagnes_41_climate_rcp85_pv_roof_walls_2040/ 
-  - val_de_bagnes_41_climate_rcp85_pv_roof_walls_2050/
+#   - val_de_bagnes_41_climate_rcp26_pv_none_2040
+#   - val_de_bagnes_41_climate_rcp26_pv_none_2050
+#   - val_de_bagnes_41_climate_rcp26_pv_roof_2040
+#   - val_de_bagnes_41_climate_rcp26_pv_roof_2050
+#   - val_de_bagnes_41_climate_rcp26_pv_roof_walls_2040
+#   - val_de_bagnes_41_climate_rcp26_pv_roof_walls_2050
+#   - val_de_bagnes_41_climate_rcp85_pv_none_2040
+#   - val_de_bagnes_41_climate_rcp85_pv_none_2050
+#   - val_de_bagnes_41_climate_rcp85_pv_roof_2040
+#   - val_de_bagnes_41_climate_rcp85_pv_roof_2050
+#   - val_de_bagnes_41_climate_rcp85_pv_roof_walls_2040
+#   - val_de_bagnes_41_climate_rcp85_pv_roof_walls_2050
+
+building_blacklist:
+  - 902139
+  - 902141
+  - 902142
 # simulation_name: val_de_bagnes_201_climate_rcp85_pv_none_2040
 simulation_extraction_dir: outputs_extraction/
 basopra_output_dir: outputs_basopra/
@@ -190,48 +195,6 @@ output_aggregations:  # Uncomment the ones that you want to aggrefate from the r
   # COP_SH
   COP_DHW:            sum
   # E_EV_trip
-
-logging:
-  version: 1
-
-  formatters:
-    detailed:
-      format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-    simple:
-      format: '%(levelname)s - %(message)s'
-
-  handlers:
-    code_file:
-      class: logging.FileHandler
-      formatter: detailed
-      filename: logs/openbeers.log
-      level: INFO 
-
-    data_file:
-      class: logging.FileHandler
-      formatter: detailed
-      filename: logs/data_issues.log
-      level: INFO
-
-    console:
-      class: logging.StreamHandler
-      formatter: simple
-      level: DEBUG
-
-  loggers:
-    openbeers.default:
-      level: INFO 
-      handlers: [code_file, console]
-      propagate: no
-
-    openbeers.data:
-      level: INFO
-      handlers: [data_file, console]
-      propagate: no
-
-  root:
-    level: WARNING
-    handlers: [console]
 
 heat_pump:
   multiprocessing: True
