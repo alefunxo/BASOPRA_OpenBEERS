@@ -292,6 +292,79 @@ def load_multi_EV_data(ev_profiles,param):
 
     return param, dfs
 
+import pandas as pd
+
+def load_multi_EV_data(ev_profiles, param, idx):
+    # special case: no profiles → one dummy EV0 with all zeros
+    if ev_profiles is None:
+        EV0 = 'EV0'
+        # zero‐filled time‐series DataFrame
+        df_zero = pd.DataFrame(0, index=idx,
+                               columns=['EV_home','EV_away','E_EV_trip','E_EV_req'])
+        # populate every scalar to zero
+        zeros = {EV0: 0}
+        # time‐series as dict of zeros-per‐timestamp
+        ts_dict = {EV0: df_zero.to_dict(orient='list')}  # or .to_dict() for {t:0}
+        Batt_EV        = {}
+        Batt_EV['EV0']=pc.Battery_tech(Capacity=0, Technology='NMC')
+        Batt_EV['EV0'].SOC_max = 0
+        Batt_EV['EV0'].SOC_min = 0
+        param.update({
+            'EV_list':             [EV0],
+            'Batt_EV':             Batt_EV,
+            'E_EV_start':          zeros,
+            'EV_P_max_home':       zeros,
+            'EV_P_max_away':       zeros,
+            'EV_V2G':              zeros,
+            'EV_home':             {EV0: dict.fromkeys(idx, 0)},
+            'EV_away':             {EV0: dict.fromkeys(idx, 0)},
+            'E_EV_trip':           {EV0: dict.fromkeys(idx, 0)},
+            'public_charging_price': 0.48,
+        })
+        return param, {EV0: df_zero}
+
+    # else: your original per‐EV loop
+    EV_list        = list(ev_profiles.keys())
+    Batt_EV        = {}
+    E_EV_start     = {}
+    EV_P_max_home  = {}
+    EV_P_max_away  = {}
+    EV_V2G         = {}
+    EV_home        = {}
+    EV_away        = {}
+    E_EV_trip      = {}
+    dfs            = {}
+
+    for ev in EV_list:
+        combos = ev_profiles[ev]
+        single_param, df_ev = load_EV_data(combos, {})
+
+        Batt_EV[ev]       = single_param['Batt_EV']
+        E_EV_start[ev]    = single_param['E_EV_start']
+        EV_P_max_home[ev] = single_param['EV_P_max_home']
+        EV_P_max_away[ev] = single_param['EV_P_max_away']
+        EV_V2G[ev]        = single_param.get('EV_V2G', 1)
+
+        EV_home[ev]       = df_ev['EV_home'].to_dict()
+        EV_away[ev]       = df_ev['EV_away'].to_dict()
+        E_EV_trip[ev]     = df_ev['E_EV_trip'].to_dict()
+
+        dfs[ev] = df_ev
+
+    param.update({
+        'EV_list':             EV_list,
+        'Batt_EV':             Batt_EV,
+        'E_EV_start':          E_EV_start,
+        'EV_P_max_home':       EV_P_max_home,
+        'EV_P_max_away':       EV_P_max_away,
+        'EV_V2G':              EV_V2G,
+        'EV_home':             EV_home,
+        'EV_away':             EV_away,
+        'E_EV_trip':           E_EV_trip,
+        'public_charging_price': single_param['public_charging_price'],
+    })
+
+    return param, dfs
 
 def configure_system_parameters(combinations, heat_pump, param):
     """
@@ -338,13 +411,13 @@ def configure_system_parameters(combinations, heat_pump, param):
         conf_aux[2] = True
         if (combinations['house_type'] == 'SFH15') | (combinations['house_type'] == 'SFH45'):
             logger.debug('SHF 15 or 45')
-            param['tank_sh'] = pc.heat_storage_tank(volume=20*heat_pump.attributes['hp'])
+            param['tank_sh'] = pc.heat_storage_tank(volume=40*heat_pump.attributes['hp'])
         else:
             logger.debug('SHF 100')
-            param['tank_sh'] = pc.heat_storage_tank(volume=20*heat_pump.attributes['hp'])
+            param['tank_sh'] = pc.heat_storage_tank(volume=40*heat_pump.attributes['hp'])
     else:  # No TS
         logger.debug('SHF 100')
-        param['tank_sh'] = pc.heat_storage_tank(volume=20*heat_pump.attributes['hp'])
+        param['tank_sh'] = pc.heat_storage_tank(volume=40*heat_pump.attributes['hp'])
 
     if (conf == 1) | (conf == 3) | (conf == 5) | (conf == 7):  # DHW present
         logger.debug('DHW present')
@@ -444,12 +517,12 @@ def load_param(combinations):
     df_el.columns=['E_demand','E_PV','dhw']
     
     # PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
-    PV_nom = np.round(pv_capacity,1)
+    PV_nom = np.round(pv_capacity/1000,1)
     logger.info('PV_nom : {PV_nom}')
     # Let-s try with the demand instead of the PV due to the high PV nom in the facade
     param["Capacity"] = np.round(df_el.E_demand.sum()/1000,0) # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
     logger.info('Battery Capacity : {Capacity}')
-    param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
+    param['Inverter_power'] = round(pv_capacity/1000/ 1.2, 1)
 
 
     df_heat_new = heat_pump.series[[
@@ -466,14 +539,15 @@ def load_param(combinations):
         'hp_dhw_cons',
     ]]
     #df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
-
-    
-    ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
+    ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, df_heat_new.index)
+    #if ev_profiles is not None:
+    #    ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
 
     #[param, df_EV, EV_ID] = load_EV_data(combinations,param)
     
 
     for ev, df in df_EVs.items():
+        
         df_hourly = df.resample('1h').agg({
             'E_EV_req':  'sum',
             'E_EV_trip': 'sum',
@@ -489,12 +563,8 @@ def load_param(combinations):
         param['EV_away'][ev]   = df_hourly['EV_away'].reset_index(drop=True).to_dict()
         param['E_EV_trip'][ev] = df_hourly['E_EV_trip'].reset_index(drop=True).to_dict()
         '''
-    df_el.index=df_heat_new.index
-    df_el['Price_flat']=elec_price
-    df_el['Export_price']=Export_price
-    df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
-    df_el['Req_kWh_DHW']/=10
-    
+
+
     ############ data profiles through time
     # 1) Concatenate all EV frames into one, with top‐level EV names
     df_EVs = pd.concat(df_EVs, axis=1)
@@ -506,6 +576,20 @@ def load_param(combinations):
         for ev, col in df_EVs.columns
     ]
     df_EVs.index=df_heat_new.index
+    '''else:
+        cols = ['E_EV_req','E_EV_trip','EV_home','EV_away']
+        df_EVs = pd.DataFrame(
+            np.zeros((len(df_el), len(cols)), dtype=int),
+            columns=cols
+        )
+        df_EVs.index = df_heat_new.index'''
+
+    df_el.index = df_heat_new.index
+    
+    df_el['Price_flat']=elec_price
+    df_el['Export_price']=Export_price
+    df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
+    df_el['Req_kWh_DHW']/=10
     data_input=pd.concat([df_el,df_heat_new,df_EVs],axis=1,copy=True,sort=False)
 
     #skip the first DHW data since cannot be produced simultaneously with SH    data_input.loc[(data_input.index.hour<2),'Req_kWh_DHW']=0
@@ -516,6 +600,7 @@ def load_param(combinations):
     data_input['Temp_supply']=data_input['Temp_supply'].apply(celsius_to_kelvin)
     data_input['Temp_supply_tank']=data_input['Temp_supply_tank'].apply(celsius_to_kelvin)
     
+
     if param['testing']:
         data_input=data_input[data_input.index.isocalendar().week==week]
         nyears=1

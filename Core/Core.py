@@ -212,6 +212,7 @@ def Optimize(data_input, param):
         # assume EV_list = ['EV1','EV2',…]
 
         # build the per‐EV time‐series dicts from the DataFrame
+        
         param['EV_home']   = {
             ev: data_input[f"{ev}_EV_home"].reset_index(drop=True).to_dict()
             for ev in param['EV_list']
