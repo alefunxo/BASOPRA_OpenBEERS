@@ -1,0 +1,139 @@
+input_aggregations:
+  attributes:
+    egid:               0
+    bid:                0
+    gbez:               null
+    building_type:      null
+    num_floors:         null
+    area:               sum
+    habitable_surface:  sum
+    municipality_name:  first
+    roof_surface:       sum
+    roof_pv_surface:    sum
+    roof_pv_capacity:   sum
+    wall_surface:       sum
+    wall_pv_surface:    sum
+    wall_pv_capacity:   sum
+    floor_surface:      sum
+    floor_pv_surface:   sum
+    floor_pv_capacity:  sum
+    elec_price:         mean  # TODO Find a solution: Is a potential issue with varying surfaces of buildings of different types. Might need something more complex to deal with this in the future.
+  series:
+    DD:                   mean  # TODO Not used for now but might want to consider using it in the future
+    ElectricConsumption:  sum   # Used
+    FF:                   median  # TODO Not used for now
+    G_Bn:                 mean
+    G_Dh:                 mean
+    N:                    first
+    Qs:                   sum   # Used
+    RH:                   mean
+    RR:                   sum
+    SolarPVProduction:    sum   # Used
+    Ta:                   mean  # Used
+    Ts:                   mean
+    h:                    first
+    dhw:                  sum
+    dm:                   mean
+    m:                    sum
+  heat_pump:  # TODO find out how to deal with heat pumps in aggregated scenarios
+    attributes:
+      T_d_supply_floor:           first
+      T_d_return_floor:           first
+      T_d_supply_radiator:        first
+      T_d_return_radiator:        first
+      T_d_supply_floor_tank:      first
+      T_d_return_floor_tank:      first
+      T_d_supply_radiator_tank:   first
+      T_d_return_radiator_tank:   first
+      rad_exp_floor:              first
+      rad_exp_radiator:           first
+      buradiator:                 mean
+      design_temp:                first
+      heatload_dt:                mean
+      hp:                         first
+    series:
+      Set_T:            first 
+      Temp:             mean
+      Req_kWh:          sum
+      Temp_supply:      mean
+      Temp_supply_tank: mean
+      COP_SH:           mean
+      COP_tank:         mean
+      COP_DHW:          mean
+      hp_sh_cons:       sum
+      hp_tank_cons:     sum
+      hp_dhw_cons:      sum
+output_aggregations:  # Uncomment the ones that you want to aggrefate from the results of the basopra optimization
+  # E_PV_batt:            sum
+  # E_PV_batt_EV:         sum
+  # E_PV_bu
+  # E_PV_budhw
+  # E_PV_curt
+  # E_PV_grid
+  # E_PV_hp
+  # E_PV_hpdhw
+  # E_PV_load
+  # E_batt_EV_bu
+  # E_batt_EV_budhw
+  # E_batt_EV_grid
+  # E_batt_EV_hp
+  # E_batt_EV_hpdhw
+  # E_batt_EV_load
+  # E_batt_bu
+  # E_batt_budhw
+  # E_batt_hp
+  # E_batt_hpdhw
+  # E_batt_load
+  # E_bu
+  # E_budhw
+  # E_char
+  # E_char_EV
+  # E_char_away
+  # E_cons
+  # E_dis
+  # E_dis_EV
+  # E_grid_batt
+  # E_grid_batt_EV
+  # E_grid_bu
+  # E_grid_budhw
+  # E_grid_hp:          sum
+  # E_grid_hpdhw:       sum
+  # E_grid_load
+  # E_hp
+  # E_hpdhw
+  # E_loss_Batt
+  # E_loss_Batt_EV
+  # E_loss_conv
+  # E_loss_inv
+  # E_loss_inv_PV
+  # E_loss_inv_batt
+  # E_loss_inv_grid
+  # Q_dhwst_hd
+  # Q_hp_sh
+  # Q_hp_ts
+  # Q_loss_dhwst
+  # Q_loss_ts
+  # Q_ts
+  # Q_ts_delta
+  # Q_ts_sh
+  # SOC
+  # SOC_EV
+  # T_dhwst
+  # T_ts
+  # E_demand
+  # E_PV
+  # Export_price
+  # price
+  # Inv_P
+  # Conv_P
+  # Req_kWh
+  # Req_kWh_DHW
+  # Set_T
+  # Temp
+  # Temp_supply
+  # Temp_supply_tank
+  # T_aux_supply
+  # COP_tank
+  # COP_SH
+  # COP_DHW:            sum
+  # E_EV_trip

@@ -79,7 +79,7 @@ def apply_aggregations(dfs: List[DataFrame], aggregation_methods: Dict[str, str]
 
 
 def generate_aggregated_zone_data(buildings_data: Dict[int, Dict[str, Any]]) -> Dict[str, Any]:
-    aggregation_methods = config.aggregation_methods
+    aggregation_methods = config.aggregation_methods.input_aggregations
 
     # attributes: 
     attribute_dfs = []
@@ -126,7 +126,7 @@ def generate_aggregated_basopra_output_data(buildings_data: Dict[Tuple[int, int]
     for scenario in scenarios_found:
         aggregated_buildings[(0, scenario)] = buildings_data.pop((0, scenario))
 
-    columns_to_aggregate = config.output_aggregations
+    columns_to_aggregate = config.aggregation_methods.output_aggregations
 
     output_series: Dict[int, List[DataFrame]] = {scenario: [] for scenario in scenarios_found}
     for key, data in buildings_data.items():

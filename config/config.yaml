@@ -6,6 +6,10 @@ output_dir: Output/
 no_cache: True
 
 loop_mode: False
+
+multiprocessing: False
+max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
+
 simulation_names: 
 #  - val_de_bagnes_41_climate_contemporary_pv_none_2025
   - val_de_bagnes_41_climate_contemporary_pv_roof_2025
@@ -56,150 +60,7 @@ needed_attributes:
   - commune
   - plz_plz6
 
-aggregation_methods:  # supports mean, median, sum, random, custom
-  attributes:
-    egid:               0
-    bid:                0
-    gbez:               null
-    building_type:      null
-    num_floors:         null
-    area:               sum
-    habitable_surface:  sum
-    municipality_name:  first
-    roof_surface:       sum
-    roof_pv_surface:    sum
-    roof_pv_capacity:   sum
-    wall_surface:       sum
-    wall_pv_surface:    sum
-    wall_pv_capacity:   sum
-    floor_surface:      sum
-    floor_pv_surface:   sum
-    floor_pv_capacity:  sum
-    elec_price:         mean  # TODO Find a solution: Is a potential issue with varying surfaces of buildings of different types. Might need something more complex to deal with this in the future.
-  series:
-    DD:                   mean  # TODO Not used for now but might want to consider using it in the future
-    ElectricConsumption:  sum   # Used
-    FF:                   median  # TODO Not used for now
-    G_Bn:                 mean
-    G_Dh:                 mean
-    N:                    first
-    Qs:                   sum   # Used
-    RH:                   mean
-    RR:                   sum
-    SolarPVProduction:    sum   # Used
-    Ta:                   mean  # Used
-    Ts:                   mean
-    h:                    first
-    dhw:                  sum
-    dm:                   mean
-    m:                    sum
-  heat_pump:  # TODO find out how to deal with heat pumps in aggregated scenarios
-    attributes:
-      T_d_supply_floor:           first
-      T_d_return_floor:           first
-      T_d_supply_radiator:        first
-      T_d_return_radiator:        first
-      T_d_supply_floor_tank:      first
-      T_d_return_floor_tank:      first
-      T_d_supply_radiator_tank:   first
-      T_d_return_radiator_tank:   first
-      rad_exp_floor:              first
-      rad_exp_radiator:           first
-      buradiator:                 mean
-      design_temp:                first
-      heatload_dt:                mean
-      hp:                         first
-    series:
-      Set_T:            first 
-      Temp:             mean
-      Req_kWh:          sum
-      Temp_supply:      mean
-      Temp_supply_tank: mean
-      COP_SH:           mean
-      COP_tank:         mean
-      COP_DHW:          mean
-      hp_sh_cons:       sum
-      hp_tank_cons:     sum
-      hp_dhw_cons:      sum
-output_aggregations:  # Uncomment the ones that you want to aggrefate from the results of the basopra optimization
-  E_PV_batt:            sum
-  E_PV_batt_EV:         sum
-  # E_PV_bu
-  # E_PV_budhw
-  # E_PV_curt
-  # E_PV_grid
-  # E_PV_hp
-  # E_PV_hpdhw
-  # E_PV_load
-  # E_batt_EV_bu
-  # E_batt_EV_budhw
-  # E_batt_EV_grid
-  # E_batt_EV_hp
-  # E_batt_EV_hpdhw
-  # E_batt_EV_load
-  # E_batt_bu
-  # E_batt_budhw
-  # E_batt_hp
-  # E_batt_hpdhw
-  # E_batt_load
-  # E_bu
-  # E_budhw
-  # E_char
-  # E_char_EV
-  # E_char_away
-  # E_cons
-  # E_dis
-  # E_dis_EV
-  # E_grid_batt
-  # E_grid_batt_EV
-  # E_grid_bu
-  # E_grid_budhw
-  E_grid_hp:          sum
-  E_grid_hpdhw:       sum
-  # E_grid_load
-  # E_hp
-  # E_hpdhw
-  # E_loss_Batt
-  # E_loss_Batt_EV
-  # E_loss_conv
-  # E_loss_inv
-  # E_loss_inv_PV
-  # E_loss_inv_batt
-  # E_loss_inv_grid
-  # Q_dhwst_hd
-  # Q_hp_sh
-  # Q_hp_ts
-  # Q_loss_dhwst
-  # Q_loss_ts
-  # Q_ts
-  # Q_ts_delta
-  # Q_ts_sh
-  # SOC
-  # SOC_EV
-  # T_dhwst
-  # T_ts
-  # E_demand
-  # E_PV
-  # Export_price
-  # price
-  # Inv_P
-  # Conv_P
-  # Req_kWh
-  # Req_kWh_DHW
-  # Set_T
-  # Temp
-  # Temp_supply
-  # Temp_supply_tank
-  # T_aux_supply
-  # COP_tank
-  # COP_SH
-  COP_DHW:            sum
-  # E_EV_trip
-
 heat_pump:
-  multiprocessing: True
-  max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
-
   dict_design:
     T_d_supply_floor: 35
     T_d_return_floor: 30
@@ -213,13 +74,91 @@ heat_pump:
     rad_exp_radiator: 1.3
 
 Core:
-  # oldschool: True # Testint parameter used to switch between old parameter loading style and new one for comparison purposes
-  multiprocessing: False
-  basopra_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
-
   Optimizer:
     solver_verbose: False
     solver_results_write: False
+    
+  mapping:
+    0:  '0100'
+    1:  '0101'
+    2:  '0110'
+    3:  '0111'
+    4:  '1100'
+    5:  '1101'
+    6:  '1110'
+    7:  '1111'
+    8:  '0000'
+    9:  '0001'
+    10: '0010'
+    11: '0011'
+    12: '1000'
+    13: '1001'
+    14: '1010'
+    15: '1011'
+  
+  reverse_mapping:
+    '0100': 0  
+    '0101': 1  
+    '0110': 2  
+    '0111': 3  
+    '1100': 4  
+    '1101': 5  
+    '1110': 6  
+    '1111': 7  
+    '0000': 8  
+    '0001': 9  
+    '0010': 10 
+    '0011': 11 
+    '1000': 12 
+    '1001': 13 
+    '1010': 14 
+    '1011': 15 
+  
+  conf_mapping:
+    0: 'only HP'
+    1: 'HP+DHW'
+    2: 'HP+SH'
+    3: 'HP+SH+DHW'
+    4: 'HP+BATT'
+    5: 'HP+DHW+BATT'
+    6: 'HP+SH+BATT'
+    7: 'HP+SH+DHW+BATT'
+    8: 'Nothing'
+    9: 'DHW'
+    10: 'SH'
+    11: 'SH+DHW'
+    12: 'only Battery'
+    13: 'DHW+BATT'
+    14: 'SH+BATT'
+    15: 'SH+DHW+BATT'
+
+  
+  basopra_fixed_parameters:
+    App_comb: 0
+    Tech: 'NMC'
+    PV_nom: 1
+    country: 'CH'
+    cases: 'mean'
+    house_type: 'NoHeatPump' # 'SFH100'
+    HP: 'AS'
+    EV_V2G: 0
+    electricity_profile: 'High'
+    EV_batt_cap: 60
+    EV_P_max_home: '11'
+    EV_use: 'High'
+    profile_row_number: 99
+    sizing_tank: 15
+  
+  param_load_fixed_parameters:
+    aging: False
+    Curtailment: 0
+    Inverter_efficiency: 0.95
+    Converter_efficiency_batt: 0.98
+    delta_t: 1
+    Capacity_tariff: 0
+    nyears: 1
+    days: 365
+    testing: False
 
   basopra_run_combinations:
     Capacity: [7]
@@ -228,7 +167,7 @@ Core:
     PV_nom: [1]
     country: ["CH"]
     cases: ["mean"]
-    house_type: ["SFH100"] # ['NoHeatPump','SFH100']
+    house_type: ['NoHeatPump'] # ["SFH100"] ['NoHeatPump','SFH100']
     HP: ["AS"]
     conf: [1]  # 0 only HP; 1 HP+DHW; 2 HP+SH; 3 HP+SH+DHW; 4 only Battery + HP; 5 HP+DHW+BATT; 6 HP+SH+BATT; 7 HP+SH+DHW+BATT
     ev_profiles:
@@ -242,60 +181,4 @@ Core:
 #        EV_P_max_home:  '11'
 #        EV_use:         'High'
 #        profile_row_number: 98
-    
-    
-  mapping:
-    0: '0100'
-    1: '0101'
-    2: '0110'
-    3: '0111'
-    4: '1100'
-    5: '1101'
-    6: '1110'
-    7: '1111'
-  
-  reverse_mapping:
-    '0100': 0
-    '0101': 1
-    '0110': 2
-    '0111': 3
-    '1100': 4
-    '1101': 5
-    '1110': 6
-    '1111': 7
-  
-  conf_mapping:
-    0: 'only HP'
-    1: 'HP+DHW'
-    2: 'HP+SH'
-    3: 'HP+SH+DHW'
-    4: 'only Battery'
-    5: 'HP+DHW+BATT'
-    6: 'HP+SH+BATT'
-    7: 'HP+SH+DHW+BATT'
-  
-  basopra_fixed_parameters:
-    App_comb: 0
-    Tech: 'NMC'
-    PV_nom: 1
-    country: 'CH'
-    cases: 'mean'
-    house_type: 'SFH100'
-    HP: 'AS'
-    EV_V2G: 0
-    electricity_profile: 'High'
-    EV_batt_cap: 60
-    EV_P_max_home: '11'
-    EV_use: 'High'
-    profile_row_number: 99
-  
-  param_load_fixed_parameters:
-    aging: False
-    Curtailment: 0
-    Inverter_efficiency: 0.95
-    Converter_efficiency_batt: 0.98
-    delta_t: 1
-    Capacity_tariff: 0
-    nyears: 1
-    days: 365
-    testing: False
+   
