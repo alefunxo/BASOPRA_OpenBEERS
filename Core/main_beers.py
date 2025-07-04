@@ -539,15 +539,10 @@ def load_param(combinations):
         'hp_dhw_cons',
     ]]
     #df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
-<<<<<<< HEAD
     ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, df_heat_new.index)
     #if ev_profiles is not None:
     #    ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
 
-=======
-
-    ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
->>>>>>> 7a9ea6ca3a7ec85e7c25bc0a5da579ef8868d6c7
     #[param, df_EV, EV_ID] = load_EV_data(combinations,param)
 
     for ev, df in df_EVs.items():
