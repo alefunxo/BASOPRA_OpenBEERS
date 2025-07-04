@@ -342,8 +342,8 @@ def calculate_heat_pump_size(
     results = run_parallel(
         calculate_one_heat_pump_size,
         sizing_inputs,
-        hp_config.multiprocessing,
-        processes=hp_config.max_processes,
+        config.multiprocessing,
+        processes=config.max_processes,
         mode='kwargs',
     )
     # if hp_config.multiprocessing:

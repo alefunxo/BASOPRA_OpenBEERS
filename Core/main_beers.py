@@ -539,12 +539,16 @@ def load_param(combinations):
         'hp_dhw_cons',
     ]]
     #df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
+<<<<<<< HEAD
     ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, df_heat_new.index)
     #if ev_profiles is not None:
     #    ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
 
+=======
+
+    ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
+>>>>>>> 7a9ea6ca3a7ec85e7c25bc0a5da579ef8868d6c7
     #[param, df_EV, EV_ID] = load_EV_data(combinations,param)
-    
 
     for ev, df in df_EVs.items():
         
@@ -670,9 +674,15 @@ def pooling2(combinations):
 def get_conf_for_building(b_data: Dict[str, Any]) -> int:
     has_heat_pump = True if b_data.get('heat_pump') is not None else False
     has_DHW = True if b_data['series'].get('dhw') is not None else False
-
-    return 0
-    
+    has_battery = True if b_data.get('battery') is not None else False
+    has_SH = True
+    if not has_heat_pump:
+        has_DHW = False
+        has_SH = False
+    scenario = [has_battery, has_heat_pump, has_SH, has_DHW]
+    binary_str = "".join(['1' if b else '0' for b in scenario])
+    conf = config.Core.reverse_mapping[binary_str]
+    return conf 
 
 
 @fn_timer
@@ -733,9 +743,9 @@ def run_basopra_simulation(big_data_object):
     missing_simulations = expected_combinations - existing_simulations
     logger.info(f"Following simulations to be run: {missing_simulations}")
     Combs_todo_list = []
-    for bld_id, config in missing_simulations:
+    for bld_id, b_config in missing_simulations:
         building_data = buildings_data.get(bld_id, None)
-        Combs_todo_list.append({'hh': building_data, 'name': bld_id, 'conf': mapping_str_to_num[config]})
+        Combs_todo_list.append({'hh': building_data, 'name': bld_id, 'conf': mapping_str_to_num[b_config]})
     Combs_todo = pd.DataFrame(Combs_todo_list)
     logger.info(f'{len(Combs_todo)} simulations to be run')
 
@@ -748,8 +758,8 @@ def run_basopra_simulation(big_data_object):
     results = run_parallel(
         pooling2,
         Combs_todo_dicts,
-        core_config.multiprocessing,
-        processes=core_config.basopra_processes,
+        config.multiprocessing,
+        processes=config.max_processes,
         mode='kwargs',
     )
     results = [
