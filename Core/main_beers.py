@@ -491,7 +491,7 @@ def load_param(combinations):
     df_el['Export_price']=Export_price
     df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
     df_el['Req_kWh_DHW']/=10
-    df_el['Req_kWh_DHW']=5
+    
     ############ data profiles through time
     # 1) Concatenate all EV frames into one, with top‐level EV names
     df_EVs = pd.concat(df_EVs, axis=1)

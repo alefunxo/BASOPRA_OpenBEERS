@@ -3,7 +3,7 @@ openbeers_address: https://lab.idiap.ch/openbeers
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
-no_cache: True
+no_cache: False
 
 loop_mode: False
 
@@ -143,9 +143,9 @@ Core:
     HP: 'AS'
     EV_V2G: 0
     electricity_profile: 'High'
-    EV_batt_cap: 60
-    EV_P_max_home: '11'
-    EV_use: 'High'
+    # EV_batt_cap: 60
+    # EV_P_max_home: '11'
+    # EV_use: 'High'
     profile_row_number: 99
     sizing_tank: 15
   
@@ -169,10 +169,10 @@ Core:
     cases: ["mean"]
     house_type: ['NoHeatPump'] # ["SFH100"] ['NoHeatPump','SFH100']
     HP: ["AS"]
-    conf: [1]  # 0 only HP; 1 HP+DHW; 2 HP+SH; 3 HP+SH+DHW; 4 only Battery + HP; 5 HP+DHW+BATT; 6 HP+SH+BATT; 7 HP+SH+DHW+BATT
+    conf: [7]  # 0 only HP; 1 HP+DHW; 2 HP+SH; 3 HP+SH+DHW; 4 only Battery + HP; 5 HP+DHW+BATT; 6 HP+SH+BATT; 7 HP+SH+DHW+BATT
     ev_profiles:
       EV1:
-        EV_batt_cap:     75
+        EV_batt_cap:     0
         EV_P_max_home:  '7'
         EV_use:         'High'
         profile_row_number: 99
@@ -181,4 +181,3 @@ Core:
 #        EV_P_max_home:  '11'
 #        EV_use:         'High'
 #        profile_row_number: 98
-   
