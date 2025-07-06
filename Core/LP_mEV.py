@@ -273,7 +273,7 @@ def Concrete_model(Data):
     m.Balance_hp_demand_r=en.Constraint(m.Time,rule=Balance_hp_demand_rule)
     # If flexibility of one day:
     m.Balance_space_heat_demand_r=en.Constraint(m.Time,
-                                    rule=Balance_space_heat_demand)
+                                    rule=Balance_space_heat_demand_12)
     m.Change_tank_thermal_energy_rule_r=en.Constraint(m.Time,rule=Change_tank_thermal_energy_rule)
     m.Available_tank_thermal_energy_rule_r=en.Constraint(m.Time,rule=Available_tank_thermal_energy_rule)
     m.Balance_hp_supply_r=en.Constraint(m.Time,rule=Balance_hp_supply_rule)#*
@@ -289,13 +289,13 @@ def Concrete_model(Data):
     m.Balance_DHW_demand_r=en.Constraint(m.Time,rule=Balance_DHW_demand)
     m.Balance_hp_supply_r2=en.Constraint(m.Time,rule=Balance_hp_supply_rule2)#
     m.DHWST_losses_r=en.Constraint(m.Time,rule=DHWST_losses)
-    m.Balance_dhwst_r=en.Constraint(m.tm,rule=Balance_dhwst)
-    #m.def_dhwst_state_r=en.Constraint(m.tm,rule=def_dhwst_state_rule)
+    #m.Balance_dhwst_r=en.Constraint(m.tm,rule=Balance_dhwst)
+    m.def_dhwst_state_r=en.Constraint(m.tm,rule=def_dhwst_state_rule)
 
-    m.hp_ch1=en.Constraint(m.Time,rule=Bool_hp_rule_1)
-    m.hp_ch2=en.Constraint(m.Time,rule=Bool_hp_rule_2)
-    m.hp_cd3=en.Constraint(m.Time,rule=Bool_hp_rule_3)
-    m.hp_cd4=en.Constraint(m.Time,rule=Bool_hp_rule_4)
+    #m.hp_ch1=en.Constraint(m.Time,rule=Bool_hp_rule_1)
+    #m.hp_ch2=en.Constraint(m.Time,rule=Bool_hp_rule_2)
+    #m.hp_cd3=en.Constraint(m.Time,rule=Bool_hp_rule_3)
+    #m.hp_cd4=en.Constraint(m.Time,rule=Bool_hp_rule_4)
     m.HP_1_2_r=en.Constraint(m.Time,rule=HP_1_2)
 
     m.Bool_char_rule_1_r=en.Constraint(m.Time,rule=Bool_char_rule_1)
@@ -494,123 +494,144 @@ def Balance_bu_demand_rule(m,i):
     '''
     Description
     -------
-    Balance demand backup heater (HP1) in electricity terms (BU consumption = Electricity from PV, battery and grid).
+    Balance demand backup heater (HP1) in electricity terms (BU consumption = Electricity from PV, battery and grid). If HP is used for cooling, or if there is no heating constraint is desactivated.
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        return m.E_bu[i]==m.E_PV_bu[i]+m.E_batt_bu[i]+m.E_grid_bu[i]
+        return (m.E_bu[i],m.E_PV_bu[i]+m.E_batt_bu[i]+m.E_grid_bu[i])
 
 def Balance_budhw_demand_rule(m,i):
     '''
     Description
     -------
-    Balance demand backup heater (hpdhw) in electricity terms (budhw consumption = Electricity from PV, battery and grid). 
+    Balance demand backup heater (hpdhw) in electricity terms (budhw consumption = Electricity from PV, battery and grid). If HP is used for cooling, or if there is no heating constraint is desactivated.
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
         if m.DHW:
-            return m.E_budhw[i]==m.E_PV_budhw[i]+m.E_batt_budhw[i]+m.E_grid_budhw[i]
+            return (m.E_budhw[i],m.E_PV_budhw[i]+m.E_batt_budhw[i]+m.E_grid_budhw[i])
         else:
             return en.Constraint.Skip
 def Balance_hp_demand_rule(m,i):
     '''
     Description
     -------
-    Balance demand HP1 in electricity terms (HP consumption = Electricity from PV, battery and grid). Constraint for E_hp if heating. Constraint is desactivated if no heating.
+    Balance demand HP1 in electricity terms (HP consumption = Electricity from PV, battery and grid). Constraint for E_hp if heating and for E_hp_cooling if cooling. Constraint is desactivated if no heating.
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        return m.E_hp[i]==m.E_PV_hp[i]+m.E_batt_hp[i]+m.E_grid_hp[i]
+        return (m.E_hp[i],m.E_PV_hp[i]+m.E_batt_hp[i]+m.E_grid_hp[i])
 
-def Balance_space_heat_demand(m,i):
+def Balance_space_heat_demand_12(m,i):
     '''
     Description
     -------
-    Balance demand in heating terms (heat production [kWh] = heat demand). Constraint changes on production side, if there is thermal storage,  or heating. In the demand side is always the required energy in thermal terms.
+    Balance demand in heating terms (heat production [kWh] = heat demand). Constraint changes on production side, if there is thermal storage, cooling or heating. In the demand side is always the required energy in thermal terms.
     TODO
     -------
+    Verify without storage with cooling. I think we need return(-m.Q_ts_sh[i],m.Req_kWh[i])
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        if not en.value(m.T_storage):# no space heating storage
-            return sum(m.Q_hp_sh[i]-m.Req_kWh[i] for i in m.Time)==0 #Balance
+        if not en.value(m.T_storage):
+            if en.value(m.DHW):
+                #return (m.Q_ts_sh[i]+m.Q_hp_sh[i]-m.Req_kWh[i] for i in m.Time)==0)#Balance
+                #return(m.Q_ts_sh[i]+m.Q_hp_sh[i],m.Req_kWh[i])#
+                return (sum(m.Q_ts_sh[i]+m.Q_hp_sh[i]-m.Req_kWh[i] for i in m.Time)==0)#Balance
+                #return ((sum(sum(m.Q_ts_sh[i-3:i])+sum(m.Q_hp_sh[i-3:i])-sum(m.Req_kWh[i-3:i])) for i in m.subset_tank_day)==0)#Balance
+
+            else:
+                #return(m.Q_hp_sh[i],m.Req_kWh[i])
+                return (sum(m.Q_hp_sh[i]-m.Req_kWh[i] for i in m.Time)==0)#Balance
+                #return ((sum(sum(m.Q_hp_sh[i-3:i])-sum(m.Req_kWh[i-3:i])) for i in m.subset_tank_day)==0)#Balance
+
+            #with cooling is the same thing
         else:
-            return sum(m.Q_ts_sh[i]+m.Q_hp_sh[i]-m.Req_kWh[i] for i in m.Time)==0 #Balance
-            
+            #return(m.Q_ts_sh[i],m.Req_kWh[i])#+m.Q_hp_sh[i]
+            return (sum(m.Q_ts_sh[i]-m.Req_kWh[i] for i in m.Time)==0)#Balance
+            #return ((sum(sum(m.Q_ts_sh[i-3:i])-sum(m.Req_kWh[i-3:i])) for i in m.subset_tank_day)==0)#Balance
             
 def Change_tank_thermal_energy_rule(m,i):
     '''
     Description
     -------
-    Change in tank thermal energy (Q_ts_delta [kWh]) is given by the change in tank temperature times the volume times the specific heat of water.
+    Change in tank thermal energy (Q_ts_delta [kWh]) is given by the change in tank temperature times the mass times the specific heat of water.
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        if not en.value(m.T_storage):
-            if m.DHW:
-                if m.toy!=0:
+        if  not en.value(m.T_storage):
+            if  en.value(m.DHW):
+                if m.toy==1:
                     #return en.Constraint.Skip
-                    return m.T_ts[i] == m.T_min[i]
+                    return((m.T_ts[i] ),(m.T_min[i]))
+                elif m.toy==3:
+                    return((m.T_ts[i] ),(m.T_min[i]))
+                elif m.toy==2:
+                    return((m.T_ts[i] ),(m.T_min[i]))
                 else:
-                    return m.Q_ts_delta[i]==(m.T_ts[i]-m.T_ts[i-1])*m.m*m.c_p
+                    return(m.Q_ts_delta[i],((m.T_ts[i]-m.T_ts[i-1])*m.m*m.c_p))
             else:
                 return en.Constraint.Skip
         else:
-            if m.toy!=0:
+            if m.toy==1:
                 #return en.Constraint.Skip
-                return m.T_ts[i] == m.T_min[i]
+                return((m.T_ts[i] ),(m.T_min[i]))
+            elif m.toy==3:
+                return((m.T_ts[i] ),(m.T_min[i]))
+            elif m.toy==2:
+                return((m.T_ts[i] ),(m.T_min[i]))
             else:
-                return m.Q_ts_delta[i]==(m.T_ts[i]-m.T_ts[i-1])*m.m*m.c_p
+                return(m.Q_ts_delta[i],((m.T_ts[i]-m.T_ts[i-1])*m.m*m.c_p))
 
 def Available_tank_thermal_energy_rule(m,i):
     '''
     Description
     -------
-    Thermal energy available in the tank (Q_ts [kWh]) is given by the temperature of the tank at time t (T_ts) and the minimum temperature accepted in the tank (T_min) times the volume times the specific heat of water. 
+    Thermal energy available in the tank (Q_ts [kWh]) is given by the temperature of the tank at time t (T_ts) and the minimum temperature accepted in the tank (T_min) times the mass times the specific heat of water. If cooling T_min is 293.15 K (20°C).
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        if not en.value(m.T_storage):
-            if m.DHW:
+        if  not en.value(m.T_storage):
+            if  en.value(m.DHW):
                 if (m.doy>=120)and(m.doy<=274):
-                    return m.Q_ts[i]==0
+                    return(m.Q_ts[i],(0)*m.m*m.c_p)
                 else:
-                    return m.Q_ts[i]==(m.T_ts[i]-m.T_supply[i])*m.m*m.c_p
+                    return(m.Q_ts[i],((m.T_ts[i]-m.T_supply[i])*m.m*m.c_p))
             else:
                 return en.Constraint.Skip
         else:
             if (m.doy>=120)and(m.doy<=274):
-                return m.Q_ts[i]==0
+                return(m.Q_ts[i],(0)*m.m*m.c_p)
             else:
-                return m.Q_ts[i]==(m.T_ts[i]-m.T_supply[i])*m.m*m.c_p
+                return(m.Q_ts[i],((m.T_ts[i]-m.T_supply[i])*m.m*m.c_p))
 
 def Balance_hp_supply_rule(m,i):
     '''
     Description
     -------
-    Balance of thermal energy supplied by the HP and the backup heater according to the COP. If there is no storage the electricity consumed by the HP times the COP plus the electricity consumed by the backup heater times the COP of the backup heater (i.e. 1) must be equal to the heat provided for space heating .
-    If there is storage, the electricity supplied times COP must be equal to the delta Q supplied to the tank plus the heat provided for space heating plus the losses of the tank. It can be assimiled as Q_char.
+    Balance of thermal energy supplied by the HP and the backup heater according to the COP. If there is no storage the electricity consumed by the HP times the COP plus the electricity consumed by the backup heater times the COP of the backup heater (i.e. 1) must be equal to the heat provided for space heating (or cooling).
+    If there is storage, the electricity supplied times COP must be equal to the delta Q supplied to the tank plus the heat provided for space heating (cooling) plus the losses of the tank. It can be assimiled as Q_char. For cooling signs and COP change.
     TODO
     -------
-    
+    Change COP_SH for cooling by COP for cooling (parameter).
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        if not en.value(m.T_storage):
+        if  not en.value(m.T_storage):
             if m.DHW:
-                return (m.E_hp[i]*m.COP_tank[i]+m.E_bu[i])==m.Q_hp_ts[i]+m.Q_hp_sh[i]
+                return ((m.E_hp[i]*m.COP_tank[i]+m.E_bu[i]),m.Q_hp_ts[i]+m.Q_hp_sh[i])
             else:
-                return (m.E_hp[i]*m.COP_SH[i]+m.E_bu[i])==(m.Q_hp_sh[i])
+                return((m.E_hp[i]*m.COP_SH[i]+m.E_bu[i]),(m.Q_hp_sh[i]))
 
         else:
-            return (m.E_hp[i]*m.COP_tank[i]+m.E_bu[i])==m.Q_hp_ts[i] #+m.Q_hp_sh[i]/m.COP_SH[i])
+            return ((m.E_hp[i]*m.COP_tank[i]+m.E_bu[i]),m.Q_hp_ts[i])#+m.Q_hp_sh[i]/m.COP_SH[i])
 
 def Balance_ts(m,i):
     '''
@@ -623,47 +644,49 @@ def Balance_ts(m,i):
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        if not en.value(m.T_storage):
-            if m.DHW:
-                return (m.Q_hp_ts[i])==m.Q_ts_delta[i]+m.Q_ts_sh[i]+m.Q_loss_ts[i] #Balance
+        if   not en.value(m.T_storage):
+            if  en.value(m.DHW):
+                return ((m.Q_hp_ts[i]),m.Q_ts_delta[i]+m.Q_ts_sh[i]+m.Q_loss_ts[i])#Balance
             else:
-                return m.Q_hp_ts[i]==0
+                return (m.Q_hp_ts[i],0)
         else:
 
-            return m.Q_hp_ts[i]==m.Q_ts_delta[i]+m.Q_ts_sh[i]+m.Q_loss_ts[i]#Balance
+            return ((m.Q_hp_ts[i]),m.Q_ts_delta[i]+m.Q_ts_sh[i]+m.Q_loss_ts[i])#Balance
 def Balance_hp_power(m,i):
     '''
     Description
     -------
-    Balance of thermal energy supplied by the HP and the backup heater according to the COP. If there is no storage the electricity consumed by the HP times the COP plus the electricity consumed by the backup heater times the COP of the backup heater (i.e. 1) must be equal to the heat provided for space heating .
-    If there is storage, the electricity supplied times COP must be equal to the delta Q supplied to the tank plus the heat provided for space heating plus the losses of the tank. It can be assimiled as Q_char. 
+    Balance of thermal energy supplied by the HP and the backup heater according to the COP. If there is no storage the electricity consumed by the HP times the COP plus the electricity consumed by the backup heater times the COP of the backup heater (i.e. 1) must be equal to the heat provided for space heating (or cooling).
+    If there is storage, the electricity supplied times COP must be equal to the delta Q supplied to the tank plus the heat provided for space heating (cooling) plus the losses of the tank. It can be assimiled as Q_char. For cooling signs and COP change.
     TODO
     -------
+    Change COP_SH for cooling by COP for cooling (parameter).
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        if not en.value(m.T_storage):
-            if m.DHW:
-                return m.E_hp[i] <= m.HP_power_tank[i]*m.dt
+        if  not en.value(m.T_storage):
+            if  en.value(m.DHW):
+                return((m.E_hp[i])<=m.HP_power_tank[i]*m.dt)
             else:
-                return m.E_hp[i] <= m.HP_power_SH[i]*m.dt
+                return((m.E_hp[i])<=m.HP_power_SH[i]*m.dt)
         else:
-            return m.E_hp[i] <= m.HP_power_tank[i]*m.dt
+            return((m.E_hp[i])<=m.HP_power_tank[i]*m.dt)
 
 def Balance_hp_dhw_power(m,i):
     '''
     Description
     -------
-    Balance of thermal energy supplied by the HP and the backup heater according to the COP. If there is no storage the electricity consumed by the HP times the COP plus the electricity consumed by the backup heater times the COP of the backup heater (i.e. 1) must be equal to the heat provided for space heating.
-    If there is storage, the electricity supplied times COP must be equal to the delta Q supplied to the tank plus the heat provided for space heating plus the losses of the tank. It can be assimiled as Q_char.
+    Balance of thermal energy supplied by the HP and the backup heater according to the COP. If there is no storage the electricity consumed by the HP times the COP plus the electricity consumed by the backup heater times the COP of the backup heater (i.e. 1) must be equal to the heat provided for space heating (or cooling).
+    If there is storage, the electricity supplied times COP must be equal to the delta Q supplied to the tank plus the heat provided for space heating (cooling) plus the losses of the tank. It can be assimiled as Q_char. For cooling signs and COP change.
     TODO
     -------
+    Change COP_SH for cooling by COP for cooling (parameter).
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        return m.E_hpdhw[i] <= m.HP_dhw_power[i]*m.dt
+        return((m.E_hpdhw[i])<=m.HP_dhw_power[i]*m.dt)
 
 #TS Constraints
 def Ts_losses(m,i):
@@ -675,64 +698,61 @@ def Ts_losses(m,i):
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        if not en.value(m.T_storage):
-            return m.Q_loss_ts[i]==0 
+        if  not en.value(m.T_storage):
+            return(m.Q_loss_ts[i],0)
         else:
             if i==0:
-                return m.Q_loss_ts[i]==0
+                return(m.Q_loss_ts[i],0)
             else:
-                return m.Q_loss_ts[i]==m.dt*m.U*m.A*(m.T_ts[i]-(m.Set_T[i]))
+                return(m.Q_loss_ts[i],m.dt*m.U*m.A*(m.T_ts[i]-(m.Set_T[i])))
 
 
 
 def def_ts_state_rule(m, t):
     '''
     Description
-    Defines the state constraints for the thermal storage temperature.
-
-    Parameters
-    ----------
-    m : pyomo.ConcreteModel
-        The optimization model containing variables and constraints.
-    t : int
-        Time index for which the constraint applies.
-
-
+    -------
+    Temperature of the tank must be lower than T_min (??) when cooling
+    TODO
+    -------
+    Verify if needed and adjust nomenclature
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        if not en.value(m.T_storage):
-            if m.DHW:
+        if  not en.value(m.T_storage):
+            if   en.value(m.DHW):
                 if t==-1:
                     return(m.T_ts[t],m.T_init)# This is what is super important
                 else:
                     return en.Constraint.Skip
             else:
-                    return en.Constraint.Skip
+                return en.Constraint.Skip
         else:
             if t==-1:
                 return(m.T_ts[t],m.T_init)# This is what is super important
             else:
                 return en.Constraint.Skip
-
-      
 def def_ts_state2_rule(m, i):
     '''
     Description
     -------
     Temperature of the tank must be lower than T_min (??) when cooling
+    TODO
+    -------
+    Verify if needed and adjust nomenclature
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        if not en.value(m.T_storage):
-            if m.DHW:
+        if  not en.value(m.T_storage):
+            if   en.value(m.DHW):
                 return (m.T_ts[i]<=m.T_max[i])
             else:
                 return en.Constraint.Skip
         else:
             return (m.T_ts[i]<=m.T_max[i])
+
 
 
 #DHW Constraints
@@ -748,7 +768,7 @@ def Balance_hp_DHW_rule(m,i):
         if not en.value(m.DHW):
             return en.Constraint.Skip
         else:
-            return m.E_hpdhw[i]==m.E_PV_hpdhw[i]+m.E_batt_hpdhw[i]+m.E_grid_hpdhw[i]
+            return (m.E_hpdhw[i],m.E_PV_hpdhw[i]+m.E_batt_hpdhw[i]+m.E_grid_hpdhw[i])
 
 def Balance_DHW_demand(m,i):
     '''
@@ -762,7 +782,7 @@ def Balance_DHW_demand(m,i):
         if not en.value(m.DHW):
             return en.Constraint.Skip
         else:
-            return m.Q_dhwst_hd[i]==m.Req_kWh_DHW[i] #In kWh
+            return(m.Q_dhwst_hd[i],m.Req_kWh_DHW[i])#In kWh
 
 def Balance_hp_supply_rule2(m,i):
     '''
@@ -776,7 +796,7 @@ def Balance_hp_supply_rule2(m,i):
         if not en.value(m.DHW):
             return en.Constraint.Skip
         else:
-            return m.E_hpdhw[i]*m.COP_DHW[i]+m.E_budhw[i]==((m.T_dhwst[i]-m.T_dhwst[i-1])*m.m_dhw*m.c_p_dhw)+m.Q_dhwst_hd[i]+m.Q_loss_dhwst[i] #Q_char
+            return ((m.E_hpdhw[i])*m.COP_DHW[i]+m.E_budhw[i],((m.T_dhwst[i]-m.T_dhwst[i-1])*m.m_dhw*m.c_p_dhw)+m.Q_dhwst_hd[i]+m.Q_loss_dhwst[i])#Q_char
 
 #DHWST Constraints
 def DHWST_losses(m,i):
@@ -792,9 +812,9 @@ def DHWST_losses(m,i):
             return en.Constraint.Skip
         else:
             if i==0:
-                return m.Q_loss_dhwst[i] == 0
+                return(m.Q_loss_dhwst[i],0)
             else:
-                return m.Q_loss_dhwst[i] == m.dt*m.U_dhw*m.A_dhw*(m.T_dhwst[i]-(m.Set_T[i]))
+                return(m.Q_loss_dhwst[i],m.dt*m.U_dhw*m.A_dhw*(m.T_dhwst[i]-(m.Set_T[i])))
 
 def Balance_dhwst(m,t):
     '''
@@ -811,9 +831,8 @@ def Balance_dhwst(m,t):
             if t==-1:
                 return en.Constraint.Skip
             else:
-                #return sum(m.E_hpdhw[t]*m.COP_DHW[t]+m.E_budhw[t]for t in m.Time)-sum(((m.T_dhwst[t]-m.T_dhwst[t-1])*m.m_dhw*m.c_p_dhw)+m.Q_dhwst_hd[t]+m.Q_loss_dhwst[t] for t in m.Time)==0 #Balance
-                return (sum(m.E_hpdhw[i]*m.COP_DHW[i] + m.E_budhw[i] for i in m.Time)*m.dt) == sum((m.T_dhwst[i] - m.T_dhwst[i-1])*m.m_dhw*m.c_p_dhw + m.Q_dhwst_hd[i] + m.Q_loss_dhwst[i] for i in m.Time)
-
+                return (sum(m.E_hpdhw[t]*m.COP_DHW[t]+m.E_budhw[t]for t in m.Time)
+                -sum(((m.T_dhwst[t]-m.T_dhwst[t-1])*m.m_dhw*m.c_p_dhw)+m.Q_dhwst_hd[t]+m.Q_loss_dhwst[t] for t in m.Time)==0)#Balance
 
 
 def def_dhwst_state_rule(m, t):
@@ -832,7 +851,7 @@ def def_dhwst_state_rule(m, t):
             return en.Constraint.Skip
         else:
             if t==-1:
-                return m.T_dhwst[t]==m.T_init_dhw
+                return(m.T_dhwst[t],m.T_min_dhw)
             else:
                 return en.Constraint.Skip
 ############################################################
@@ -841,62 +860,62 @@ def Bool_hp_rule_1(m,i):
     '''
     Description
     -------
-    If DHW two HPs are used, one for heating and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm. 1/4
+    If DHW two HPs are used, one for heating/cooling and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm. 1/4
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        bigM=500000
+        bigM=50000000000
 
-        return (m.E_hp[i]+m.E_bu[i]) >= -bigM*(m.Bool_hp[i])
+        return((m.E_hp[i]+m.E_bu[i])>=-bigM*(m.Bool_hp[i]))
 
 def Bool_hp_rule_2(m,i):
     '''
     Description
     -------
-    If DHW two HPs are used, one for heating and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm.2/4
+    If DHW two HPs are used, one for heating/cooling and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm.2/4
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        bigM=500000
+        bigM=50000000000
 
-        return (m.E_hp[i]+m.E_bu[i]) <= bigM*(1-m.Bool_hpdhw[i])
+        return((m.E_hp[i]+m.E_bu[i])<=bigM*(1-m.Bool_hpdhw[i]))
 
 def Bool_hp_rule_3(m,i):
     '''
     Description
     -------
-    If DHW two HPs are used, one for heating and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm.3/4
+    If DHW two HPs are used, one for heating/cooling and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm.3/4
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        bigM=500000
-        return (m.E_hpdhw[i]+m.E_budhw[i])>=-bigM*(m.Bool_hpdhw[i])
+        bigM=50000000000
+        return((m.E_hpdhw[i]+m.E_budhw[i])>=-bigM*(m.Bool_hpdhw[i]))
 
 def Bool_hp_rule_4(m,i):
     '''
     Description
     -------
-    If DHW two HPs are used, one for heating and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm.4/4
+    If DHW two HPs are used, one for heating/cooling and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm.4/4
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        bigM=500000
-        return (m.E_hpdhw[i]+m.E_budhw[i])<=bigM*(1-m.Bool_hp[i])
+        bigM=50000000000
+        return((m.E_hpdhw[i]+m.E_budhw[i])<=bigM*(1-m.Bool_hp[i]))
 
 def HP_1_2(m,i):
     '''
     Description
     -------
-    If DHW two HPs are used, one for heating and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm. Restriction to operate only one at time.
+    If DHW two HPs are used, one for heating/cooling and one for DHW. However, both cannot operate at the same time (in real world only one HP is used). BigM method to solve linear programming models using simplex algorithm. Restriction to operate only one at time.
     '''
     if not en.value(m.heating):
         return en.Constraint.Skip
     else:
-        return m.Bool_hp[i]+m.Bool_hpdhw[i]==1
+        return (m.E_hp[i]*m.E_hpdhw[i],0)
 
 ###########################################################################
 
@@ -1224,6 +1243,7 @@ def P_max_rule(m,i):
     return (m.E_PV_grid[i]<=m.P_max_day*m.dt)
     '''
     return m.E_cons[i]<=m.P_max_day*m.dt
+    
 
 #App
 
@@ -1261,8 +1281,7 @@ def bill(m,ev,i):
         + sum(m.E_char_away[ev, i]*m.public_charging_price
               for ev in m.EVs)
         # minus export revenue for all EVs
-        - sum(m.export_price[i]*m.E_batt_EV_grid[ev, i]
-              for ev in m.EVs)
+        - sum(m.export_price[i]*m.E_PV_grid[i])
         for i in m.Time
     )
     # 2) Multiply by your PVSC switch flag
@@ -1282,14 +1301,12 @@ def Obj_fcn(m):
     '''
     # 1) First, build the time‐series cost/revenue sum
     cost_rev = sum(
-        # retail purchase + public charging cost for all EVs
-        m.retail_price[i]*m.E_cons[i]
-        + sum(m.E_char_away[ev, i]*m.public_charging_price
-              for ev in m.EVs)
-        # minus export revenue for all EVs
-        - sum(m.export_price[i]*m.E_batt_EV_grid[ev, i]
-              for ev in m.EVs)
-        for i in m.Time
+        (m.retail_price[i] * m.E_cons[i])
+      + sum(m.E_char_away[ev,i] * m.public_charging_price
+            for ev in m.EVs)
+      -( m.export_price[i] * m.E_PV_grid[i])
+      for i in m.Time
+      
     )
     # 2) Multiply by your PVSC switch flag
     term1 = cost_rev * m.PVSC
