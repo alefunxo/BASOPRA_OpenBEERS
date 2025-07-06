@@ -138,6 +138,7 @@ def add_evs(df: pd.DataFrame) -> pd.DataFrame:
 
 def add_current_HP(df: pd.DataFrame) -> pd.DataFrame:
     df['hp_installed_2025'] = df["gwaerzh1"].isin([7410, 7411])
+    # NOTE CAUTION. assumption made that gwaerzh2 is not useful as it is generally for annex buildings and such
     return df
 
 def add_HP_when_renovated(df: pd.DataFrame, years_of_interest: List[int]) -> pd.DataFrame:
@@ -152,6 +153,8 @@ def add_HP_when_renovated(df: pd.DataFrame, years_of_interest: List[int]) -> pd.
     hp_presence = df['hp_installed_2025']
     hp_installed_per_year = {}
     for year in years_of_interest:
+        if year == 2025:
+            continue
         cutoff = pd.Timestamp(f"{year}-01-01")
         renovated = renovation_dates_plus_20 < cutoff
         hp_installed_per_year[f'hp_installed_{year}'] = (hp_presence | renovated) & ~district_heating_presence
@@ -202,29 +205,18 @@ def add_HP(df: pd.DataFrame) -> pd.DataFrame:
         (hp_inclusion_rates['quantile'] == planner_config.quantile)
     ]
 
-    municipalities = df["commune"].unique()
-    municipalities_hp_inclusion_rates = hp_inclusion_rates[hp_inclusion_rates['MunicipalityName'].isin(municipalities)]
+    # municipalities = df["commune"].unique()
+    # municipalities_hp_inclusion_rates = hp_inclusion_rates[hp_inclusion_rates['MunicipalityName'].isin(municipalities)]
 
     # existing hp and district heating
     df = add_current_HP(df)
-    for year in [2025]:
-        for municipality, group in df.groupby('commune'):
-            column = f'hp_installed_{year}'
-            actual_rate = group[column].sum()/len(group[column])
-            hp_rate = municipalities_hp_inclusion_rates[municipalities_hp_inclusion_rates['MunicipalityName'] == municipality][str(year)].iloc[0]/100
-            print(year, municipality, actual_rate, hp_rate)
 
     # calculating all dates where a renovation of heating system should be done
     df = add_HP_when_renovated(df, years_of_interest)
-    for year in years_of_interest:
-        for municipality, group in df.groupby('commune'):
-            column = f'hp_installed_{year}'
-            actual_rate = group[column].sum()/len(group[column])
-            hp_rate = municipalities_hp_inclusion_rates[municipalities_hp_inclusion_rates['MunicipalityName'] == municipality][str(year)].iloc[0]/100
-            print(year, municipality, actual_rate, hp_rate)
 
     # Adding HP pumps up to projected HP ratio
-    df = add_HP_to_projected_ratio(df, years_of_interest)
+    # NOTE the following is removed as we decided the projections are not useful because they don't take in account Wallis' goals for HP renovation
+    # df = add_HP_to_projected_ratio(df, years_of_interest)
 
     return df 
 

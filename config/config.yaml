@@ -132,23 +132,6 @@ Core:
     14: 'SH+BATT'
     15: 'SH+DHW+BATT'
 
-  
-  basopra_fixed_parameters:
-    App_comb: 0
-    Tech: 'NMC'
-    PV_nom: 1
-    country: 'CH'
-    cases: 'mean'
-    house_type: 'NoHeatPump' # 'SFH100'
-    HP: 'AS'
-    EV_V2G: 0
-    electricity_profile: 'High'
-    # EV_batt_cap: 60
-    # EV_P_max_home: '11'
-    # EV_use: 'High'
-    profile_row_number: 99
-    sizing_tank: 15
-  
   param_load_fixed_parameters:
     aging: False
     Curtailment: 0
@@ -159,6 +142,28 @@ Core:
     nyears: 1
     days: 365
     testing: False
+
+  basopra_fixed_parameters:
+    App_comb: 0
+    Tech: 'NMC'
+    PV_nom: 1
+    country: 'CH'
+    cases: 'mean'
+    house_type: 'SFH100' # 'NoHeatPump' # 'SFH100'
+    HP: 'AS'
+    EV_V2G: 0
+    electricity_profile: 'High'
+    # EV_batt_cap: 60
+    # EV_P_max_home: '11'
+    # EV_use: 'High'
+    profile_row_number: 99
+    sizing_tank: 15
+    ev_profiles:
+      EV1:
+        EV_batt_cap:     0
+        EV_P_max_home:  '7'
+        EV_use:         'High'
+        profile_row_number: 99
 
   basopra_run_combinations:
     Capacity: [7]

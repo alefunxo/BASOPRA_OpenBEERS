@@ -22,7 +22,7 @@
 
 import sys
 import os
-from typing import Any, Dict
+from typing import Any, Dict, List, Set, Tuple
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from box import Box
 import re
@@ -592,76 +592,134 @@ def get_conf_for_building(b_data: Dict[str, Any]) -> int:
     conf = config.Core.reverse_mapping[binary_str]
     return conf 
 
+def builds_combinations_to_simulate(missing_simulations: Set[Tuple[int, int]], buildings_data: Dict[int, Dict[str, Any]], default_config):
+    combs_todo_list = []
+    mapping_str_to_num = core_config['reverse_mapping']
+    for bld_id, b_config in missing_simulations:
+        building_data = buildings_data.get(bld_id, None)
+        if building_data is None:
+            continue
+        conf = get_conf_for_building(building_data)
+        if building_data['attributes'].get('ev_count', 0) == 0:
+            building_data['attributes']['ev_count'] = None
+        combination = {
+            'hh': building_data, 
+            'name': bld_id, 
+            'conf': mapping_str_to_num[b_config]
+        }
+
+        combs_todo_list.append({
+            'hh': building_data, 
+            'name': bld_id, 
+            'conf': mapping_str_to_num[b_config]
+        })
+
+    return combs_todo_list
+
 
 @fn_timer
 def run_basopra_simulation(big_data_object):
-    # #print('Loading things the old fashioned way')
-    # files_directory = INPUT_PATH
-    # buildings_file = "test"
-    # buildings_path = f"{files_directory}{buildings_file}"
-    # buildings=load_obj(buildings_path)
-    # keys = list(buildings.keys())
-    # #print(keys)
-    # Define the different combinations of inputs to be run
-    dct = core_config['basopra_run_combinations']
-    # b_items = buildings.items()
-    # b_items_list = list(b_items)
-    # b_items_list_cut = list(b_items)[2:]
-    # dct['hh'] = b_items_list_cut
-    #print('Loading things the cool new way')
-    #print(big_data_object.keys())
+    # old logic
+    if False:
+        # #print('Loading things the old fashioned way')
+        # files_directory = INPUT_PATH
+        # buildings_file = "test"
+        # buildings_path = f"{files_directory}{buildings_file}"
+        # buildings=load_obj(buildings_path)
+        # keys = list(buildings.keys())
+        # #print(keys)
+        # Define the different combinations of inputs to be run
+        dct = core_config['basopra_run_combinations']
+        # b_items = buildings.items()
+        # b_items_list = list(b_items)
+        # b_items_list_cut = list(b_items)[2:]
+        # dct['hh'] = b_items_list_cut
+        #print('Loading things the cool new way')
+        #print(big_data_object.keys())
 
-    # TODO move the file finding logic from here to the run.py logic
-    output_folder = OUTPUT_PATH
-    logger.info(f"Searching for all done basopra simulations in {output_folder}")
-    pattern = os.path.join(output_folder, 'df_*(Building-*)_NMC_0100_*_*_SFH100.csv')
-    existing_files = glob.glob(pattern)
+        # TODO move the file finding logic from here to the run.py logic
+        output_folder = OUTPUT_PATH
+        logger.info(f"Searching for all done basopra simulations in {output_folder}")
+        pattern = os.path.join(output_folder, 'df_*(Building-*)_NMC_0100_*_*_SFH100.csv')
+        existing_files = glob.glob(pattern)
 
-    logger.info("Determining remaining simulations to run")
-    existing_simulations = set()
-    for file in existing_files:
-        filename = os.path.basename(file)
-        match = re.search(r'df_((?:\d+\(Building-[\d\-]+-[\dA-Z]+\)))_NMC_0100_([0-9]+)_([0-9]+)_SFH100', filename)
-        try:
-            if match:
-                building_id = match.group(1)
-                configuration = match.group(3)
-                existing_simulations.add((building_id, configuration))
-        except (IndexError, ValueError):
-            raise
-            #print(f"Skipping file with unexpected format: {file}")
+        logger.info("Determining remaining simulations to run")
+        existing_simulations = set()
+        for file in existing_files:
+            filename = os.path.basename(file)
+            match = re.search(r'df_((?:\d+\(Building-[\d\-]+-[\dA-Z]+\)))_NMC_0100_([0-9]+)_([0-9]+)_SFH100', filename)
+            try:
+                if match:
+                    building_id = match.group(1)
+                    configuration = match.group(3)
+                    existing_simulations.add((building_id, configuration))
+            except (IndexError, ValueError):
+                raise
+                #print(f"Skipping file with unexpected format: {file}")
 
-    # if core_config['oldschool']:
-    #     buildings_data = buildings
-    #     for building in buildings_data:
-    #         match = re.search(r'\d+\(Building-([\d\-]+)-[\dA-Z]+\)', building)
-    #         egid = match.group(1)
-    #         for build in big_data_object:
-    #             if egid == big_data_object[build]['attributes']['egid'].iloc[0]:
-    #                 buildings_data[building]['heat_pump'] = big_data_object[build]['heat_pump']
-    # else:
-    buildings_data = big_data_object
-    for bld_id, bld_data in buildings_data.items():
-        bld_data['ev_profiles'] = dct['ev_profiles']
+        # if core_config['oldschool']:
+        #     buildings_data = buildings
+        #     for building in buildings_data:
+        #         match = re.search(r'\d+\(Building-([\d\-]+)-[\dA-Z]+\)', building)
+        #         egid = match.group(1)
+        #         for build in big_data_object:
+        #             if egid == big_data_object[build]['attributes']['egid'].iloc[0]:
+        #                 buildings_data[building]['heat_pump'] = big_data_object[build]['heat_pump']
+        # else:
+        buildings_data = big_data_object
+        for bld_id, bld_data in buildings_data.items():
+            bld_data['ev_profiles'] = dct['ev_profiles']
     
-    mapping = core_config['mapping']
-    mapping_str_to_num = core_config['reverse_mapping']
-    expected_combinations = {(building_id, mapping[configuration]) for building_id in buildings_data.keys() for configuration in dct['conf']}
-                  
-    missing_simulations = expected_combinations - existing_simulations
-    logger.info(f"Following simulations to be run: {missing_simulations}")
-    Combs_todo_list = []
-    for bld_id, b_config in missing_simulations:
-        building_data = buildings_data.get(bld_id, None)
-        Combs_todo_list.append({'hh': building_data, 'name': bld_id, 'conf': mapping_str_to_num[b_config]})
-    Combs_todo = pd.DataFrame(Combs_todo_list)
-    logger.info(f'{len(Combs_todo)} simulations to be run')
+        mapping = core_config['mapping']
+        mapping_str_to_num = core_config['reverse_mapping']
+        expected_combinations = {(building_id, mapping[configuration]) for building_id in buildings_data.keys() for configuration in dct['conf']}
 
-    static_cfg = core_config['basopra_fixed_parameters']
-    Combs_todo_dicts = [
-        {'combinations':{**row, **static_cfg}}
-        for row in Combs_todo.to_dict(orient='records')
-    ]
+        missing_simulations = expected_combinations - existing_simulations
+        logger.info(f"Following simulations to be run: {missing_simulations}")
+        Combs_todo_list = []
+        for bld_id, b_config in missing_simulations:
+            building_data = buildings_data.get(bld_id, None)
+            if building_data['attributes'].get('ev_count', 0) == 0:
+                building_data['attributes']['ev_count'] = None
+            Combs_todo_list.append({
+                'hh': building_data, 
+                'name': bld_id, 
+                'conf': mapping_str_to_num[b_config]
+            })
+        Combs_todo_list = builds_combinations_to_simulate(missing_simulations, buildings_data, core_config.basopra_fixed_parameters)
+        Combs_todo = pd.DataFrame(Combs_todo_list)
+        logger.info(f'{len(Combs_todo)} simulations to be run')
+
+        static_cfg = core_config['basopra_fixed_parameters']
+        Combs_todo_dicts = [
+            {'combinations':{**row, **static_cfg}}
+            for row in Combs_todo.to_dict(orient='records')
+        ]
+    if True:
+        # base_config = core_config.basopra_run_combinations
+        buildings_data = big_data_object
+        # basopra_conf_mapping = core_config.mapping
+        # basopra_conf_reverse_mapping = core_config.reverse_mapping
+        fixed_config = core_config.basopra_fixed_parameters
+        
+        # basopra_runs_config = {}
+        Combs_todo_dicts= []
+        for building, b_data in buildings_data.items():
+            b_base_config = fixed_config.copy()
+            building_conf = get_conf_for_building(b_data)
+            if b_data['attributes'].get('ev_count', 0) == 0:
+                b_base_config['ev_profiles'] = None
+            if b_data.get('heat_pump') is None:
+                b_base_config.house_type = 'NoHeatPump'
+
+            combination = {
+                'hh': b_data,
+                'name': building,
+                'conf': building_conf,
+            }
+            Combs_todo_dicts.append({
+                'combinations': {**combination, **b_base_config}
+            })
 
     results = run_parallel(
         pooling2,
