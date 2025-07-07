@@ -294,7 +294,7 @@ async def main() -> None:
     save_file = planner_config.save_file
 
     df = None
-    if os.path.exists(save_file) and not planner_config.no_cache:
+    if os.path.exists(save_file) and planner_config.cache:
         df = dataframe_load(save_file, index_col=0)
     else: 
         df = await load_from_api(save_file)

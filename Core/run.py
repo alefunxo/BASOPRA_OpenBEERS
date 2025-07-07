@@ -99,7 +99,7 @@ async def extract_simulation_data(
     logger.info(f"Extracting all data from simulation: {simulation.id} - {simulation.name}")
     save_file = f"{config['simulation_extraction_dir']}/{simulation.name}.pkl"
 
-    if os.path.exists(save_file) and not config.no_cache:
+    if os.path.exists(save_file) and config.cache:
         logger.info(f"Simulation extraction file already exists. {simulation.name}")
         return pickle_load(save_file)
     
@@ -137,9 +137,20 @@ def output_aggregator(basopra_output: Dict[Tuple[int,int], Any])->Any:
         return basopra_output
     return basopra_output
     
-async def process_simulation(sim: Simulation, pricer: ElectricityPricer) -> None:
-    logger.info(f"Processing {sim.name}")
-    extraction = await extract_simulation_data(sim, pricer)
+async def process_simulation(sim_name: str, sim: Simulation, pricer: ElectricityPricer) -> None:
+    save_file = f'{config.simulation_extraction_dir}/{sim_name}.pkl'
+    extraction = None
+    if sim is None and os.path.exists(save_file):
+        logger.info(f"Simulation {sim_name} not found on OpenBeers.")
+        logger.info(f'Falling back on found extraction file: {save_file}')
+        extraction = pickle_load(save_file)
+    elif sim is None and not os.path.exists(save_file):
+        logger.info(f"Simulation {sim_name} not found on OpenBeers and no fallback extraction available.")
+        logger.info(f"Interrupting simulation for {sim.name}")
+        return
+    else:
+        logger.info(f"Processing {sim.name}")
+        extraction = await extract_simulation_data(sim, pricer)
 
     basopra_input = input_aggregator(extraction)
     basopra_output = run_basopra_simulation(basopra_input)
@@ -161,7 +172,7 @@ async def basopra_loop():
 
     pricer = ElectricityPricer()
     for sim in simulations:
-        await process_simulation(sim, pricer)
+        await process_simulation(sim.name, sim, pricer)
 
 async def main() -> None:
     logger.info('Entering main')
@@ -178,9 +189,8 @@ async def main() -> None:
                 simulation = await api.get_simulation(name)
             if simulation is None:
                 logger.info(f'Simulation is None')
-                continue
             pricer = ElectricityPricer()
-            await process_simulation(simulation, pricer)
+            await process_simulation(name, simulation, pricer)
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -108,8 +108,7 @@ def load_prices():
     df_prices=pd.read_csv(filename_prices,engine='python',sep=',|;',index_col=[0],
                         parse_dates=[0],usecols=fields_prices)
 
-    if np.issubdtype(df_prices.index.dtype, np.datetime64):
-        df_prices.index=df_prices.index.tz_localize('UTC').tz_convert('Europe/Brussels')
+    if np.issubdtype(df_prices.index.dtype, np.datetime64): df_prices.index=df_prices.index.tz_localize('UTC').tz_convert('Europe/Brussels')
     else:
         df_prices.index=pd.to_datetime(df_prices.index,utc=True)
         df_prices.index=df_prices.index.tz_convert('Europe/Brussels')
@@ -237,62 +236,62 @@ def load_EV_data(combinations, single_param):
     single_param['public_charging_price']=0.48
     return single_param, df_EV
 
-def load_multi_EV_data(ev_profiles,param):
-    """
-    ev_profiles: dict mapping ev_name -> combinations dict (exactly as you pass into load_EV_data)
-    Returns:
-      param: dict ready for LP.Data (with EV_list, Batt_EV, E_EV_start, EV_home, EV_away, E_EV_trip, …)
-      dfs:    dict of pandas.DataFrame for each EV (if you still need per‐EV dfs)
-    """
-    # containers for the LP Data
-    EV_list        = list(ev_profiles.keys())
-    Batt_EV        = {}
-    E_EV_start     = {}
-    EV_P_max_home  = {}
-    EV_P_max_away  = {}
-    EV_V2G         = {}
-    EV_home        = {}
-    EV_away        = {}
-    E_EV_trip      = {}
-    dfs            = {}
+# def load_multi_EV_data(ev_profiles,param):
+#     """
+#     ev_profiles: dict mapping ev_name -> combinations dict (exactly as you pass into load_EV_data)
+#     Returns:
+#       param: dict ready for LP.Data (with EV_list, Batt_EV, E_EV_start, EV_home, EV_away, E_EV_trip, …)
+#       dfs:    dict of pandas.DataFrame for each EV (if you still need per‐EV dfs)
+#     """
+#     # containers for the LP Data
+#     EV_list        = list(ev_profiles.keys())
+#     Batt_EV        = {}
+#     E_EV_start     = {}
+#     EV_P_max_home  = {}
+#     EV_P_max_away  = {}
+#     EV_V2G         = {}
+#     EV_home        = {}
+#     EV_away        = {}
+#     E_EV_trip      = {}
+#     dfs            = {}
+# 
+#     # call your original loader once per EV
+#     for ev in EV_list:
+#         combos = ev_profiles[ev]
+#         # this is your existing function, unchanged:
+#         single_param, df_ev = load_EV_data(combos, {})  
+# 
+#         # stash the class instance and scalars
+#         Batt_EV[ev]       = single_param['Batt_EV']
+#         E_EV_start[ev]    = single_param['E_EV_start']
+#         EV_P_max_home[ev] = single_param['EV_P_max_home']
+#         EV_P_max_away[ev] = single_param['EV_P_max_away']
+#         EV_V2G[ev]        = single_param.get('EV_V2G', 1)
+# 
+#         # pull the time‐series out of the df
+#         EV_home[ev]       = df_ev['EV_home'].to_dict()
+#         EV_away[ev]       = df_ev['EV_away'].to_dict()
+#         E_EV_trip[ev]     = df_ev['E_EV_trip'].to_dict()
+# 
+#         dfs[ev] = df_ev
+# 
+#     # now assemble the final param dict for the LP
+#     param.update({
+#         'EV_list':             EV_list,
+#         'Batt_EV':             Batt_EV,
+#         'E_EV_start':          E_EV_start,
+#         'EV_P_max_home':       EV_P_max_home,
+#         'EV_P_max_away':       EV_P_max_away,
+#         'EV_V2G':              EV_V2G,
+#         'EV_home':             EV_home,
+#         'EV_away':             EV_away,
+#         'E_EV_trip':           E_EV_trip,
+#         'public_charging_price': single_param['public_charging_price'],
+#     })
+# 
+#     return param, dfs
 
-    # call your original loader once per EV
-    for ev in EV_list:
-        combos = ev_profiles[ev]
-        # this is your existing function, unchanged:
-        single_param, df_ev = load_EV_data(combos, {})  
-
-        # stash the class instance and scalars
-        Batt_EV[ev]       = single_param['Batt_EV']
-        E_EV_start[ev]    = single_param['E_EV_start']
-        EV_P_max_home[ev] = single_param['EV_P_max_home']
-        EV_P_max_away[ev] = single_param['EV_P_max_away']
-        EV_V2G[ev]        = single_param.get('EV_V2G', 1)
-
-        # pull the time‐series out of the df
-        EV_home[ev]       = df_ev['EV_home'].to_dict()
-        EV_away[ev]       = df_ev['EV_away'].to_dict()
-        E_EV_trip[ev]     = df_ev['E_EV_trip'].to_dict()
-
-        dfs[ev] = df_ev
-
-    # now assemble the final param dict for the LP
-    param.update({
-        'EV_list':             EV_list,
-        'Batt_EV':             Batt_EV,
-        'E_EV_start':          E_EV_start,
-        'EV_P_max_home':       EV_P_max_home,
-        'EV_P_max_away':       EV_P_max_away,
-        'EV_V2G':              EV_V2G,
-        'EV_home':             EV_home,
-        'EV_away':             EV_away,
-        'E_EV_trip':           E_EV_trip,
-        'public_charging_price': single_param['public_charging_price'],
-    })
-
-    return param, dfs
-
-import pandas as pd
+# import pandas as pd
 
 def load_multi_EV_data(ev_profiles, param, idx):
     # special case: no profiles → one dummy EV0 with all zeros
@@ -679,135 +678,120 @@ def get_conf_for_building(b_data: Dict[str, Any]) -> int:
     conf = config.Core.reverse_mapping[binary_str]
     return conf 
 
-def builds_combinations_to_simulate(missing_simulations: Set[Tuple[int, int]], buildings_data: Dict[int, Dict[str, Any]], default_config):
-    combs_todo_list = []
-    mapping_str_to_num = core_config['reverse_mapping']
-    for bld_id, b_config in missing_simulations:
-        building_data = buildings_data.get(bld_id, None)
-        if building_data is None:
-            continue
-        conf = get_conf_for_building(building_data)
-        if building_data['attributes'].get('ev_count', 0) == 0:
-            building_data['attributes']['ev_count'] = None
-        combination = {
-            'hh': building_data, 
-            'name': bld_id, 
-            'conf': mapping_str_to_num[b_config]
-        }
+def do_basic_nothing_simulation(combination: Dict[str, Any]):
+    b_data = combination['combinations']['hh']
+    series = b_data['series']
+   
+    df = pd.DataFrame({
+        'ElectricConsumption': series['ElectricConsumption'],
+        'SolarPVProduction': series['SolarPVProduction'],
+    })
 
-        combs_todo_list.append({
-            'hh': building_data, 
-            'name': bld_id, 
-            'conf': mapping_str_to_num[b_config]
+    df['E_PV_load'] = df[['ElectricConsumption', 'SolarPVProduction']].min(axis=1)
+    df['E_PV_grid'] = (df['SolarPVProduction'] - df['ElectricConsumption']).clip(lower=0)
+    df['E_grid_load'] = (df['ElectricConsumption'] - df['SolarPVProduction']).clip(lower=0)
+
+    return df
+
+def do_battery_only_simulation(b_data: Dict[str, Any]):
+    series = b_data['series']
+    df = pd.DataFrame({
+        'ElectricConsumption': series['ElectricConsumption'],
+        'SolarPVProduction': series['SolarPVProduction'],
+    })
+
+    df['E_PV_load'] = 0.0
+    df['E_PV_batt'] = 0.0
+    df['E_PV_grid'] = 0.0
+    df['E_batt_load'] = 0.0
+    df['E_grid_load'] = 0.0
+    df['SOC'] = 0.0
+
+    soc = 0.0
+
+    for i in df.index:
+        pv = df.at[i, 'SolarPVProduction']
+        demand = df.at[i, 'ElectricConsumption']
+        
+        E_PV_load = min(pv, demand)
+        remaining_demand = demand - E_PV_load
+        pv_surplus = pv - E_PV_load
+
+        charge_possible = min(max_charge_kW, pv_surplus)
+        charge_capacity = capacity_kWh - soc
+        E_PV_batt = min(charge_possible, charge_capacity)
+        soc += E_PV_batt * efficiency
+        pv_surplus -= E_PV_batt
+
+        discharge_possible = min(max_discharge_kW, soc/efficiency)
+        E_batt_load = min(discharge_possible, remaining_demand)
+        soc -= E_batt_load * efficiency
+        remaining_demand -= E_batt_load
+
+        E_grid_load = remaining_demand
+        E_PV_grid = pv_surplus
+
+        df.at[i, 'E_PV_load'] = E_PV_load
+        df.at[i, 'E_PV_batt'] = E_PV_batt
+        df.at[i, 'E_batt_load'] = E_batt_load
+        df.at[i, 'E_grid_load'] = E_grid_load
+        df.at[i, 'E_PV_grid'] = E_PV_grid
+        df.at[i, 'SOC'] = soc
+
+    return df
+
+special_configurations = {
+    8: do_basic_nothing_simulation,
+    # 12: do_battery_only_simulation,
+}
+
+def create_run_configurations(buildings_data):
+    fixed_config = core_config.basopra_fixed_parameters
+
+    Combs_todo_dicts = []
+    for building, b_data in buildings_data.items():
+        b_base_config = fixed_config.copy()
+        building_conf = get_conf_for_building(b_data)
+        if b_data['attributes'].get('ev_count', 0) == 0:
+            b_base_config['ev_profiles'] = None
+        else:
+            b_data['ev_profiles'] = b_base_config['ev_profiles']
+        if b_data.get('heat_pump') is None:
+            b_base_config.house_type = 'NoHeatPump'
+        combination = {
+            'hh': b_data,
+            'name': building,
+            'conf': building_conf,
+        }
+        Combs_todo_dicts.append({
+            'combinations': {**combination, **b_base_config}
         })
 
-    return combs_todo_list
-
+    return Combs_todo_dicts
 
 @fn_timer
 def run_basopra_simulation(big_data_object):
-    # old logic
-    if False:
-        # #print('Loading things the old fashioned way')
-        # files_directory = INPUT_PATH
-        # buildings_file = "test"
-        # buildings_path = f"{files_directory}{buildings_file}"
-        # buildings=load_obj(buildings_path)
-        # keys = list(buildings.keys())
-        # #print(keys)
-        # Define the different combinations of inputs to be run
-        dct = core_config['basopra_run_combinations']
-        # b_items = buildings.items()
-        # b_items_list = list(b_items)
-        # b_items_list_cut = list(b_items)[2:]
-        # dct['hh'] = b_items_list_cut
-        #print('Loading things the cool new way')
-        #print(big_data_object.keys())
+    buildings_data = big_data_object
+    Combs_todo_dicts = create_run_configurations(buildings_data)
 
-        # TODO move the file finding logic from here to the run.py logic
-        output_folder = OUTPUT_PATH
-        logger.info(f"Searching for all done basopra simulations in {output_folder}")
-        pattern = os.path.join(output_folder, 'df_*(Building-*)_NMC_0100_*_*_SFH100.csv')
-        existing_files = glob.glob(pattern)
+    basopra_results = {}
+    # TODO Eventually want to reimplement a method to find the simulations that already have been run by checking the output files
+    # Filtering non gurobi simulations
+    basic_simulations_indexes = []
+    for combination in Combs_todo_dicts:
+        if combination['combinations']['conf'] in special_configurations.keys():
+            basic_simulations_indexes.append(Combs_todo_dicts.index(combination))
 
-        logger.info("Determining remaining simulations to run")
-        existing_simulations = set()
-        for file in existing_files:
-            filename = os.path.basename(file)
-            match = re.search(r'df_((?:\d+\(Building-[\d\-]+-[\dA-Z]+\)))_NMC_0100_([0-9]+)_([0-9]+)_SFH100', filename)
-            try:
-                if match:
-                    building_id = match.group(1)
-                    configuration = match.group(3)
-                    existing_simulations.add((building_id, configuration))
-            except (IndexError, ValueError):
-                raise
-                #print(f"Skipping file with unexpected format: {file}")
+    basic_simulations = []
+    for i in basic_simulations_indexes:
+        basic_simulations.append(Combs_todo_dicts.pop(i))
 
-        # if core_config['oldschool']:
-        #     buildings_data = buildings
-        #     for building in buildings_data:
-        #         match = re.search(r'\d+\(Building-([\d\-]+)-[\dA-Z]+\)', building)
-        #         egid = match.group(1)
-        #         for build in big_data_object:
-        #             if egid == big_data_object[build]['attributes']['egid'].iloc[0]:
-        #                 buildings_data[building]['heat_pump'] = big_data_object[build]['heat_pump']
-        # else:
-        buildings_data = big_data_object
-        for bld_id, bld_data in buildings_data.items():
-            bld_data['ev_profiles'] = dct['ev_profiles']
-    
-        mapping = core_config['mapping']
-        mapping_str_to_num = core_config['reverse_mapping']
-        expected_combinations = {(building_id, mapping[configuration]) for building_id in buildings_data.keys() for configuration in dct['conf']}
-
-        missing_simulations = expected_combinations - existing_simulations
-        logger.info(f"Following simulations to be run: {missing_simulations}")
-        Combs_todo_list = []
-        for bld_id, b_config in missing_simulations:
-            building_data = buildings_data.get(bld_id, None)
-            if building_data['attributes'].get('ev_count', 0) == 0:
-                building_data['attributes']['ev_count'] = None
-            Combs_todo_list.append({
-                'hh': building_data, 
-                'name': bld_id, 
-                'conf': mapping_str_to_num[b_config]
-            })
-        Combs_todo_list = builds_combinations_to_simulate(missing_simulations, buildings_data, core_config.basopra_fixed_parameters)
-        Combs_todo = pd.DataFrame(Combs_todo_list)
-        logger.info(f'{len(Combs_todo)} simulations to be run')
-
-        static_cfg = core_config['basopra_fixed_parameters']
-        Combs_todo_dicts = [
-            {'combinations':{**row, **static_cfg}}
-            for row in Combs_todo.to_dict(orient='records')
-        ]
-    if True:
-        # base_config = core_config.basopra_run_combinations
-        buildings_data = big_data_object
-        # basopra_conf_mapping = core_config.mapping
-        # basopra_conf_reverse_mapping = core_config.reverse_mapping
-        fixed_config = core_config.basopra_fixed_parameters
-        
-        # basopra_runs_config = {}
-        Combs_todo_dicts= []
-        for building, b_data in buildings_data.items():
-            b_base_config = fixed_config.copy()
-            building_conf = get_conf_for_building(b_data)
-            if b_data['attributes'].get('ev_count', 0) == 0:
-                b_base_config['ev_profiles'] = None
-            if b_data.get('heat_pump') is None:
-                b_base_config.house_type = 'NoHeatPump'
-
-            combination = {
-                'hh': b_data,
-                'name': building,
-                'conf': building_conf,
-            }
-            Combs_todo_dicts.append({
-                'combinations': {**combination, **b_base_config}
-            })
-
+    # Running non gurobi simulations
+    non_gurobi_results = [
+        special_configurations(combination)
+        for combination in basic_simulations
+    ]
+    # Running gurobi simulations
     results = run_parallel(
         pooling2,
         Combs_todo_dicts,
@@ -820,7 +804,6 @@ def run_basopra_simulation(big_data_object):
         if res[0] is not None else None
         for res in results
     ]
-    basopra_results = {}
     for i in range(len(results)):
         building_id = Combs_todo_dicts[i]['combinations']['name']
         conf_id = Combs_todo_dicts[i]['combinations']['conf']
@@ -831,82 +814,3 @@ def run_basopra_simulation(big_data_object):
 
     return basopra_results
     
-
-# @fn_timer
-# def main():
-#     '''
-#     Main function of the main script. Allows the user to select the country
-# 	(CH or US). For the moment is done automatically if working in windows
-# 	the country is US. It opens a pool of 4 processes to process in parallel, if several dwellings are assessed.
-#     '''
-#     #print(os.getcwd())
-#     #print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-#     #print('Welcome to basopra')
-#     #print('Here you will able to optimize the schedule of PV-coupled HP systems and an electric vehicle with electric and/or thermal storage for a given electricity demand')
-# 
-#     files_directory = INPUT_PATH
-#     buildings_file = "test"
-#     buildings_path = f"{files_directory}{buildings_file}"
-#     buildings=load_obj('Input/test')
-#     keys = list(buildings.keys())
-#     #Define the different combinations of inputs to be run
-#     dct = core_config['basopra_run_combinations']
-#     for bld_id, bld_data in buildings.items(): # to be changed to appropriately include the EVs
-#         bld_data['ev_profiles'] = dct['ev_profiles']
-#     dct['hh'] = list(buildings.items())[2:] # why is there a [2:] here?
-# 
-# 
-# 
-#     # Define the folder containing the files
-#     output_folder = Path(OUTPUT_PATH)
-#     pattern = os.path.join(output_folder, 'df_*(Building-*)_NMC_0100_*_*_SFH100.csv')
-# 
-#     # List of matched files
-#     existing_files = glob.glob(pattern)
-# 
-#     # Extract Respondent_id and EV_V2G_buffer from filenames
-#     existing_simulations = set()
-#     for file in existing_files:
-#         filename = os.path.basename(file)
-#         match = re.search(r'df_((?:\d+\(Building-[\d\-]+-[\dA-Z]+\)))_NMC_0100_([0-9]+)_([0-9]+)_SFH100', filename)
-#         try:
-#             if match:
-#                 building_id = match.group(1)
-#                 configuration = match.group(3)
-#                 existing_simulations.add((building_id, configuration))    
-#         except (IndexError, ValueError):
-#             #print(f"Skipping file with unexpected format: {file}")
-# 
-#     mapping = core_config['mapping']
-#     mapping_str_to_num = core_config['reverse_mapping']
-# 
-#     expected_combinations = {(building_id, mapping[configuration]) for building_id in keys for configuration in dct['conf']}
-#     missing_simulations = expected_combinations - existing_simulations
-#     Combs_todo_list = []
-#     for bld_id, config in missing_simulations:
-#         # Retrieve the full building information using the building id as key
-#         building_info = buildings.get(bld_id, None)
-#         Combs_todo_list.append({'hh': building_info,'name': bld_id, 'conf': mapping_str_to_num[config]})
-# 
-#     Combs_todo = pd.DataFrame(Combs_todo_list)
-#     #print(len(Combs_todo))
-#     static_cfg = core_config['basopra_fixed_parameters']
-#     Combs_todo_dicts = [
-#         {**row, **static_cfg}
-#         for row in Combs_todo.to_dict(orient='records')
-#     ]
-# 
-#     mp.freeze_support()
-#     #print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-#     mp.set_start_method("spawn")
-#     pool=mp.Pool(processes=1)
-#     #selected_dwellings=select_data(Combs_todo)
-#     ##print(selected_dwellings)
-#     ##print(Combs_todo)
-#     pool.map(pooling2,Combs_todo_dicts)
-#     pool.close()
-#     pool.join()
-#     #print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
-# 
-# if __name__ == '__main__':
-#     main()

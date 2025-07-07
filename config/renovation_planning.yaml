@@ -1,7 +1,7 @@
 testing: False
 test_cases: 10
 seed: 42
-no_cache: False
+cache: True 
 save_file: Output/renovation_planning.csv
 canton: VS
 

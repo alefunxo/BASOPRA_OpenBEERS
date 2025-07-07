@@ -213,7 +213,7 @@ def calculate_one_heat_pump_size(
     heat_pumps_df: pd.DataFrame,
 ) -> Optional[HeatPumpDesign]:
     logger.info(f"Starting dimensioning of heat pump for building: {building_id}")
-    if building_data['attributes']['has_HP']:
+    if  not building_data['attributes']['has_HP']:
         return None
     dict_design = hp_config.dict_design
     b_Ts = building_data['series']['Ts']
