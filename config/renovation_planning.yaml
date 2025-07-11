@@ -52,6 +52,7 @@ codification_heat_generator:
   7499: "Autre"
 
 ev_inclusion_rate:
+# TEMPORARY TESTING RATES
   2025: 0.05
   2035: 0.1
   2045: 0.35

@@ -19,6 +19,15 @@ planner_config = config.renovation_planning
 np.random.seed(planner_config.seed)
 
 async def load_from_api(save_file: str) -> pd.DataFrame:
+    """
+    Loads all buildings found and the attributes we need
+
+    Args:
+        save_file (str): File to save the retrieved buildings 
+
+    Returns:
+        pd.DataFrame: buildings list with their attributes
+    """
     api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
     zones: List[Zone] = []
     buildings: Dict[int, Building] = {} 
@@ -57,10 +66,19 @@ async def load_from_api(save_file: str) -> pd.DataFrame:
     return df
 
 def estimate_vehicles_per_building(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Estimates the number of vehicles per building based on some Swiss household trends
+
+    Args:
+        df (pd.DataFrame): List of buildings and their attributes
+
+    Returns:
+        pd.DataFrame: Same as input list with an estimated number of vehicles per building added
+    """
     people_per_houselhold = planner_config.people_per_household
     vehicles_per_household = planner_config.vehicles_per_household
     inhabitants_per_building = df['num_occupants']
-    # CAUTION: assumption made that a one person building still counts as a household
+    # NOTE: assumption made that a one person building still counts as a household
     households_per_building = np.maximum(1, np.round(inhabitants_per_building / people_per_houselhold).astype(int))
     total_households = households_per_building.sum()
     total_vehicles = round(total_households * vehicles_per_household)
@@ -82,6 +100,14 @@ def estimate_vehicles_per_building(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 def add_evs(df: pd.DataFrame) -> pd.DataFrame:
+    """Takes building vehicles and determines which are EVs for each year of interest
+
+    Args:
+        df (pd.DataFrame): List of all buildings and their attributes
+
+    Returns:
+        pd.DataFrame: Same as input list with number of electric vehicle for each year added per building
+    """
     vehicle_counts = df['total_vehicle_count']
     ev_ratios = planner_config.ev_inclusion_rate
     building_ids = list(vehicle_counts.keys())
@@ -137,12 +163,30 @@ def add_evs(df: pd.DataFrame) -> pd.DataFrame:
     return buildings_df
 
 def add_current_HP(df: pd.DataFrame) -> pd.DataFrame:
+    """Add Heat Pumps for buildings where a HP has already been installed
+
+    Args:
+        df (pd.DataFrame): List of all buildings found with attributes
+
+    Returns:
+        pd.DataFrame: Same list as input with a flag added if a HP exists in 2025 according to available data
+    """
     df['hp_installed_2025'] = df["gwaerzh1"].isin([7410, 7411])
-    # NOTE CAUTION. assumption made that gwaerzh2 is not useful as it is generally for annex buildings and such
+    # NOTE: assumption made that gwaerzh2 is not useful as it is generally for annex buildings and such
     return df
 
 def add_HP_when_renovated(df: pd.DataFrame, years_of_interest: List[int]) -> pd.DataFrame:
-    # CAUTION: Assumption made that any absent renovation date is due to the renovation being exceedingly old
+    """Adds a heat pump to buildings if their current heating installation has become older than 20 years, at 
+    each year of interest, and should have been renovated
+
+    Args:
+        df (pd.DataFrame): List of buildings and their attributes
+        years_of_interest (List[int]): List of years at which the age of the heating installation should be checked
+
+    Returns:
+        pd.DataFrame: List of buildings with HP presence tags added/modified for each year of interest
+    """
+    # NOTE: Assumption made that any absent renovation date is due to the renovation being exceedingly old
     district_heating_presence = df["gwaerzh1"].isin([7460, 7461])
     renovation_dates = pd.to_datetime(df['gwaerdath1'], format = "%d.%m.%Y", errors='coerce')
     dummy_date = pd.Timestamp("1900-01-01")
@@ -166,6 +210,18 @@ def add_HP_when_renovated(df: pd.DataFrame, years_of_interest: List[int]) -> pd.
     return buildings_df
 
 def add_HP_to_projected_ratio(df: pd.DataFrame, years_of_interest: List[int]) -> pd.DataFrame:
+    """
+    NOT USED (Does not align with VS renovation policies)
+    Adds heat pumps to buildings according to a projection study of HP penetration.
+    Heat Pumps are added until their penetration over a Municipality matches the study's projection
+
+    Args:
+        df (pd.DataFrame): List of buildings and their attributes
+        years_of_interest (List[int]): List of years at which the age of the heating installation should be checked
+
+    Returns:
+        pd.DataFrame: List of buildings with HP presence tags added/modified for each year of interest
+    """
     hp_inclusion_rates = dataframe_load(planner_config.hp_inclusion_rates)
     hp_inclusion_rates = hp_inclusion_rates[
         (hp_inclusion_rates['Canton'] == planner_config.canton) &
@@ -196,6 +252,17 @@ def add_HP_to_projected_ratio(df: pd.DataFrame, years_of_interest: List[int]) ->
     return full_df
 
 def add_HP(df: pd.DataFrame) -> pd.DataFrame:
+    """Main Heat pump addition function that adds HPs to buildings using sub functions:
+        - add_current_HP 
+        - add_HP_when_renovated
+        - add_HP_to_projected_ratio
+
+    Args:
+        df (pd.DataFrame): List of buildings and their attributes
+
+    Returns:
+        pd.DataFrame: List of buildings with added HPs
+    """
     years_of_interest = planner_config.years_of_interest
     df['commune'] = df["commune"].str.replace(r"\s*\(.*?\)", "", regex=True)
 
@@ -204,9 +271,6 @@ def add_HP(df: pd.DataFrame) -> pd.DataFrame:
         (hp_inclusion_rates['Canton'] == planner_config.canton) &
         (hp_inclusion_rates['quantile'] == planner_config.quantile)
     ]
-
-    # municipalities = df["commune"].unique()
-    # municipalities_hp_inclusion_rates = hp_inclusion_rates[hp_inclusion_rates['MunicipalityName'].isin(municipalities)]
 
     # existing hp and district heating
     df = add_current_HP(df)
@@ -221,26 +285,52 @@ def add_HP(df: pd.DataFrame) -> pd.DataFrame:
     return df 
 
 def prep_battery_prob(df: pd.DataFrame) -> pd.DataFrame:
+    """Predetermines if a building will have a battery installed if PV is lated installed
+
+    Args:
+        df (pd.DataFrame): List of buildings and their attributes
+
+    Returns:
+        pd.DataFrame: List of buildings with added flag determining it they receive a battery when PV is installed
+    """
     will_have_battery_if_PV = np.random.rand(len(df)) <= planner_config.battery_install_ratio
     df["install_battery"] = will_have_battery_if_PV
     return df
 
     
 class RenovationPlanning:
+    """
+    Renovation planning class used at the start of the Basopra process to add attributes to buildings based on CitySim outputs
+    """
     def __init__(self, renovation_plan_path: str) -> None:
+        """Loads the renovation plan created by this file's main fct. The renovation plan is created once but loaded before every
+        Basopra simulation so as to always have the same attributes determined created for each building
+
+        Args:
+            renovation_plan_path (str): Location of the renovation plan
+        """
         self.renovation_plan: pd.DataFrame = dataframe_load(renovation_plan_path, 0)
     
     def add_EV_counts(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
+        """Adds their estimated ev_counts to each building based on the year of the simulation
+
+        Args:
+            buildings (Dict[int, Any]): buildings (id, attributes) 
+            simulation (Simulation): Simulation object from OpenBeers
+        """
         sim_year = simulation.year
-        # ev_counts_year = self.renovation_plan[f'ev_count_{sim_year}']
         for b, values in buildings.items():
             ev_count = 0
             if b in self.renovation_plan.index:
-                ev_count = 1 #self.renovation_plan.loc[b, f'ev_count_{sim_year}']
-
+                ev_count = self.renovation_plan.loc[b, f'ev_count_{sim_year}']
             values['attributes']['ev_count'] = ev_count
 
     def add_batteries(self, buildings: Dict[int, Any]) -> None:
+        """Adds batteries to each buidling based on the presence of PV and the battery installation flag from the renovation planning
+
+        Args:
+            buildings (Dict[int, Any]): buildings (id, attributes) 
+        """
         surfaces = ['roof', 'wall', 'floor']
         battery_type = planner_config.battery_type
         for b, values in buildings.items():
@@ -256,6 +346,15 @@ class RenovationPlanning:
                 values['battery'] = battery
     
     def add_HP_flags(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
+        """Adds a heat pump to all buildings that have been marked to have a heat pump at the given simulation year
+        If CitySim marked a building to have a HP, it is added but other HPs are removed so that the HP penetration ratio 
+        stays unchanged
+
+        Args:
+            buildings (Dict[int, Any]): buildings (id, attributes) 
+            simulation (Simulation): Simulation object from OpenBeers
+        """
+        rng = np.random.default_rng(seed=simulation.id)
         sim_year = simulation.year
         citysim_hp_flag_name = planner_config.citysim_hp_flag
         citysim_hp = {}
@@ -280,7 +379,7 @@ class RenovationPlanning:
         number_of_flags_to_change = len(flags_to_turn_True)
         number_of_ok_differences = len(ok_but_different)
         print(number_of_flags_to_change, number_of_ok_differences)
-        flags_to_turn_False = np.random.choice(ok_but_different, size=number_of_flags_to_change, replace=False)
+        flags_to_turn_False = rng.choice(ok_but_different, size=number_of_flags_to_change, replace=False)
 
         for b, values in buildings.items():
             has_HP = self.renovation_plan.loc[b, f'hp_installed_{sim_year}']
@@ -291,6 +390,9 @@ class RenovationPlanning:
             values['attributes']['has_HP'] = has_HP
 
 async def main() -> None:
+    """
+    Main function estimating the presence of EVs, HPs and Batteries at given years of interest and saving them in a file
+    """
     save_file = planner_config.save_file
 
     df = None

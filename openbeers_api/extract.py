@@ -11,7 +11,8 @@ pv_pannel_types = {
     "JA Solar Deep Blue JAM54D41-455/LB": {
         "x": 1.762,
         "y": 1.1134,
-        "capacity": 455,
+        "capacity": 0.455,
+        "capacity_unit": "kW"
     },
 }
 
@@ -30,6 +31,7 @@ def get_pannel_specs(pannel_name: str) -> float:
         capacity = pannel_specs.get('capacity')
         m2_capacity = capacity/x/y
         pannel_specs["m2_capacity"] = m2_capacity
+        pannel_specs["m2_capacity_unit"] = "kW/m2"
     return pannel_specs.get("m2_capacity")
 
 def get_municipality_name(xml_path: str):
@@ -63,6 +65,25 @@ def get_dhw_profiles(root: Element):
     
     return day_profiles, year_profiles
 
+def dhw_liters_to_kwh(series_lph, T_hot=60, T_inlet=10, Cp=4180, rho=1000):
+    """
+    Convert a pandas Series of hot water usage from liters/hour to kWh/hour.
+    
+    Parameters:
+        series_lph (pd.Series): Series of water usage in liters per hour
+        T_hot (float): Target hot water temperature in °C
+        T_inlet (float): Inlet cold water temperature in °C
+        Cp (float): Specific heat capacity of water in J/kg·K (default: 4180)
+        rho (float): Water density in kg/m³ (default: 1000)
+
+    Returns:
+        pd.Series: Series in kWh/hour
+    """
+    L_per_m3 = 1000
+    J_per_kWh = 3_600_000
+    delta_T = T_hot - T_inlet
+    return (series_lph / L_per_m3) * rho * Cp * delta_T / J_per_kWh 
+
 def get_building_dhw(building: Element, day_profiles, year_profiles):
     b_name = building.attrib["Name"]
     occupants = building.find(".//Occupants")
@@ -79,8 +100,9 @@ def get_building_dhw(building: Element, day_profiles, year_profiles):
         daily_consumption = day_profiles[day_id]["waterConsumption"] * n_occ
         hourly_values.extend([daily_consumption * hour_value for hour_value in daily_profile])
     
-    series = pd.Series(hourly_values, name=b_name)
-    return series
+    series_L_per_hour = pd.Series(hourly_values, name=b_name)
+    series_kWh = dhw_liters_to_kwh(series_L_per_hour, T_hot=60, T_inlet=10, Cp=4180, rho=1000)
+    return series_kWh
 
 def get_surface_n_PV(building: Element, surface_type: str) -> float:
     bld_id = building.attrib.get("id")

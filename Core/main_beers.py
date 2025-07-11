@@ -478,16 +478,20 @@ def load_param(combinations):
     logger.info('Loading data for Basopra Optimization')
 
     series = combinations['hh']['series']
+    idx = series.index
+
     attributes = combinations['hh']['attributes']
     heat_pump = combinations['hh']['heat_pump']
-    df_el = series[['ElectricConsumption', 'SolarPVProduction','dhw']]
-    pv_roof_capacity = attributes['roof_pv_capacity']
-    pv_wall_capacity = attributes['wall_pv_capacity']
-    pv_capacity = pv_roof_capacity + pv_wall_capacity
-    elec_price = attributes['elec_price']/100
+    heat_pump.series.index = idx
+    df_el = series[['ElectricConsumption', 'SolarPVProduction','dhw']]  # kWh, kWh, kWh
+
+    pv_roof_capacity = attributes['roof_pv_capacity']  # kW
+    pv_wall_capacity = attributes['wall_pv_capacity']  # kW
+    pv_capacity = pv_roof_capacity + pv_wall_capacity  # kW
+    elec_price = attributes['elec_price']/100  # frs/kWh
     ev_profiles = combinations['hh']['ev_profiles']
     
-    Export_price = 0.06
+    Export_price = 0.06 # frs/kWh
     
     logger.info("Choose the corresponding profile for electricity")
 
@@ -512,33 +516,46 @@ def load_param(combinations):
 
     week = 1
 
-
     df_el.columns=['E_demand','E_PV','dhw']
     
     # PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
-    PV_nom = np.round(pv_capacity/1000,1)
+    # PV_nom = np.round(pv_capacity/1000,1)
+    PV_nom = pv_capacity
     logger.info('PV_nom : {PV_nom}')
     # Let-s try with the demand instead of the PV due to the high PV nom in the facade
     param["Capacity"] = np.round(df_el.E_demand.sum()/1000,0) # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
     logger.info('Battery Capacity : {Capacity}')
     param['Inverter_power'] = round(pv_capacity/1000/ 1.2, 1)
-
+    # if heat_pump is not None:
+    #     df_heat_new = heat_pump.series[[
+    #         'Set_T', 
+    #         'Temp', 
+    #         'Req_kWh', 
+    #         'Temp_supply', 
+    #         'Temp_supply_tank',
+    #         'COP_SH',
+    #         'COP_tank',
+    #         'COP_DHW',
+    #         'hp_sh_cons',
+    #         'hp_tank_cons',
+    #         'hp_dhw_cons',
+    #     ]]
 
     df_heat_new = heat_pump.series[[
-        'Set_T', 
-        'Temp', 
-        'Req_kWh', 
-        'Temp_supply', 
-        'Temp_supply_tank',
-        'COP_SH',
-        'COP_tank',
-        'COP_DHW',
-        'hp_sh_cons',
-        'hp_tank_cons',
-        'hp_dhw_cons',
+            'Set_T', 
+            'Temp', 
+            'Req_kWh', 
+            'Temp_supply', 
+            'Temp_supply_tank',
+            'COP_SH',
+            'COP_tank',
+            'COP_DHW',
+            'hp_sh_cons',
+            'hp_tank_cons',
+            'hp_dhw_cons',
     ]]
     #df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
-    ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, df_heat_new.index)
+    ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
     #if ev_profiles is not None:
     #    ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
 
@@ -573,7 +590,7 @@ def load_param(combinations):
         f"{ev}_{col}"
         for ev, col in df_EVs.columns
     ]
-    df_EVs.index=df_heat_new.index
+    df_EVs.index=idx
     '''else:
         cols = ['E_EV_req','E_EV_trip','EV_home','EV_away']
         df_EVs = pd.DataFrame(
@@ -582,13 +599,18 @@ def load_param(combinations):
         )
         df_EVs.index = df_heat_new.index'''
 
-    df_el.index = df_heat_new.index
-    
+    df_el.index = idx    
+
     df_el['Price_flat']=elec_price
     df_el['Export_price']=Export_price
     df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
-    df_el['Req_kWh_DHW']/=10
-    data_input=pd.concat([df_el,df_heat_new,df_EVs],axis=1,copy=True,sort=False)
+    # df_el['Req_kWh_DHW']/=10
+    to_concat = [df_el]
+    # if heat_pump is not None:
+    #     to_concat.append(df_heat_new)
+    to_concat.append(df_heat_new)
+    to_concat.append(df_EVs)
+    data_input=pd.concat(to_concat,axis=1,copy=True,sort=False)
 
     #skip the first DHW data since cannot be produced simultaneously with SH    data_input.loc[(data_input.index.hour<2),'Req_kWh_DHW']=0
     #data_input.loc[:,'E_PV']=data_input.loc[:,'E_PV']*PV_nom
@@ -621,6 +643,8 @@ def load_param(combinations):
         'App_comb': create_app_combinations(combinations['App_comb']),
     })
 
+    print(data_input.head())
+    print(data_input[['E_demand', 'E_PV', 'Price_flat']].describe())
     return param, data_input
 
 
@@ -699,6 +723,8 @@ def do_battery_only_simulation(b_data: Dict[str, Any]):
         'ElectricConsumption': series['ElectricConsumption'],
         'SolarPVProduction': series['SolarPVProduction'],
     })
+
+    efficiency = core_config.param_load_fixed_parameters.Converter_efficiency_batt
 
     df['E_PV_load'] = 0.0
     df['E_PV_batt'] = 0.0
@@ -783,14 +809,18 @@ def run_basopra_simulation(big_data_object):
             basic_simulations_indexes.append(Combs_todo_dicts.index(combination))
 
     basic_simulations = []
-    for i in basic_simulations_indexes:
-        basic_simulations.append(Combs_todo_dicts.pop(i))
+    for sim in sorted(basic_simulations_indexes, reverse=True):
+        basic_simulations.append(Combs_todo_dicts.pop(sim))
 
     # Running non gurobi simulations
-    non_gurobi_results = [
-        special_configurations(combination)
-        for combination in basic_simulations
-    ]
+    for i in range(len(basic_simulations)):
+        building_id = basic_simulations[i]['combinations']['name']
+        conf_id = basic_simulations[i]['combinations']['conf']
+        basopra_results[(building_id, conf_id)] = {
+            'simulation_inputs': basic_simulations[i]['combinations'],
+            'simulation_outputs': basic_simulations[conf_id](basic_simulations[i]),
+        }
+
     # Running gurobi simulations
     results = run_parallel(
         pooling2,

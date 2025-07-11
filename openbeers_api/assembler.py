@@ -2,12 +2,13 @@ import pandas as pd
 from typing import Dict, Any
 from Core.paper_classes import heat_storage_tank
 from openbeers_api.integrity_checker import conduct_building_sanity_check
+from openbeers.models import Simulation
 from utils.logger import data_logger
 
 surfaces = ['Roof', 'Wall', 'Ground']
 
 def build_basopra_input(
-    simulation_name: str,
+    simulation: Simulation,
     api_attributes: Dict[str, Dict[str, Any]],
     api_series: dict[str, Dict[str, list]],
     xml_attributes: Dict[str, Dict[str, float]],
@@ -33,17 +34,21 @@ def build_basopra_input(
                 ser_df[key] = values
             else:
                 print(f"⚠️ Skipping building{bid} due to {key}: {len(values)} values (expected {len(ser_df)})")
-                data_logger.error(f"Error with {simulation_name}: mismatch in dimensions {key} for building {bid}: {len(values)} values (expected {len(ser_df)} from climate data)")
+                data_logger.error(f"Error with {simulation.name}: mismatch in dimensions {key} for building {bid}: {len(values)} values (expected {len(ser_df)} from climate data)")
                 valid_building = False
 
         for key, values in xml_series.get(bid, {}).items():
             if len(values) == len(ser_df):
                 ser_df[key] = values
             else:
-                data_logger.error(f"Error with {simulation_name}: mismatch in dimensions {key} for building {bid}: {len(values)} values (expected {len(ser_df)} from climate data)")
+                data_logger.error(f"Error with {simulation.name}: mismatch in dimensions {key} for building {bid}: {len(values)} values (expected {len(ser_df)} from climate data)")
                 print(f"⚠️ Skipping building {bid} due to {key}: {len(values)} values (expected {len(ser_df)})")
                 valid_building = False
 
+        # ser_df.index = pd.date_range(f"{simulation.year}-01-01 00:00", periods=8760, freq="H")
+
+        datetime_index = pd.date_range(start=f'{simulation.year}-01-01 00:00', end=f'{simulation.year}-12-31 23:00', freq='h')
+        ser_df.index = datetime_index
         if valid_building:
             output[bid] = {
                 'attributes': attributes,

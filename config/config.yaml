@@ -1,18 +1,20 @@
-openbeers_address: https://lab.idiap.ch/openbeers
+# openbeers_address: https://lab.idiap.ch/openbeers
+openbeers_address: http://openbeers.hopto.org
 
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
-cache: False
-
-loop_mode: False
+cache: True
 
 multiprocessing: False
 max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
+loop_mode: False
 simulation_names: 
-#  - val_de_bagnes_41_climate_contemporary_pv_none_2025
-  - val_de_bagnes_41_climate_contemporary_pv_roof_2025
+  # - sarreyer_climate_contemporary_pv_roof_2025
+  - sierre_saint_georges_climate_contemporary_pv_roof_2025
+#   - val_de_bagnes_41_climate_contemporary_pv_none_2025
+#   - val_de_bagnes_41_climate_contemporary_pv_roof_2025
 #   - val_de_bagnes_41_climate_rcp26_pv_none_2040
 #   - val_de_bagnes_41_climate_rcp26_pv_none_2050
 #   - val_de_bagnes_41_climate_rcp26_pv_roof_2040
@@ -43,6 +45,7 @@ needed_series:
   - Qs
   - SolarPVProduction
   - ElectricConsumption
+  - Cooling
 
 needed_attributes:
   - gbez

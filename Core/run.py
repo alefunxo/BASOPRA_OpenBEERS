@@ -16,7 +16,6 @@ from heat_pump.pump_sizer import calculate_heat_pump_size
 from utils.utils import dataframe_save, generate_aggregated_basopra_output_data, generate_aggregated_zone_data, pickle_save, pickle_load
 from Core.main_beers import run_basopra_simulation
 from Core.renovation_planner import RenovationPlanning
-from deepdiff import DeepDiff
 
 async def get_attributes_for_building(api, buildings, attribute_types):
     attributes = {}
@@ -44,15 +43,6 @@ async def run_pipeline(simulation: Simulation) -> dict:
         api_series = {}
         api_attributes = await api.get_attributes_for_buildings(buildings, attr_types)
         for b in buildings:
-            # attrs = await api.get_attributes(b.object_id)
-            # api_attributes[b.id] = {
-            #     t.name: next((
-            #         getattr(a, f"value_{t_}") 
-            #         for t_ in ["string", "integer", "float"] 
-            #         if getattr(a, f"value_{t_}", None) is not None
-            #     ),None)
-            #     for t in attr_types for a in attrs if a.attribute_type_id == t.id
-            # }
             series = await api.get_series(b.object_id, simulation.id)
             api_series[b.id] = {
                 t.name: next(
@@ -82,7 +72,7 @@ async def run_pipeline(simulation: Simulation) -> dict:
         cleanup(config['dest_folder'])
 
         # Combining data from different sources
-        result = build_basopra_input(simulation.name, api_attributes, api_series, xml_attributes, xml_series, climate_df, heat_tank, dhw_tank)
+        result = build_basopra_input(simulation, api_attributes, api_series, xml_attributes, xml_series, climate_df, heat_tank, dhw_tank)
         return result
 
 def get_elec_prices(buildings_data:Dict[str, Any], elec_pricer: ElectricityPricer) -> None:
