@@ -4,7 +4,17 @@ from config.loader import config
 from openbeers.rest import ApiException
 from typing import Any, Dict, List, Optional
 from openbeers.models import (
-    Simulation, Building, TimeSeriesType, TimeSeries, AttributeType, Attribute, Climate, Zone
+    Simulation, 
+    Building, 
+    EnergyHeatPump, 
+    EnergyPhotovoltaicSystem, 
+    EnergyRenovation, 
+    TimeSeriesType, 
+    TimeSeries, 
+    AttributeType, 
+    Attribute, 
+    Climate, 
+    Zone
 )
 
 from utils.multiprocessing_utils import run_parallel
@@ -44,34 +54,93 @@ class ApiWrapper:
             return None
     
     async def get_all_simulations(self) -> List[Simulation]:
-        return await self.fetch(self.api.get_simulations_api_simulations_get)
+        return await self.fetch(
+            self.api.get_simulations_api_simulations_get
+        )
 
     async def get_simulation(self, name: str) -> Optional[Simulation]:
         simulations = await self.get_all_simulations()
         return next((s for s in simulations if s.name == name), None)
     
     async def get_series_types(self, needed: List[str]) -> List[TimeSeriesType]:
-        all_types = await self.fetch(self.api.get_time_series_types_api_time_series_types_get)
+        all_types = await self.fetch(
+            self.api.get_time_series_types_api_time_series_types_get
+        )
         return [t for t in all_types if t.name in needed]
 
     async def get_attribute_types(self, needed: List[str]) -> List[AttributeType]:
-        all_types = await self.fetch(self.api.get_attribute_types_api_attribute_types_get)
+        all_types = await self.fetch(
+            self.api.get_attribute_types_api_attribute_types_get
+        )
         return [a for a in all_types if a.name in needed]
     
     async def get_buildings(self, zone_id: int) -> List[Building]:
-        return await self.fetch(self.api.get_buildings_zone_id_api_buildings_zone_zone_id_get, zone_id)
+        return await self.fetch(
+            self.api.get_buildings_zone_id_api_buildings_zone_zone_id_get, 
+            zone_id
+        )
 
     async def get_climate(self, climate_id: int) -> Optional[Climate]:
-        return await self.fetch(self.api.get_climate_api_climate_climate_id_get, climate_id)
+        return await self.fetch(
+            self.api.get_climate_api_climate_climate_id_get, 
+            climate_id
+        )
 
     async def get_attributes(self, object_id: int) -> List[Attribute]:
-        return await self.fetch(self.api.get_attributes_object_id_api_attributes_object_object_id_get, object_id)
+        return await self.fetch(
+            self.api.get_attributes_object_id_api_attributes_object_object_id_get, 
+            object_id
+        )
 
     async def get_series(self, object_id: int, sim_id: int) -> List[TimeSeries]:
-        return await self.fetch(self.api.get_time_series_object_id_simulation_id_api_time_series_s_object_object_id_simulation_simulation_id_get, object_id, sim_id)
+        return await self.fetch(
+            self.api.get_time_series_object_id_simulation_id_api_time_series_s_object_object_id_simulation_simulation_id_get, 
+            object_id, 
+            sim_id
+        )
     
     async def get_all_zones(self) -> List[Zone]:
-        return await self.fetch(self.api.get_all_zones_api_zones_all_get)
+        return await self.fetch(
+            self.api.get_all_zones_api_zones_all_get
+        )
+    
+    async def get_renovation(self, object_id: int) -> EnergyRenovation:
+        return await self.fetch(
+            self.api.get_energy_renovation_energy_renovation_id_get, 
+            object_id
+        )
+
+    async def get_renovation_building_scenario_year(self, building_id: int, scenario_id: int, year: int) -> EnergyRenovation:
+        return await self.fetch(
+            self.api.get_energy_renovation_building_scenario_year_api_energy_renovation_building_building_id_scenario_scenario_id_year_scenario_year_get, 
+            building_id, 
+            scenario_id, 
+            year
+        )
+
+    async def get_heat_pump(self, object_id: int) -> EnergyHeatPump:
+        return await self.fetch(
+            self.api.get_energy_heat_pump_api_energy_heat_pump_energy_heat_pump_id_get, 
+            object_id
+        )
+
+    async def get_heat_pump_from_renovation(self, renovation_id: int) -> List[EnergyHeatPump]:
+        return await self.fetch(
+            self.api.get_energy_heat_pump_energy_renovation_api_energy_heat_pumps_energy_renovation_energy_renovation_id_get, 
+            renovation_id
+        )
+    
+    async def get_PV(self, object_id: int) -> EnergyPhotovoltaicSystem:
+        return await self.fetch(
+            self.api.get_energy_renovation_api_energy_photovoltaic_system_energy_photovoltaic_system_id_get, 
+            object_id
+        )
+
+    async def get_PV_from_renovation(self, renovation_id: int) -> List[EnergyPhotovoltaicSystem]:
+        return await self.fetch(
+            self.api.get_energy_photovoltaic_system_energy_renovation_api_energy_photovoltaic_systems_energy_renovation_energy_renovation_id_get, 
+            renovation_id
+        )
 
     async def get_attributes_for_buildings(self, buildings: List[Building], attribute_types: List[AttributeType]) ->Dict[Optional[int], Dict[str, Optional[Any]]]:
         tasks = {
