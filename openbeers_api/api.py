@@ -117,6 +117,12 @@ class ApiWrapper:
             scenario_id, 
             year
         )
+    
+    async def get_renovations(self, building_ids: List[int], scenario_id: int, year: int) -> Dict[int, EnergyRenovation]:
+        renovations: Dict[int, EnergyRenovation] = {}
+        for bid in building_ids:
+            renovations[bid] = await self.get_renovation_building_scenario_year(bid, scenario_id, year)
+        return renovations
 
     async def get_heat_pump(self, object_id: int) -> EnergyHeatPump:
         return await self.fetch(
@@ -124,7 +130,7 @@ class ApiWrapper:
             object_id
         )
 
-    async def get_heat_pump_from_renovation(self, renovation_id: int) -> List[EnergyHeatPump]:
+    async def get_heat_pumps_from_renovation(self, renovation_id: int) -> List[EnergyHeatPump]:
         return await self.fetch(
             self.api.get_energy_heat_pump_energy_renovation_api_energy_heat_pumps_energy_renovation_energy_renovation_id_get, 
             renovation_id

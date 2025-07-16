@@ -1,6 +1,6 @@
 import sys
 import os
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
@@ -10,7 +10,7 @@ from openbeers_api.api import ApiWrapper
 from openbeers_api.fileloader import cleanup, download_file_from_wap, list_files_in_directory, load_climate_file
 from openbeers_api.extract import get_xml_building_data 
 from openbeers_api.assembler import build_basopra_input
-from openbeers.models import Simulation
+from openbeers.models import EnergyHeatPump, EnergyPhotovoltaicSystem, Simulation, TimeSeries
 from elec_pricer.pricer import ElectricityPricer
 from heat_pump.pump_sizer import calculate_heat_pump_size
 from utils.utils import dataframe_save, generate_aggregated_basopra_output_data, generate_aggregated_zone_data, pickle_save, pickle_load
@@ -30,18 +30,19 @@ async def get_attributes_for_building(api, buildings, attribute_types):
             for t in attribute_types for a in attrs if a.attribute_type_id == t.id
         }
 
-async def run_pipeline(simulation: Simulation) -> dict:
+async def run_pipeline(simulation: Simulation) -> Tuple[Dict[int, Any], bool]:
     api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
 
     async with api_wrapper as api:
         buildings = await api.get_buildings(simulation.zone_id)
+        b_ids = [b.id for b in buildings]
         attr_types = await api.get_attribute_types(config['needed_attributes'])
         ser_types = await api.get_series_types(config['needed_series'])
 
         # Data retrieval through Openbeers API
-        api_attributes = {}
-        api_series = {}
         api_attributes = await api.get_attributes_for_buildings(buildings, attr_types)
+
+        api_series: Dict[int, Dict[str, TimeSeries]]= {}
         for b in buildings:
             series = await api.get_series(b.object_id, simulation.id)
             api_series[b.id] = {
@@ -53,6 +54,17 @@ async def run_pipeline(simulation: Simulation) -> dict:
             api_series[b.id]['Qs'] = [ val / 1000 for val in api_series[b.id]['Qs']]
             api_series[b.id]['SolarPVProduction'] = [ val / 1000 for val in api_series[b.id]['SolarPVProduction']]
     
+        renovations = await api.get_renovations(b_ids, simulation.scenario_id, simulation.year)
+        heat_pumps: Dict[int, List[EnergyHeatPump]] = {}
+        pv_installations: Dict[int, List[EnergyPhotovoltaicSystem]] = {}
+        has_renov: bool = False
+        for bid, renov in renovations.items():
+            if renov is None:
+                continue
+            heat_pumps[bid] = await api.get_heat_pumps_from_renovation(renov.id)
+            pv_installations[bid] = await api.get_PV_from_renovation(renov.id)
+            has_renov = True
+
         climate = await api.get_climate(simulation.climate_id)
 
         # Data retrieval through web server directory
@@ -73,7 +85,7 @@ async def run_pipeline(simulation: Simulation) -> dict:
 
         # Combining data from different sources
         result = build_basopra_input(simulation, api_attributes, api_series, xml_attributes, xml_series, climate_df, heat_tank, dhw_tank)
-        return result
+        return result, has_renov
 
 def get_elec_prices(buildings_data:Dict[str, Any], elec_pricer: ElectricityPricer) -> None:
     for data in buildings_data.values():
@@ -93,13 +105,17 @@ async def extract_simulation_data(
         logger.info(f"Simulation extraction file already exists. {simulation.name}")
         return pickle_load(save_file)
     
-    extraction = await run_pipeline(simulation)
+    extraction, has_renov = await run_pipeline(simulation)
 
     # Add tags allowing to know if building is equipped with EV, Battery, and a HP
-    renovation_planner = RenovationPlanning(config.renovation_planning.save_file)
-    renovation_planner.add_EV_counts(extraction, simulation)
-    renovation_planner.add_batteries(extraction)
-    renovation_planner.add_HP_flags(extraction, simulation)
+    if not has_renov:
+        renovation_planner = RenovationPlanning(config.renovation_planning.save_file)
+        renovation_planner.add_EV_counts(extraction, simulation)
+        renovation_planner.add_batteries(extraction)
+        renovation_planner.add_HP_flags(extraction, simulation)
+    else:
+        # TODO implement renovations from OpenBEERS part
+        pass
 
     get_elec_prices(extraction, elec_pricer)
         

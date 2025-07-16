@@ -171,7 +171,7 @@ def add_current_HP(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: Same list as input with a flag added if a HP exists in 2025 according to available data
     """
-    df['hp_installed_2025'] = df["gwaerzh1"].isin([7410, 7411])
+    df['hp_installed_2025'] = df["gwaerzh1"].isin([7410, 7411]).astype(bool)
     # NOTE: assumption made that gwaerzh2 is not useful as it is generally for annex buildings and such
     return df
 
@@ -198,6 +198,7 @@ def add_HP_when_renovated(df: pd.DataFrame, years_of_interest: List[int]) -> pd.
     hp_installed_per_year = {}
     for year in years_of_interest:
         if year == 2025:
+            hp_installed_per_year[f'hp_installed_{year}'] = hp_presence.copy()
             continue
         cutoff = pd.Timestamp(f"{year}-01-01")
         renovated = renovation_dates_plus_20 < cutoff
