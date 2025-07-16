@@ -186,8 +186,7 @@ def load_EV_data(combinations, single_param):
     
     logger.info("EV_ID: s"  + str(EV_ID))
     
-    #if ( combinations['EV_P_max_home'] != '3_6' and combinations['EV_P_max_home'] != '7' and combinations['EV_P_max_home'] != '11' ): 
-        #print('Invalid charging power, choose 3_6, 7, or 11')
+    
     
     filename_EV = Path(f'{INPUT_PATH}dfEVBasopra.csv')
     fields_EV=['index','energyRequired'+combinations['EV_P_max_home']+'kW'+ combinations['EV_use'],'maxPower'+ combinations['EV_use'],'energyTrip'+ combinations['EV_use']]
@@ -235,63 +234,6 @@ def load_EV_data(combinations, single_param):
     df_EV['EV_away']=abs(df_EV.EV_home-1)
     single_param['public_charging_price']=0.48
     return single_param, df_EV
-
-# def load_multi_EV_data(ev_profiles,param):
-#     """
-#     ev_profiles: dict mapping ev_name -> combinations dict (exactly as you pass into load_EV_data)
-#     Returns:
-#       param: dict ready for LP.Data (with EV_list, Batt_EV, E_EV_start, EV_home, EV_away, E_EV_trip, …)
-#       dfs:    dict of pandas.DataFrame for each EV (if you still need per‐EV dfs)
-#     """
-#     # containers for the LP Data
-#     EV_list        = list(ev_profiles.keys())
-#     Batt_EV        = {}
-#     E_EV_start     = {}
-#     EV_P_max_home  = {}
-#     EV_P_max_away  = {}
-#     EV_V2G         = {}
-#     EV_home        = {}
-#     EV_away        = {}
-#     E_EV_trip      = {}
-#     dfs            = {}
-# 
-#     # call your original loader once per EV
-#     for ev in EV_list:
-#         combos = ev_profiles[ev]
-#         # this is your existing function, unchanged:
-#         single_param, df_ev = load_EV_data(combos, {})  
-# 
-#         # stash the class instance and scalars
-#         Batt_EV[ev]       = single_param['Batt_EV']
-#         E_EV_start[ev]    = single_param['E_EV_start']
-#         EV_P_max_home[ev] = single_param['EV_P_max_home']
-#         EV_P_max_away[ev] = single_param['EV_P_max_away']
-#         EV_V2G[ev]        = single_param.get('EV_V2G', 1)
-# 
-#         # pull the time‐series out of the df
-#         EV_home[ev]       = df_ev['EV_home'].to_dict()
-#         EV_away[ev]       = df_ev['EV_away'].to_dict()
-#         E_EV_trip[ev]     = df_ev['E_EV_trip'].to_dict()
-# 
-#         dfs[ev] = df_ev
-# 
-#     # now assemble the final param dict for the LP
-#     param.update({
-#         'EV_list':             EV_list,
-#         'Batt_EV':             Batt_EV,
-#         'E_EV_start':          E_EV_start,
-#         'EV_P_max_home':       EV_P_max_home,
-#         'EV_P_max_away':       EV_P_max_away,
-#         'EV_V2G':              EV_V2G,
-#         'EV_home':             EV_home,
-#         'EV_away':             EV_away,
-#         'E_EV_trip':           E_EV_trip,
-#         'public_charging_price': single_param['public_charging_price'],
-#     })
-# 
-#     return param, dfs
-
-# import pandas as pd
 
 def load_multi_EV_data(ev_profiles, param, idx):
     # special case: no profiles → one dummy EV0 with all zeros
@@ -377,17 +319,16 @@ def configure_system_parameters(combinations, heat_pump, param):
     Returns:
         tuple: Updated 'param' dictionary and a configuration auxiliary list (conf_aux).
     """
-    #print('##############')
-    #print('load parameters')
     conf = combinations['conf']
-    #print('conf')
-    #print(conf)
+    
 
     # configuration = [Batt, HP, TS, DHW]
     # if all false, only PV is used
     conf_aux = [False, True, False, False]  # [Batt, HP, TS, DHW]
     dhw_tank = combinations['hh']['dhw_tank']
     heat_tank = combinations['hh']['heat_tank']
+    sizing_tank = combinations['sizing_tank']
+
     # For some settings the heat pump is removed
     if combinations['house_type'] == 'NoHeatPump':
         conf_aux[1] = False
@@ -410,18 +351,18 @@ def configure_system_parameters(combinations, heat_pump, param):
         conf_aux[2] = True
         if (combinations['house_type'] == 'SFH15') | (combinations['house_type'] == 'SFH45'):
             logger.debug('SHF 15 or 45')
-            param['tank_sh'] = pc.heat_storage_tank(volume=40*heat_pump.attributes['hp'])
+            param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
         else:
             logger.debug('SHF 100')
-            param['tank_sh'] = pc.heat_storage_tank(volume=40*heat_pump.attributes['hp'])
+            param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
     else:  # No TS
         logger.debug('SHF 100')
-        param['tank_sh'] = pc.heat_storage_tank(volume=40*heat_pump.attributes['hp'])
+        param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
 
     if (conf == 1) | (conf == 3) | (conf == 5) | (conf == 7):  # DHW present
         logger.debug('DHW present')
         conf_aux[3] = True
-        dhw_tank.volume=dhw_tank.volume*1000
+        dhw_tank.volume=dhw_tank.volume*1000 # from citysim it is in m3 we need it in liters
         param['tank_dhw'] = dhw_tank
     else:  # No DHW
         logger.debug('No DHW')
@@ -525,21 +466,8 @@ def load_param(combinations):
     # Let-s try with the demand instead of the PV due to the high PV nom in the facade
     param["Capacity"] = np.round(df_el.E_demand.sum()/1000,0) # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
     logger.info('Battery Capacity : {Capacity}')
-    param['Inverter_power'] = round(pv_capacity/1000/ 1.2, 1)
-    # if heat_pump is not None:
-    #     df_heat_new = heat_pump.series[[
-    #         'Set_T', 
-    #         'Temp', 
-    #         'Req_kWh', 
-    #         'Temp_supply', 
-    #         'Temp_supply_tank',
-    #         'COP_SH',
-    #         'COP_tank',
-    #         'COP_DHW',
-    #         'hp_sh_cons',
-    #         'hp_tank_cons',
-    #         'hp_dhw_cons',
-    #     ]]
+    param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
+   
 
     df_heat_new = heat_pump.series[[
             'Set_T', 
@@ -554,12 +482,8 @@ def load_param(combinations):
             'hp_tank_cons',
             'hp_dhw_cons',
     ]]
-    #df_heat_new = df_heat_new.reset_index(drop=True)         # Remove the datetime index
-    ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
-    #if ev_profiles is not None:
-    #    ev_param, df_EVs = load_multi_EV_data(ev_profiles,param)
 
-    #[param, df_EV, EV_ID] = load_EV_data(combinations,param)
+    ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
 
     for ev, df in df_EVs.items():
         
@@ -591,6 +515,7 @@ def load_param(combinations):
         for ev, col in df_EVs.columns
     ]
     df_EVs.index=idx
+    
     '''else:
         cols = ['E_EV_req','E_EV_trip','EV_home','EV_away']
         df_EVs = pd.DataFrame(
@@ -604,7 +529,7 @@ def load_param(combinations):
     df_el['Price_flat']=elec_price
     df_el['Export_price']=Export_price
     df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
-    # df_el['Req_kWh_DHW']/=10
+    
     to_concat = [df_el]
     # if heat_pump is not None:
     #     to_concat.append(df_heat_new)
@@ -643,8 +568,8 @@ def load_param(combinations):
         'App_comb': create_app_combinations(combinations['App_comb']),
     })
 
-    print(data_input.head())
-    print(data_input[['E_demand', 'E_PV', 'Price_flat']].describe())
+    
+    
     return param, data_input
 
 
@@ -665,16 +590,12 @@ def pooling2(combinations):
             True if successful, False otherwise.
         '''
 
-        ##print('##########################################')
-        ##print('pooling')
-        ##print(combinations)
-        ##print('##########################################')
         param, data_input=load_param(combinations)
         try:
             if param['nyears']>1:
                 data_input=pd.DataFrame(pd.np.tile(pd.np.array(data_input).T,
                                        param['nyears']).T,columns=data_input.columns)
-            ##print('#############pool################')
+            
 
 
             [df,aux_dict]=single_opt2(param, data_input)
@@ -822,9 +743,12 @@ def run_basopra_simulation(big_data_object):
         }
 
     # Running gurobi simulations
+    ###### TESTING ####################
+    [entry['combinations'].update(conf=7) for entry in Combs_todo_dicts]
+    ###################################
     results = run_parallel(
         pooling2,
-        Combs_todo_dicts,
+        Combs_todo_dicts[2:],
         config.multiprocessing,
         processes=config.max_processes,
         mode='kwargs',

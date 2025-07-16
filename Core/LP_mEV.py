@@ -313,8 +313,8 @@ def Concrete_model(Data):
 
     m.Bool_cons_rule_1_r=en.Constraint(m.Time,rule=Bool_cons_rule_1)
     m.Bool_cons_rule_2_r=en.Constraint(m.Time,rule=Bool_cons_rule_2)
-    m.Bool_cons_rule_3_r=en.Constraint(m.EVs,m.Time,rule=Bool_cons_rule_3)
-    m.Bool_cons_rule_4_r=en.Constraint(m.EVs,m.Time,rule=Bool_cons_rule_4)
+    m.Bool_cons_rule_3_r=en.Constraint(m.Time,rule=Bool_cons_rule_3)
+    m.Bool_cons_rule_4_r=en.Constraint(m.Time,rule=Bool_cons_rule_4)
     m.Cons_rule_r=en.Constraint(m.Time,rule=Cons_rule)
 
     m.E_storage_r=en.Constraint(m.tm,rule=E_storage_rule)
@@ -1022,23 +1022,23 @@ def Bool_cons_rule_2(m,i):
     bigM=500000
     return (m.E_cons[i])<=0+bigM*(1-m.Bool_inj[i])
 
-def Bool_cons_rule_3(m,ev,i):
+def Bool_cons_rule_3(m,i):
     '''
     Description
     -------
     Forbids the system to inject and export energy at the same time 3/5
     '''
     bigM=500000
-    return (m.E_PV_grid[i]+m.E_batt_EV_grid[ev,i])>=-bigM*(m.Bool_inj[i])
+    return (m.E_PV_grid[i])>=-bigM*(m.Bool_inj[i])
 
-def Bool_cons_rule_4(m,ev,i):
+def Bool_cons_rule_4(m,i):
     '''
     Description
     -------
     Forbids the system to inject and export energy at the same time 4/5
     '''
     bigM=500000
-    return (m.E_PV_grid[i]+m.E_batt_EV_grid[ev,i])<=0+bigM*(1-m.Bool_cons[i])
+    return (m.E_PV_grid[i])<=0+bigM*(1-m.Bool_cons[i])
 def E_storage_rule(m,i):
     '''
     Description

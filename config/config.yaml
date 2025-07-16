@@ -11,8 +11,8 @@ max_processes: -2 # value of null or 0 will use max possible processes. Negative
 
 loop_mode: False
 simulation_names: 
-  - sarreyer_climate_contemporary_pv_roof_2025
-#   - sierre_saint_georges_climate_contemporary_pv_roof_2025
+#   - sarreyer_climate_contemporary_pv_roof_2025
+  - sierre_saint_georges_climate_contemporary_pv_roof_2025
 #   - val_de_bagnes_41_climate_contemporary_pv_none_2025
 #   - val_de_bagnes_41_climate_contemporary_pv_roof_2025
 #   - val_de_bagnes_41_climate_rcp26_pv_none_2040
@@ -29,6 +29,7 @@ simulation_names:
 #   - val_de_bagnes_41_climate_rcp85_pv_roof_walls_2050
 
 building_blacklist:
+  - 947848
   - 902139
   - 902141
   - 902142
@@ -127,27 +128,27 @@ Core:
     6: 'HP+SH+BATT'
     7: 'HP+SH+DHW+BATT'
     8: 'Nothing'
-    9: 'DHW'
-    10: 'SH'
-    11: 'SH+DHW'
+#    9: 'DHW' # Not possible without HP
+#    10: 'SH' # Not possible without HP
+#    11: 'SH+DHW' # Not possible without HP
     12: 'only Battery'
-    13: 'DHW+BATT'
-    14: 'SH+BATT'
-    15: 'SH+DHW+BATT'
+#    13: 'DHW+BATT' # Not possible without HP
+#    14: 'SH+BATT' # Not possible without HP
+#    15: 'SH+DHW+BATT' # Not possible without HP
 
   param_load_fixed_parameters:
     aging: False
     Curtailment: 0
     Inverter_efficiency: 0.95
     Converter_efficiency_batt: 0.98
-    delta_t: 1
+    delta_t: 1 # if 15 minutes resolution then delta_t is 0.25
     Capacity_tariff: 0
     nyears: 1
     days: 365
     testing: False
 
   basopra_fixed_parameters:
-    App_comb: 0
+    App_comb: 0 # Self-consumption only
     Tech: 'NMC'
     PV_nom: 1
     country: 'CH'
@@ -156,36 +157,12 @@ Core:
     HP: 'AS'
     EV_V2G: 0
     electricity_profile: 'High'
-    # EV_batt_cap: 60
-    # EV_P_max_home: '11'
-    # EV_use: 'High'
     profile_row_number: 99
-    sizing_tank: 15
-    ev_profiles:
+    sizing_tank: 15 # size of the space heating tank via a multiplier of the HP size for daily operation, according to HES-SO experts
+    ev_profiles: #Null
       EV1:
-        EV_batt_cap:     0
+        EV_batt_cap:     60
         EV_P_max_home:  '7'
         EV_use:         'High'
         profile_row_number: 99
-
-  # basopra_run_combinations:
-  #   Capacity: [7]
-  #   App_comb: [0]
-  #   Tech: ["NMC"]
-  #   PV_nom: [1]
-  #   country: ["CH"]
-  #   cases: ["mean"]
-  #   house_type: ['NoHeatPump'] # ["SFH100"] ['NoHeatPump','SFH100']
-  #   HP: ["AS"]
-  #   conf: [7]  # 0 only HP; 1 HP+DHW; 2 HP+SH; 3 HP+SH+DHW; 4 only Battery + HP; 5 HP+DHW+BATT; 6 HP+SH+BATT; 7 HP+SH+DHW+BATT
-  #   ev_profiles:
-  #     EV1:
-  #       EV_batt_cap:     0
-  #       EV_P_max_home:  '7'
-  #       EV_use:         'High'
-  #       profile_row_number: 99
-#      EV2:
-#        EV_batt_cap:     60
-#        EV_P_max_home:  '11'
-#        EV_use:         'High'
-#        profile_row_number: 98
+#if no EV then ev_profiles: Null and no EV_batt_cap: 0
