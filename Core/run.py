@@ -108,14 +108,17 @@ async def extract_simulation_data(
     extraction, has_renov = await run_pipeline(simulation)
 
     # Add tags allowing to know if building is equipped with EV, Battery, and a HP
+    renovation_planner = RenovationPlanning(config.renovation_planning.save_file)
     if not has_renov:
-        renovation_planner = RenovationPlanning(config.renovation_planning.save_file)
         renovation_planner.add_EVs(extraction, simulation)
         renovation_planner.add_batteries(extraction)
         renovation_planner.add_HP_flags(extraction, simulation)
     else:
         # TODO implement renovations from OpenBEERS part
-        pass
+        # Current code is the same as above condition because we don't have data to use.
+        renovation_planner.add_EVs(extraction, simulation)
+        renovation_planner.add_batteries(extraction)
+        renovation_planner.add_HP_flags(extraction, simulation)
 
     get_elec_prices(extraction, elec_pricer)
         
