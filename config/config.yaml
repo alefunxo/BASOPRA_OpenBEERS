@@ -5,14 +5,16 @@ dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
 cache: False 
+dl_cache: True
+precomputation_cache: True
 
 multiprocessing: True
 max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
 loop_mode: False
 simulation_names: 
-#   - sarreyer_climate_contemporary_pv_roof_2025
   - sierre_saint_georges_climate_contemporary_pv_roof_2025
+#   - sarreyer_climate_contemporary_pv_roof_2025
 #   - val_de_bagnes_41_climate_contemporary_pv_none_2025
 #   - val_de_bagnes_41_climate_contemporary_pv_roof_2025
 #   - val_de_bagnes_41_climate_rcp26_pv_none_2040

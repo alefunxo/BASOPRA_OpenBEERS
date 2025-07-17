@@ -110,7 +110,7 @@ async def extract_simulation_data(
     # Add tags allowing to know if building is equipped with EV, Battery, and a HP
     if not has_renov:
         renovation_planner = RenovationPlanning(config.renovation_planning.save_file)
-        renovation_planner.add_EV_counts(extraction, simulation)
+        renovation_planner.add_EVs(extraction, simulation)
         renovation_planner.add_batteries(extraction)
         renovation_planner.add_HP_flags(extraction, simulation)
     else:
