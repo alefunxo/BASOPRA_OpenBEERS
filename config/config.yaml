@@ -4,7 +4,7 @@ openbeers_address: https://lab.idiap.ch/openbeers
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
-cache: False 
+cache: True
 dl_cache: True
 precomputation_cache: True
 
