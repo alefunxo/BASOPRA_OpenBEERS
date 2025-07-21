@@ -3,6 +3,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
+from box import Box
 import numpy as np
 import asyncio
 from typing import Any, Dict, List
@@ -312,7 +313,7 @@ class RenovationPlanning:
         """
         self.renovation_plan: pd.DataFrame = dataframe_load(renovation_plan_path, 0)
     
-    def add_EV_counts(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
+    def add_EVs(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
         """Adds their estimated ev_counts to each building based on the year of the simulation
 
         Args:
@@ -325,6 +326,15 @@ class RenovationPlanning:
             if b in self.renovation_plan.index:
                 ev_count = self.renovation_plan.loc[b, f'ev_count_{sim_year}']
             values['attributes']['ev_count'] = ev_count
+
+            ev_profile = config.Core.basopra_fixed_parameters.ev_profiles.EV1
+            ev_batteries = {
+                f"EV{i+1}": ev_profile.copy()
+                for i in range(ev_count)
+            }
+            ev_batteries = Box(ev_batteries)
+            values['ev_profiles'] = ev_batteries
+        
 
     def add_batteries(self, buildings: Dict[int, Any]) -> None:
         """Adds batteries to each buidling based on the presence of PV and the battery installation flag from the renovation planning

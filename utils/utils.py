@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import pickle
 
@@ -11,6 +12,22 @@ from typing import Union
 from typing import Any, Dict, List, Tuple
 # TODO remove this import from here and move the logic that uses it elsewhere
 from heat_pump.pump_sizer import HeatPumpDesign
+
+def is_type(file_path, extension):
+    path = os.path.splitext(file_path)[1].lower()
+    return path == extension.lower()
+
+def list_files_recursive(directory: str):
+    def build_structure(path):
+        structure = {}
+        for file in path.iterdir():
+            if file.is_dir():
+                structure[file.name] = build_structure(file)
+            else:
+                structure.setdefault('files', []).append(file.name)
+        return structure
+    path = Path(directory)
+    return build_structure(path)
 
 def dataframe_save(path: str, df: DataFrame, index: bool = False) -> None:
     logger.info(f"Saving {type(df)} type object to: {path}.")
