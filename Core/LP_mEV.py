@@ -212,7 +212,7 @@ def Concrete_model(Data):
     m.SOC_EV=en.Var(m.EVs,m.tm,bounds=soc_bounds,initialize=soc_init)
     m.E_loss_Batt_EV=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
     m.E_batt_EV_grid=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
-    m.E_batt_EV_load=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
+    m.E_batt_EV_load=en.Var(m.EVs,m.Time,bounds=(0,0),initialize=0)
     m.E_grid_batt_EV=en.Var(m.EVs,m.Time,bounds=ev_char_bounds,initialize=0)
     '''
     m.E_batt_EV_hp=en.Var(m.EVs,m.Time,bounds=(0,None),initialize=0)
@@ -454,8 +454,8 @@ def E_dis_EV_rule2(m,ev,i):
     -------
     Balance of energy discharged from the battery: energy to load, energy to grid, inverter losses.
     '''
-
-    return(m.E_dis_EV[ev,i],m.E_batt_EV_load[ev,i] + m.E_batt_EV_grid[ev,i])
+    return(m.E_dis_EV[ev,i],0) # In this project no V2G no V2H only for driving
+    #return(m.E_dis_EV[ev,i],m.E_batt_EV_load[ev,i] + m.E_batt_EV_grid[ev,i])
 
 def min_V2X_SOC(m,ev,i):
     '''
