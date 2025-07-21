@@ -65,7 +65,7 @@ def get_dhw_profiles(root: Element):
     
     return day_profiles, year_profiles
 
-def dhw_liters_to_kwh(series_lph, T_hot=60, T_inlet=10, Cp=4180, rho=1000):
+def dhw_liters_to_kwh(series_lph, T_hot=55, T_inlet=10, Cp=4180, rho=1000):
     """
     Convert a pandas Series of hot water usage from liters/hour to kWh/hour.
     

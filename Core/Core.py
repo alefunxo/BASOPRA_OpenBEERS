@@ -511,7 +511,9 @@ def save_results(df, aux_dict, param):
                          {'name': param['name'], 'Tech': param['Tech'], 'App_comb': name_comb, 'Cap': int(param['Capacity']),
                           'conf': name_conf, 'house_type': param['ht']})
         df.to_csv(filename_save)
+        logger.info("Results for egid number %s", param['id_dwell']['x'])
         logger.info("Results saved to %s", filename_save)
+        
         return
     except:
         logger.error("Save Failed.")

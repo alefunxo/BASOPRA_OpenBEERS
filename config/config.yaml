@@ -4,13 +4,9 @@ openbeers_address: https://lab.idiap.ch/openbeers
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
-<<<<<<< HEAD
-cache: True 
-=======
 cache: True
 dl_cache: True
 precomputation_cache: True
->>>>>>> 754ce3e60a7f65ce4ac2b3677f0ca7b28d474ea5
 
 multiprocessing: False
 max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
@@ -137,7 +133,7 @@ Core:
 #    9: 'DHW' # Not possible without HP
 #    10: 'SH' # Not possible without HP
 #    11: 'SH+DHW' # Not possible without HP
-    12: 'only Battery'
+#    12: 'only Battery' # -> NoHeatPump but with Battery
 #    13: 'DHW+BATT' # Not possible without HP
 #    14: 'SH+BATT' # Not possible without HP
 #    15: 'SH+DHW+BATT' # Not possible without HP

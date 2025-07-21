@@ -25,22 +25,46 @@ def assume_month_range() -> List[Tuple[int, int]]:
     return month_ranges
 
 def autoconsumption(df: DataFrame):
-    e_pv = df["E_PV"].sum()
-    if e_pv == 0:
-        return 0
-    return df["E_PV_load"].sum() / df["E_PV"].sum()
+    pv_direct_cols = ['E_PV_bu', 'E_PV_budhw', 'E_PV_hp', 'E_PV_hpdhw', 'E_PV_load']
+    ev_pv_cols = [col for col in df.columns if col.startswith('E_PV_batt_EV_')]
+    pv_batt_col = 'E_PV_batt'  # PV to battery (base)
+
+    # PV used locally includes direct use + PV to batteries (including EVs)
+    pv_used_locally_cols = pv_direct_cols + [pv_batt_col] + ev_pv_cols
+
+    # Aggregate totals
+    pv_used_locally = df[pv_used_locally_cols].sum().sum()
+    pv_total = df['E_PV'].sum()
+
+    # Self-consumption [%]
+    return (pv_used_locally / pv_total) * 100 if pv_total > 0 else 0
 
 def autarky(df: DataFrame):
-    e_demand = df["E_demand"].sum()
-    if e_demand == 0:
-        return 0
-    return df["E_PV_load"].sum() / df["E_demand"].sum()
+    # Direct PV usage
+    pv_direct_cols = ['E_PV_bu', 'E_PV_budhw', 'E_PV_hp', 'E_PV_hpdhw', 'E_PV_load']
+
+    # Battery discharges to local uses
+    batt_discharge_cols = ['E_batt_bu', 'E_batt_budhw', 'E_batt_hp', 'E_batt_hpdhw', 'E_batt_load']
+    ev_batt_discharge_cols = [col for col in df.columns if col.startswith('E_batt_EV_load_EV_')]
+
+    # Local supply includes PV direct use and battery discharge
+    local_supply_cols = pv_direct_cols + batt_discharge_cols + ev_batt_discharge_cols
+
+    # Aggregate totals
+    local_supply = df[local_supply_cols].sum().sum()
+    total_consumption = df['E_cons'].sum()
+
+    # Autarky [%]
+    return (local_supply / total_consumption) * 100 if total_consumption > 0 else 0
 
 def peak_consumption(df: DataFrame):
-    return df["E_demand"].max()
+    return df["E_cons"].max()
+
+def peak_injection(df: DataFrame):
+    return df["E_PV_grid"].max()
 
 def peak_thermal_consumption(df: DataFrame):
-    return (df["E_hp"] + df["E_hpdhw"]).max()
+    return (df["Req_kWh"] + df["Req_kWh_DHW"]).max()
 
 def cooling_hours(df: DataFrame):
     return (df["Cooling"] < 0.0).sum()
@@ -52,9 +76,10 @@ kpi_fcts = {
     'autoconsumption': autoconsumption,
     'autarky': autarky,
     'peak_consumption': peak_consumption,
+    'peak_injection': peak_injection,
     # 'cooling_hours': cooling_hours,
     # 'cooling_energy': cooling_energy,
-    # 'peak_thermal_consumption': peak_thermal_consumption,
+    'peak_thermal_consumption': peak_thermal_consumption,
 }
 
 def calc_kpis(df: DataFrame):
