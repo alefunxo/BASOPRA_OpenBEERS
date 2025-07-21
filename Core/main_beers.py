@@ -23,6 +23,8 @@
 import sys
 import os
 from typing import Any, Dict, List, Set, Tuple
+
+from utils.utils import dataframe_save
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from box import Box
 import re
@@ -587,10 +589,32 @@ def pooling2(combinations):
         except Exception as e:
             ##print(f"Unexpected error: {e}")
             raise
-        return df, aux_dict
+
+        output_file_path = save_basopra_results_to_csv(combinations, df)
+        # return df, aux_dict
+        return output_file_path
     except Exception:
          traceback.print_exc()
          raise
+
+def save_basopra_results_to_csv(simulation_inputs: Dict[str, Any], simulation_outputs: pd.DataFrame) -> str:
+    # Getting necessary attributes to save file
+    building_id = simulation_inputs['name']
+    egid = simulation_inputs['hh']['attributes']['egid']
+    conf_id = simulation_inputs['conf']
+    conf_name = core_config.conf_mapping[conf_id]
+    simulation_name = simulation_inputs['hh']['attributes']['sim_name']
+    output_file_name = f'{config.basopra_output_dir}{simulation_name}/df_{building_id}_{egid}_{conf_name}.csv'
+
+    # Outputs cleanup and merge with inputs
+    simulation_outputs= simulation_outputs.loc[:, ~simulation_outputs.columns.str.startswith("Bool_")]
+    input_series = simulation_inputs['hh']['series']
+    output_series = simulation_outputs
+    input_output_merge = pd.merge(input_series, output_series, left_index=True, right_index=True)
+
+    # Save to csv and return of csv location
+    dataframe_save(output_file_name, input_output_merge)
+    return output_file_name
 
 def get_conf_for_building(b_data: Dict[str, Any]) -> int:
     has_heat_pump = True if b_data.get('heat_pump') is not None else False
@@ -703,10 +727,10 @@ def run_basopra_simulation(big_data_object):
     buildings_data = big_data_object
     Combs_todo_dicts = create_run_configurations(buildings_data)
 
-    basopra_results = {}
+    basopra_results: List[str] = []
     # TODO Eventually want to reimplement a method to find the simulations that already have been run by checking the output files
     # Filtering non gurobi simulations
-    basic_simulations_indexes = []
+    basic_simulations_indexes: List[int] = []
     for combination in Combs_todo_dicts:
         if combination['combinations']['conf'] in special_configurations.keys():
             basic_simulations_indexes.append(Combs_todo_dicts.index(combination))
@@ -717,37 +741,37 @@ def run_basopra_simulation(big_data_object):
 
     # Running non gurobi simulations
     for i in range(len(basic_simulations)):
-        building_id = basic_simulations[i]['combinations']['name']
         conf_id = basic_simulations[i]['combinations']['conf']
-        basopra_results[(building_id, conf_id)] = {
-            'simulation_inputs': basic_simulations[i]['combinations'],
-            'simulation_outputs': basic_simulations[conf_id](basic_simulations[i]),
-        }
+        simulation_inputs = basic_simulations[i]['combinations']
+        simulation_outputs = basic_simulations[conf_id](simulation_inputs)
+        output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
+        basopra_results.append(output_file_path)
 
     # Running gurobi simulations
     ###### TESTING ####################
     # [entry['combinations'].update(conf=7) for entry in Combs_todo_dicts]
     # index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 46)
     ###################################
-    results = run_parallel(
+    parallel_results = run_parallel(
         pooling2,
         Combs_todo_dicts,
         config.multiprocessing,
         processes=config.max_processes,
         mode='kwargs',
     )
-    results = [
-        res[0].loc[:, ~res[0].columns.str.startswith("Bool_")] 
-        if res[0] is not None else None
-        for res in results
-    ]
-    for i in range(len(results)):
-        building_id = Combs_todo_dicts[i]['combinations']['name']
-        conf_id = Combs_todo_dicts[i]['combinations']['conf']
-        basopra_results[(building_id, conf_id)] = {
-            'simulation_inputs': Combs_todo_dicts[i]['combinations'],
-            'simulation_outputs': results[i],
-        }
+    basopra_results.extend(parallel_results)
+    # results = [
+    #     res[0].loc[:, ~res[0].columns.str.startswith("Bool_")] 
+    #     if res[0] is not None else None
+    #     for res in results
+    # ]
+    # for i in range(len(results)):
+    #     building_id = Combs_todo_dicts[i]['combinations']['name']
+    #     conf_id = Combs_todo_dicts[i]['combinations']['conf']
+    #     basopra_results[(building_id, conf_id)] = {
+    #         'simulation_inputs': Combs_todo_dicts[i]['combinations'],
+    #         'simulation_outputs': results[i],
+    #     }
 
     return basopra_results
     

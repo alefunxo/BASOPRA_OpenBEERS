@@ -4,9 +4,7 @@ openbeers_address: https://lab.idiap.ch/openbeers
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
-cache: True
-# dl_cache: True
-# precomputation_cache: True
+cache: False
 
 multiprocessing: True
 max_processes: -3 # value of null or 0 will use max possible processes. Negative value will use max processes - value
@@ -15,32 +13,17 @@ loop_mode: False
 simulation_names: 
   - sierre_saint_georges_climate_contemporary_pv_roof_2025
 #   - sarreyer_climate_contemporary_pv_roof_2025
-#   - val_de_bagnes_41_climate_contemporary_pv_none_2025
-#   - val_de_bagnes_41_climate_contemporary_pv_roof_2025
-#   - val_de_bagnes_41_climate_rcp26_pv_none_2040
-#   - val_de_bagnes_41_climate_rcp26_pv_none_2050
-#   - val_de_bagnes_41_climate_rcp26_pv_roof_2040
-#   - val_de_bagnes_41_climate_rcp26_pv_roof_2050
-#   - val_de_bagnes_41_climate_rcp26_pv_roof_walls_2040
-#   - val_de_bagnes_41_climate_rcp26_pv_roof_walls_2050
-#   - val_de_bagnes_41_climate_rcp85_pv_none_2040
-#   - val_de_bagnes_41_climate_rcp85_pv_none_2050
-#   - val_de_bagnes_41_climate_rcp85_pv_roof_2040
-#   - val_de_bagnes_41_climate_rcp85_pv_roof_2050
-#   - val_de_bagnes_41_climate_rcp85_pv_roof_walls_2040
-#   - val_de_bagnes_41_climate_rcp85_pv_roof_walls_2050
 
 building_whitelist:
-  - 900485
-  - 900484
-  - 947862
-  # - 9014757
+#   - 900485
+#   - 900484
+#   - 947862
 building_blacklist:
   # - 947848
   # - 902139
   # - 902141
   # - 902142
-# simulation_name: val_de_bagnes_201_climate_rcp85_pv_none_2040
+
 simulation_extraction_dir: outputs_extraction/
 basopra_output_dir: outputs_basopra/
 municipalities_file: municipalities-data-2025.csv

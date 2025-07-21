@@ -164,21 +164,22 @@ async def process_simulation(sim_name: str, sim: Simulation, pricer: Electricity
         extraction = await extract_simulation_data(sim, pricer)
 
     basopra_input = input_aggregator(extraction)
-    basopra_output = run_basopra_simulation(basopra_input)
-    basopra_output = output_aggregator(basopra_output)
+    basopra_output_files = run_basopra_simulation(basopra_input)
+    print(basopra_output_files)
+    # basopra_output = output_aggregator(basopra_output)
 
-    conf_mapping = config.Core.conf_mapping
+    # conf_mapping = config.Core.conf_mapping
 
-    for bid, cid in basopra_output.keys():
-        if basopra_output[(bid, cid)]['simulation_outputs'] is not None:
-            building_output = basopra_output[(bid, cid)]
-            inputs = building_output['simulation_inputs']['hh']['series']
-            outputs = building_output['simulation_outputs']
-            input_output_combination = pd.merge(inputs, outputs, left_index=True, right_index=True)
-            egid = building_output['simulation_inputs']['hh']['attributes']['egid']
-            conf_name = conf_mapping[cid]
-            output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{bid}_{egid}_{conf_name}'
-            dataframe_save(f'{output_file_name}.csv', input_output_combination)
+    # for bid, cid in basopra_output.keys():
+    #     if basopra_output[(bid, cid)]['simulation_outputs'] is not None:
+    #         building_output = basopra_output[(bid, cid)]
+    #         inputs = building_output['simulation_inputs']['hh']['series']
+    #         outputs = building_output['simulation_outputs']
+    #         input_output_combination = pd.merge(inputs, outputs, left_index=True, right_index=True)
+    #         egid = building_output['simulation_inputs']['hh']['attributes']['egid']
+    #         conf_name = conf_mapping[cid]
+    #         output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{bid}_{egid}_{conf_name}'
+    #         dataframe_save(f'{output_file_name}.csv', input_output_combination)
 
 async def basopra_loop():
     logger.info('Starting loop through simulations')
