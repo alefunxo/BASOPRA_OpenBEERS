@@ -435,32 +435,15 @@ def load_param(combinations):
     Export_price = 0.06 # frs/kWh
     
     logger.info("Choose the corresponding profile for electricity")
-
-    if combinations['electricity_profile'] == 'Low':
-            logger.info("Electricity profile Low")
-            electricity_profiles = pd.read_csv(f'{INPUT_PATH}HHLow.csv')
-    elif combinations['electricity_profile'] == 'Medium':
-            logger.info("Electricity profile Medium")
-            electricity_profiles = pd.read_csv(f'{INPUT_PATH}HHMedium.csv')
-    else :
-            logger.info("Electricity profile High")
-            electricity_profiles = pd.read_csv(f'{INPUT_PATH}HHHigh.csv')
-    
-    combinations['electricity_profiles'] = electricity_profiles.iloc[combinations['profile_row_number']]
+   
     param = core_config['param_load_fixed_parameters']
-    # param=dict()
     param['name']=combinations['name']
-
-    
     param['App_comb']=combinations['App_comb']
-    param['id_dwell']=electricity_profiles.iloc[combinations['profile_row_number']]#combinations['building_name'] # To be added for citysim
 
     week = 1
 
     df_el.columns=['E_demand','E_PV','dhw']
     
-    # PV_nom = df_el.E_PV.sum()/1000 # Estimated kW
-    # PV_nom = np.round(pv_capacity/1000,1)
     PV_nom = pv_capacity
     logger.info('PV_nom : {PV_nom}')
     # Let-s try with the demand instead of the PV due to the high PV nom in the facade
@@ -562,7 +545,6 @@ def load_param(combinations):
         'Tech': combinations['Tech'],
         'conf': conf_aux,
         'ht': combinations['house_type'],
-        'electricity_profile': combinations['electricity_profile'],
         'EV_V2G': combinations['EV_V2G'],
         'PV_nom': PV_nom,
         'App_comb': create_app_combinations(combinations['App_comb']),
@@ -744,11 +726,11 @@ def run_basopra_simulation(big_data_object):
 
     # Running gurobi simulations
     ###### TESTING ####################
-    [entry['combinations'].update(conf=7) for entry in Combs_todo_dicts]
+    # [entry['combinations'].update(conf=7) for entry in Combs_todo_dicts]
     ###################################
     results = run_parallel(
         pooling2,
-        Combs_todo_dicts[2:],
+        Combs_todo_dicts,
         config.multiprocessing,
         processes=config.max_processes,
         mode='kwargs',

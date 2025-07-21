@@ -11,7 +11,17 @@ def is_valid_heat_demand(Qs: pd.Series) -> bool:
 
 def is_blacklisted_building(b_data: Dict[str, Any]):
     egid = b_data['attributes'].get('egid')
+    if config.building_blacklist is None:
+        return False
     if int(egid) in config.building_blacklist:
+        return True
+    return False
+
+def is_whitelisted_building(b_data: Dict[str, Any]):
+    egid = b_data['attributes'].get('egid')
+    if config.building_whitelist is None:
+        return True
+    if int(egid) in config.building_whitelist:
         return True
     return False
 
@@ -40,7 +50,17 @@ def conduct_building_sanity_check(buildings_data: Dict[str, Dict[str, pd.DataFra
                 Egid matched in blacklist.
                 """)
 
+        if not is_whitelisted_building(build_data):
+            removal_list.append(bid)
+            data_logger.info(
+                f"""
+                Removed
+                Building: {bid}, 
+                egid: {build_data['attributes']['egid']} 
+                Egid not found in whitelist.
+                """)
+
     for bid in removal_list:
         logger.info(f"Removing building: {bid} due to invalid data content.")
-        buildings_data.pop(bid)
+        buildings_data.pop(bid, None)
 

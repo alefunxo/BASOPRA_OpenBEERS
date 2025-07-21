@@ -2,6 +2,8 @@ import sys
 import os
 from typing import Any, Dict, List, Optional, Tuple
 
+import pandas as pd
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
 from config.loader import config
@@ -166,12 +168,17 @@ async def process_simulation(sim_name: str, sim: Simulation, pricer: Electricity
     basopra_output = output_aggregator(basopra_output)
 
     conf_mapping = config.Core.conf_mapping
+
     for bid, cid in basopra_output.keys():
         if basopra_output[(bid, cid)]['simulation_outputs'] is not None:
-            egid = basopra_output[(bid, cid)]['simulation_inputs']['hh']['attributes']['egid']
+            building_output = basopra_output[(bid, cid)]
+            inputs = building_output['simulation_inputs']['hh']['series']
+            outputs = building_output['simulation_outputs']
+            input_output_combination = pd.merge(inputs, outputs, left_index=True, right_index=True)
+            egid = building_output['simulation_inputs']['hh']['attributes']['egid']
             conf_name = conf_mapping[cid]
-            output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{egid}_{conf_name}'
-            dataframe_save(f'{output_file_name}.csv', basopra_output[(bid, cid)]['simulation_outputs'])
+            output_file_name = f'{config.basopra_output_dir}{sim.name}/df_{bid}_{egid}_{conf_name}'
+            dataframe_save(f'{output_file_name}.csv', input_output_combination)
 
 async def basopra_loop():
     logger.info('Starting loop through simulations')

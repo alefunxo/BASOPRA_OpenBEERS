@@ -5,11 +5,11 @@ dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
 cache: True
-dl_cache: True
-precomputation_cache: True
+# dl_cache: True
+# precomputation_cache: True
 
 multiprocessing: True
-max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
+max_processes: -3 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
 loop_mode: False
 simulation_names: 
@@ -30,11 +30,16 @@ simulation_names:
 #   - val_de_bagnes_41_climate_rcp85_pv_roof_walls_2040
 #   - val_de_bagnes_41_climate_rcp85_pv_roof_walls_2050
 
+building_whitelist:
+  - 900485
+  - 900484
+  - 947862
+  # - 9014757
 building_blacklist:
-  - 947848
-  - 902139
-  - 902141
-  - 902142
+  # - 947848
+  # - 902139
+  # - 902141
+  # - 902142
 # simulation_name: val_de_bagnes_201_climate_rcp85_pv_none_2040
 simulation_extraction_dir: outputs_extraction/
 basopra_output_dir: outputs_basopra/
@@ -85,58 +90,58 @@ Core:
     solver_results_write: False
     
   mapping:
-    0:  '0100'
-    1:  '0101'
-    2:  '0110'
+#     0:  '0100'
+#     1:  '0101'
+#     2:  '0110'
     3:  '0111'
-    4:  '1100'
-    5:  '1101'
-    6:  '1110'
+#     4:  '1100'
+#     5:  '1101'
+#     6:  '1110'
     7:  '1111'
     8:  '0000'
-    9:  '0001'
-    10: '0010'
-    11: '0011'
-    12: '1000'
-    13: '1001'
-    14: '1010'
-    15: '1011'
+#     9:  '0001'
+#     10: '0010'
+#     11: '0011'
+#     12: '1000'
+#     13: '1001'
+#     14: '1010'
+#     15: '1011'
   
   reverse_mapping:
-    '0100': 0  
-    '0101': 1  
-    '0110': 2  
+#     '0100': 0  
+#     '0101': 1  
+#     '0110': 2  
     '0111': 3  
-    '1100': 4  
-    '1101': 5  
-    '1110': 6  
+#     '1100': 4  
+#     '1101': 5  
+#     '1110': 6  
     '1111': 7  
     '0000': 8  
-    '0001': 9  
-    '0010': 10 
-    '0011': 11 
-    '1000': 12 
-    '1001': 13 
-    '1010': 14 
-    '1011': 15 
+#     '0001': 9  
+#     '0010': 10 
+#     '0011': 11 
+#     '1000': 12 
+#     '1001': 13 
+#     '1010': 14 
+#     '1011': 15 
   
   conf_mapping:
-    0: 'only HP'
-    1: 'HP+DHW'
-    2: 'HP+SH'
+#     0: 'only HP'
+#     1: 'HP+DHW'
+#     2: 'HP+SH'
     3: 'HP+SH+DHW'
-    4: 'HP+BATT'
-    5: 'HP+DHW+BATT'
-    6: 'HP+SH+BATT'
+#     4: 'HP+BATT'
+#     5: 'HP+DHW+BATT'
+#     6: 'HP+SH+BATT'
     7: 'HP+SH+DHW+BATT'
     8: 'Nothing'
-#    9: 'DHW' # Not possible without HP
-#    10: 'SH' # Not possible without HP
-#    11: 'SH+DHW' # Not possible without HP
-    12: 'only Battery'
-#    13: 'DHW+BATT' # Not possible without HP
-#    14: 'SH+BATT' # Not possible without HP
-#    15: 'SH+DHW+BATT' # Not possible without HP
+#     9: 'DHW' # Not possible without HP
+#     10: 'SH' # Not possible without HP
+#     11: 'SH+DHW' # Not possible without HP
+#     12: 'only Battery'
+#     13: 'DHW+BATT' # Not possible without HP
+#     14: 'SH+BATT' # Not possible without HP
+#     15: 'SH+DHW+BATT' # Not possible without HP
 
   param_load_fixed_parameters:
     aging: False
@@ -158,8 +163,8 @@ Core:
     house_type: 'SFH100' # 'NoHeatPump' # 'SFH100'
     HP: 'AS'
     EV_V2G: 0
-    electricity_profile: 'High'
-    profile_row_number: 99
+    # electricity_profile: 'High'
+    # profile_row_number: 99
     sizing_tank: 15 # size of the space heating tank via a multiplier of the HP size for daily operation, according to HES-SO experts
     ev_profiles: #Null
       EV1:
