@@ -374,7 +374,7 @@ def configure_system_parameters(combinations, heat_pump, param):
     # For some settings the heat pump is removed
     if combinations['house_type'] == 'NoHeatPump':
         conf_aux[1] = False
-    if 
+    
     if conf < 4:  # No battery
         logger.debug('No battery')
         param['Batt'] = pc.Battery_tech(Capacity=0, Technology=combinations['Tech'])
