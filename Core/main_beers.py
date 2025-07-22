@@ -362,23 +362,23 @@ def configure_system_parameters(combinations, heat_pump, param):
         tuple: Updated 'param' dictionary and a configuration auxiliary list (conf_aux).
     """
     conf = combinations['conf']
-    
-
+   
+ 
     # configuration = [Batt, HP, TS, DHW]
     # if all false, only PV is used
     conf_aux = [False, True, False, False]  # [Batt, HP, TS, DHW]
     dhw_tank = combinations['hh']['dhw_tank']
     heat_tank = combinations['hh']['heat_tank']
     sizing_tank = combinations['sizing_tank']
-
+ 
     # For some settings the heat pump is removed
-    if combinations['house_type'] == 'NoHeatPump':
+    if (combinations['house_type'] == 'NoHeatPump')| (conf>7):
         conf_aux[1] = False
-    
-    if conf < 4:  # No battery
+   
+    if (conf < 4)  | (conf==8):  # No battery and Only EV
         logger.debug('No battery')
         param['Batt'] = pc.Battery_tech(Capacity=0, Technology=combinations['Tech'])
-
+ 
     else:
         logger.debug('Battery present')
         conf_aux[0] = True
@@ -387,7 +387,6 @@ def configure_system_parameters(combinations, heat_pump, param):
         param['Batt'] = pc.Battery_tech(Capacity=param['Capacity'], Technology=combinations['Tech'])
         if conf==12:
             conf_aux[1] = False
-
         
 
     if (conf != 0) & (conf != 1) & (conf != 4) & (conf != 5) & (conf != 8) & (conf != 9):  # TS present
@@ -401,7 +400,7 @@ def configure_system_parameters(combinations, heat_pump, param):
             param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
     else:  # No TS
         logger.debug('SHF 100')
-        param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
+        param['tank_sh'] = pc.heat_storage_tank(volume=0)
 
     if (conf == 1) | (conf == 3) | (conf == 5) | (conf == 7):  # DHW present
         logger.debug('DHW present')
