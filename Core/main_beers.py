@@ -362,23 +362,23 @@ def configure_system_parameters(combinations, heat_pump, param):
         tuple: Updated 'param' dictionary and a configuration auxiliary list (conf_aux).
     """
     conf = combinations['conf']
-    
-
+   
+ 
     # configuration = [Batt, HP, TS, DHW]
     # if all false, only PV is used
     conf_aux = [False, True, False, False]  # [Batt, HP, TS, DHW]
     dhw_tank = combinations['hh']['dhw_tank']
     heat_tank = combinations['hh']['heat_tank']
     sizing_tank = combinations['sizing_tank']
-
+ 
     # For some settings the heat pump is removed
     if (combinations['house_type'] == 'NoHeatPump')| (conf>7):
         conf_aux[1] = False
-    
+   
     if (conf < 4)  | (conf==8):  # No battery and Only EV
         logger.debug('No battery')
         param['Batt'] = pc.Battery_tech(Capacity=0, Technology=combinations['Tech'])
-
+ 
     else:
         logger.debug('Battery present')
         conf_aux[0] = True
@@ -387,7 +387,6 @@ def configure_system_parameters(combinations, heat_pump, param):
         param['Batt'] = pc.Battery_tech(Capacity=param['Capacity'], Technology=combinations['Tech'])
         if conf==12:
             conf_aux[1] = False
-
         
 
     if (conf != 0) & (conf != 1) & (conf != 4) & (conf != 5) & (conf != 8) & (conf != 9):  # TS present
@@ -401,7 +400,7 @@ def configure_system_parameters(combinations, heat_pump, param):
             param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
     else:  # No TS
         logger.debug('SHF 100')
-        param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
+        param['tank_sh'] = pc.heat_storage_tank(volume=0)
 
     if (conf == 1) | (conf == 3) | (conf == 5) | (conf == 7):  # DHW present
         logger.debug('DHW present')
@@ -466,12 +465,12 @@ def load_param(combinations):
     idx = series.index
 
     attributes = combinations['hh']['attributes']
-    #has_HP = combinations['hh']['attributes']['has_HP']
-
-    heat_pump = combinations['hh']['heat_pump']
-    heat_pump.series.index = idx  
-        
-    
+    heat_pump = None
+    heat_pump_series_names = config.heat_pump_series
+    df_heat_new = pd.DataFrame(0, index=idx, columns=heat_pump_series_names)
+    if attributes['has_HP']:
+        heat_pump = combinations['hh']['heat_pump']
+        heat_pump.series.index = idx
     df_el = series[['ElectricConsumption', 'SolarPVProduction','dhw']]  # kWh, kWh, kWh
 
     pv_roof_capacity = attributes['roof_pv_capacity']  # kW
@@ -500,23 +499,10 @@ def load_param(combinations):
     param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
    
 
-    df_heat_new = heat_pump.series[[
-            'Set_T', 
-            'Temp', 
-            'Req_kWh', 
-            'Temp_supply', 
-            'Temp_supply_tank',
-            'COP_SH',
-            'COP_tank',
-            'COP_DHW',
-            'hp_sh_cons',
-            'hp_tank_cons',
-            'hp_dhw_cons',
-    ]]
+    if attributes['has_HP']:
+        df_heat_new = heat_pump.series[heat_pump_series_names]
 
     ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
-
-   
 
     df_el.index = idx    
 
@@ -525,8 +511,7 @@ def load_param(combinations):
     df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
     
     to_concat = [df_el]
-    # if heat_pump is not None:
-    #     to_concat.append(df_heat_new)
+    # if attributes['has_HP']:
     to_concat.append(df_heat_new)
     to_concat.append(df_EVs)
     data_input=pd.concat(to_concat,axis=1,copy=True,sort=False)
