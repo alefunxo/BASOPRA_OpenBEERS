@@ -389,7 +389,7 @@ def configure_system_parameters(combinations, heat_pump, param):
             conf_aux[1] = False
         
 
-    if (conf != 0) & (conf != 1) & (conf != 4) & (conf != 5) & (conf != 8) & (conf != 9):  # TS present
+    if (conf == 2) & (conf == 3) & (conf == 6) & (conf == 7):  # TS present
         logger.debug('TS present')
         conf_aux[2] = True
         if (combinations['house_type'] == 'SFH15') | (combinations['house_type'] == 'SFH45'):
