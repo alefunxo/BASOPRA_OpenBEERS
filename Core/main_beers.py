@@ -372,10 +372,10 @@ def configure_system_parameters(combinations, heat_pump, param):
     sizing_tank = combinations['sizing_tank']
 
     # For some settings the heat pump is removed
-    if combinations['house_type'] == 'NoHeatPump':
+    if (combinations['house_type'] == 'NoHeatPump')| (conf>7):
         conf_aux[1] = False
     
-    if conf < 4:  # No battery
+    if (conf < 4)  | (conf==8):  # No battery and Only EV
         logger.debug('No battery')
         param['Batt'] = pc.Battery_tech(Capacity=0, Technology=combinations['Tech'])
 
@@ -466,8 +466,12 @@ def load_param(combinations):
     idx = series.index
 
     attributes = combinations['hh']['attributes']
+    #has_HP = combinations['hh']['attributes']['has_HP']
+
     heat_pump = combinations['hh']['heat_pump']
-    heat_pump.series.index = idx
+    heat_pump.series.index = idx  
+        
+    
     df_el = series[['ElectricConsumption', 'SolarPVProduction','dhw']]  # kWh, kWh, kWh
 
     pv_roof_capacity = attributes['roof_pv_capacity']  # kW
@@ -755,8 +759,8 @@ def run_basopra_simulation(big_data_object):
 
     # Running gurobi simulations
     ###### TESTING ####################
-    #[entry['combinations'].update(conf=7) for entry in Combs_todo_dicts]
-    #index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 4)
+    #[entry['combinations'].update(conf=8) for entry in Combs_todo_dicts]
+    #index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 20)
     ###################################
     parallel_results = run_parallel(
         pooling2,

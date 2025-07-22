@@ -325,7 +325,7 @@ def Optimize(data_input, param):
         #opt.options['DualReductions'] = 0
         # 2) ask for unbounded‐info so it will compute and retain a ray if unbounded
         #opt.options['InfUnbdInfo']  = 1
-        results = opt.solve(instance, tee=True)#core_config.Optimizer.solver_verbose)
+        results = opt.solve(instance)#, tee=True)#core_config.Optimizer.solver_verbose)
         global_lock.release()
         
         if core_config.Optimizer.solver_results_write:
