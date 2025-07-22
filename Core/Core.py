@@ -252,7 +252,7 @@ def Optimize(data_input, param):
         if sys.platform == 'linux' or sys.platform == 'win32':
             opt = SolverFactory('gurobi_persistent')
             opt.options["threads"] = 1
-            opt.options["mipgap"] = 0.001
+            opt.options["mipgap"] = 0.01
         else:
             opt = SolverFactory('cplex', executable='/opt/ibm/ILOG/CPLEX_Studio1271/cplex/bin/x86-64_linux/cplex')
             opt.options["threads"] = 1

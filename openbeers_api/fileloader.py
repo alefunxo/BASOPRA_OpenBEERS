@@ -1,4 +1,4 @@
-import shutil
+import shutil,stat
 import os
 import pandas as pd
 import xml.etree.ElementTree as ET
@@ -41,10 +41,12 @@ def load_and_cleanup(path: str, loader: Callable[[str], Any]) -> Any:
     finally:
         if os.path.exists(path):
             os.remove(path)
-
+def _handle_remove_readonly(func, path, exc_info):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
 def cleanup(path: str,) -> None:
     if os.path.exists(path):
-        shutil.rmtree(path)
+        shutil.rmtree(path,onerror=_handle_remove_readonly)
 
 def parse_simulation_metadata(path: str) -> Dict[str, Any]:
     root = ET.parse(path).getroot()
