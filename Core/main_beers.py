@@ -306,7 +306,6 @@ def load_multi_EV_data(ev_profiles, param, idx):
         'EV_home':             EV_home,
         'EV_away':             EV_away,
         'E_EV_trip':           E_EV_trip,
-        'public_charging_price': single_param['public_charging_price'],
     })
 
     return param, dfs
@@ -752,7 +751,7 @@ def run_basopra_simulation(big_data_object):
     # Running gurobi simulations
     ###### TESTING ####################
     #[entry['combinations'].update(conf=7) for entry in Combs_todo_dicts]
-    #index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 10)
+    index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 4)
     ###################################
     parallel_results = run_parallel(
         pooling2,

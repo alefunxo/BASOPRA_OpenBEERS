@@ -52,20 +52,25 @@ def autarky(df: DataFrame):
 
     # Aggregate totals
     local_supply = df[local_supply_cols].sum().sum()
-    total_consumption = df['E_cons'].sum()
+    # referring only to the load served WITHIN the building, EV away is not part of it for instance
+    ev_grid_cols = [col for col in df.columns if col.startswith('E_grid_batt_EV')]
+    total_consumption = df['E_demand'].sum()+  df['E_hp'].sum()+ df['E_hpdhw'].sum()+df['E_bu'].sum()+df['E_budhw'].sum()+df['E_grid_batt'].sum()+df[ev_grid_cols].sum().sum()
 
     # Autarky [%]
     return (local_supply / total_consumption) * 100 if total_consumption > 0 else 0
 
 def peak_consumption(df: DataFrame):
     return df["E_cons"].max()
-
+def quantile99_consumption(df: DataFrame):
+    return df["E_cons"].quantile(0.99)
 def peak_injection(df: DataFrame):
     return df["E_PV_grid"].max()
-
+def quantile99_injection(df: DataFrame):
+    return df["E_PV_grid"].quantile(0.99)
 def peak_thermal_consumption(df: DataFrame):
     return (df["Req_kWh"] + df["Req_kWh_DHW"]).max()
-
+def quantile99_thermal_consumption(df: DataFrame):
+    return (df["Req_kWh"] + df["Req_kWh_DHW"]).quantile(0.99)
 def cooling_hours(df: DataFrame):
     return (df["Cooling"] < 0.0).sum()
 
@@ -80,6 +85,10 @@ kpi_fcts = {
     # 'cooling_hours': cooling_hours,
     # 'cooling_energy': cooling_energy,
     'peak_thermal_consumption': peak_thermal_consumption,
+    'quantile99_consumption':quantile99_consumption,
+    'quantile99_injection':quantile99_injection,
+    'quantile99_thermal_consumption':quantile99_thermal_consumption,
+
 }
 
 def calc_kpis(df: DataFrame):
