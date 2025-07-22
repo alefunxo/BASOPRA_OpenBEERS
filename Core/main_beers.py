@@ -239,77 +239,115 @@ def load_EV_data(combinations, single_param):
     
     return single_param, df_EV
 
-def load_multi_EV_data(ev_profiles, param, idx):
-    # special case: no profiles → one dummy EV0 with all zeros
-    if ev_profiles is None:
-        EV0 = 'EV0'
-        # zero‐filled time‐series DataFrame
-        df_zero = pd.DataFrame(0, index=idx,
-                               columns=['EV_home','EV_away','E_EV_trip','E_EV_req'])
-        # populate every scalar to zero
-        zeros = {EV0: 0}
-        # time‐series as dict of zeros-per‐timestamp
-        ts_dict = {EV0: df_zero.to_dict(orient='list')}  # or .to_dict() for {t:0}
-        Batt_EV        = {}
-        Batt_EV['EV0']=pc.Battery_tech(Capacity=0, Technology='NMC')
-        Batt_EV['EV0'].SOC_max = 0
-        Batt_EV['EV0'].SOC_min = 0
-        param.update({
-            'EV_list':             [EV0],
-            'Batt_EV':             Batt_EV,
-            'E_EV_start':          zeros,
-            'EV_P_max_home':       zeros,
-            'EV_P_max_away':       zeros,
-            'EV_V2G':              zeros,
-            'EV_home':             {EV0: dict.fromkeys(idx, 0)},
-            'EV_away':             {EV0: dict.fromkeys(idx, 0)},
-            'E_EV_trip':           {EV0: dict.fromkeys(idx, 0)},
-            
-        })
-        return param, {EV0: df_zero}
-
-    # else: your original per‐EV loop
-    EV_list        = list(ev_profiles.keys())
+def init_zero_ev(param: dict, idx) :
+    EV0 = 'EV0'
+    # zero‐filled time‐series DataFrame
+    df_zero = pd.DataFrame(0, index=idx,
+                            columns=['EV_home','EV_away','E_EV_trip','E_EV_req'])
+    # populate every scalar to zero
+    zeros = {EV0: 0}
+    # time‐series as dict of zeros-per‐timestamp
+    ts_dict = {EV0: df_zero.to_dict(orient='list')}  # or .to_dict() for {t:0}
     Batt_EV        = {}
-    E_EV_start     = {}
-    EV_P_max_home  = {}
-    EV_P_max_away  = {}
-    EV_V2G         = {}
-    EV_home        = {}
-    EV_away        = {}
-    E_EV_trip      = {}
-    dfs            = {}
-
-    for ev in EV_list:
-        combos = ev_profiles[ev]
-        single_param, df_ev = load_EV_data(combos, {})
-
-        Batt_EV[ev]       = single_param['Batt_EV']
-        E_EV_start[ev]    = single_param['E_EV_start']
-        EV_P_max_home[ev] = single_param['EV_P_max_home']
-        EV_P_max_away[ev] = single_param['EV_P_max_away']
-        EV_V2G[ev]        = single_param.get('EV_V2G', 1)
-
-        EV_home[ev]       = df_ev['EV_home'].to_dict()
-        EV_away[ev]       = df_ev['EV_away'].to_dict()
-        E_EV_trip[ev]     = df_ev['E_EV_trip'].to_dict()
-
-        dfs[ev] = df_ev
-
+    Batt_EV['EV0']=pc.Battery_tech(Capacity=0, Technology='NMC')
+    Batt_EV['EV0'].SOC_max = 0
+    Batt_EV['EV0'].SOC_min = 0
     param.update({
-        'EV_list':             EV_list,
+        'EV_list':             [EV0],
         'Batt_EV':             Batt_EV,
-        'E_EV_start':          E_EV_start,
-        'EV_P_max_home':       EV_P_max_home,
-        'EV_P_max_away':       EV_P_max_away,
-        'EV_V2G':              EV_V2G,
-        'EV_home':             EV_home,
-        'EV_away':             EV_away,
-        'E_EV_trip':           E_EV_trip,
+        'E_EV_start':          zeros,
+        'EV_P_max_home':       zeros,
+        'EV_P_max_away':       zeros,
+        'EV_V2G':              zeros,
+        'EV_home':             {EV0: dict.fromkeys(idx, 0)},
+        'EV_away':             {EV0: dict.fromkeys(idx, 0)},
+        'E_EV_trip':           {EV0: dict.fromkeys(idx, 0)},
         
     })
+    return param, {EV0: df_zero}
 
-    return param, dfs
+def load_multi_EV_data(ev_profiles, param, idx):
+    # special case: no profiles → one dummy EV0 with all zeros
+    if not ev_profiles:
+        param, dfs = init_zero_ev(param, idx) 
+    else:
+        # else: your original per‐EV loop
+        EV_list        = list(ev_profiles.keys())
+        Batt_EV        = {}
+        E_EV_start     = {}
+        EV_P_max_home  = {}
+        EV_P_max_away  = {}
+        EV_V2G         = {}
+        EV_home        = {}
+        EV_away        = {}
+        E_EV_trip      = {}
+        dfs            = {}
+
+        for ev in EV_list:
+            combos = ev_profiles[ev]
+            single_param, df_ev = load_EV_data(combos, {})
+
+            Batt_EV[ev]       = single_param['Batt_EV']
+            E_EV_start[ev]    = single_param['E_EV_start']
+            EV_P_max_home[ev] = single_param['EV_P_max_home']
+            EV_P_max_away[ev] = single_param['EV_P_max_away']
+            EV_V2G[ev]        = single_param.get('EV_V2G', 1)
+
+            EV_home[ev]       = df_ev['EV_home'].to_dict()
+            EV_away[ev]       = df_ev['EV_away'].to_dict()
+            E_EV_trip[ev]     = df_ev['E_EV_trip'].to_dict()
+
+            dfs[ev] = df_ev
+
+        param.update({
+            'EV_list':             EV_list,
+            'Batt_EV':             Batt_EV,
+            'E_EV_start':          E_EV_start,
+            'EV_P_max_home':       EV_P_max_home,
+            'EV_P_max_away':       EV_P_max_away,
+            'EV_V2G':              EV_V2G,
+            'EV_home':             EV_home,
+            'EV_away':             EV_away,
+            'E_EV_trip':           E_EV_trip,
+            
+        })
+
+    for ev, df in dfs.items():
+        
+        df_hourly = df.resample('1h').agg({
+            'E_EV_req':  'sum',
+            'E_EV_trip': 'sum',
+            'EV_home':   'max',
+        })
+        # recompute EV_away
+        df_hourly['EV_away'] = 1 - df_hourly['EV_home']
+
+        # store it back
+        dfs[ev] = df_hourly
+        '''
+        param['EV_home'][ev]   = df_hourly['EV_home'].reset_index(drop=True).to_dict()
+        param['EV_away'][ev]   = df_hourly['EV_away'].reset_index(drop=True).to_dict()
+        param['E_EV_trip'][ev] = df_hourly['E_EV_trip'].reset_index(drop=True).to_dict()
+        '''
+
+
+    ############ data profiles through time
+    # 1) Concatenate all EV frames into one, with top‐level EV names
+    if dfs:
+        df_EVs = pd.concat(dfs, axis=1)
+    # This yields a MultiIndex for columns: ('EV1','EV_home'), ('EV1','E_EV_trip'), ('EV2','EV_home'), …
+
+    # 2) Flatten the MultiIndex into single strings, e.g. "EV1_E_EV_trip"
+        df_EVs.columns = [
+            f"{ev}_{col}"
+            for ev, col in df_EVs.columns
+        ]
+    else:
+        param, df_EVs = init_zero_ev(param, idx)
+
+    df_EVs.index=idx
+
+    return param, df_EVs
 
 def configure_system_parameters(combinations, heat_pump, param):
     """
@@ -472,44 +510,7 @@ def load_param(combinations):
 
     ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
 
-    for ev, df in df_EVs.items():
-        
-        df_hourly = df.resample('1h').agg({
-            'E_EV_req':  'sum',
-            'E_EV_trip': 'sum',
-            'EV_home':   'max',
-        })
-        # recompute EV_away
-        df_hourly['EV_away'] = 1 - df_hourly['EV_home']
-
-        # store it back
-        df_EVs[ev] = df_hourly
-        '''
-        param['EV_home'][ev]   = df_hourly['EV_home'].reset_index(drop=True).to_dict()
-        param['EV_away'][ev]   = df_hourly['EV_away'].reset_index(drop=True).to_dict()
-        param['E_EV_trip'][ev] = df_hourly['E_EV_trip'].reset_index(drop=True).to_dict()
-        '''
-
-
-    ############ data profiles through time
-    # 1) Concatenate all EV frames into one, with top‐level EV names
-    df_EVs = pd.concat(df_EVs, axis=1)
-    # This yields a MultiIndex for columns: ('EV1','EV_home'), ('EV1','E_EV_trip'), ('EV2','EV_home'), …
-
-    # 2) Flatten the MultiIndex into single strings, e.g. "EV1_E_EV_trip"
-    df_EVs.columns = [
-        f"{ev}_{col}"
-        for ev, col in df_EVs.columns
-    ]
-    df_EVs.index=idx
-    
-    '''else:
-        cols = ['E_EV_req','E_EV_trip','EV_home','EV_away']
-        df_EVs = pd.DataFrame(
-            np.zeros((len(df_el), len(cols)), dtype=int),
-            columns=cols
-        )
-        df_EVs.index = df_heat_new.index'''
+   
 
     df_el.index = idx    
 
