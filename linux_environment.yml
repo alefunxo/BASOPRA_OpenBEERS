@@ -1,0 +1,39 @@
+name: basopra
+channels:
+  - gurobi
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.9
+  - pip
+  - numpy
+  - pandas
+  - geopandas
+  - pyomo
+  - shapely
+  - scipy
+  - matplotlib-base
+  - plotly
+  - requests
+  - pyyaml
+  - gurobi=12.0.1
+  - jupyter_core
+  - ipython
+  - ipykernel
+  - openpyxl
+  - folium
+  - pyproj
+  - pyogrio
+  - ruamel.yaml
+  - lxml
+  - beautifulsoup4
+  - pip:
+      - aiohttp
+      - aiohttp-retry
+      - aiohappyeyeballs
+      - python-box
+      # - openbeers @ git+https://github.com/your-org/openbeers.git
+      - propcache
+      - pydantic
+      - typing-inspection
