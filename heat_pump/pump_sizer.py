@@ -390,7 +390,7 @@ def wrapper(args):
 
 def calculate_heat_pump_size(
     heat_pump_data_file: str,
-    building_data: List[int],
+    building_data: Dict[int, Any],
 ):
     logger.info('Started Heat Pump Sizing Procedure')
     # test_dict=load_obj(f'{input_dir}/test')
@@ -417,117 +417,11 @@ def calculate_heat_pump_size(
         processes=config.max_processes,
         mode='kwargs',
     )
-    # if hp_config.multiprocessing:
-    #     mp.freeze_support()
-    #     mp.set_start_method("spawn")
-    #     with mp.Pool(processes=hp_config.max_processes) as pool:
-    #         results = pool.map(wrapper, sizing_inputs)
-    # else:
-    #     results = [wrapper(hp_input) for hp_input in sizing_inputs]
-    
+ 
     for i in range(len(sizing_inputs)):
         bid = sizing_inputs[i]['building_id']
         building_data[bid]['heat_pump'] = results[i]
 
-    # for building in building_data.keys():
-    #     b_Ts = building_data[building]['series']['Ts']
-    #     b_Qs = building_data[building]['series']['Qs']
-    #     design_temp, heatload_dt=get_design_temperature_hp(
-    #         pd.DataFrame(b_Ts),
-    #         pd.DataFrame(b_Qs),
-    #         dict_design,
-    #     )  # Qs resolution is 1 hour power and energy are then interchangeable here
-    #     df_heat=pd.DataFrame([b_Qs,b_Ts]).T
-    #     df_heat.columns=['Req_kWh','Temp']
-    #     # Create datetime index for every hour of 2017
-    #     datetime_index = pd.date_range(start='2017-01-01 00:00', end='2017-12-31 23:00', freq='h')
-
-    #     # Assign to DataFrame
-    #     df_heat.index = datetime_index
-    #     aux=df_heat.groupby(df_heat.index.dayofyear).mean().Temp
-    #     df_heat.loc[(df_heat.index.hour==0)&(df_heat.index.minute==0),'Temp_mean']=aux.values
-    #     df_heat.Temp_mean=df_heat.Temp_mean.ffill().round(1)
-    #     
-    #     width=200
-    #     df_heat.loc[:,'Temp_mean']=df_heat.loc[:,'Temp_mean'].rolling(window=width).mean().bfill()
-    #     df_heat['Set_T']=20
-    #     # here we need to select the T supply and return depending on the kWh/m2
-    #     ############
-    #     surface = building_data[building]['attributes']['habitable_surface']
-    #     ############
-    #     if df_heat.Req_kWh.sum()/surface < 50: 
-    #         flag_heating_floor=True 
-    #     else: 
-    #         flag_heating_floor=False
-
-    #     if flag_heating_floor:
-    #         df_heat['Temp_supply'] = df_heat.apply(
-    #             lambda x: supply_temp(
-    #                 x,
-    #                 dict_design['heatload_dt'],
-    #                 dict_design['design_temp'],
-    #                 dict_design['T_d_supply_floor'],
-    #                 dict_design['T_d_return_floor'],
-    #                 dict_design['rad_exp_floor']
-    #             ),
-    #             axis=1,
-    #         )
-
-    #         df_heat['Temp_supply_tank'] = df_heat.apply(
-    #             lambda x: supply_temp(
-    #                 x,
-    #                 dict_design['heatload_dt'],
-    #                 dict_design['design_temp'],
-    #                 dict_design['T_d_supply_floor_tank'],
-    #                 dict_design['T_d_return_floor_tank'],
-    #                 dict_design['rad_exp_floor'],
-    #             ),
-    #             axis=1,
-    #         )
-    #     else:
-    #         df_heat['Temp_supply'] = df_heat.apply(
-    #             lambda x: supply_temp(
-    #                 x,
-    #                 dict_design['heatload_dt'],
-    #                 dict_design['design_temp'],
-    #                 dict_design['T_d_supply_radiator'],
-    #                 dict_design['T_d_return_radiator'],
-    #                 dict_design['rad_exp_radiator'],
-    #             ),
-    #             axis=1,
-    #         )
-
-    #         df_heat['Temp_supply_tank'] = df_heat.apply(
-    #             lambda x: supply_temp(
-    #                 x,
-    #                 dict_design['heatload_dt'],
-    #                 dict_design['design_temp'],
-    #                 dict_design['T_d_supply_radiator_tank'],
-    #                 dict_design['T_d_return_radiator_tank'],
-    #                 dict_design['rad_exp_radiator'],
-    #             ),
-    #             axis=1,
-    #         )
-    #         
-    #     df_heat['HP_T_SFH_to_use'] = df_heat.apply(lambda x: df_hp.T_dist.unique()[find_interval_hp(x.Temp_supply,df_hp.T_dist.unique())],axis=1)
-    #     df_heat['HP_T_SFH_tank_to_use'] = df_heat.apply(lambda x: df_hp.T_dist.unique()[find_interval_hp(x.Temp_supply_tank,df_hp.T_dist.unique())],axis=1)
-    #     df_heat['Temp_amb_interval'] = df_heat.apply(lambda x: df_hp.T_outside.unique()[find_interval_hp(x.Temp,df_hp.T_outside.unique())],axis=1)
-    #     # here we need to select the T supply and return depending on the kWh/m2
-    #     hp_sizing(dict_design,df_hp,flag_heating_floor)
-
-    #     get_COP(df_heat,df_hp,dict_design)
-    #     
-    #     
-    #     df_heat = df_heat[['Set_T', 'Temp', 'Req_kWh', 'Temp_supply',
-    #                     'Temp_supply_tank', 'COP_SH', 'COP_tank', 'COP_DHW',
-    #                     'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons']]
-    #     heat_pump = HeatPumpDesign(
-    #         series=df_heat,
-    #         attributes=dict_design,
-    #     )
-    #     building_data[building]['heat_pump']=heat_pump
-
-    # save_obj(building_data,'Test_floor')#it is saving in Output/Test
 # Define a function to generate extrapolated heat pump data
 def cop_model(delta_T):
     return 68.455 * delta_T ** -0.76 #from Arpagaus, Bless, Bertsch & Schiffmann. Wärmepumpen für die Industrie: Eine aktuelle Übersicht. 2019 

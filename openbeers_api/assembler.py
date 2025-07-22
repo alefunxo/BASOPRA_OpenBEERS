@@ -21,6 +21,7 @@ def build_basopra_input(
     for bid in api_attributes:
         valid_building = True
         attributes = api_attributes[bid]
+        attributes['sim_name'] = simulation.name
         building_xml_attributes = xml_attributes.get(bid)
         if building_xml_attributes:
             for attr_name in building_xml_attributes.keys():
