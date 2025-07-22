@@ -8,12 +8,7 @@ canton: VS
 people_per_household: 2
 vehicles_per_household: 1.43
 
-battery_install_ratio: 0.8
-battery_install_ratio:
-  2025: 0.42
-  2035: 0.8
-  2040: 0.8
-  2050: 0.8
+# battery_install_ratio: 0.8
 
 battery_type: NMC
 
@@ -34,6 +29,12 @@ years_of_interest:
   - 2035
   - 2045
   - 2050
+
+battery_install_ratio:
+  2025: 0.42
+  2035: 0.8
+  2040: 0.8
+  2050: 0.8
 
 codification_heat_generator:
   7400: "Pas de générateur de chaleur"

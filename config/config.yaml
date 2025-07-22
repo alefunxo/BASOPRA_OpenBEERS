@@ -15,9 +15,11 @@ simulation_names:
 #   - sarreyer_climate_contemporary_pv_roof_2025
 
 building_whitelist:
+#   - 948427
 #   - 900485
 #   - 900484
 #   - 947862
+
 building_blacklist:
   # - 190083062
   # - 190076512

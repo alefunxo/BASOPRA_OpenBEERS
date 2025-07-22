@@ -295,8 +295,16 @@ def prep_battery_prob(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: List of buildings with added flag determining it they receive a battery when PV is installed
     """
-    will_have_battery_if_PV = np.random.rand(len(df)) <= planner_config.battery_install_ratio
-    df["install_battery"] = will_have_battery_if_PV
+    years_of_interest = planner_config.years_of_interest
+    battery_install_ratios = planner_config.battery_install_ratio
+    for i in range(len(years_of_interest)):
+        year = years_of_interest[i]
+        will_have_battery_if_PV = np.random.rand(len(df)) <= battery_install_ratios[year]
+        if year != years_of_interest[0]:
+            previous_year = years_of_interest[i-1]
+            previous_battery_prob = df[f'install_battery_{previous_year}']
+            will_have_battery_if_PV = (will_have_battery_if_PV | previous_battery_prob)
+        df[f"install_battery_{year}"] = will_have_battery_if_PV 
     return df
 
     
@@ -336,7 +344,7 @@ class RenovationPlanning:
             values['ev_profiles'] = ev_batteries
         
 
-    def add_batteries(self, buildings: Dict[int, Any]) -> None:
+    def add_batteries(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
         """Adds batteries to each buidling based on the presence of PV and the battery installation flag from the renovation planning
 
         Args:
@@ -344,13 +352,14 @@ class RenovationPlanning:
         """
         surfaces = ['roof', 'wall', 'floor']
         battery_type = planner_config.battery_type
+        sim_year = simulation.year
         for b, values in buildings.items():
             pv = sum(
                 [values['attributes'][f'{surface}_pv_capacity']
                 for surface in surfaces]
             )
             print(values['series'].head())
-            if pv>0 and self.renovation_plan.loc[b, 'install_battery']:
+            if pv>0 and self.renovation_plan.loc[b, f'install_battery_{sim_year}']:
                 values['attributes']['has_battery'] = True
                 battery_capacity = values['series']['ElectricConsumption'].sum()/1000
                 battery = pc.Battery_tech(Capacity=battery_capacity, Technology=battery_type)
