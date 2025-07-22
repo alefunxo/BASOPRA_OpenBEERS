@@ -374,7 +374,7 @@ def configure_system_parameters(combinations, heat_pump, param):
     # For some settings the heat pump is removed
     if combinations['house_type'] == 'NoHeatPump':
         conf_aux[1] = False
-
+    
     if conf < 4:  # No battery
         logger.debug('No battery')
         param['Batt'] = pc.Battery_tech(Capacity=0, Technology=combinations['Tech'])
@@ -385,6 +385,8 @@ def configure_system_parameters(combinations, heat_pump, param):
         # The Batt will come defined by the citysim preprocessing
         # I added it here for completeness in the meanwhile
         param['Batt'] = pc.Battery_tech(Capacity=param['Capacity'], Technology=combinations['Tech'])
+        if conf==12:
+            conf_aux[1] = False
 
         
 
