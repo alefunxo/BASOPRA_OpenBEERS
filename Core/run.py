@@ -111,13 +111,13 @@ async def extract_simulation_data(
     renovation_planner = RenovationPlanning(config.renovation_planning.save_file)
     if not has_renov:
         renovation_planner.add_EVs(extraction, simulation)
-        renovation_planner.add_batteries(extraction)
+        renovation_planner.add_batteries(extraction, simulation)
         renovation_planner.add_HP_flags(extraction, simulation)
     else:
         # TODO implement renovations from OpenBEERS part
         # Current code is the same as above condition because we don't have data to use.
         renovation_planner.add_EVs(extraction, simulation)
-        renovation_planner.add_batteries(extraction)
+        renovation_planner.add_batteries(extraction, simulation)
         renovation_planner.add_HP_flags(extraction, simulation)
 
     get_elec_prices(extraction, elec_pricer)
