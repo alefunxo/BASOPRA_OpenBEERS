@@ -19,34 +19,33 @@ building_whitelist:
 #   - 900484
 #   - 947862
 building_blacklist:
-  - 190083062
-  - 190076512
-  - 9014809
-  - 948431
-  - 948429
-  - 948432
-  - 947709
-  - 947855
-  - 947724
-  - 947867
-  - 947840
-  - 191667261
-  - 947834
-  - 9014757
-  - 947840
-  - 947852
-  - 947849
-  - 947832
-  - 192083767
-  - 947887
-  - 947853
-  - 190180010
-  - 947872
-  - 947862
-  - 191503194
-  - 191503198
-  - 948442
-  - 948427
+  # - 190083062
+  # - 190076512
+  # - 9014809
+  # - 948431
+  # - 948429
+  # - 948432
+  # - 947709
+  # - 947855
+  # - 947724
+  # - 947867
+  # - 947840
+  # - 191667261
+  # - 947834
+  # - 9014757
+  # - 947840
+  # - 947852
+  # - 947849
+  # - 947832
+  # - 192083767
+  # - 947887
+  # - 947853
+  # - 190180010
+  # - 947872
+  # - 191503194
+  # - 191503198
+  # - 948442
+  # - 948427
   # - 947848
   # - 902139
   # - 902141
@@ -113,7 +112,7 @@ Core:
 #     9:  '0001'
 #     10: '0010'
 #     11: '0011'
-#     12: '1000'
+    12: '1000'
 #     13: '1001'
 #     14: '1010'
 #     15: '1011'
@@ -131,7 +130,7 @@ Core:
 #     '0001': 9  
 #     '0010': 10 
 #     '0011': 11 
-#     '1000': 12 
+    '1000': 12 
 #     '1001': 13 
 #     '1010': 14 
 #     '1011': 15 
@@ -149,7 +148,7 @@ Core:
 #     9: 'DHW' # Not possible without HP
 #     10: 'SH' # Not possible without HP
 #     11: 'SH+DHW' # Not possible without HP
-#     12: 'only Battery'
+    12: 'only Battery'
 #     13: 'DHW+BATT' # Not possible without HP
 #     14: 'SH+BATT' # Not possible without HP
 #     15: 'SH+DHW+BATT' # Not possible without HP
@@ -177,6 +176,11 @@ Core:
     public_charging_price: 0.48
     Export_price: 0.06
     sizing_tank: 40 # size of the space heating tank via a multiplier of the HP size for daily operation, according to HES-SO experts
-    ev_profiles: Null
+    ev_profiles: 
+      base_ev:
+        EV_batt_cap:     60
+        EV_P_max_home:  '7'
+        EV_use:         'High'
+        profile_row_number: 99
 
 #if no EV then ev_profiles: Null and no EV_batt_cap: 0

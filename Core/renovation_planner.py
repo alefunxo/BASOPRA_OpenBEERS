@@ -327,7 +327,7 @@ class RenovationPlanning:
                 ev_count = self.renovation_plan.loc[b, f'ev_count_{sim_year}']
             values['attributes']['ev_count'] = ev_count
 
-            ev_profile = config.Core.basopra_fixed_parameters.ev_profiles.EV1
+            ev_profile = config.Core.basopra_fixed_parameters.ev_profiles.base_ev
             ev_batteries = {
                 f"EV{i+1}": ev_profile.copy()
                 for i in range(ev_count)

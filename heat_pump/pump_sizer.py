@@ -270,9 +270,8 @@ def calculate_one_heat_pump_size(
     heat_pumps_df: pd.DataFrame,
 ) -> Optional[HeatPumpDesign]:
     logger.info(f"Starting dimensioning of heat pump for building: {building_id}")
-    # TODO Allow no heat pump to exist as a case
-    # if  not building_data['attributes']['has_HP']:
-    #     return None
+    if  not building_data['attributes']['has_HP']:
+        return None
     dict_design = hp_config.dict_design
     b_Ts = building_data['series']['Ts']
     b_Qs = building_data['series']['Qs']
@@ -393,8 +392,6 @@ def calculate_heat_pump_size(
     building_data: Dict[int, Any],
 ):
     logger.info('Started Heat Pump Sizing Procedure')
-    # test_dict=load_obj(f'{input_dir}/test')
-    # dict_design = config['dict_design']
 
     df_hp=pd.read_csv(heat_pump_data_file,sep=';')  # Temperature in celcius
     df_hp.loc[:,'P_el']=df_hp.loc[:,'P_el'].str.replace(',','.').astype(float)

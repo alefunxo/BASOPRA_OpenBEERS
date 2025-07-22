@@ -634,7 +634,7 @@ def get_conf_for_building(b_data: Dict[str, Any]) -> int:
     return conf 
 
 def do_basic_nothing_simulation(combination: Dict[str, Any]):
-    b_data = combination['combinations']['hh']
+    b_data = combination['hh']
     series = b_data['series']
    
     df = pd.DataFrame({
@@ -747,7 +747,7 @@ def run_basopra_simulation(big_data_object):
     for i in range(len(basic_simulations)):
         conf_id = basic_simulations[i]['combinations']['conf']
         simulation_inputs = basic_simulations[i]['combinations']
-        simulation_outputs = basic_simulations[conf_id](simulation_inputs)
+        simulation_outputs = special_configurations[conf_id](simulation_inputs)
         output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
         basopra_results.append(output_file_path)
 
