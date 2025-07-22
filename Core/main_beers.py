@@ -751,13 +751,8 @@ def run_basopra_simulation(big_data_object):
 
     # Running gurobi simulations
     ###### TESTING ####################
-<<<<<<< HEAD
     #[entry['combinations'].update(conf=7) for entry in Combs_todo_dicts]
     #index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 10)
-=======
-    # [entry['combinations'].update(conf=7) for entry in Combs_todo_dicts]
-    # index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 46)
->>>>>>> 2a022e67d02d9f98dd851766005c8c107caf1393
     ###################################
     parallel_results = run_parallel(
         pooling2,
