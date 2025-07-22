@@ -466,8 +466,12 @@ def load_param(combinations):
     idx = series.index
 
     attributes = combinations['hh']['attributes']
-    heat_pump = combinations['hh']['heat_pump']
-    heat_pump.series.index = idx
+    heat_pump = None
+    heat_pump_series_names = config.heat_pump_series
+    df_heat_new = pd.DataFrame(0, index=idx, columns=heat_pump_series_names)
+    if attributes['has_HP']:
+        heat_pump = combinations['hh']['heat_pump']
+        heat_pump.series.index = idx
     df_el = series[['ElectricConsumption', 'SolarPVProduction','dhw']]  # kWh, kWh, kWh
 
     pv_roof_capacity = attributes['roof_pv_capacity']  # kW
@@ -496,23 +500,10 @@ def load_param(combinations):
     param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
    
 
-    df_heat_new = heat_pump.series[[
-            'Set_T', 
-            'Temp', 
-            'Req_kWh', 
-            'Temp_supply', 
-            'Temp_supply_tank',
-            'COP_SH',
-            'COP_tank',
-            'COP_DHW',
-            'hp_sh_cons',
-            'hp_tank_cons',
-            'hp_dhw_cons',
-    ]]
+    if attributes['has_HP']:
+        df_heat_new = heat_pump.series[heat_pump_series_names]
 
     ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
-
-   
 
     df_el.index = idx    
 
@@ -521,8 +512,7 @@ def load_param(combinations):
     df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
     
     to_concat = [df_el]
-    # if heat_pump is not None:
-    #     to_concat.append(df_heat_new)
+    # if attributes['has_HP']:
     to_concat.append(df_heat_new)
     to_concat.append(df_EVs)
     data_input=pd.concat(to_concat,axis=1,copy=True,sort=False)

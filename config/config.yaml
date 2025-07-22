@@ -6,7 +6,7 @@ input_dir: Input/
 output_dir: Output/
 cache: True
 
-multiprocessing: True
+multiprocessing: False
 max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
 loop_mode: False
@@ -94,6 +94,19 @@ heat_pump:
     rad_exp_floor: 1.1
     rad_exp_radiator: 1.3
 
+heat_pump_series:
+  - Set_T
+  - Temp
+  - Req_kWh
+  - Temp_supply
+  - Temp_supply_tank
+  - COP_SH
+  - COP_tank
+  - COP_DHW
+  - hp_sh_cons
+  - hp_tank_cons
+  - hp_dhw_cons
+ 
 Core:
   Optimizer:
     solver_verbose: False
