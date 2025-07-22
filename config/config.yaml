@@ -6,7 +6,7 @@ input_dir: Input/
 output_dir: Output/
 cache: True
 
-multiprocessing: False
+multiprocessing: True
 max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
 loop_mode: False
@@ -146,6 +146,8 @@ Core:
     house_type: 'SFH100' # 'NoHeatPump' # 'SFH100'
     HP: 'AS'
     EV_V2G: 0
+    public_charging_price: 0.48
+    Export_price: 0.06
     sizing_tank: 40 # size of the space heating tank via a multiplier of the HP size for daily operation, according to HES-SO experts
     ev_profiles: #Null
       EV1:

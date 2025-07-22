@@ -236,7 +236,7 @@ def load_EV_data(combinations, single_param):
     single_param['Batt_EV']=Batt_EV
     single_param['E_EV_start']=Batt_EV.SOC_max
     df_EV['EV_away']=abs(df_EV.EV_home-1)
-    single_param['public_charging_price']=0.48
+    
     return single_param, df_EV
 
 def load_multi_EV_data(ev_profiles, param, idx):
@@ -264,7 +264,7 @@ def load_multi_EV_data(ev_profiles, param, idx):
             'EV_home':             {EV0: dict.fromkeys(idx, 0)},
             'EV_away':             {EV0: dict.fromkeys(idx, 0)},
             'E_EV_trip':           {EV0: dict.fromkeys(idx, 0)},
-            'public_charging_price': 0.48,
+            
         })
         return param, {EV0: df_zero}
 
@@ -306,6 +306,7 @@ def load_multi_EV_data(ev_profiles, param, idx):
         'EV_home':             EV_home,
         'EV_away':             EV_away,
         'E_EV_trip':           E_EV_trip,
+        
     })
 
     return param, dfs
@@ -434,8 +435,8 @@ def load_param(combinations):
     pv_capacity = pv_roof_capacity + pv_wall_capacity  # kW
     elec_price = attributes['elec_price']/100  # frs/kWh
     ev_profiles = combinations['hh']['ev_profiles']
-    
-    Export_price = 0.06 # frs/kWh
+    public_charging_price=combinations['public_charging_price']
+    Export_price = combinations['Export_price'] # frs/kWh
     
     logger.info("Choose the corresponding profile for electricity")
    
@@ -551,7 +552,8 @@ def load_param(combinations):
         'EV_V2G': combinations['EV_V2G'],
         'PV_nom': PV_nom,
         'App_comb': create_app_combinations(combinations['App_comb']),
-    })
+        'public_charging_price':public_charging_price
+        })
 
     
     
