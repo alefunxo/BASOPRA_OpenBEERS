@@ -22,7 +22,7 @@ This is an ongoing project, and the interaction with [CitySim] (https://github.c
 
 
 # Setup
-To get this to work, you should create a conda environment using the `environment.yml` file.
+To get this to work, you should create a conda environment using the `environment.yml` file (or linux_environment.yml if linux based).
 ```bash
 conda env create -f environment.yml  # creates the basopra_clean environment
 ```
@@ -35,6 +35,12 @@ Once your conda environment is setup access it and install the openbeers library
 ```bash
 conda activate basopra_clean
 pip install git+https://gitlab.idiap.ch/energy/openbeers/openbeers-py.git
+```
+Alternatively, it was found to work better in some cases to clone the repository and install from repository
+```bash
+git clone git+https://gitlab.idiap.ch/energy/openbeers/openbeers-py.git`
+cd openbeers-py
+pip install -e .
 ```
 
 Also make sure you have the Gurobi solver installed
