@@ -1,5 +1,7 @@
 __pycache__/
+Core/__pycache__/
 *.csv
+*.pyc
 Output/
 Core/temp/
 outputs_basopra/
