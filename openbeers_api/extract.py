@@ -142,7 +142,7 @@ def get_tank(building: Element, tank_type: str) -> Optional[heat_storage_tank]:
     if tank is None:
         return None
     tank_volume = float(tank.attrib["V"])
-    tank_class = heat_storage_tank(tank_volume)
+    tank_class = heat_storage_tank(tank_volume*1000) # m3 to l
     return tank_class
 
 def get_xml_building_data(xml_path: str) -> Dict[str, float]:

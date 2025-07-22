@@ -4,10 +4,10 @@ openbeers_address: https://lab.idiap.ch/openbeers
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
-cache: False
+cache: True
 
 multiprocessing: True
-max_processes: -3 # value of null or 0 will use max possible processes. Negative value will use max processes - value
+max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
 loop_mode: False
 simulation_names: 
@@ -174,21 +174,9 @@ Core:
     house_type: 'SFH100' # 'NoHeatPump' # 'SFH100'
     HP: 'AS'
     EV_V2G: 0
+    public_charging_price: 0.48
+    Export_price: 0.06
     sizing_tank: 40 # size of the space heating tank via a multiplier of the HP size for daily operation, according to HES-SO experts
-    ev_profiles: #Null
-      EV1:
-        EV_batt_cap:     60
-        EV_P_max_home:  '7'
-        EV_use:         'High'
-        profile_row_number: 99
-      EV2:
-        EV_batt_cap:     60
-        EV_P_max_home:  '7'
-        EV_use:         'High'
-        profile_row_number: 99
-      EV3:
-        EV_batt_cap:     60
-        EV_P_max_home:  '7'
-        EV_use:         'High'
-        profile_row_number: 99
+    ev_profiles: Null
+
 #if no EV then ev_profiles: Null and no EV_batt_cap: 0
