@@ -37,8 +37,58 @@ def yearly_temps(times, avg, ampl, time_offset):
     return (avg
             + ampl * np.cos((times + time_offset) * 2 * np.pi / times.max()))
 
+def get_design_temperature_hp(
+    df_temperature: pd.DataFrame,
+    df_power_sh: pd.DataFrame,
+    df_power_dhw: pd.DataFrame,
+    dict_design: dict,
+    flag_hp
+) -> tuple[float, float, float]:
+    """
+    Estimate the design ambient temperature and corresponding heat loads for HP sizing.
 
-def get_design_temperature_hp(df_temperature, df_power, dict_design):
+    Returns
+    -------
+    design_temp : float
+        Ambient °C at the 1st percentile deviation from a sine fit.
+    heatload_sh : float
+        Space‐heating thermal power (kW) at design_temp.
+    heatload_dhw : float
+        DHW thermal power (kW) at design_temp.
+    """
+    # 1) fit sine curve to yearly Ts
+    ts = df_temperature['Ts'].values
+    x = np.linspace(0, math.pi, len(ts))
+    params, _ = optimize.curve_fit(yearly_temps, x, ts, p0=[20, 10, 0])
+    deviations = yearly_temps(x, *params) - ts
+    design_temp = float(np.quantile(deviations, 0.01))
+
+    # 2) linear fit for space‐heating
+    grp_sh = df_power_sh.groupby(df_temperature['Ts']).mean()
+    grp_sh = grp_sh.loc[grp_sh.index < 20]
+    a_sh, b_sh = np.polyfit(grp_sh.index, grp_sh.iloc[:,0], 1)
+    heatload_sh = float(np.round(a_sh * design_temp + b_sh, 3))
+
+    # 3) linear fit for DHW
+    grp_dhw = df_power_dhw.groupby(df_temperature['Ts']).mean()
+    grp_dhw = grp_dhw.loc[grp_dhw.index < 20]
+    a_dhw, b_dhw = np.polyfit(grp_dhw.index, grp_dhw.iloc[:,0], 1)
+    heatload_dhw = float(np.round(a_dhw * design_temp + b_dhw, 3))
+
+    # 4) update design dict and return
+    dict_design.update({
+        'design_temp': design_temp,
+        'heatload_dt':  heatload_sh,
+        'heatload_dhw': heatload_dhw,
+    })
+
+    print(f"Design Temperature = {design_temp:.2f} °C")
+    print(f"Space-heating load @ design_T = {heatload_sh:.2f} kW")
+    print(f"DHW load @ design_T = {heatload_dhw:.2f} kW")
+
+    return design_temp, heatload_sh, heatload_dhw
+
+def get_design_temperature_hp2(df_temperature, df_power, dict_design):
     """
     Estimate the design ambient temperature and corresponding heat load for heat pump sizing.
 
@@ -98,7 +148,7 @@ def get_design_temperature_hp(df_temperature, df_power, dict_design):
     return design_temp,heatload_dt[0]
 
 
-def hp_sizing(dict_design,df_hp,flag_heating_floor):
+def hp_sizing(dict_design,df_hp,flag_heating_floor,flag_hp):
     '''
     Get the HP rating according to the design temperature (in the interval of the input HP data) and the inlet temperature design.
     It returns the HP rating that provides the closest power to the required, if the HP cannot provide the required heat power, a backup 
@@ -106,10 +156,17 @@ def hp_sizing(dict_design,df_hp,flag_heating_floor):
     '''
     desig_temp_hp_data=df_hp.T_outside.unique()[find_interval_hp(dict_design['design_temp'],df_hp.T_outside.unique())]
     if flag_heating_floor:
-        hp=df_hp.loc[abs(df_hp.loc[(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_floor'])].P_th-dict_design['heatload_dt']).idxmin(),'HP_rating']
+        if flag_hp:
+            hp=df_hp.loc[abs(df_hp.loc[(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_floor'])].P_th-dict_design['heatload_dt']-dict_design['heatload_dhw']).idxmin(),'HP_rating']
+        else:
+            hp=df_hp.loc[abs(df_hp.loc[(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_floor'])].P_th-dict_design['heatload_dt']).idxmin(),'HP_rating']
         bu=np.ceil(max(0,dict_design['heatload_dt']-df_hp.loc[(df_hp.HP_rating==hp)&(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_floor']),'P_th'].values[0]))
     else:
-        hp=df_hp.loc[abs(df_hp.loc[(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_radiator'])].P_th-dict_design['heatload_dt']).idxmin(),'HP_rating']
+        if flag_hp:
+            hp=df_hp.loc[abs(df_hp.loc[(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_floor'])].P_th-dict_design['heatload_dt']-dict_design['heatload_dhw']).idxmin(),'HP_rating']
+        else:
+            
+            hp=df_hp.loc[abs(df_hp.loc[(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_radiator'])].P_th-dict_design['heatload_dt']-dict_design['heatload_dhw']).idxmin(),'HP_rating']
         bu=np.ceil(max(0,dict_design['heatload_dt']-df_hp.loc[(df_hp.HP_rating==hp)&(df_hp.T_outside==desig_temp_hp_data)&(df_hp.T_dist==dict_design['T_d_supply_radiator']),'P_th'].values[0]))
     dict_design.update({'hp':hp,'buradiator':bu})
     return
@@ -219,10 +276,23 @@ def calculate_one_heat_pump_size(
     dict_design = hp_config.dict_design
     b_Ts = building_data['series']['Ts']
     b_Qs = building_data['series']['Qs']
-    design_temp, heatload_dt=get_design_temperature_hp(
+    b_dhw = building_data['series'].dhw
+    
+    ratio = b_dhw.sum()/(b_Qs.sum()+b_dhw.sum())*100
+    logger.info(f"Ratio DHW-SH: {ratio}%")
+
+    if ratio>30:
+        flag_hp=True # if DHW is higher than 30% of the total demand, the HP will have to be sized differently, taken into account the DHW demand and not only SH
+    else:
+        flag_hp=False
+    if building_id==46:
+        flag=True
+    design_temp, heatload_dt,heatload_dhw=get_design_temperature_hp(
         pd.DataFrame(b_Ts),
         pd.DataFrame(b_Qs),
+        pd.DataFrame(b_dhw),
         dict_design,
+        flag_hp
     )  # Qs resolution is 1 hour power and energy are then interchangeable here
     df_heat=pd.DataFrame([b_Qs,b_Ts]).T
     df_heat.columns=['Req_kWh','Temp']
@@ -300,7 +370,7 @@ def calculate_one_heat_pump_size(
     df_heat['HP_T_SFH_tank_to_use'] = df_heat.apply(lambda x: heat_pumps_df.T_dist.unique()[find_interval_hp(x.Temp_supply_tank,heat_pumps_df.T_dist.unique())],axis=1)
     df_heat['Temp_amb_interval'] = df_heat.apply(lambda x: heat_pumps_df.T_outside.unique()[find_interval_hp(x.Temp,heat_pumps_df.T_outside.unique())],axis=1)
     # here we need to select the T supply and return depending on the kWh/m2
-    hp_sizing(dict_design,heat_pumps_df,flag_heating_floor)
+    hp_sizing(dict_design,heat_pumps_df,flag_heating_floor,flag_hp)
 
     get_COP(df_heat,heat_pumps_df,dict_design)
     

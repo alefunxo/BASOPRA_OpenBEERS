@@ -101,7 +101,7 @@ def get_building_dhw(building: Element, day_profiles, year_profiles):
         hourly_values.extend([daily_consumption * hour_value for hour_value in daily_profile])
     
     series_L_per_hour = pd.Series(hourly_values, name=b_name)
-    series_kWh = dhw_liters_to_kwh(series_L_per_hour, T_hot=60, T_inlet=10, Cp=4180, rho=1000)
+    series_kWh = dhw_liters_to_kwh(series_L_per_hour, T_hot=55, T_inlet=10, Cp=4180, rho=1000)
     return series_kWh
 
 def get_surface_n_PV(building: Element, surface_type: str) -> float:
