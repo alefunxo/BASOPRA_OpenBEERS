@@ -24,8 +24,9 @@ import sys
 import os
 from typing import Any, Dict, List, Set, Tuple
 
-from utils.utils import dataframe_save
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from utils.utils import dataframe_save
+
 from box import Box
 import re
 import pandas as pd
@@ -388,28 +389,35 @@ def configure_system_parameters(combinations, heat_pump, param):
         if conf==12:
             conf_aux[1] = False
         
+    if combinations['hh']['attributes']['has_HP']:
 
-    if (conf == 2) & (conf == 3) & (conf == 6) & (conf == 7):  # TS present
-        logger.debug('TS present')
-        conf_aux[2] = True
-        if (combinations['house_type'] == 'SFH15') | (combinations['house_type'] == 'SFH45'):
-            logger.debug('SHF 15 or 45')
-            param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
-        else:
+        if (conf == 2) & (conf == 3) & (conf == 6) & (conf == 7) :  # TS present
+            logger.debug('TS present')
+            conf_aux[2] = True
+            if (combinations['house_type'] == 'SFH15') | (combinations['house_type'] == 'SFH45'):
+                logger.debug('SHF 15 or 45')
+                param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
+            else:
+                logger.debug('SHF 100')
+                param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
+        else:  # No TS
             logger.debug('SHF 100')
-            param['tank_sh'] = pc.heat_storage_tank(volume=sizing_tank*heat_pump.attributes['hp'])
-    else:  # No TS
-        logger.debug('SHF 100')
-        param['tank_sh'] = pc.heat_storage_tank(volume=0)
+            param['tank_sh'] = pc.heat_storage_tank(volume=0)
 
-    if (conf == 1) | (conf == 3) | (conf == 5) | (conf == 7):  # DHW present
-        logger.debug('DHW present')
-        conf_aux[3] = True
-        dhw_tank.volume=dhw_tank.volume*1000 # from citysim it is in m3 we need it in liters
-        param['tank_dhw'] = dhw_tank
-    else:  # No DHW
-        logger.debug('No DHW')
+        if (conf == 1) | (conf == 3) | (conf == 5) | (conf == 7):  # DHW present
+            logger.debug('DHW present')
+            conf_aux[3] = True
+            dhw_tank.volume=dhw_tank.volume*1000 # from citysim it is in m3 we need it in liters
+            param['tank_dhw'] = dhw_tank
+        else:  # No DHW
+            logger.debug('No DHW')
+            param['tank_dhw'] = pc.heat_storage_tank(volume=0,  specific_heat_dhw=0, U_value_dhw=0, surface_dhw=0)
+    else:
+        conf_aux[1] = False
+        conf_aux[2] = False
+        conf_aux[3] = False
         param['tank_dhw'] = pc.heat_storage_tank(volume=0,  specific_heat_dhw=0, U_value_dhw=0, surface_dhw=0)
+        param['tank_sh'] = pc.heat_storage_tank(volume=0)
     '''
     design_param = load_obj(f'{INPUT_PATH}dict_design_oct')
     if combinations['house_type'] == 'SFH15':
@@ -501,6 +509,8 @@ def load_param(combinations):
 
     if attributes['has_HP']:
         df_heat_new = heat_pump.series[heat_pump_series_names]
+    else:
+        df_heat_new = pd.DataFrame(0, index=idx, columns=heat_pump_series_names)
 
     ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
 
@@ -511,7 +521,6 @@ def load_param(combinations):
     df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
     
     to_concat = [df_el]
-    # if attributes['has_HP']:
     to_concat.append(df_heat_new)
     to_concat.append(df_EVs)
     data_input=pd.concat(to_concat,axis=1,copy=True,sort=False)
@@ -687,6 +696,150 @@ def do_battery_only_simulation(b_data: Dict[str, Any]):
         df.at[i, 'SOC'] = soc
 
     return df
+def deterministic_multi_ev_charging_with_pv(df_base, flat_params, df_EVs):
+    ev_ids = list(flat_params.keys())
+    df_out = df_base.copy()
+
+    # initialize flux columns
+    for ev in ev_ids:
+        for col in (
+            "SOC_EV",
+            "E_PV_batt_EV",
+            "E_grid_batt_EV",
+            "EV_charge_away"
+        ):
+            df_out[f"{col}_{ev}"] = 0.0
+    df_out["E_PV_load"] = 0.0
+    df_out["E_PV_EV"]   = 0.0
+    df_out["E_grid_load"] = 0.0
+    df_out["E_grid_EV"]   = 0.0
+    df_out["E_PV_grid"]       = 0.0
+    df_out["E_cons"]       = 0.0
+
+    soc = {ev: flat_params[ev]['E_EV_start'] for ev in ev_ids}
+
+    for ts, row in df_base.iterrows():
+        pv_tot     = row["E_PV"]
+        demand_tot = row["E_demand"]
+
+        # 1) PV → load
+        pv_to_load = min(pv_tot, demand_tot)
+        df_out.at[ts, "E_PV_load"] = pv_to_load
+        demand_rem = demand_tot - pv_to_load
+        surplus_pv = pv_tot - pv_to_load
+
+        # 2) trip charging (away or grid at home)
+        for ev in ev_ids:
+            p    = flat_params[ev]
+            trip = df_EVs[f"{ev}_E_EV_trip"].at[ts]
+            if trip > soc[ev]:
+                if df_EVs[f"{ev}_EV_away"].at[ts]:
+                    cap = p['delta_t'] * p['EV_P_max_away'] * p['Inverter_eff']
+                    add = min(trip - soc[ev], cap, p['SOC_max'] - soc[ev])
+                    df_out.at[ts, f"EV_charge_away_{ev}"] = add
+                    soc[ev] += add
+                elif df_EVs[f"{ev}_EV_home"].at[ts]:
+                    cap = p['delta_t'] * p['EV_P_max_home'] * p['Inverter_eff']
+                    add = min(trip - soc[ev], cap, p['SOC_max'] - soc[ev])
+                    df_out.at[ts, f"E_grid_batt_EV_{ev}"] = add
+                    soc[ev] += add
+            soc[ev] = max(soc[ev] - trip, 0)
+
+        # 3) surplus PV → EV
+        for ev in ev_ids:
+            p     = flat_params[ev]
+            if df_EVs[f"{ev}_EV_home"].at[ts] and soc[ev] < p['SOC_max'] and surplus_pv > 0:
+                cap  = p['delta_t'] * p['EV_P_max_home'] * p['Inverter_eff']
+                need = p['SOC_max'] - soc[ev]
+                add  = min(cap, need, surplus_pv)
+                df_out.at[ts, f"E_PV_batt_EV_{ev}"] = add
+                soc[ev]     += add
+                surplus_pv  -= add
+
+        # record total PV→EV
+        df_out.at[ts, "E_PV_EV"] = sum(
+            df_out.at[ts, f"E_PV_batt_EV_{ev}"] for ev in ev_ids
+        )
+
+        # 4) grid → load
+        df_out.at[ts, "E_grid_load"] = demand_rem
+
+        # 5) grid → EV top-up
+        for ev in ev_ids:
+            p = flat_params[ev]
+            if df_EVs[f"{ev}_EV_home"].at[ts] and soc[ev] < p['SOC_max']:
+                cap  = p['delta_t'] * p['EV_P_max_home'] * p['Inverter_eff']
+                need = p['SOC_max'] - soc[ev]
+                add  = min(cap, need)
+                # accumulate if trip and top-up both draw grid
+                prev = df_out.at[ts, f"E_grid_batt_EV_{ev}"]
+                df_out.at[ts, f"E_grid_batt_EV_{ev}"] = prev + add
+                soc[ev] += add
+
+        # record total grid→EV
+        df_out.at[ts, "E_grid_EV"] = sum(
+            df_out.at[ts, f"E_grid_batt_EV_{ev}"] for ev in ev_ids
+        )
+
+        # 6) remaining PV is export
+        df_out.at[ts, "E_PV_grid"] = surplus_pv
+
+        # 7) SOC
+        for ev in ev_ids:
+            df_out.at[ts, f"SOC_EV_{ev}"] = min(soc[ev], flat_params[ev]['SOC_max'])
+        df_out.at[ts, "E_cons"] = (df_out.at[ts, "E_grid_EV"] + df_out.at[ts, "E_grid_load"])
+ 
+    return df_out
+
+
+
+def do_EV_only_simulation(combination: Dict[str, Any]):
+    b_data = combination['hh']
+    series = b_data['series']
+   
+    df = pd.DataFrame({
+        'E_demand': series['ElectricConsumption'],
+        'E_PV': series['SolarPVProduction'],
+    })
+
+
+
+    # 1) pull out your household‐combination dict:
+    ev_profiles = combination['hh']['ev_profiles']
+    series     = combination['hh']['series']
+    idx        = series.index
+    param = {}
+    # 2) load parameters and per‐EV time series:
+    ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
+
+    
+    ev_ids = ev_param['EV_list']
+
+    flat_params = {}
+    for ev in ev_ids:
+        batt = ev_param['Batt_EV'][ev]
+        # — you just need to swap in the real attribute names your Battery_tech
+        #   class uses for capacity and round‐trip efficiency:
+        flat_params[ev] = {
+            'SOC_max':               batt.Capacity,        # e.g. .capacity or .cap_kwh
+            'Inverter_eff':          batt.Efficiency,      # e.g. .eta or .round_trip_eff
+            'E_EV_start':            ev_param['E_EV_start'][ev],
+            'EV_P_max_home':         ev_param['EV_P_max_home'][ev],
+            'EV_P_max_away':         ev_param['EV_P_max_away'][ev],
+            'public_charging_price': 0.48,  # from your global param
+            'delta_t':               1,               # from your global param
+        }
+
+
+    # 4) run the multi‐EV charger
+    df_all = deterministic_multi_ev_charging_with_pv(df, flat_params, df_EVs)
+    #Index(['E_demand', 'E_PV', 'SOC_EV_EV1', 'E_PV_batt_EV_EV1',
+    #   'E_grid_batt_EV_EV1', 'EV_charge_away_EV1', 'SOC_EV_EV2',
+    #   'E_PV_batt_EV_EV2', 'E_grid_batt_EV_EV2', 'EV_charge_away_EV2',
+    #   'SOC_EV_EV3', 'E_PV_batt_EV_EV3', 'E_grid_batt_EV_EV3',
+    #   'EV_charge_away_EV3', 'E_PV_load', 'E_PV_EV', 'E_grid_load',
+    #   'E_grid_EV', 'E_PV_grid', 'E_cons'],
+    return df_all
 
 special_configurations = {
     8: do_basic_nothing_simulation,
@@ -748,7 +901,9 @@ def run_basopra_simulation(big_data_object):
     ###### TESTING ####################
     #[entry['combinations'].update(conf=8) for entry in Combs_todo_dicts]
     #index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 20)
+    #do_EV_only_simulation(Combs_todo_dicts[0]['combinations'])
     ###################################
+    
     parallel_results = run_parallel(
         pooling2,
         Combs_todo_dicts,

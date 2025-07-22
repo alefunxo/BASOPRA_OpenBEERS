@@ -6,7 +6,7 @@ input_dir: Input/
 output_dir: Output/
 cache: True
 
-multiprocessing: False
+multiprocessing: True
 max_processes: -2 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
 loop_mode: False
