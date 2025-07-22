@@ -758,7 +758,7 @@ def run_basopra_simulation(big_data_object):
     ###################################
     parallel_results = run_parallel(
         pooling2,
-        Combs_todo_dicts,
+        Combs_todo_dicts[31:],
         config.multiprocessing,
         processes=config.max_processes,
         mode='kwargs',

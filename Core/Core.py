@@ -25,6 +25,7 @@ from config.loader import config
 import pandas as pd
 import paper_classes as pc
 from pyomo.opt import SolverFactory, SolverStatus, TerminationCondition
+
 from pyomo.core import Var
 import time
 import numpy as np
@@ -50,7 +51,7 @@ def fn_timer(function):
         logger.debug("Function '%s' executed in %s seconds", function.__name__, t1 - t0)
         return result
     return function_timer
-def Get_output(instance):
+def Get_output2(instance):
     import threading, numpy as np, csv, os, pandas as pd
     from pyomo.core.base.var import Var
 
@@ -113,6 +114,66 @@ def Get_output(instance):
 
 
 
+def _collect(instance):
+
+
+    records = []
+    P_max_ = None
+    for v in instance.component_objects(Var, active=True):
+        name = v.name
+        varobj = getattr(instance, name)
+        for idx in varobj:
+            val = varobj[idx].value
+            if name == 'P_max_day':
+                P_max_ = val
+                continue
+            if isinstance(idx, tuple) and len(idx) == 2:
+                ev, t = idx
+            else:
+                ev, t = '', idx
+            if int(t) == -1:
+                continue
+            records.append({'time': int(t), 'var': name, 'ev': ev or None, 'val': val})
+    df = pd.DataFrame.from_records(records)
+    noev = df[df['ev'].isna()].pivot(index='time', columns='var', values='val')
+    evs  = df[df['ev'].notna()].pivot(index='time', columns=['var','ev'], values='val')
+    evs.columns = [f"{var}_{ev}" for var, ev in evs.columns]
+    return pd.concat([noev, evs], axis=1).sort_index(), P_max_
+
+def get_output(instance, lock=None):
+    if lock is not None:
+        with lock:
+            return _collect(instance)
+    else:
+        return _collect(instance)
+
+def get_output_fast(instance, lock=None):
+    def collect():
+        wide = {}
+        P_max_ = None
+        for vdata in instance.component_data_objects(Var, active=True):
+            name = vdata.name
+            for idx in vdata:
+                val = vdata[idx].value
+                if name == "P_max_day":
+                    P_max_ = val
+                    continue
+                # drop t = -1
+                t = idx[1] if isinstance(idx, tuple) else idx
+                if int(t) == -1:
+                    continue
+                ev = idx[0] if isinstance(idx, tuple) else None
+                col = f"{name}_{ev}" if ev else name
+                row = wide.setdefault(int(t), {})
+                row[col] = val
+        df = pd.DataFrame.from_dict(wide, orient="index")
+        df.index.name = "time"
+        return df.sort_index(), P_max_
+
+    if lock is not None:
+        with lock:
+            return collect()
+    return collect()
 
 @fn_timer
 def Optimize(data_input, param):
@@ -261,9 +322,9 @@ def Optimize(data_input, param):
         opt.set_instance(instance)
 
         # 1) disable dual reductions so Gurobi separates unbounded from infeasible
-        opt.options['DualReductions'] = 0
+        #opt.options['DualReductions'] = 0
         # 2) ask for unbounded‐info so it will compute and retain a ray if unbounded
-        opt.options['InfUnbdInfo']  = 1
+        #opt.options['InfUnbdInfo']  = 1
         results = opt.solve(instance, tee=True)#core_config.Optimizer.solver_verbose)
         global_lock.release()
         
@@ -272,7 +333,7 @@ def Optimize(data_input, param):
 
         if (results.solver.status == SolverStatus.ok) and (results.solver.termination_condition == TerminationCondition.optimal):
             logger.debug("Optimal solution found for day index %s", i)
-            [df_1, P_max] = Get_output(instance)
+            [df_1, P_max] = get_output(instance)
             T_init_ = df_1.loc[df_1.index[-1], 'T_ts']
             T_init_dhw_ = df_1.loc[df_1.index[-1], 'T_dhwst']
             if param['aging']:
