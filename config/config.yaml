@@ -176,10 +176,10 @@ Core:
     public_charging_price: 0.48
     Export_price: 0.06
     sizing_tank: 40 # size of the space heating tank via a multiplier of the HP size for daily operation, according to HES-SO experts
-    ev_profiles: 
-      base_ev:
-        EV_batt_cap:     60
-        EV_P_max_home:  '7'
-        EV_use:         'High'
-        profile_row_number: 99
+  ev_profiles: 
+    base_ev:
+      EV_batt_cap:     60
+      EV_P_max_home:  '7'
+      EV_use:         'High'
+      profile_row_number: 99
 #if no EV then ev_profiles: Null and no EV_batt_cap: 0

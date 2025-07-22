@@ -709,10 +709,11 @@ def create_run_configurations(buildings_data):
     for building, b_data in buildings_data.items():
         b_base_config = fixed_config.copy()
         building_conf = get_conf_for_building(b_data)
-        if b_data['attributes'].get('ev_count', 0) == 0:
-            b_base_config['ev_profiles'] = None
-        else:
-            b_data['ev_profiles'] = b_base_config['ev_profiles']
+
+        # if b_data['attributes'].get('ev_count', 0) == 0:
+        #     b_base_config['ev_profiles'] = None
+        # else:
+        #     b_data['ev_profiles'] = b_base_config['ev_profiles']
         if b_data.get('heat_pump') is None:
             b_base_config.house_type = 'NoHeatPump'
         combination = {
@@ -736,7 +737,8 @@ def run_basopra_simulation(big_data_object):
     # Filtering non gurobi simulations
     basic_simulations_indexes: List[int] = []
     for combination in Combs_todo_dicts:
-        if combination['combinations']['conf'] in special_configurations.keys():
+        if (combination['combinations']['conf'] in special_configurations.keys() 
+            and combination['combinations']['hh'].get('ev_profiles') is None):
             basic_simulations_indexes.append(Combs_todo_dicts.index(combination))
 
     basic_simulations = []
@@ -752,30 +754,14 @@ def run_basopra_simulation(big_data_object):
         basopra_results.append(output_file_path)
 
     # Running gurobi simulations
-    ###### TESTING ####################
-    #[entry['combinations'].update(conf=7) for entry in Combs_todo_dicts]
-    #index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 4)
-    ###################################
     parallel_results = run_parallel(
         pooling2,
-        Combs_todo_dicts[31:],
+        Combs_todo_dicts,
         config.multiprocessing,
         processes=config.max_processes,
         mode='kwargs',
     )
     basopra_results.extend(parallel_results)
-    # results = [
-    #     res[0].loc[:, ~res[0].columns.str.startswith("Bool_")] 
-    #     if res[0] is not None else None
-    #     for res in results
-    # ]
-    # for i in range(len(results)):
-    #     building_id = Combs_todo_dicts[i]['combinations']['name']
-    #     conf_id = Combs_todo_dicts[i]['combinations']['conf']
-    #     basopra_results[(building_id, conf_id)] = {
-    #         'simulation_inputs': Combs_todo_dicts[i]['combinations'],
-    #         'simulation_outputs': results[i],
-    #     }
 
     return basopra_results
     
