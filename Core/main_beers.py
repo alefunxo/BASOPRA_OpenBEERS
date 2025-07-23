@@ -842,8 +842,15 @@ def do_EV_only_simulation(combination: Dict[str, Any]):
     #   'E_grid_EV', 'E_PV_grid', 'E_cons'],
     return df_all
 
+def nothing_simulations(combination: Dict[str, Any]):
+    if combination['hh']['attributes'].get('ev_count', 0) == 0:
+        return do_basic_nothing_simulation(combination)
+    else:
+        return do_EV_only_simulation(combination)
+    
 special_configurations = {
-    8: do_basic_nothing_simulation,
+    8: nothing_simulations,
+    # 8: do_basic_nothing_simulation,
     # 12: do_battery_only_simulation,
 }
 
@@ -872,6 +879,13 @@ def create_run_configurations(buildings_data):
 
     return Combs_todo_dicts
 
+def run_non_gurobi_sim(combinations: Dict[str, Any]):
+    simulation_inputs = combinations
+    conf_id = combinations['conf']
+    simulation_outputs = special_configurations[conf_id](simulation_inputs)
+    output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
+    return output_file_path
+
 @fn_timer
 def run_basopra_simulation(big_data_object):
     buildings_data = big_data_object
@@ -882,8 +896,7 @@ def run_basopra_simulation(big_data_object):
     # Filtering non gurobi simulations
     basic_simulations_indexes: List[int] = []
     for combination in Combs_todo_dicts:
-        if (combination['combinations']['conf'] in special_configurations.keys() 
-            and combination['combinations']['hh'].get('ev_profiles') is None):
+        if combination['combinations']['conf'] in special_configurations.keys():
             basic_simulations_indexes.append(Combs_todo_dicts.index(combination))
 
     basic_simulations = []
@@ -891,12 +904,20 @@ def run_basopra_simulation(big_data_object):
         basic_simulations.append(Combs_todo_dicts.pop(sim))
 
     # Running non gurobi simulations
-    for i in range(len(basic_simulations)):
-        conf_id = basic_simulations[i]['combinations']['conf']
-        simulation_inputs = basic_simulations[i]['combinations']
-        simulation_outputs = special_configurations[conf_id](simulation_inputs)
-        output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
-        basopra_results.append(output_file_path)
+    # for i in range(len(basic_simulations)):
+    #     conf_id = basic_simulations[i]['combinations']['conf']
+    #     simulation_inputs = basic_simulations[i]['combinations']
+    #     simulation_outputs = special_configurations[conf_id](simulation_inputs)
+    #     output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
+    #     basopra_results.append(output_file_path)
+    basic_parallel_results = run_parallel(
+        run_non_gurobi_sim,
+        basic_simulations,
+        config.multiprocessing,
+        processes=config.max_processes,
+        mode='kwargs',
+    )
+    basopra_results.extend(basic_parallel_results)
 
     # Running gurobi simulations
     ###### TESTING ####################
@@ -905,14 +926,14 @@ def run_basopra_simulation(big_data_object):
     #do_EV_only_simulation(Combs_todo_dicts[0]['combinations'])
     ###################################
     
-    parallel_results = run_parallel(
+    gurobi_parallel_results = run_parallel(
         pooling2,
         Combs_todo_dicts,
         config.multiprocessing,
         processes=config.max_processes,
         mode='kwargs',
     )
-    basopra_results.extend(parallel_results)
+    basopra_results.extend(gurobi_parallel_results)
 
     return basopra_results
     

@@ -4,7 +4,7 @@ openbeers_address: https://lab.idiap.ch/openbeers
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
-cache: False
+cache: True
 
 multiprocessing: True
 max_processes: -4 # value of null or 0 will use max possible processes. Negative value will use max processes - value
@@ -15,43 +15,8 @@ simulation_names:
 #   - sarreyer_climate_contemporary_pv_roof_2025
 
 building_whitelist:
-#   - 948427
-#   - 900485
-#   - 900484
-#   - 947862
 
 building_blacklist:
-  # - 190083062
-  # - 190076512
-  # - 9014809
-  # - 948431
-  # - 948429
-  # - 948432
-  # - 947709
-  # - 947855
-  # - 947724
-  # - 947867
-  # - 947840
-  # - 191667261
-  # - 947834
-  # - 9014757
-  # - 947840
-  # - 947852
-  # - 947849
-  # - 947832
-  # - 192083767
-  # - 947887
-  # - 947853
-  # - 190180010
-  # - 947872
-  # - 191503194
-  # - 191503198
-  # - 948442
-  # - 948427
-  # - 947848
-  # - 902139
-  # - 902141
-  # - 902142
 
 simulation_extraction_dir: outputs_extraction/
 basopra_output_dir: outputs_basopra/
