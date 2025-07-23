@@ -696,6 +696,7 @@ def do_battery_only_simulation(b_data: Dict[str, Any]):
         df.at[i, 'SOC'] = soc
 
     return df
+    
 def deterministic_multi_ev_charging_with_pv(df_base, flat_params, df_EVs):
     ev_ids = list(flat_params.keys())
     df_out = df_base.copy()

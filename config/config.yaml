@@ -65,7 +65,7 @@ needed_series:
   - Qs
   - SolarPVProduction
   - ElectricConsumption
-  - Cooling
+  # - Cooling
 
 needed_attributes:
   - gbez

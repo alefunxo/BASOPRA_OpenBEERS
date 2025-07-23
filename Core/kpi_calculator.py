@@ -1,6 +1,6 @@
 import sys
 import os
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, Union
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -24,6 +24,20 @@ def assume_month_range() -> List[Tuple[int, int]]:
         start = end
     return month_ranges
 
+# def safe_get(df: DataFrame, col_name: str, default_value: Any=0) -> DataFrame:
+#     df[col_name] = df.get(col_name, pd.Series(default_value, index=df.index))
+#     return df[col_name]
+
+def safe_get(df: pd.DataFrame, cols: Union[str, List[str]], default_value=0) -> DataFrame:
+    if isinstance(cols, str):
+        return df[cols] if cols in df else pd.Series(default_value, index=df.index, name=cols)
+    else:
+        return pd.concat(
+            [(df[col] if col in df else pd.Series(default_value, index=df.index, name=col)) for col in cols],
+            axis=1
+        )
+
+
 def autoconsumption(df: DataFrame):
     pv_direct_cols = ['E_PV_bu', 'E_PV_budhw', 'E_PV_hp', 'E_PV_hpdhw', 'E_PV_load']
     ev_pv_cols = [col for col in df.columns if col.startswith('E_PV_batt_EV_')]
@@ -33,7 +47,8 @@ def autoconsumption(df: DataFrame):
     pv_used_locally_cols = pv_direct_cols + [pv_batt_col] + ev_pv_cols
 
     # Aggregate totals
-    pv_used_locally = df[pv_used_locally_cols].sum().sum()
+    # pv_used_locally = df[pv_used_locally_cols].sum().sum()
+    pv_used_locally = safe_get(df, pv_used_locally_cols).sum().sum()
     pv_total = df['E_PV'].sum()
 
     # Self-consumption [%]
@@ -51,31 +66,39 @@ def autarky(df: DataFrame):
     local_supply_cols = pv_direct_cols + batt_discharge_cols + ev_batt_discharge_cols
 
     # Aggregate totals
-    local_supply = df[local_supply_cols].sum().sum()
+    local_supply = safe_get(df, local_supply_cols).sum().sum()
     # referring only to the load served WITHIN the building, EV away is not part of it for instance
     ev_grid_cols = [col for col in df.columns if col.startswith('E_grid_batt_EV')]
-    total_consumption = df['E_demand'].sum()+  df['E_hp'].sum()+ df['E_hpdhw'].sum()+df['E_bu'].sum()+df['E_budhw'].sum()+df['E_grid_batt'].sum()+df[ev_grid_cols].sum().sum()
+    total_consumption = (
+        safe_get(df,'E_demand').sum()
+        + safe_get(df,'E_hp').sum()
+        + safe_get(df,'E_hpdhw').sum()
+        + safe_get(df,'E_bu').sum()
+        + safe_get(df,'E_budhw').sum()
+        + safe_get(df,'E_grid_batt').sum() 
+        + safe_get(df,ev_grid_cols).sum().sum()
+    )
 
     # Autarky [%]
     return (local_supply / total_consumption) * 100 if total_consumption > 0 else 0
 
 def peak_consumption(df: DataFrame):
-    return df["E_cons"].max()
+    return safe_get(df,"E_cons").max()
 def quantile99_consumption(df: DataFrame):
-    return df["E_cons"].quantile(0.99)
+    return safe_get(df,"E_cons").quantile(0.99)
 def peak_injection(df: DataFrame):
-    return df["E_PV_grid"].max()
+    return safe_get(df,"E_PV_grid").max()
 def quantile99_injection(df: DataFrame):
-    return df["E_PV_grid"].quantile(0.99)
+    return safe_get(df,"E_PV_grid").quantile(0.99)
 def peak_thermal_consumption(df: DataFrame):
-    return (df["Req_kWh"] + df["Req_kWh_DHW"]).max()
+    return (safe_get(df,"Req_kWh") + safe_get(df,"Req_kWh_DHW")).max()
 def quantile99_thermal_consumption(df: DataFrame):
-    return (df["Req_kWh"] + df["Req_kWh_DHW"]).quantile(0.99)
+    return (safe_get(df,"Req_kWh") + safe_get(df,"Req_kWh_DHW")).quantile(0.99)
 def cooling_hours(df: DataFrame):
-    return (df["Cooling"] < 0.0).sum()
+    return (safe_get(df,"Cooling") < 0.0).sum()
 
 def cooling_energy(df: DataFrame):
-    return df["Cooling"].sum()
+    return safe_get(df,"Cooling").sum()
 
 kpi_fcts = {
     'autoconsumption': autoconsumption,

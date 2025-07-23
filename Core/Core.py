@@ -601,11 +601,11 @@ def single_opt2(param, data_input):
     logger.info("Optimization complete; proceeding with saving results.")
     if param['testing'] == False:
         logger.info("Non-testing mode: aggregating results.")
-        save_results(df, aux_dict, param)
+        # save_results(df, aux_dict, param)
 
         #aggregate_results(df, aux_dict, param)
     else:
-        save_results(df, aux_dict, param)
+        # save_results(df, aux_dict, param)
         logger.debug("Testing mode active; skipping aggregation. Data input head: %s", data_input.head())
     logger.info("single_opt2 process completed.")
     return [df, aux_dict]
