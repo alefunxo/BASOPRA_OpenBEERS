@@ -147,34 +147,6 @@ def get_output(instance, lock=None):
     else:
         return _collect(instance)
 
-def get_output_fast(instance, lock=None):
-    def collect():
-        wide = {}
-        P_max_ = None
-        for vdata in instance.component_data_objects(Var, active=True):
-            name = vdata.name
-            for idx in vdata:
-                val = vdata[idx].value
-                if name == "P_max_day":
-                    P_max_ = val
-                    continue
-                # drop t = -1
-                t = idx[1] if isinstance(idx, tuple) else idx
-                if int(t) == -1:
-                    continue
-                ev = idx[0] if isinstance(idx, tuple) else None
-                col = f"{name}_{ev}" if ev else name
-                row = wide.setdefault(int(t), {})
-                row[col] = val
-        df = pd.DataFrame.from_dict(wide, orient="index")
-        df.index.name = "time"
-        return df.sort_index(), P_max_
-
-    if lock is not None:
-        with lock:
-            return collect()
-    return collect()
-
 @fn_timer
 def Optimize(data_input, param):
     """

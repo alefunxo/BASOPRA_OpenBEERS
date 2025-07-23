@@ -183,7 +183,8 @@ def main():
                 yearly_kpis['configuration'] = conf_name
                 yearly_kpi_dfs.append(yearly_kpis)
     yearly_kpi_dfs = pd.DataFrame(yearly_kpi_dfs)
-
+    monthly_kpi_dfs.to_csv('monthlykpi.csv')
+    yearly_kpi_dfs.to_csv('yearlykpi.csv')
     pd.set_option("display.float_format", "{:.2f}".format)
 
     print(monthly_kpi_dfs)

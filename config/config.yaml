@@ -7,11 +7,15 @@ output_dir: Output/
 cache: True
 
 multiprocessing: True
-max_processes: -4 # value of null or 0 will use max possible processes. Negative value will use max processes - value
+max_processes: -1 # value of null or 0 will use max possible processes. Negative value will use max processes - value
 
 loop_mode: False
 simulation_names: 
   - sierre_saint_georges_climate_contemporary_pv_roof_2025
+  - sierre_saint_georges_climate_rcp85_pv_roof_low_renovation_high_2050
+  - sierre_saint_georges_climate_rcp85_pv_roof_high_renovation_high_2050
+  - sierre_saint_georges_climate_rcp26_pv_roof_low_renovation_high_2050
+  - sierre_saint_georges_climate_rcp26_pv_roof_high_renovation_high_2050
 #   - sarreyer_climate_contemporary_pv_roof_2025
 
 building_whitelist:

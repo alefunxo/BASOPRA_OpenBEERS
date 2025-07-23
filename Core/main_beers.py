@@ -391,7 +391,7 @@ def configure_system_parameters(combinations, heat_pump, param):
         
     if combinations['hh']['attributes']['has_HP']:
 
-        if (conf == 2) & (conf == 3) & (conf == 6) & (conf == 7) :  # TS present
+        if (conf == 2) | (conf == 3) | (conf == 6) | (conf == 7) :  # TS present
             logger.debug('TS present')
             conf_aux[2] = True
             if (combinations['house_type'] == 'SFH15') | (combinations['house_type'] == 'SFH45'):
@@ -407,7 +407,7 @@ def configure_system_parameters(combinations, heat_pump, param):
         if (conf == 1) | (conf == 3) | (conf == 5) | (conf == 7):  # DHW present
             logger.debug('DHW present')
             conf_aux[3] = True
-            dhw_tank.volume=dhw_tank.volume*1000 # from citysim it is in m3 we need it in liters
+            dhw_tank.volume=dhw_tank.volume 
             param['tank_dhw'] = dhw_tank
         else:  # No DHW
             logger.debug('No DHW')
@@ -910,6 +910,7 @@ def run_basopra_simulation(big_data_object):
     #     simulation_outputs = special_configurations[conf_id](simulation_inputs)
     #     output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
     #     basopra_results.append(output_file_path)
+    
     basic_parallel_results = run_parallel(
         run_non_gurobi_sim,
         basic_simulations,
@@ -918,7 +919,7 @@ def run_basopra_simulation(big_data_object):
         mode='kwargs',
     )
     basopra_results.extend(basic_parallel_results)
-
+    
     # Running gurobi simulations
     ###### TESTING ####################
     #[entry['combinations'].update(conf=8) for entry in Combs_todo_dicts]
