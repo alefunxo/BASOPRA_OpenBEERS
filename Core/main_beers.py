@@ -579,27 +579,38 @@ def pooling2(combinations):
         '''
 
         param, data_input=load_param(combinations)
-        try:
-            if param['nyears']>1:
-                data_input=pd.DataFrame(pd.np.tile(pd.np.array(data_input).T,
-                                       param['nyears']).T,columns=data_input.columns)
-            
+        # try:
+        if param['nyears']>1:
+            data_input=pd.DataFrame(pd.np.tile(pd.np.array(data_input).T,
+                                   param['nyears']).T,columns=data_input.columns)
+        
 
 
-            [df,aux_dict]=single_opt2(param, data_input)
-        except OSError as e:
-            ##print(f"OSError: {e}")
-            raise
-        except Exception as e:
-            ##print(f"Unexpected error: {e}")
-            raise
+        [df,aux_dict]=single_opt2(param, data_input)
+        # except OSError as e:
+        #     ##print(f"OSError: {e}")
+        #     raise
+        # except Exception as e:
+        #     ##print(f"Unexpected error: {e}")
+        #     raise
 
         output_file_path = save_basopra_results_to_csv(combinations, df)
         # return df, aux_dict
         return output_file_path
-    except Exception:
-         traceback.print_exc()
-         raise
+    except Exception as e:
+        data_logger.error(
+            f"""
+            Simulation failed for:
+                Building: {combinations['hh']['attributes']['bid']},
+                egid: {combinations['hh']['attributes']['egid']}
+                located in {combinations['hh']['attributes']['municipality_name']}
+            Following error message returned:
+            {e}
+            """
+        )
+        return None
+         # traceback.print_exc()
+         # raise
 
 def save_basopra_results_to_csv(simulation_inputs: Dict[str, Any], simulation_outputs: pd.DataFrame) -> str:
     # Getting necessary attributes to save file
