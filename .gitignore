@@ -6,3 +6,5 @@ outputs_basopra/
 outputs_extraction/
 logs/
 .vscode/
+.ipynb_checkpoints/
+

@@ -1,7 +1,7 @@
 testing: False
 test_cases: 10
 seed: 42
-cache: True 
+cache: False
 save_file: Output/renovation_planning.csv
 canton: VS
 
@@ -33,7 +33,7 @@ years_of_interest:
 battery_install_ratio:
   2025: 0.42
   2035: 0.8
-  2040: 0.8
+  2045: 0.8
   2050: 0.8
 
 codification_heat_generator:
