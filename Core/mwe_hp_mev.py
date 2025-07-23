@@ -86,7 +86,7 @@ import threading
 import numpy as np
 import os
 import csv
-def Get_output(instance):
+def Get_output2(instance):
     # 1) Dump raw rows
     lock = threading.Lock()
     while lock.locked():
@@ -151,34 +151,64 @@ def Get_output(instance):
 
     return pivot, P_max
 
+
+def _collect(instance):
+
+
+    records = []
+    P_max_ = None
+    for v in instance.component_objects(Var, active=True):
+        name = v.name
+        varobj = getattr(instance, name)
+        for idx in varobj:
+            val = varobj[idx].value
+            if name == 'P_max_day':
+                P_max_ = val
+                continue
+            if isinstance(idx, tuple) and len(idx) == 2:
+                ev, t = idx
+            else:
+                ev, t = '', idx
+            if int(t) == -1:
+                continue
+            records.append({'time': int(t), 'var': name, 'ev': ev or None, 'val': val})
+    df = pd.DataFrame.from_records(records)
+    noev = df[df['ev'].isna()].pivot(index='time', columns='var', values='val')
+    evs  = df[df['ev'].notna()].pivot(index='time', columns=['var','ev'], values='val')
+    evs.columns = [f"{var}_{ev}" for var, ev in evs.columns]
+    return pd.concat([noev, evs], axis=1).sort_index(), P_max_
+
+def get_output(instance, lock=None):
+    if lock is not None:
+        with lock:
+            return _collect(instance)
+    else:
+        return _collect(instance)
+
 # -- Create two EV battery instances --
 batt = pp.Battery_tech(Capacity=10, Technology='NMC')
 EV_Batt1 = pp.Battery_tech(Capacity=75, Technology='NMC')
 EV_Batt2 = pp.Battery_tech(Capacity=60, Technology='NMC')
-EV_Batt3 = pp.Battery_tech(Capacity=20, Technology='NMC')
-EV_Batt4 = pp.Battery_tech(Capacity=120, Technology='NMC')
-EV_Batt5 = pp.Battery_tech(Capacity=80, Technology='NMC')
+
 
 
 # -- Thermal tank instances --
-tank_dhw = pp.heat_storage_tank(mass=100, surface=0.41)
+tank_dhw = pp.heat_storage_tank(volume=100, surface=0.41)
 tank_dhw.t_max = 333.15
 tank_dhw.t_min = 293.15
 
-tank_sh = pp.heat_storage_tank(mass=1000, surface=4.1)
+tank_sh = pp.heat_storage_tank(volume=1000, surface=4.1)
 tank_sh.U_value = 0.5
 tank_sh.specific_heat = 0.00116
 
 # -- Time set from -1 to 23 --
 time_set = list(range(-1, 24))
 # -- Define EV list and single battery instance --
-EV_list = ['EV1', 'EV2','EV3', 'EV4','EV5']
+EV_list = ['EV1', 'EV2']
 Batt_EV = {
     'EV1': EV_Batt1,
     'EV2': EV_Batt2,
-    'EV3': EV_Batt3,
-    'EV4': EV_Batt4,
-    'EV5': EV_Batt5,
+
 }
 # -- Build Data dictionary for one EV --
 Data = {
@@ -187,7 +217,7 @@ Data = {
     'delta_t': 1,
     'dayofyear': 150,
     'toy': 0,
-    'App_comb_mod': [0, 1, 1, 0],
+    'App_comb_mod': [0, 1, 0, 0],
     'retail_price': {t: 0.2 for t in range(24)},
     'E_PV': {t: 10 if 8 <= t <= 16 else 0.0 for t in range(24)},
     'E_demand': {t: 1 for t in range(24)},
@@ -214,7 +244,7 @@ Data = {
     'tank_sh': tank_sh,
     'Backup_heater': 100,
     'SOC_max': batt.SOC_max,
-
+    'T_init_dhw':323.15,
     # -- EV parameters indexed by EV --
     'EV_list': EV_list,
     'Batt_EV': Batt_EV,
@@ -278,12 +308,14 @@ result.write(num=1)
 
 
 # -- Extract outputs --
-df, P_max = Get_output(model)
+df, P_max = get_output(model)
 # Optionally concatenate additional data
 additional = pd.DataFrame({
     'E_demand': Data['E_demand'],
     'Export_price': Data['Export_price'],
     'retail_price': Data['retail_price'],
+    'Req_kWh':Data['Req_kWh'],
+    'Req_kWh_DHW':Data['Req_kWh_DHW'],
     **{
         f"E_EV_trip_{ev}": Data['E_EV_trip'][ev]
         for ev in Data['EV_list']
@@ -309,6 +341,7 @@ for t in sorted(model.Time):
 # -- Plot EV SOC for both vehicles --
 print(df.head())
 plt.figure(figsize=(8, 4))
+(df['T_dhwst'] - 273.15).plot()
 for ev in EV_list:
     plt.plot(df[f'SOC_EV_{ev}'], label=f"SOC {ev}")
 plt.title('EV State of Charge')
