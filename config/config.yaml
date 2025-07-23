@@ -47,6 +47,7 @@ needed_attributes:
   - Municipality
   - commune
   - plz_plz6
+  - strname_deinr
 
 heat_pump:
   dict_design:

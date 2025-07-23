@@ -45,13 +45,13 @@ import traceback
 import pickle
 import csv
 import post_proc as pp
-import logging
+# import logging
 
 
 from config.loader import config
 from Core.Core import single_opt2
 from utils.multiprocessing_utils import run_parallel
-from utils.logger import logger
+from utils.logger import logger, data_logger
 
 
 core_config = config['Core']
@@ -61,13 +61,13 @@ INPUT_PATH = config['input_dir']
 OUTPUT_PATH = config['output_dir']
 
 
-# Configure logger
-logging.basicConfig(filename='main.log', 
-                    level=logging.DEBUG,
-                    filemode='w',
-                    format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-logger.info("Test message")
+# # Configure logger
+# logging.basicConfig(filename='main.log', 
+#                     level=logging.DEBUG,
+#                     filemode='w',
+#                     format='%(asctime)s - %(levelname)s - %(message)s')
+# logger = logging.getLogger(__name__)
+# logger.info("Test message")
 
 def expand_grid(dct): #MAIN PARAMETERS MULTIPLICATION TO CONSTRUCT SCENARIOS
     rows = itertools.product(*dct.values())
@@ -880,11 +880,24 @@ def create_run_configurations(buildings_data):
     return Combs_todo_dicts
 
 def run_non_gurobi_sim(combinations: Dict[str, Any]):
-    simulation_inputs = combinations
-    conf_id = combinations['conf']
-    simulation_outputs = special_configurations[conf_id](simulation_inputs)
-    output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
-    return output_file_path
+    try:
+        simulation_inputs = combinations
+        conf_id = combinations['conf']
+        simulation_outputs = special_configurations[conf_id](simulation_inputs)
+        output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
+        return output_file_path
+    except Exception as e:
+        data_logger.error(
+            f"""
+            Simulation failed for:
+                Building: {combinations['hh']['attributes']['bid']},
+                egid: {combinations['hh']['attributes']['egid']}
+                located in {combinations['hh']['attributes']['municipality_name']}
+            Following error message returned:
+            {e}
+            """
+        )
+        return None
 
 @fn_timer
 def run_basopra_simulation(big_data_object):
