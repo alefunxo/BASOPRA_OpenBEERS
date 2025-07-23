@@ -80,7 +80,10 @@ def estimate_vehicles_per_building(df: pd.DataFrame) -> pd.DataFrame:
     vehicles_per_household = planner_config.vehicles_per_household
     inhabitants_per_building = df['num_occupants']
     # NOTE: assumption made that a one person building still counts as a household
-    households_per_building = np.maximum(1, np.round(inhabitants_per_building / people_per_houselhold).astype(int))
+    inhabitants_per_building = pd.to_numeric(inhabitants_per_building, errors='coerce')
+
+    households_base = (inhabitants_per_building / people_per_houselhold).round().astype(int)
+    households_per_building = np.maximum(1, households_base)
     total_households = households_per_building.sum()
     total_vehicles = round(total_households * vehicles_per_household)
     building_indices_for_households = np.repeat(
