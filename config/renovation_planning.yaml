@@ -8,8 +8,6 @@ canton: VS
 people_per_household: 2
 vehicles_per_household: 1.43
 
-# battery_install_ratio: 0.8
-
 battery_type: NMC
 
 hp_inclusion_rates: Input/Projections_municipality_2024_2050_Heat_pump_usedpot_perc.csv
@@ -26,14 +24,12 @@ needed_attributes:
 
 years_of_interest:
   - 2025
-  - 2035
-  - 2045
+  - 2040
   - 2050
 
 battery_install_ratio:
   2025: 0.42
-  2035: 0.8
-  2045: 0.8
+  2040: 0.8
   2050: 0.8
 
 codification_heat_generator:
@@ -61,7 +57,6 @@ codification_heat_generator:
 ev_inclusion_rate:
 # TEMPORARY TESTING RATES
   2025: 0.05
-  2035: 0.1
-  2045: 0.35
+  2040: 0.35
   2050: 0.55
   
