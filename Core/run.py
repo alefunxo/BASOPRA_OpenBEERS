@@ -56,7 +56,7 @@ async def run_pipeline(simulation: Simulation) -> Tuple[Dict[int, Any], bool]:
     
         renovations = await api.get_renovations(b_ids, simulation.scenario_id, simulation.year)
         heat_pumps: Dict[int, List[EnergyHeatPump]] = {}
-        pv_installations: Dict[int, List[EnergyPhotovoltaicSystem]] = {}
+        pv_installations:Dict[int, List[EnergyPhotovoltaicSystem]] = {}
         has_renov: bool = False
         for bid, renov in renovations.items():
             if renov is None:
@@ -78,13 +78,24 @@ async def run_pipeline(simulation: Simulation) -> Tuple[Dict[int, Any], bool]:
                 config['dest_folder'],
             )
         
-        xml_attributes, xml_series, heat_tank, dhw_tank = get_xml_building_data(config['dest_folder'] + 'simulation.xml')
+        xml_attributes, xml_series, heat_tanks, dhw_tanks = get_xml_building_data(config['dest_folder'] + 'simulation.xml')
         climate_df = load_climate_file(config['dest_folder'] + climate.climate_file)
 
         cleanup(config['dest_folder'])
 
         # Combining data from different sources
-        result = build_basopra_input(simulation, api_attributes, api_series, xml_attributes, xml_series, climate_df, heat_tank, dhw_tank)
+        result = build_basopra_input(
+            simulation = simulation, 
+            api_attributes = api_attributes, 
+            api_series = api_series, 
+            xml_attributes = xml_attributes, 
+            xml_series = xml_series, 
+            climate = climate_df, 
+            heat_tanks = heat_tanks, 
+            dhw_tanks = dhw_tanks, 
+            heat_pumps = heat_pumps,
+            pv_installations = pv_installations,
+        )
         return result, has_renov
 
 def get_elec_prices(buildings_data:Dict[str, Any], elec_pricer: ElectricityPricer) -> None:
@@ -117,8 +128,8 @@ async def extract_simulation_data(
         # TODO implement renovations from OpenBEERS part
         # Current code is the same as above condition because we don't have data to use.
         renovation_planner.add_EVs(extraction, simulation)
-        renovation_planner.add_batteries(extraction, simulation)
-        renovation_planner.add_HP_flags(extraction, simulation)
+        renovation_planner.add_openbeers_batteries(extraction, simulation)
+        renovation_planner.add_openbeers_HP_flags(extraction, simulation)
 
     get_elec_prices(extraction, elec_pricer)
         

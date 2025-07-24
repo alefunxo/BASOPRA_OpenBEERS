@@ -619,7 +619,10 @@ def save_basopra_results_to_csv(simulation_inputs: Dict[str, Any], simulation_ou
     conf_id = simulation_inputs['conf']
     conf_name = core_config.conf_mapping[conf_id]
     simulation_name = simulation_inputs['hh']['attributes']['sim_name']
-    output_file_name = f'{config.basopra_output_dir}{simulation_name}/df_{building_id}_{egid}_{conf_name}.csv'
+    ev = 'EV' if simulation_inputs['hh']['attributes']['ev_count'] > 0 else 'noEV'
+    pv = 'PV' if simulation_inputs['hh']['attributes']['has_PV'] else 'noPV'
+    
+    output_file_name = f'{config.basopra_output_dir}{simulation_name}/df_{building_id}_{egid}_{conf_name}_{ev}_{pv}.csv'
 
     # Outputs cleanup and merge with inputs
     simulation_outputs= simulation_outputs.loc[:, ~simulation_outputs.columns.str.startswith("Bool_")]

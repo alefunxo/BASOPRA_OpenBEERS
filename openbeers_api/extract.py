@@ -149,6 +149,8 @@ def get_xml_building_data(xml_path: str) -> Dict[str, float]:
     root = ET.parse(xml_path).getroot()
     building_attributes: Dict[int, Dict[str, float]] = {}
     building_series: Dict[int, Dict[str, List]] = {}
+    heat_tanks: Dict[int, Optional[heat_storage_tank]] = {}
+    dhw_tanks: Dict[int, Optional[heat_storage_tank]] = {}
     municipality_name = get_municipality_name(xml_path)
 
     dhw_dailies, dhw_yearlies = get_dhw_profiles(root)
@@ -175,10 +177,10 @@ def get_xml_building_data(xml_path: str) -> Dict[str, float]:
         }
         building_series[int(bid)] = b_series
 
-        heat_tank = get_tank(b, 'HeatTank')
-        dhw_tank = get_tank(b, 'DHWTank')
+        heat_tanks[int(bid)] = get_tank(b, 'HeatTank')
+        dhw_tanks[int(bid)] = get_tank(b, 'DHWTank')
 
-    return building_attributes, building_series, heat_tank, dhw_tank
+    return building_attributes, building_series, heat_tanks, dhw_tanks
 
 
 

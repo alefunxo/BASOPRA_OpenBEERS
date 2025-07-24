@@ -362,12 +362,38 @@ class RenovationPlanning:
                 for surface in surfaces]
             )
             print(values['series'].head())
+            if pv>0:
+                values['attributes']['has_PV'] = True
             if pv>0 and self.renovation_plan.loc[b, f'install_battery_{sim_year}']:
                 values['attributes']['has_battery'] = True
                 battery_capacity = values['series']['ElectricConsumption'].sum()/1000
                 battery = pc.Battery_tech(Capacity=battery_capacity, Technology=battery_type)
                 values['battery'] = battery
     
+    def add_openbeers_batteries(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
+        sim_year = simulation.year
+        battery_type = planner_config.battery_type
+        for b, b_values in buildings.items():
+            pv_installations = b_values['PV']
+            if (pv_installations is not None 
+                    and len(pv_installations) > 0):
+                b_values['attributes']['has_PV'] = True
+            if (pv_installations is not None 
+                    and len(pv_installations) > 0
+                    and self.renovation_plan.loc[b, f'install_battery_{sim_year}']):
+                b_values['attributes']['has_battery'] = True
+                battery_capacity = b_values['series']['ElectricConsumption'].sum()/1000
+                battery = pc.Battery_tech(Capacity=battery_capacity, Technology=battery_type)
+                b_values['battery'] = battery
+    
+    def add_openbeers_HP_flags(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
+        for b, b_values in buildings.items():
+            hp_installation = b_values['heat_pump']
+            b_values['attributes']['has_HP'] = False
+            if (hp_installation is not None
+                    and len(hp_installation) > 0):
+                b_values['attributes']['has_HP'] = True
+
     def add_HP_flags(self, buildings: Dict[int, Any], simulation: Simulation) -> None:
         """Adds a heat pump to all buildings that have been marked to have a heat pump at the given simulation year
         If CitySim marked a building to have a HP, it is added but other HPs are removed so that the HP penetration ratio 
@@ -400,8 +426,7 @@ class RenovationPlanning:
         ].index.to_list()
 
         number_of_flags_to_change = len(flags_to_turn_True)
-        number_of_ok_differences = len(ok_but_different)
-        print(number_of_flags_to_change, number_of_ok_differences)
+        # number_of_ok_differences = len(ok_but_different)
         flags_to_turn_False = rng.choice(ok_but_different, size=number_of_flags_to_change, replace=False)
 
         for b, values in buildings.items():
