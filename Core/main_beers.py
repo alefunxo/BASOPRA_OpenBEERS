@@ -871,10 +871,18 @@ special_configurations = {
 def create_run_configurations(buildings_data):
     fixed_config = core_config.basopra_fixed_parameters
 
+    whitelist = config.building_whitelist
+    blacklist = config.building_blacklist
+
     Combs_todo_dicts = []
     for building, b_data in buildings_data.items():
+        if whitelist is not None and building not in whitelist:
+            continue
+        if blacklist is not None and building in blacklist:
+            continue
         b_base_config = fixed_config.copy()
         building_conf = get_conf_for_building(b_data)
+
 
         # if b_data['attributes'].get('ev_count', 0) == 0:
         #     b_base_config['ev_profiles'] = None
