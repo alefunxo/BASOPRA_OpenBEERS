@@ -166,7 +166,7 @@ async def process_simulation(sim_name: str, sim: Simulation, pricer: Electricity
         extraction = pickle_load(save_file)
     elif sim is None and not os.path.exists(save_file):
         logger.info(f"Simulation {sim_name} not found on OpenBeers and no fallback extraction available.")
-        logger.info(f"Interrupting simulation for {sim.name}")
+        logger.info(f"Interrupting simulation for {sim_name}")
         return
     else:
         logger.info(f"Processing {sim.name}")

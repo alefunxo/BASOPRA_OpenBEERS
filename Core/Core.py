@@ -283,15 +283,17 @@ def Optimize(data_input, param):
             continue
         global_lock.acquire()
         if sys.platform == 'linux' or sys.platform == 'win32':
-            opt = SolverFactory('gurobi_persistent')
+            opt = SolverFactory('gurobi')
             opt.options["threads"] = 1
-            opt.options["mipgap"] = 0.01
+            opt.options["mipgap"] = 0.02
+            opt.options["TimeLimit"] = 180    
+
         else:
             opt = SolverFactory('cplex', executable='/opt/ibm/ILOG/CPLEX_Studio1271/cplex/bin/x86-64_linux/cplex')
             opt.options["threads"] = 1
             opt.options["mipgap"] = 0.001
         logger.debug("Solver initialized, starting solve for day index %s", i)
-        opt.set_instance(instance)
+        #opt.set_instance(instance)
 
         # 1) disable dual reductions so Gurobi separates unbounded from infeasible
         #opt.options['DualReductions'] = 0
