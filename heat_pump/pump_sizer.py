@@ -274,7 +274,7 @@ def calculate_one_heat_pump_size(
 ) -> Optional[Tuple[int, str]]:
     logger.info(f"Starting dimensioning of heat pump for building: {building_data['attributes']['egid']}")
     if  not building_data['attributes']['has_HP']:
-        return None
+        return building_id, None
     dict_design = hp_config.dict_design
     b_Ts = building_data['series']['Ts']
     b_Qs = building_data['series']['Qs']
@@ -426,9 +426,12 @@ def calculate_heat_pump_size(
     )
 
     for bid, save_file in results:
-        hp = pickle_load(save_file)
-        building_data[bid]['heat_pump'] = hp
-        os.remove(save_file)
+        if save_file not None:
+            hp = pickle_load(save_file)
+            building_data[bid]['heat_pump'] = hp
+            os.remove(save_file)
+        else:
+            building_data[bid]['heat_pump'] = None
 
 # Define a function to generate extrapolated heat pump data
 def cop_model(delta_T):
