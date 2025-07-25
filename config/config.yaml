@@ -4,7 +4,7 @@ openbeers_address: https://lab.idiap.ch/openbeers
 dest_folder: temp/
 input_dir: Input/
 output_dir: Output/
-cache: False
+cache: True
 
 multiprocessing: True
 max_processes: -4  # value of null or 0 will use max possible processes. Negative value will use max processes - value

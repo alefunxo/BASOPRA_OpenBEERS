@@ -351,7 +351,6 @@ def prep_battery_prob(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-
     
 class RenovationPlanning:
     """

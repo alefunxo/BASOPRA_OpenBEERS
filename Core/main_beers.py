@@ -171,7 +171,7 @@ def load_EV_data(combinations, single_param):
     
     ########## LOAD EV DATA
     Batt_EV = pc.Battery_tech(Capacity=combinations['EV_batt_cap'], Technology='NMC')
-    logger.info("Extract the id numbers")
+    # logger.info("Extract the id numbers")
     if combinations['EV_use'] == 'Low':
             EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVLow.csv')
             filename_EV2 = Path(f'{INPUT_PATH}dfEVLow.csv')
@@ -189,7 +189,7 @@ def load_EV_data(combinations, single_param):
             filename_EV2 = Path(f'{INPUT_PATH}dfEVNone.csv')    
     EV_ID = EV_IDs.iloc[combinations['profile_row_number']]['HHNR_WEEKDAY_WEEKENDAY']
     
-    logger.info("EV_ID: s"  + str(EV_ID))
+    # logger.info("EV_ID: s"  + str(EV_ID))
     
     
     
@@ -467,7 +467,7 @@ def load_param(combinations):
     Comments
     -----
     '''
-    logger.info('Loading data for Basopra Optimization')
+    # logger.info('Loading data for Basopra Optimization')
 
     series = combinations['hh']['series']
     idx = series.index
@@ -489,7 +489,7 @@ def load_param(combinations):
     public_charging_price=combinations['public_charging_price']
     Export_price = combinations['Export_price'] # frs/kWh
     
-    logger.info("Choose the corresponding profile for electricity")
+    # logger.info("Choose the corresponding profile for electricity")
    
     param = core_config['param_load_fixed_parameters']
     param['name']=combinations['name']
@@ -500,10 +500,10 @@ def load_param(combinations):
     df_el.columns=['E_demand','E_PV','dhw']
     
     PV_nom = pv_capacity
-    logger.info('PV_nom : {PV_nom}')
+    # logger.info(f'PV_nom : {PV_nom}')
     # Let-s try with the demand instead of the PV due to the high PV nom in the facade
     param["Capacity"] = np.round(df_el.E_demand.sum()/1000,0) # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
-    logger.info('Battery Capacity : {Capacity}')
+    # logger.info(f'Battery Capacity : {Capacity}')
     param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
    
 
