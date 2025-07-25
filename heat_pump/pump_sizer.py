@@ -426,7 +426,7 @@ def calculate_heat_pump_size(
     )
 
     for bid, save_file in results:
-        if save_file not None:
+        if save_file is not None:
             hp = pickle_load(save_file)
             building_data[bid]['heat_pump'] = hp
             os.remove(save_file)
