@@ -403,6 +403,7 @@ class RenovationPlanning:
                 for surface in surfaces]
             )
             print(values['series'].head())
+            values['attributes']['has_PV'] = False
             if pv>0:
                 values['attributes']['has_PV'] = True
             if pv>0 and self.renovation_plan.loc[b, f'install_battery_{sim_year}']:
@@ -416,6 +417,7 @@ class RenovationPlanning:
         battery_type = planner_config.battery_type
         for b, b_values in buildings.items():
             pv_installations = b_values['PV']
+            b_values['attributes']['has_PV'] = False
             if (pv_installations is not None 
                     and len(pv_installations) > 0):
                 b_values['attributes']['has_PV'] = True

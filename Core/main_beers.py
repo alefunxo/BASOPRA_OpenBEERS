@@ -598,6 +598,7 @@ def pooling2(combinations):
         # return df, aux_dict
         return output_file_path
     except Exception as e:
+        tb = traceback.format_exc()
         data_logger.error(
             f"""
             Simulation failed for:
@@ -606,9 +607,10 @@ def pooling2(combinations):
                 located in {combinations['hh']['attributes']['municipality_name']}
             Following error message returned:
             {e}
+            And following traceback:
+            {tb}
             """
         )
-        traceback.print_exc()
         return None
          # traceback.print_exc()
          # raise
@@ -910,6 +912,7 @@ def run_non_gurobi_sim(combinations: Dict[str, Any]):
         output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
         return output_file_path
     except Exception as e:
+        tb = traceback.format_exc()
         data_logger.error(
             f"""
             Simulation failed for:
@@ -918,6 +921,8 @@ def run_non_gurobi_sim(combinations: Dict[str, Any]):
                 located in {combinations['hh']['attributes']['municipality_name']}
             Following error message returned:
             {e}
+            And following traceback:
+            {tb}
             """
         )
         return None
