@@ -1,312 +1,299 @@
-,commune,gwaerdath1,gwaerzh1,gwaerdath2,gwaerzh2,num_occupants,gwaerzh1_lit,gwaerzh2_lit,total_vehicle_count,ev_count_2025,ev_count_2035,ev_count_2045,ev_count_2050,hp_installed_2025,hp_installed_2035,hp_installed_2045,hp_installed_2050,install_battery_2025,install_battery_2035,install_battery_2045,install_battery_2050
-185,Val de Bagnes,13.01.2021,7430,13.01.2021,7452,8,Chaudière (générique) pour un seul bâtiment,Chauffage électrique direct (y compris radiateur infra-rouge),7,0,2,5,6,False,False,True,True,False,True,True,True
-257,Val de Bagnes,04.12.2019,7430,-,,3,Chaudière (générique) pour un seul bâtiment,,2,0,1,1,2,False,False,True,True,True,True,True,True
-162,Val de Bagnes,29.11.2001,7450,-,,1,Chauffage central électrique pour un seul bâtiment,,1,0,0,1,1,False,True,True,True,False,True,True,True
-275,Val de Bagnes,29.11.2001,7436,-,,5,Poêle,,2,0,0,0,0,False,True,True,True,False,True,True,True
-318,Val de Bagnes,29.11.2001,7430,-,,5,Chaudière (générique) pour un seul bâtiment,,7,0,0,2,4,False,True,True,True,False,True,True,True
-256,Val de Bagnes,22.04.2020,7420,-,,7,Installation solaire thermique pour un seul bâtiment,,6,1,1,3,5,False,False,True,True,False,True,True,True
-317,Val de Bagnes,29.11.2001,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,3,0,0,1,2,False,True,True,True,False,True,True,True
-201,Val de Bagnes,29.11.2001,7436,-,,3,Poêle,,3,0,0,2,3,False,True,True,True,False,True,True,True
-152,Val de Bagnes,29.11.2001,7436,-,,5,Poêle,,3,1,1,1,1,False,True,True,True,True,True,True,True
-284,Val de Bagnes,31.03.2005,7450,-,,7,Chauffage central électrique pour un seul bâtiment,,9,0,0,1,4,False,True,True,True,False,True,True,True
-313,Val de Bagnes,29.11.2001,7430,-,,2,Chaudière (générique) pour un seul bâtiment,,1,0,0,0,1,False,True,True,True,True,True,True,True
-198,Val de Bagnes,29.11.2001,7436,-,,6,Poêle,,5,0,0,2,3,False,True,True,True,False,False,False,True
-221,Val de Bagnes,29.11.2001,7430,-,,5,Chaudière (générique) pour un seul bâtiment,,0,0,0,0,0,False,True,True,True,False,True,True,True
-310,Val de Bagnes,29.11.2001,7450,-,,1,Chauffage central électrique pour un seul bâtiment,,0,0,0,0,0,False,True,True,True,True,True,True,True
-286,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,1,0,0,1,1,False,True,True,True,False,True,True,True
-309,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,5,0,0,1,1,False,True,True,True,True,True,True,True
-245,Val de Bagnes,20.09.2005,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,3,0,0,1,2,False,True,True,True,True,True,True,True
-143,Val de Bagnes,29.11.2001,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,7,0,0,3,6,False,True,True,True,True,True,True,True
-150,Val de Bagnes,29.11.2001,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,5,0,1,2,2,False,True,True,True,True,True,True,True
-264,Val de Bagnes,13.12.2010,7410,-,,5,Pompe à chaleur PAC pour un seul bâtiment,,3,0,0,1,2,True,True,True,True,True,True,True,True
-192,Val de Bagnes,29.11.2001,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,3,0,1,1,2,False,True,True,True,True,True,True,True
-274,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,2,0,1,2,2,False,True,True,True,False,True,True,True
-301,Val de Bagnes,29.11.2001,7450,-,,15,Chauffage central électrique pour un seul bâtiment,,12,2,3,7,9,False,True,True,True,False,True,True,True
-295,Val de Bagnes,29.11.2001,7452,-,,1,Chauffage électrique direct (y compris radiateur infra-rouge),,1,0,0,0,0,False,True,True,True,False,True,True,True
-325,Val de Bagnes,29.11.2001,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,3,1,1,1,2,False,True,True,True,True,True,True,True
-302,Val de Bagnes,29.11.2001,7436,-,,5,Poêle,,2,1,1,2,2,False,True,True,True,False,True,True,True
-237,Val de Bagnes,31.12.2018,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,1,0,0,0,0,False,False,True,True,False,True,True,True
-270,Val de Bagnes,29.11.2001,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,4,0,0,2,3,False,True,True,True,True,True,True,True
-249,Val de Bagnes,29.11.2001,7430,-,,6,Chaudière (générique) pour un seul bâtiment,,1,0,0,1,1,False,True,True,True,False,True,True,True
-219,Val de Bagnes,29.11.2001,7436,-,,7,Poêle,,6,1,1,2,4,False,True,True,True,True,True,True,True
-246,Val de Bagnes,29.11.2001,7450,-,,2,Chauffage central électrique pour un seul bâtiment,,1,0,0,0,0,False,True,True,True,False,True,True,True
-203,Val de Bagnes,29.11.2001,7450,-,,17,Chauffage central électrique pour un seul bâtiment,,10,0,0,6,6,False,True,True,True,False,True,True,True
-167,Val de Bagnes,29.11.2001,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,3,0,0,0,1,False,True,True,True,True,True,True,True
-316,Val de Bagnes,29.11.2001,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,1,0,0,0,0,False,True,True,True,False,False,True,True
-230,Val de Bagnes,29.11.2001,7430,-,,6,Chaudière (générique) pour un seul bâtiment,,5,1,1,2,4,False,True,True,True,False,False,True,True
-297,Val de Bagnes,25.11.2008,7410,-,,3,Pompe à chaleur PAC pour un seul bâtiment,,1,0,0,0,0,True,True,True,True,True,True,True,True
-225,Val de Bagnes,03.12.2010,7436,-,,7,Poêle,,5,1,1,2,4,False,True,True,True,False,True,True,True
-254,Val de Bagnes,11.04.2007,7450,-,,9,Chauffage central électrique pour un seul bâtiment,,3,0,0,1,1,False,True,True,True,False,True,True,True
-190,Val de Bagnes,29.11.2001,7436,-,,3,Poêle,,1,1,1,1,1,False,True,True,True,False,True,True,True
-216,Val de Bagnes,29.11.2001,7436,-,,2,Poêle,,3,0,1,2,2,False,True,True,True,False,True,True,True
-181,Val de Bagnes,04.12.2019,7430,-,,11,Chaudière (générique) pour un seul bâtiment,,6,0,0,4,5,False,False,True,True,True,True,True,True
-177,Val de Bagnes,29.11.2001,7436,-,,1,Poêle,,1,0,0,1,1,False,True,True,True,False,True,True,True
-134,Val de Bagnes,29.11.2001,7450,-,,26,Chauffage central électrique pour un seul bâtiment,,18,1,2,10,11,False,True,True,True,True,True,True,True
-217,Val de Bagnes,29.11.2001,7436,-,,1,Poêle,,4,1,1,1,4,False,True,True,True,True,True,True,True
-321,Val de Bagnes,04.12.2019,7430,-,,4,Chaudière (générique) pour un seul bâtiment,,4,0,0,0,1,False,False,True,True,False,True,True,True
-200,Val de Bagnes,29.11.2001,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,10,1,3,6,6,False,True,True,True,True,True,True,True
-323,Val de Bagnes,29.11.2001,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,2,0,0,0,0,False,True,True,True,True,True,True,True
-293,Val de Bagnes,29.11.2001,7436,-,,4,Poêle,,5,1,2,4,5,False,True,True,True,False,False,False,True
-250,Val de Bagnes,29.11.2001,7450,-,,11,Chauffage central électrique pour un seul bâtiment,,8,0,2,4,5,False,True,True,True,True,True,True,True
-184,Val de Bagnes,29.11.2001,7436,-,,5,Poêle,,2,0,0,1,1,False,True,True,True,True,True,True,True
-261,Val de Bagnes,13.12.2010,7410,-,,7,Pompe à chaleur PAC pour un seul bâtiment,,7,0,2,2,3,True,True,True,True,True,True,True,True
-193,Val de Bagnes,29.11.2001,7436,-,,8,Poêle,,4,0,0,2,3,False,True,True,True,True,True,True,True
-308,Val de Bagnes,30.11.2023,7400,30.11.2023,7400,3,Pas de générateur de chaleur,Pas de générateur de chaleur,2,1,1,1,1,False,False,True,True,False,True,True,True
-207,Val de Bagnes,29.11.2001,7450,-,,2,Chauffage central électrique pour un seul bâtiment,,0,0,0,0,0,False,True,True,True,False,False,True,True
-144,Val de Bagnes,09.02.2016,7410,-,,3,Pompe à chaleur PAC pour un seul bâtiment,,2,0,0,0,2,True,True,True,True,False,True,True,True
-158,Val de Bagnes,29.11.2001,7450,-,,2,Chauffage central électrique pour un seul bâtiment,,3,0,0,1,2,False,True,True,True,False,True,True,True
-280,Val de Bagnes,29.11.2001,7450,-,,12,Chauffage central électrique pour un seul bâtiment,,15,1,1,4,7,False,True,True,True,True,True,True,True
-255,Val de Bagnes,29.11.2001,7450,-,,7,Chauffage central électrique pour un seul bâtiment,,2,0,0,0,1,False,True,True,True,True,True,True,True
-199,Val de Bagnes,24.05.2013,7450,-,,1,Chauffage central électrique pour un seul bâtiment,,1,0,0,0,0,False,True,True,True,True,True,True,True
-324,Val de Bagnes,29.11.2001,7450,-,,2,Chauffage central électrique pour un seul bâtiment,,1,0,0,1,1,False,True,True,True,False,False,True,True
-210,Val de Bagnes,29.11.2001,7450,-,,12,Chauffage central électrique pour un seul bâtiment,,4,1,1,1,2,False,True,True,True,False,False,True,True
-279,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,1,0,0,0,1,False,True,True,True,False,True,True,True
-266,Val de Bagnes,29.11.2001,7436,-,,1,Poêle,,2,0,0,0,1,False,True,True,True,True,True,True,True
-236,Val de Bagnes,29.11.2001,7450,-,,15,Chauffage central électrique pour un seul bâtiment,,13,1,1,3,8,False,True,True,True,True,True,True,True
-251,Val de Bagnes,-,,-,,7,,,7,0,0,3,6,False,True,True,True,False,True,True,True
-315,Val de Bagnes,29.11.2001,7410,-,,5,Pompe à chaleur PAC pour un seul bâtiment,,4,1,1,2,3,True,True,True,True,True,True,True,True
-326,Val de Bagnes,29.11.2001,7436,-,,7,Poêle,,6,0,0,1,2,False,True,True,True,False,False,True,True
-180,Val de Bagnes,13.01.2009,7450,-,,3,Chauffage central électrique pour un seul bâtiment,,2,0,0,0,1,False,True,True,True,False,True,True,True
-243,Val de Bagnes,29.11.2001,7410,-,,8,Pompe à chaleur PAC pour un seul bâtiment,,7,0,1,3,4,True,True,True,True,False,True,True,True
-182,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,2,0,0,0,0,False,True,True,True,False,False,True,True
-311,Val de Bagnes,29.11.2001,7452,-,,8,Chauffage électrique direct (y compris radiateur infra-rouge),,3,0,0,2,2,False,True,True,True,False,True,True,True
-155,Val de Bagnes,29.11.2001,7450,-,,3,Chauffage central électrique pour un seul bâtiment,,3,1,1,2,2,False,True,True,True,False,True,True,True
-240,Val de Bagnes,29.11.2001,7450,-,,3,Chauffage central électrique pour un seul bâtiment,,1,0,0,1,1,False,True,True,True,False,True,True,True
-218,Val de Bagnes,29.11.2001,7450,-,,10,Chauffage central électrique pour un seul bâtiment,,6,0,0,2,4,False,True,True,True,True,True,True,True
-294,Val de Bagnes,29.11.2001,7436,-,,6,Poêle,,2,0,0,0,0,False,True,True,True,False,True,True,True
-296,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,3,1,2,3,3,False,True,True,True,False,True,True,True
-147,Val de Bagnes,29.11.2001,7436,-,,10,Poêle,,6,0,0,2,5,False,True,True,True,True,True,True,True
-277,Val de Bagnes,29.11.2001,7410,-,,6,Pompe à chaleur PAC pour un seul bâtiment,,3,0,0,0,0,True,True,True,True,False,False,True,True
-131,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,4,1,1,2,3,False,True,True,True,True,True,True,True
-149,Val de Bagnes,03.05.2017,7410,-,,5,Pompe à chaleur PAC pour un seul bâtiment,,4,0,0,0,0,True,True,True,True,False,True,True,True
-263,Val de Bagnes,31.03.2016,7430,-,,4,Chaudière (générique) pour un seul bâtiment,,1,1,1,1,1,False,False,True,True,False,False,True,True
-234,Val de Bagnes,09.02.2016,7430,-,,4,Chaudière (générique) pour un seul bâtiment,,0,0,0,0,0,False,False,True,True,True,True,True,True
-141,Val de Bagnes,29.11.2001,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,6,0,0,1,5,False,True,True,True,True,True,True,True
-322,Val de Bagnes,29.11.2001,7430,-,,4,Chaudière (générique) pour un seul bâtiment,,4,0,0,1,4,False,True,True,True,False,False,False,False
-299,Val de Bagnes,29.11.2001,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,1,0,0,0,0,False,True,True,True,False,True,True,True
-307,Val de Bagnes,25.11.2008,7410,-,,1,Pompe à chaleur PAC pour un seul bâtiment,,1,0,0,0,1,True,True,True,True,False,True,True,True
-160,Val de Bagnes,04.12.2019,7430,-,,1,Chaudière (générique) pour un seul bâtiment,,2,0,0,0,0,False,False,True,True,True,True,True,True
-233,Val de Bagnes,28.12.2005,7450,-,,2,Chauffage central électrique pour un seul bâtiment,,2,0,0,1,1,False,True,True,True,False,True,True,True
-278,Val de Bagnes,29.11.2001,7430,-,,21,Chaudière (générique) pour un seul bâtiment,,10,2,2,2,5,False,True,True,True,False,True,True,True
-292,Val de Bagnes,28.12.2005,7450,-,,3,Chauffage central électrique pour un seul bâtiment,,4,0,0,1,1,False,True,True,True,True,True,True,True
-239,Val de Bagnes,-,,-,,30,,,22,2,4,11,15,False,True,True,True,True,True,True,True
-161,Val de Bagnes,29.11.2001,7450,-,,1,Chauffage central électrique pour un seul bâtiment,,1,0,0,1,1,False,True,True,True,True,True,True,True
-300,Val de Bagnes,29.11.2001,7450,-,,2,Chauffage central électrique pour un seul bâtiment,,0,0,0,0,0,False,True,True,True,True,True,True,True
-195,Val de Bagnes,04.12.2019,7430,-,,6,Chaudière (générique) pour un seul bâtiment,,6,0,1,1,1,False,False,True,True,False,True,True,True
-229,Val de Bagnes,19.08.2009,7450,-,,9,Chauffage central électrique pour un seul bâtiment,,6,1,1,1,1,False,True,True,True,True,True,True,True
-166,Val de Bagnes,29.11.2001,7436,-,,6,Poêle,,2,0,1,1,1,False,True,True,True,False,False,True,True
-228,Val de Bagnes,29.11.2001,7450,-,,9,Chauffage central électrique pour un seul bâtiment,,2,0,0,1,1,False,True,True,True,False,True,True,True
-290,Val de Bagnes,29.11.2001,7436,-,,7,Poêle,,2,0,0,1,2,False,True,True,True,True,True,True,True
-227,Val de Bagnes,-,,-,,3,,,1,0,1,1,1,False,True,True,True,False,False,False,True
-151,Val de Bagnes,30.11.2023,7400,30.11.2023,7400,1,Pas de générateur de chaleur,Pas de générateur de chaleur,1,0,0,0,1,False,False,True,True,True,True,True,True
-223,Val de Bagnes,03.12.2008,7450,-,,3,Chauffage central électrique pour un seul bâtiment,,4,0,0,1,2,False,True,True,True,False,True,True,True
-319,Val de Bagnes,29.11.2001,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,3,0,0,0,1,False,True,True,True,True,True,True,True
-244,Val de Bagnes,29.11.2001,7430,-,,6,Chaudière (générique) pour un seul bâtiment,,4,0,0,1,2,False,True,True,True,False,True,True,True
-188,Val de Bagnes,05.04.2024,7411,05.04.2024,7400,1,Pompe à chaleur PAC pour plusieurs bâtiments,Pas de générateur de chaleur,1,0,0,1,1,True,True,True,True,False,True,True,True
-148,Val de Bagnes,22.04.2020,7420,-,,1,Installation solaire thermique pour un seul bâtiment,,3,0,0,0,1,False,False,True,True,False,True,True,True
-173,Val de Bagnes,29.11.2001,7436,-,,4,Poêle,,2,0,0,0,0,False,True,True,True,False,True,True,True
-140,Val de Bagnes,29.11.2001,7452,-,,4,Chauffage électrique direct (y compris radiateur infra-rouge),,2,0,1,2,2,False,True,True,True,False,True,True,True
-262,Val de Bagnes,14.12.2004,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,5,0,0,1,1,False,True,True,True,True,True,True,True
-213,Val de Bagnes,29.11.2001,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,1,0,0,0,0,False,True,True,True,False,True,True,True
-273,Val de Bagnes,07.06.2016,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,1,0,0,0,0,False,False,True,True,False,True,True,True
-202,Val de Bagnes,22.07.2005,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,1,0,0,0,0,False,True,True,True,False,True,True,True
-268,Val de Bagnes,29.11.2001,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,2,0,0,0,0,False,True,True,True,True,True,True,True
-303,Val de Bagnes,24.05.2013,7450,-,,9,Chauffage central électrique pour un seul bâtiment,,6,0,1,2,5,False,True,True,True,True,True,True,True
-242,Val de Bagnes,29.11.2001,7452,-,,3,Chauffage électrique direct (y compris radiateur infra-rouge),,1,0,0,0,0,False,True,True,True,False,True,True,True
-272,Val de Bagnes,25.11.2008,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,2,0,0,0,0,False,True,True,True,False,True,True,True
-212,Val de Bagnes,20.03.2015,7410,20.03.2015,7420,8,Pompe à chaleur PAC pour un seul bâtiment,Installation solaire thermique pour un seul bâtiment,9,0,3,5,5,True,True,True,True,True,True,True,True
-138,Val de Bagnes,29.11.2001,7436,-,,3,Poêle,,4,0,0,1,1,False,True,True,True,True,True,True,True
-289,Val de Bagnes,22.07.2005,7450,-,,2,Chauffage central électrique pour un seul bâtiment,,5,0,0,2,3,False,True,True,True,False,False,True,True
-283,Val de Bagnes,07.06.2016,7450,-,,3,Chauffage central électrique pour un seul bâtiment,,2,0,0,0,1,False,False,True,True,False,False,True,True
-179,Val de Bagnes,29.11.2001,7450,-,,3,Chauffage central électrique pour un seul bâtiment,,2,0,0,1,1,False,True,True,True,False,False,True,True
-215,Val de Bagnes,26.02.2025,7410,26.02.2025,7400,5,Pompe à chaleur PAC pour un seul bâtiment,Pas de générateur de chaleur,1,0,0,0,1,True,True,True,True,True,True,True,True
-172,Val de Bagnes,30.11.2023,7400,30.11.2023,7400,3,Pas de générateur de chaleur,Pas de générateur de chaleur,3,0,0,1,2,False,False,True,True,True,True,True,True
-146,Val de Bagnes,29.11.2001,7430,-,,5,Chaudière (générique) pour un seul bâtiment,,0,0,0,0,0,False,True,True,True,True,True,True,True
-197,Val de Bagnes,21.02.2017,7430,-,,19,Chaudière (générique) pour un seul bâtiment,,17,2,3,8,9,False,False,True,True,False,True,True,True
-305,Val de Bagnes,04.12.2019,7430,-,,12,Chaudière (générique) pour un seul bâtiment,,10,0,2,6,7,False,False,True,True,False,False,True,True
-235,Val de Bagnes,29.11.2001,7436,-,,2,Poêle,,0,0,0,0,0,False,True,True,True,True,True,True,True
-281,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,3,1,1,1,2,False,True,True,True,False,False,True,True
-157,Val de Bagnes,13.01.2021,7430,13.01.2021,7452,1,Chaudière (générique) pour un seul bâtiment,Chauffage électrique direct (y compris radiateur infra-rouge),0,0,0,0,0,False,False,True,True,False,True,True,True
-220,Val de Bagnes,31.12.2017,7450,-,,7,Chauffage central électrique pour un seul bâtiment,,8,0,0,2,4,False,False,True,True,True,True,True,True
-142,Val de Bagnes,29.11.2001,7430,-,,3,Chaudière (générique) pour un seul bâtiment,,2,0,0,0,2,False,True,True,True,True,True,True,True
-298,Val de Bagnes,20.09.2016,7410,-,,7,Pompe à chaleur PAC pour un seul bâtiment,,3,0,1,2,3,True,True,True,True,False,True,True,True
-156,Val de Bagnes,29.11.2001,7436,-,,7,Poêle,,6,0,0,1,4,False,True,True,True,True,True,True,True
-194,Val de Bagnes,29.11.2001,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,4,0,0,0,1,False,True,True,True,False,True,True,True
-320,Val de Bagnes,29.11.2001,7436,-,,5,Poêle,,3,0,0,2,3,False,True,True,True,False,False,True,True
-170,Val de Bagnes,29.11.2001,7450,-,,7,Chauffage central électrique pour un seul bâtiment,,6,1,2,2,3,False,True,True,True,False,True,True,True
-226,Val de Bagnes,26.11.2019,7410,-,,5,Pompe à chaleur PAC pour un seul bâtiment,,6,0,0,3,5,True,True,True,True,False,True,True,True
-222,Val de Bagnes,29.11.2001,7436,-,,10,Poêle,,15,0,0,2,9,False,True,True,True,False,True,True,True
-139,Val de Bagnes,31.12.2018,7430,-,,11,Chaudière (générique) pour un seul bâtiment,,11,0,1,8,10,False,False,True,True,False,False,True,True
-208,Val de Bagnes,29.11.2001,7436,-,,5,Poêle,,1,0,0,0,0,False,True,True,True,False,True,True,True
-176,Val de Bagnes,29.11.2001,7450,-,,1,Chauffage central électrique pour un seul bâtiment,,0,0,0,0,0,False,True,True,True,False,True,True,True
-247,Val de Bagnes,07.08.2002,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,1,1,1,1,1,False,True,True,True,True,True,True,True
-269,Val de Bagnes,29.11.2001,7430,-,,8,Chaudière (générique) pour un seul bâtiment,,1,0,0,1,1,False,True,True,True,True,True,True,True
-306,Val de Bagnes,29.11.2001,7436,-,,3,Poêle,,3,0,0,0,0,False,True,True,True,False,True,True,True
-312,Val de Bagnes,29.11.2001,7436,-,,7,Poêle,,5,1,1,1,3,False,True,True,True,False,True,True,True
-258,Val de Bagnes,05.04.2024,7411,05.04.2024,7400,1,Pompe à chaleur PAC pour plusieurs bâtiments,Pas de générateur de chaleur,1,0,0,0,0,True,True,True,True,True,True,True,True
-224,Val de Bagnes,14.09.2006,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,3,1,1,1,1,False,True,True,True,True,True,True,True
-260,Val de Bagnes,29.11.2001,7450,-,,1,Chauffage central électrique pour un seul bâtiment,,2,0,0,0,1,False,True,True,True,False,True,True,True
-271,Val de Bagnes,29.11.2001,7436,-,,4,Poêle,,1,0,0,1,1,False,True,True,True,True,True,True,True
-314,Val de Bagnes,29.11.2001,7436,-,,2,Poêle,,1,0,0,0,0,False,True,True,True,False,True,True,True
-288,Val de Bagnes,29.11.2001,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,3,0,0,1,2,False,True,True,True,False,True,True,True
-186,Val de Bagnes,29.11.2001,7436,-,,3,Poêle,,3,0,1,1,1,False,True,True,True,False,True,True,True
-285,Val de Bagnes,29.11.2001,7436,-,,6,Poêle,,2,0,0,0,1,False,True,True,True,True,True,True,True
-135,Val de Bagnes,29.11.2001,7436,-,,5,Poêle,,2,0,0,0,1,False,True,True,True,True,True,True,True
-304,Val de Bagnes,29.11.2001,7452,-,,9,Chauffage électrique direct (y compris radiateur infra-rouge),,6,0,1,4,4,False,True,True,True,True,True,True,True
-291,Val de Bagnes,29.11.2001,7436,-,,1,Poêle,,0,0,0,0,0,False,True,True,True,True,True,True,True
-171,Val de Bagnes,03.06.2014,7430,-,,9,Chaudière (générique) pour un seul bâtiment,,6,1,1,3,5,False,True,True,True,False,True,True,True
-159,Val de Bagnes,29.02.2016,7430,-,,2,Chaudière (générique) pour un seul bâtiment,,0,0,0,0,0,False,False,True,True,False,True,True,True
-136,Val de Bagnes,05.04.2024,7411,05.04.2024,7400,5,Pompe à chaleur PAC pour plusieurs bâtiments,Pas de générateur de chaleur,4,0,0,2,3,True,True,True,True,True,True,True,True
-231,Val de Bagnes,29.11.2001,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,3,0,0,1,1,False,True,True,True,True,True,True,True
-253,Val de Bagnes,22.07.2005,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,6,1,1,1,3,False,True,True,True,True,True,True,True
-206,Val de Bagnes,29.11.2001,7436,-,,11,Poêle,,9,1,1,6,6,False,True,True,True,False,False,True,True
-132,Val de Bagnes,23.04.2008,7450,-,,9,Chauffage central électrique pour un seul bâtiment,,4,0,0,1,3,False,True,True,True,False,True,True,True
-169,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,2,1,1,1,1,False,True,True,True,False,True,True,True
-137,Val de Bagnes,29.11.2001,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,3,1,1,2,2,False,True,True,True,False,True,True,True
-241,Val de Bagnes,15.07.2025,7400,15.07.2025,7400,3,Pas de générateur de chaleur,Pas de générateur de chaleur,2,0,0,2,2,False,False,False,True,False,True,True,True
-191,Val de Bagnes,26.11.2019,7410,-,,1,Pompe à chaleur PAC pour un seul bâtiment,,3,0,0,0,1,True,True,True,True,False,False,True,True
-267,Val de Bagnes,19.08.2009,7450,-,,5,Chauffage central électrique pour un seul bâtiment,,6,0,0,1,2,False,True,True,True,True,True,True,True
-168,Val de Bagnes,04.12.2019,7430,-,,8,Chaudière (générique) pour un seul bâtiment,,3,0,0,1,2,False,False,True,True,False,True,True,True
-174,Val de Bagnes,17.02.2010,7410,-,,11,Pompe à chaleur PAC pour un seul bâtiment,,8,0,0,0,1,True,True,True,True,True,True,True,True
-163,Val de Bagnes,19.04.2007,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,7,1,2,5,5,False,True,True,True,False,True,True,True
-164,Val de Bagnes,29.11.2001,7452,-,,1,Chauffage électrique direct (y compris radiateur infra-rouge),,2,0,0,2,2,False,True,True,True,True,True,True,True
-205,Val de Bagnes,28.10.2013,7410,-,,3,Pompe à chaleur PAC pour un seul bâtiment,,1,0,0,0,1,True,True,True,True,False,True,True,True
-211,Val de Bagnes,29.11.2001,7450,-,,4,Chauffage central électrique pour un seul bâtiment,,5,0,0,1,2,False,True,True,True,True,True,True,True
-259,Val de Bagnes,29.11.2001,7452,-,,6,Chauffage électrique direct (y compris radiateur infra-rouge),,4,0,1,2,2,False,True,True,True,False,True,True,True
-165,Val de Bagnes,29.11.2001,7450,-,,1,Chauffage central électrique pour un seul bâtiment,,0,0,0,0,0,False,True,True,True,True,True,True,True
-178,Val de Bagnes,07.06.2016,7450,-,,1,Chauffage central électrique pour un seul bâtiment,,0,0,0,0,0,False,False,True,True,False,True,True,True
-175,Val de Bagnes,29.11.2001,7436,-,,6,Poêle,,3,0,0,1,1,False,True,True,True,False,True,True,True
-214,Val de Bagnes,29.11.2001,7450,-,,1,Chauffage central électrique pour un seul bâtiment,,3,0,0,0,1,False,True,True,True,True,True,True,True
-252,Val de Bagnes,29.11.2001,7450,-,,3,Chauffage central électrique pour un seul bâtiment,,3,0,0,2,2,False,True,True,True,False,True,True,True
-196,Val de Bagnes,29.11.2001,7436,-,,6,Poêle,,0,0,0,0,0,False,True,True,True,False,True,True,True
-276,Val de Bagnes,29.11.2001,7452,-,,5,Chauffage électrique direct (y compris radiateur infra-rouge),,1,0,0,0,0,False,True,True,True,True,True,True,True
-248,Val de Bagnes,29.11.2001,7452,-,,8,Chauffage électrique direct (y compris radiateur infra-rouge),,4,1,1,2,2,False,True,True,True,False,True,True,True
-209,Val de Bagnes,29.11.2001,7436,-,,6,Poêle,,9,0,0,3,4,False,True,True,True,False,False,True,True
-126,Sierre,29.11.2001,7430,-,,14,Chaudière (générique) pour un seul bâtiment,,13,2,2,3,6,False,True,True,True,False,True,True,True
-11,Sierre,29.11.2001,7430,29.11.2001,7400,12,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,9,0,2,4,6,False,True,True,True,True,True,True,True
-41,Sierre,23.06.2020,7430,-,,33,Chaudière (générique) pour un seul bâtiment,,19,2,2,8,12,False,False,True,True,False,True,True,True
-10,Sierre,29.11.2001,7430,-,,62,Chaudière (générique) pour un seul bâtiment,,42,4,6,20,26,False,True,True,True,False,True,True,True
-36,Sierre,29.11.2001,7430,-,,50,Chaudière (générique) pour un seul bâtiment,,38,3,4,15,25,False,True,True,True,True,True,True,True
-77,Sierre,07.01.2009,7431,-,,92,Chaudière (générique) pour plusieurs bâtiments,,65,4,8,25,36,False,True,True,True,False,True,True,True
-100,Sierre,29.07.2010,7430,-,,45,Chaudière (générique) pour un seul bâtiment,,35,4,5,13,19,False,True,True,True,True,True,True,True
-12,Sierre,29.11.2001,7430,-,,20,Chaudière (générique) pour un seul bâtiment,,9,0,0,3,4,False,True,True,True,True,True,True,True
-35,Sierre,29.11.2001,7430,-,,102,Chaudière (générique) pour un seul bâtiment,,90,3,8,29,51,False,True,True,True,False,True,True,True
-52,Sierre,29.11.2001,7430,-,,12,Chaudière (générique) pour un seul bâtiment,,3,1,1,2,2,False,True,True,True,False,True,True,True
-64,Sierre,03.03.2025,7410,03.03.2025,7400,15,Pompe à chaleur PAC pour un seul bâtiment,Pas de générateur de chaleur,9,1,2,3,5,True,True,True,True,False,True,True,True
-45,Sierre,08.09.2021,7430,-,,32,Chaudière (générique) pour un seul bâtiment,,16,2,3,8,11,False,False,True,True,True,True,True,True
-22,Sierre,29.11.2001,7430,-,,6,Chaudière (générique) pour un seul bâtiment,,6,0,0,2,3,False,True,True,True,False,True,True,True
-120,Sierre,29.11.2001,7410,-,,7,Pompe à chaleur PAC pour un seul bâtiment,,2,1,1,2,2,True,True,True,True,True,True,True,True
-78,Sierre,29.11.2001,7430,-,,34,Chaudière (générique) pour un seul bâtiment,,30,1,3,7,9,False,True,True,True,False,False,True,True
-48,Sierre,29.11.2001,7450,-,,6,Chauffage central électrique pour un seul bâtiment,,3,0,2,2,2,False,True,True,True,False,True,True,True
-37,Sierre,29.11.2001,7430,-,,56,Chaudière (générique) pour un seul bâtiment,,33,0,4,16,22,False,True,True,True,False,True,True,True
-79,Sierre,29.11.2001,7430,-,,25,Chaudière (générique) pour un seul bâtiment,,22,0,1,6,10,False,True,True,True,True,True,True,True
-43,Sierre,01.01.2011,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,4,0,1,2,2,False,True,True,True,False,False,False,False
-123,Sierre,29.11.2001,7430,-,,10,Chaudière (générique) pour un seul bâtiment,,8,2,2,4,5,False,True,True,True,False,True,True,True
-1,Sierre,09.01.2015,7410,-,,44,Pompe à chaleur PAC pour un seul bâtiment,,28,5,8,15,18,True,True,True,True,False,False,True,True
-44,Sierre,15.12.2005,7430,-,,23,Chaudière (générique) pour un seul bâtiment,,15,0,1,6,9,False,True,True,True,True,True,True,True
-40,Sierre,01.01.2012,7430,-,,60,Chaudière (générique) pour un seul bâtiment,,48,1,5,12,21,False,True,True,True,False,True,True,True
-68,Sierre,29.11.2001,7430,-,,17,Chaudière (générique) pour un seul bâtiment,,11,0,0,5,7,False,True,True,True,True,True,True,True
-117,Sierre,13.09.2016,7430,-,,35,Chaudière (générique) pour un seul bâtiment,,26,1,2,9,17,False,False,True,True,False,True,True,True
-33,Sierre,29.11.2001,7430,-,,5,Chaudière (générique) pour un seul bâtiment,,4,0,0,0,1,False,True,True,True,True,True,True,True
-57,Sierre,19.01.2022,7430,-,,55,Chaudière (générique) pour un seul bâtiment,,52,2,5,20,30,False,False,True,True,True,True,True,True
-106,Sierre,29.11.2001,7430,-,,1,Chaudière (générique) pour un seul bâtiment,,2,0,0,0,1,False,True,True,True,True,True,True,True
-81,Sierre,18.08.2023,7430,-,,10,Chaudière (générique) pour un seul bâtiment,,7,0,0,2,3,False,False,True,True,True,True,True,True
-26,Sierre,29.11.2001,7430,-,,34,Chaudière (générique) pour un seul bâtiment,,27,1,1,9,13,False,True,True,True,True,True,True,True
-16,Sierre,01.01.2002,7430,-,,35,Chaudière (générique) pour un seul bâtiment,,34,1,2,9,19,False,True,True,True,False,False,True,True
-107,Sierre,29.11.2001,7430,-,,47,Chaudière (générique) pour un seul bâtiment,,37,2,4,8,18,False,True,True,True,True,True,True,True
-97,Sierre,29.11.2001,7430,-,,14,Chaudière (générique) pour un seul bâtiment,,6,0,1,2,3,False,True,True,True,False,False,False,True
-111,Sierre,31.12.2017,7430,-,,126,Chaudière (générique) pour un seul bâtiment,,91,2,9,33,56,False,False,True,True,True,True,True,True
-113,Sierre,-,,-,,1,,,2,0,0,0,1,False,True,True,True,False,False,True,True
-94,Sierre,15.11.2005,7430,-,,10,Chaudière (générique) pour un seul bâtiment,,3,0,1,1,2,False,True,True,True,False,True,True,True
-84,Sierre,01.01.2003,7430,-,,86,Chaudière (générique) pour un seul bâtiment,,69,2,3,21,33,False,True,True,True,True,True,True,True
-89,Sierre,01.01.2002,7430,-,,10,Chaudière (générique) pour un seul bâtiment,,10,0,0,4,7,False,True,True,True,False,False,True,True
-83,Sierre,29.11.2001,7430,-,,29,Chaudière (générique) pour un seul bâtiment,,19,1,6,10,14,False,True,True,True,True,True,True,True
-105,Sierre,29.11.2001,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,4,0,0,0,0,False,True,True,True,False,True,True,True
-69,Sierre,29.11.2001,7430,-,,62,Chaudière (générique) pour un seul bâtiment,,32,3,3,10,19,False,True,True,True,False,True,True,True
-25,Sierre,05.07.2023,7434,-,,70,Chaudière à condensation pour un seul bâtiment,,41,3,6,16,24,False,False,True,True,True,True,True,True
-71,Sierre,29.11.2001,7430,-,,41,Chaudière (générique) pour un seul bâtiment,,34,4,6,9,17,False,True,True,True,True,True,True,True
-88,Sierre,29.11.2001,7430,-,,33,Chaudière (générique) pour un seul bâtiment,,24,0,1,4,13,False,True,True,True,True,True,True,True
-73,Sierre,29.11.2001,7430,-,,14,Chaudière (générique) pour un seul bâtiment,,5,0,0,2,2,False,True,True,True,True,True,True,True
-14,Sierre,29.11.2001,7430,-,,10,Chaudière (générique) pour un seul bâtiment,,10,0,1,6,10,False,True,True,True,False,False,True,True
-20,Sierre,29.11.2001,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,4,0,0,0,0,False,True,True,True,False,True,True,True
-5,Sierre,26.01.2006,,-,,512,,,358,19,36,121,192,False,True,True,True,True,True,True,True
-93,Sierre,29.11.2001,7430,-,,12,Chaudière (générique) pour un seul bâtiment,,7,1,1,1,2,False,True,True,True,True,True,True,True
-110,Sierre,29.11.2001,7430,-,,1,Chaudière (générique) pour un seul bâtiment,,1,0,0,0,0,False,True,True,True,True,True,True,True
-101,Sierre,01.01.2013,7430,-,,5,Chaudière (générique) pour un seul bâtiment,,2,0,0,0,1,False,True,True,True,True,True,True,True
-127,Sierre,29.11.2001,7430,-,,41,Chaudière (générique) pour un seul bâtiment,,23,3,3,9,12,False,True,True,True,False,False,True,True
-30,Sierre,29.11.2001,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,5,0,0,1,2,False,True,True,True,True,True,True,True
-103,Sierre,24.11.2015,7430,24.11.2015,7400,6,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,9,1,1,7,8,False,False,True,True,False,True,True,True
-70,Sierre,01.01.2019,7430,-,,52,Chaudière (générique) pour un seul bâtiment,,40,0,2,14,19,False,False,True,True,True,True,True,True
-28,Sierre,29.11.2001,7430,-,,10,Chaudière (générique) pour un seul bâtiment,,9,0,1,3,3,False,True,True,True,True,True,True,True
-61,Sierre,01.01.2013,7430,-,,32,Chaudière (générique) pour un seul bâtiment,,11,2,3,6,8,False,True,True,True,False,False,False,False
-104,Sierre,01.01.2017,7430,-,,6,Chaudière (générique) pour un seul bâtiment,,3,0,0,1,3,False,False,True,True,False,True,True,True
-3,Sierre,-,,-,,263,,,201,9,16,76,123,False,True,True,True,True,True,True,True
-62,Sierre,29.11.2001,7430,-,,278,Chaudière (générique) pour un seul bâtiment,,208,8,11,72,111,False,True,True,True,False,True,True,True
-75,Sierre,01.01.2012,7430,-,,62,Chaudière (générique) pour un seul bâtiment,,48,0,5,14,29,False,True,True,True,False,True,True,True
-96,Sierre,29.11.2001,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,5,0,0,2,3,False,True,True,True,True,True,True,True
-116,Sierre,29.11.2001,7450,29.11.2001,7400,11,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,14,0,0,6,8,False,True,True,True,False,True,True,True
-122,Sierre,29.11.2001,7450,29.11.2001,7400,7,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,7,0,0,1,2,False,True,True,True,False,True,True,True
-18,Sierre,31.12.2020,7410,-,,11,Pompe à chaleur PAC pour un seul bâtiment,,6,0,0,3,4,True,True,True,True,True,True,True,True
-124,Sierre,29.11.2001,7430,-,,8,Chaudière (générique) pour un seul bâtiment,,8,0,0,2,3,False,True,True,True,False,True,True,True
-59,Sierre,29.11.2001,7430,-,,9,Chaudière (générique) pour un seul bâtiment,,8,0,0,1,3,False,True,True,True,True,True,True,True
-15,Sierre,29.11.2001,7430,-,,9,Chaudière (générique) pour un seul bâtiment,,6,0,1,1,3,False,True,True,True,True,True,True,True
-129,Sierre,29.11.2001,7430,-,,8,Chaudière (générique) pour un seul bâtiment,,7,1,1,1,2,False,True,True,True,False,True,True,True
-21,Sierre,06.08.2012,7430,-,,43,Chaudière (générique) pour un seul bâtiment,,29,4,4,14,21,False,True,True,True,False,True,True,True
-29,Sierre,29.11.2001,7430,29.11.2001,7400,53,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,55,2,5,24,30,False,True,True,True,False,True,True,True
-85,Sierre,01.01.2014,7430,-,,48,Chaudière (générique) pour un seul bâtiment,,28,0,1,6,10,False,True,True,True,True,True,True,True
-114,Sierre,29.11.2001,7430,-,,2,Chaudière (générique) pour un seul bâtiment,,0,0,0,0,0,False,True,True,True,True,True,True,True
-92,Sierre,29.11.2001,7430,-,,11,Chaudière (générique) pour un seul bâtiment,,12,1,1,3,6,False,True,True,True,False,True,True,True
-63,Sierre,01.01.2010,7430,-,,53,Chaudière (générique) pour un seul bâtiment,,44,2,2,17,27,False,True,True,True,True,True,True,True
-65,Sierre,03.03.2025,7410,03.03.2025,7400,149,Pompe à chaleur PAC pour un seul bâtiment,Pas de générateur de chaleur,96,3,10,36,51,True,True,True,True,False,True,True,True
-56,Sierre,29.11.2001,7450,29.11.2001,7400,6,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,5,1,1,1,2,False,True,True,True,False,True,True,True
-76,Sierre,29.11.2001,7430,-,,44,Chaudière (générique) pour un seul bâtiment,,33,2,4,13,17,False,True,True,True,False,True,True,True
-121,Sierre,29.11.2001,7450,29.11.2001,7400,7,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,6,0,0,1,2,False,True,True,True,True,True,True,True
-7,Sierre,29.11.2001,7430,-,,69,Chaudière (générique) pour un seul bâtiment,,56,3,6,17,30,False,True,True,True,True,True,True,True
-4,Sierre,15.11.2005,7430,-,,42,Chaudière (générique) pour un seul bâtiment,,33,0,4,13,19,False,True,True,True,False,True,True,True
-2,Sierre,-,,-,,33,,,13,0,2,4,8,False,True,True,True,False,True,True,True
-119,Sierre,31.12.2018,7430,-,,12,Chaudière (générique) pour un seul bâtiment,,10,1,1,2,6,False,False,True,True,False,False,True,True
-58,Sierre,27.01.2020,7452,-,,6,Chauffage électrique direct (y compris radiateur infra-rouge),,5,0,0,2,5,False,False,True,True,True,True,True,True
-19,Sierre,29.11.2001,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,3,0,0,2,3,False,True,True,True,False,True,True,True
-67,Sierre,31.12.2021,7434,-,,60,Chaudière à condensation pour un seul bâtiment,,50,0,3,14,25,False,False,True,True,False,False,False,True
-118,Sierre,01.01.2015,7430,-,,8,Chaudière (générique) pour un seul bâtiment,,3,0,0,1,1,False,False,True,True,True,True,True,True
-128,Sierre,29.11.2001,7430,-,,30,Chaudière (générique) pour un seul bâtiment,,17,1,1,3,6,False,True,True,True,False,True,True,True
-54,Sierre,29.11.2001,7450,29.11.2001,7400,6,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,2,1,1,1,1,False,True,True,True,False,True,True,True
-95,Sierre,15.11.2005,7430,-,,10,Chaudière (générique) pour un seul bâtiment,,8,2,3,5,7,False,True,True,True,True,True,True,True
-31,Sierre,29.11.2001,7430,-,,29,Chaudière (générique) pour un seul bâtiment,,23,0,1,6,11,False,True,True,True,True,True,True,True
-27,Sierre,29.11.2001,7430,-,,5,Chaudière (générique) pour un seul bâtiment,,3,0,0,0,0,False,True,True,True,False,True,True,True
-80,Sierre,07.01.2009,7431,-,,90,Chaudière (générique) pour plusieurs bâtiments,,59,3,3,23,42,False,True,True,True,False,True,True,True
-125,Sierre,14.05.2023,7430,-,,70,Chaudière (générique) pour un seul bâtiment,,48,1,4,17,28,False,False,True,True,False,True,True,True
-109,Sierre,31.12.2023,7410,-,,5,Pompe à chaleur PAC pour un seul bâtiment,,3,1,1,3,3,True,True,True,True,True,True,True,True
-90,Sierre,29.11.2001,7430,-,,15,Chaudière (générique) pour un seul bâtiment,,9,0,0,3,6,False,True,True,True,True,True,True,True
-53,Sierre,29.11.2001,7430,-,,5,Chaudière (générique) pour un seul bâtiment,,1,0,0,1,1,False,True,True,True,False,True,True,True
-99,Sierre,29.11.2001,7430,-,,34,Chaudière (générique) pour un seul bâtiment,,26,2,2,6,12,False,True,True,True,False,True,True,True
-108,Sierre,29.11.2001,7430,-,,6,Chaudière (générique) pour un seul bâtiment,,4,0,0,1,1,False,True,True,True,True,True,True,True
-102,Sierre,24.11.2015,7430,13.05.2024,7400,6,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,0,0,0,0,0,False,False,True,True,False,True,True,True
-72,Sierre,29.05.2012,7430,-,,52,Chaudière (générique) pour un seul bâtiment,,43,1,2,13,21,False,True,True,True,True,True,True,True
-42,Sierre,01.01.2003,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,8,1,1,4,6,False,True,True,True,True,True,True,True
-66,Sierre,29.11.2001,7430,-,,73,Chaudière (générique) pour un seul bâtiment,,57,0,4,17,25,False,True,True,True,True,True,True,True
-32,Sierre,29.11.2001,7430,-,,26,Chaudière (générique) pour un seul bâtiment,,15,1,1,5,8,False,True,True,True,True,True,True,True
-82,Sierre,23.10.2020,7430,15.11.2005,7400,137,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,95,4,10,29,50,False,False,True,True,False,True,True,True
-51,Sierre,01.01.2013,7430,-,,5,Chaudière (générique) pour un seul bâtiment,,1,0,0,0,0,False,True,True,True,False,True,True,True
-60,Sierre,29.08.2017,7430,29.11.2001,7400,33,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,26,1,4,9,17,False,False,True,True,False,False,True,True
-17,Sierre,15.12.2006,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,6,1,1,2,4,False,True,True,True,False,True,True,True
-87,Sierre,29.11.2001,7430,-,,45,Chaudière (générique) pour un seul bâtiment,,27,1,4,7,10,False,True,True,True,True,True,True,True
-6,Sierre,-,,-,,160,,,106,6,12,37,59,False,True,True,True,False,True,True,True
-38,Sierre,29.11.2001,7430,-,,2,Chaudière (générique) pour un seul bâtiment,,3,0,0,1,1,False,True,True,True,False,False,True,True
-50,Sierre,29.11.2001,7430,-,,8,Chaudière (générique) pour un seul bâtiment,,5,0,1,2,2,False,True,True,True,False,True,True,True
-112,Sierre,27.07.2005,7430,-,,705,Chaudière (générique) pour un seul bâtiment,,520,26,53,176,270,False,True,True,True,False,True,True,True
-13,Sierre,29.11.2001,7430,-,,10,Chaudière (générique) pour un seul bâtiment,,9,1,2,3,5,False,True,True,True,False,True,True,True
-74,Sierre,29.11.2001,7430,-,,11,Chaudière (générique) pour un seul bâtiment,,5,0,0,2,3,False,True,True,True,True,True,True,True
-23,Sierre,29.11.2001,7430,-,,4,Chaudière (générique) pour un seul bâtiment,,4,0,0,1,1,False,True,True,True,False,False,True,True
-8,Sierre,29.11.2001,7430,-,,38,Chaudière (générique) pour un seul bâtiment,,31,1,3,8,13,False,True,True,True,False,True,True,True
-46,Sierre,29.11.2001,7430,-,,14,Chaudière (générique) pour un seul bâtiment,,5,0,0,2,2,False,True,True,True,False,True,True,True
-49,Sierre,01.01.2012,7430,29.11.2001,7400,61,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,40,2,3,17,23,False,True,True,True,True,True,True,True
-55,Sierre,29.11.2001,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,4,0,1,1,1,False,True,True,True,False,True,True,True
-98,Sierre,01.05.2019,7434,-,,7,Chaudière à condensation pour un seul bâtiment,,10,1,1,4,5,False,False,True,True,False,False,True,True
-47,Sierre,29.11.2001,7430,-,,6,Chaudière (générique) pour un seul bâtiment,,4,0,0,0,1,False,True,True,True,True,True,True,True
-115,Sierre,-,,-,,260,,,203,13,24,73,113,False,True,True,True,False,True,True,True
-9,Sierre,29.11.2001,7430,-,,26,Chaudière (générique) pour un seul bâtiment,,18,0,2,8,10,False,True,True,True,True,True,True,True
-24,Sierre,02.10.2018,7434,-,,9,Chaudière à condensation pour un seul bâtiment,,9,0,0,4,6,False,False,True,True,True,True,True,True
-39,Sierre,01.01.2003,7430,-,,7,Chaudière (générique) pour un seul bâtiment,,8,1,1,4,5,False,True,True,True,False,True,True,True
-86,Sierre,05.11.2007,7430,-,,40,Chaudière (générique) pour un seul bâtiment,,25,3,3,6,12,False,True,True,True,False,True,True,True
-91,Sierre,29.11.2001,7430,-,,9,Chaudière (générique) pour un seul bâtiment,,8,0,0,2,3,False,True,True,True,False,True,True,True
+,commune,gwaerdath2,gwaerzh1,gwaerdath1,num_occupants,gwaerzh1_lit,gwaerzh2_lit,gwaerzh2,total_vehicle_count,ev_count_2025,ev_count_2040,ev_count_2050,hp_installed_2025,hp_installed_2040,hp_installed_2050,install_battery_2025,install_battery_2040,install_battery_2050
+126,Sierre,-,7430,29.11.2001,18,Chaudière (générique) pour un seul bâtiment,,,12,1,6,11,False,True,True,False,True,True
+11,Sierre,29.11.2001,7430,29.11.2001,12,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,7400,13,2,5,10,False,True,True,False,True,True
+41,Sierre,-,7430,23.06.2020,33,Chaudière (générique) pour un seul bâtiment,,,24,2,9,21,False,False,True,True,True,True
+36,Sierre,-,7430,29.11.2001,50,Chaudière (générique) pour un seul bâtiment,,,33,0,12,27,False,True,True,False,False,True
+77,Sierre,-,7431,07.01.2009,92,Chaudière (générique) pour plusieurs bâtiments,,,47,1,16,41,False,True,True,False,True,True
+100,Sierre,-,7434,01.05.2019,7,Chaudière à condensation pour un seul bâtiment,,,3,1,2,3,False,True,True,True,True,True
+12,Sierre,-,7430,29.11.2001,20,Chaudière (générique) pour un seul bâtiment,,,12,1,6,11,False,True,True,True,True,True
+35,Sierre,-,7430,29.11.2001,102,Chaudière (générique) pour un seul bâtiment,,,66,1,32,54,False,True,True,False,False,True
+52,Sierre,-,7430,29.11.2001,12,Chaudière (générique) pour un seul bâtiment,,,8,1,2,7,False,True,True,False,True,True
+64,Sierre,03.03.2025,7410,03.03.2025,15,Pompe à chaleur PAC pour un seul bâtiment,Pas de générateur de chaleur,7400,18,1,9,14,True,True,True,False,True,True
+45,Sierre,-,7430,08.09.2021,32,Chaudière (générique) pour un seul bâtiment,,,12,0,1,11,False,False,True,False,True,True
+22,Sierre,-,7430,29.11.2001,6,Chaudière (générique) pour un seul bâtiment,,,6,0,1,5,False,True,True,True,True,True
+120,Sierre,-,7430,31.12.2018,12,Chaudière (générique) pour un seul bâtiment,,,12,0,4,8,False,True,True,False,True,True
+78,Sierre,-,7430,29.11.2001,34,Chaudière (générique) pour un seul bâtiment,,,22,0,9,20,False,True,True,True,True,True
+48,Sierre,-,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,,,3,1,2,3,False,True,True,True,True,True
+37,Sierre,-,7430,29.11.2001,56,Chaudière (générique) pour un seul bâtiment,,,29,4,12,26,False,True,True,False,True,True
+79,Sierre,-,7430,29.11.2001,25,Chaudière (générique) pour un seul bâtiment,,,16,0,6,13,False,True,True,False,True,True
+43,Sierre,-,7430,01.01.2011,7,Chaudière (générique) pour un seul bâtiment,,,3,0,1,3,False,True,True,True,True,True
+123,Sierre,29.11.2001,7450,29.11.2001,7,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,7400,2,0,0,0,False,True,True,True,True,True
+1,Sierre,-,7410,09.01.2015,44,Pompe à chaleur PAC pour un seul bâtiment,,,30,2,9,24,True,True,True,False,True,True
+44,Sierre,-,7430,15.12.2005,23,Chaudière (générique) pour un seul bâtiment,,,13,0,5,9,False,True,True,False,True,True
+40,Sierre,-,7430,01.01.2012,60,Chaudière (générique) pour un seul bâtiment,,,30,0,6,23,False,True,True,False,True,True
+68,Sierre,-,7430,29.11.2001,17,Chaudière (générique) pour un seul bâtiment,,,9,0,5,7,False,True,True,False,True,True
+117,Sierre,29.11.2001,7450,29.11.2001,11,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,7400,2,0,1,2,False,True,True,False,False,True
+33,Sierre,-,7430,29.11.2001,5,Chaudière (générique) pour un seul bâtiment,,,2,0,1,1,False,True,True,False,True,True
+57,Sierre,-,7430,19.01.2022,55,Chaudière (générique) pour un seul bâtiment,,,35,2,14,28,False,False,True,True,True,True
+106,Sierre,-,7430,01.01.2017,6,Chaudière (générique) pour un seul bâtiment,,,3,0,1,2,False,True,True,True,True,True
+81,Sierre,-,7430,18.08.2023,10,Chaudière (générique) pour un seul bâtiment,,,12,0,0,9,False,False,True,True,True,True
+26,Sierre,-,7430,29.11.2001,34,Chaudière (générique) pour un seul bâtiment,,,23,3,11,20,False,True,True,False,False,True
+16,Sierre,-,7430,01.01.2002,35,Chaudière (générique) pour un seul bâtiment,,,19,1,9,18,False,True,True,False,False,True
+107,Sierre,-,7430,29.11.2001,7,Chaudière (générique) pour un seul bâtiment,,,5,0,0,3,False,True,True,False,True,True
+97,Sierre,-,7430,29.11.2001,10,Chaudière (générique) pour un seul bâtiment,,,17,0,6,16,False,True,True,True,True,True
+111,Sierre,-,7410,31.12.2023,5,Pompe à chaleur PAC pour un seul bâtiment,,,4,1,2,4,True,True,True,True,True,True
+113,Sierre,-,7430,27.07.2005,705,Chaudière (générique) pour un seul bâtiment,,,462,22,188,350,False,True,True,True,True,True
+94,Sierre,-,7430,29.11.2001,11,Chaudière (générique) pour un seul bâtiment,,,7,0,2,5,False,True,True,True,True,True
+84,Sierre,-,7430,01.01.2003,86,Chaudière (générique) pour un seul bâtiment,,,45,0,12,31,False,True,True,False,True,True
+89,Sierre,-,7430,29.11.2001,34,Chaudière (générique) pour un seul bâtiment,,,24,1,8,17,False,True,True,False,True,True
+130,Sierre,-,7430,29.11.2001,8,Chaudière (générique) pour un seul bâtiment,,,4,0,2,4,False,True,True,False,True,True
+83,Sierre,-,7430,21.01.2014,59,Chaudière (générique) pour un seul bâtiment,,,33,0,10,28,False,True,True,False,True,True
+69,Sierre,-,7430,29.11.2001,62,Chaudière (générique) pour un seul bâtiment,,,42,3,12,30,False,True,True,False,True,True
+25,Sierre,-,7434,05.07.2023,70,Chaudière à condensation pour un seul bâtiment,,,46,2,17,38,False,False,True,False,True,True
+71,Sierre,-,7430,29.11.2001,41,Chaudière (générique) pour un seul bâtiment,,,31,2,9,20,False,True,True,True,True,True
+88,Sierre,-,7430,29.11.2001,33,Chaudière (générique) pour un seul bâtiment,,,21,2,7,13,False,True,True,False,True,True
+73,Sierre,-,7430,29.11.2001,14,Chaudière (générique) pour un seul bâtiment,,,8,1,3,7,False,True,True,False,True,True
+14,Sierre,-,7430,29.11.2001,10,Chaudière (générique) pour un seul bâtiment,,,11,0,6,10,False,True,True,False,False,False
+20,Sierre,-,7430,29.11.2001,7,Chaudière (générique) pour un seul bâtiment,,,0,0,0,0,False,True,True,True,True,True
+5,Sierre,-,,26.01.2006,512,,,,371,19,142,292,False,True,True,True,True,True
+93,Sierre,-,7430,29.11.2001,9,Chaudière (générique) pour un seul bâtiment,,,4,0,1,2,False,True,True,True,True,True
+110,Sierre,-,7430,29.11.2001,6,Chaudière (générique) pour un seul bâtiment,,,3,0,1,2,False,True,True,False,True,True
+101,Sierre,-,7430,29.11.2001,34,Chaudière (générique) pour un seul bâtiment,,,19,1,6,14,False,True,True,False,True,True
+127,Sierre,-,7430,29.11.2001,14,Chaudière (générique) pour un seul bâtiment,,,4,1,2,4,False,True,True,False,True,True
+30,Sierre,-,7430,29.11.2001,7,Chaudière (générique) pour un seul bâtiment,,,4,0,2,3,False,True,True,False,False,True
+103,Sierre,-,7430,01.01.2013,5,Chaudière (générique) pour un seul bâtiment,,,3,0,1,1,False,True,True,True,True,True
+70,Sierre,-,7430,01.01.2019,52,Chaudière (générique) pour un seul bâtiment,,,30,2,15,26,False,True,True,False,True,True
+28,Sierre,-,7430,29.11.2001,10,Chaudière (générique) pour un seul bâtiment,,,3,0,1,3,False,True,True,False,True,True
+61,Sierre,-,7430,01.01.2013,32,Chaudière (générique) pour un seul bâtiment,,,20,1,7,15,False,True,True,False,True,True
+3,Sierre,-,,-,263,,,,180,4,66,140,False,True,True,False,True,True
+62,Sierre,-,7430,29.11.2001,278,Chaudière (générique) pour un seul bâtiment,,,176,8,71,142,False,True,True,True,True,True
+75,Sierre,-,7430,01.01.2012,62,Chaudière (générique) pour un seul bâtiment,,,33,3,11,25,False,True,True,True,True,True
+96,Sierre,-,7430,29.11.2001,10,Chaudière (générique) pour un seul bâtiment,,,12,1,6,11,False,True,True,False,True,True
+116,Sierre,-,,-,260,,,,176,9,79,150,False,True,True,False,True,True
+122,Sierre,29.11.2001,7450,29.11.2001,7,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,7400,4,0,1,3,False,True,True,False,True,True
+18,Sierre,-,7410,31.12.2020,11,Pompe à chaleur PAC pour un seul bâtiment,,,5,1,2,4,True,True,True,False,False,True
+124,Sierre,-,7430,29.11.2001,10,Chaudière (générique) pour un seul bâtiment,,,6,0,1,5,False,True,True,False,True,True
+59,Sierre,-,7430,29.11.2001,9,Chaudière (générique) pour un seul bâtiment,,,6,1,2,5,False,True,True,False,False,True
+15,Sierre,-,7430,29.11.2001,9,Chaudière (générique) pour un seul bâtiment,,,4,0,3,3,False,True,True,False,True,True
+129,Sierre,-,7430,29.11.2001,30,Chaudière (générique) pour un seul bâtiment,,,21,1,12,16,False,True,True,False,True,True
+21,Sierre,-,7430,06.08.2012,43,Chaudière (générique) pour un seul bâtiment,,,43,2,16,37,False,True,True,True,True,True
+29,Sierre,29.11.2001,7430,29.11.2001,53,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,7400,35,1,13,26,False,True,True,False,True,True
+85,Sierre,-,7430,01.01.2014,48,Chaudière (générique) pour un seul bâtiment,,,18,1,9,14,False,True,True,False,False,False
+114,Sierre,-,,-,1,,,,1,0,0,1,False,True,True,False,False,False
+92,Sierre,-,7430,29.11.2001,15,Chaudière (générique) pour un seul bâtiment,,,12,0,5,9,False,True,True,False,True,True
+63,Sierre,-,7430,01.01.2010,53,Chaudière (générique) pour un seul bâtiment,,,38,1,16,29,False,True,True,False,True,True
+65,Sierre,03.03.2025,7410,03.03.2025,149,Pompe à chaleur PAC pour un seul bâtiment,Pas de générateur de chaleur,7400,105,3,38,83,True,True,True,False,True,True
+56,Sierre,29.11.2001,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,7400,5,0,3,4,False,True,True,True,True,True
+76,Sierre,-,7430,29.11.2001,44,Chaudière (générique) pour un seul bâtiment,,,34,2,11,21,False,True,True,False,True,True
+121,Sierre,-,7410,29.11.2001,7,Pompe à chaleur PAC pour un seul bâtiment,,,1,0,1,1,True,True,True,False,True,True
+7,Sierre,-,7430,29.11.2001,69,Chaudière (générique) pour un seul bâtiment,,,47,2,24,34,False,True,True,False,True,True
+4,Sierre,-,7430,29.11.2001,42,Chaudière (générique) pour un seul bâtiment,,,27,1,10,18,False,True,True,True,True,True
+2,Sierre,-,,-,33,,,,26,0,14,20,False,True,True,True,True,True
+119,Sierre,-,7430,01.01.2015,8,Chaudière (générique) pour un seul bâtiment,,,5,1,2,5,False,True,True,True,True,True
+58,Sierre,-,7452,27.01.2020,6,Chauffage électrique direct (y compris radiateur infra-rouge),,,4,1,3,4,False,False,True,False,True,True
+19,Sierre,-,7430,29.11.2001,7,Chaudière (générique) pour un seul bâtiment,,,7,0,4,6,False,True,True,True,True,True
+67,Sierre,-,7434,31.12.2021,60,Chaudière à condensation pour un seul bâtiment,,,40,3,19,37,False,False,True,False,True,True
+118,Sierre,-,7430,13.09.2016,35,Chaudière (générique) pour un seul bâtiment,,,25,1,9,19,False,True,True,True,True,True
+128,Sierre,-,7430,29.11.2001,41,Chaudière (générique) pour un seul bâtiment,,,46,1,16,39,False,True,True,True,True,True
+54,Sierre,29.11.2001,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,Pas de générateur de chaleur,7400,5,0,3,3,False,True,True,True,True,True
+95,Sierre,-,7430,29.11.2001,12,Chaudière (générique) pour un seul bâtiment,,,7,0,3,5,False,True,True,True,True,True
+31,Sierre,-,7430,29.11.2001,29,Chaudière (générique) pour un seul bâtiment,,,11,0,2,9,False,True,True,False,True,True
+27,Sierre,-,7430,29.11.2001,5,Chaudière (générique) pour un seul bâtiment,,,2,0,0,1,False,True,True,False,True,True
+80,Sierre,-,7431,07.01.2009,90,Chaudière (générique) pour plusieurs bâtiments,,,72,4,27,60,False,True,True,False,True,True
+125,Sierre,-,7430,14.05.2023,70,Chaudière (générique) pour un seul bâtiment,,,38,2,10,29,False,False,True,True,True,True
+109,Sierre,-,7430,29.11.2001,47,Chaudière (générique) pour un seul bâtiment,,,23,1,10,17,False,True,True,True,True,True
+90,Sierre,-,7430,01.01.2002,10,Chaudière (générique) pour un seul bâtiment,,,6,0,1,5,False,True,True,False,True,True
+53,Sierre,-,7430,29.11.2001,5,Chaudière (générique) pour un seul bâtiment,,,4,0,2,4,False,True,True,False,True,True
+99,Sierre,-,7430,29.11.2001,14,Chaudière (générique) pour un seul bâtiment,,,12,0,4,11,False,True,True,True,True,True
+108,Sierre,-,7430,29.11.2001,1,Chaudière (générique) pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+102,Sierre,-,7430,29.07.2010,45,Chaudière (générique) pour un seul bâtiment,,,33,1,16,27,False,True,True,False,False,True
+72,Sierre,-,7430,29.05.2012,52,Chaudière (générique) pour un seul bâtiment,,,33,2,15,30,False,True,True,True,True,True
+42,Sierre,-,7430,01.01.2003,7,Chaudière (générique) pour un seul bâtiment,,,8,0,2,6,False,True,True,False,True,True
+66,Sierre,-,7430,29.11.2001,73,Chaudière (générique) pour un seul bâtiment,,,54,2,22,45,False,True,True,True,True,True
+32,Sierre,-,7430,29.11.2001,26,Chaudière (générique) pour un seul bâtiment,,,10,0,4,7,False,True,True,False,True,True
+82,Sierre,15.11.2005,7430,23.10.2020,137,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,7400,91,3,35,68,False,False,True,True,True,True
+51,Sierre,-,7430,01.01.2013,5,Chaudière (générique) pour un seul bâtiment,,,0,0,0,0,False,True,True,False,False,False
+60,Sierre,29.11.2001,7430,29.08.2017,33,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,7400,18,0,9,15,False,True,True,True,True,True
+17,Sierre,-,7430,15.12.2006,7,Chaudière (générique) pour un seul bâtiment,,,8,1,5,7,False,True,True,False,True,True
+87,Sierre,-,7430,29.11.2001,45,Chaudière (générique) pour un seul bâtiment,,,30,1,12,27,False,True,True,True,True,True
+6,Sierre,-,,-,160,,,,99,3,39,84,False,True,True,False,False,True
+38,Sierre,-,7430,29.11.2001,2,Chaudière (générique) pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+50,Sierre,-,7430,29.11.2001,8,Chaudière (générique) pour un seul bâtiment,,,5,0,1,4,False,True,True,False,False,True
+112,Sierre,-,7430,29.11.2001,1,Chaudière (générique) pour un seul bâtiment,,,1,0,1,1,False,True,True,False,True,True
+13,Sierre,-,7430,29.11.2001,10,Chaudière (générique) pour un seul bâtiment,,,5,1,1,4,False,True,True,False,False,True
+74,Sierre,-,7430,29.11.2001,11,Chaudière (générique) pour un seul bâtiment,,,9,1,5,5,False,True,True,True,True,True
+23,Sierre,-,7430,29.11.2001,4,Chaudière (générique) pour un seul bâtiment,,,6,1,4,6,False,True,True,True,True,True
+8,Sierre,-,7430,29.11.2001,38,Chaudière (générique) pour un seul bâtiment,,,27,2,12,22,False,True,True,False,True,True
+46,Sierre,-,7430,29.11.2001,14,Chaudière (générique) pour un seul bâtiment,,,7,1,2,5,False,True,True,True,True,True
+49,Sierre,29.11.2001,7430,01.01.2012,61,Chaudière (générique) pour un seul bâtiment,Pas de générateur de chaleur,7400,41,3,15,34,False,True,True,False,True,True
+55,Sierre,-,7430,29.11.2001,7,Chaudière (générique) pour un seul bâtiment,,,4,1,3,4,False,True,True,True,True,True
+98,Sierre,-,7430,29.11.2001,7,Chaudière (générique) pour un seul bâtiment,,,7,0,4,6,False,True,True,False,True,True
+47,Sierre,-,7430,29.11.2001,6,Chaudière (générique) pour un seul bâtiment,,,5,0,3,4,False,True,True,False,True,True
+115,Sierre,-,7430,29.11.2001,2,Chaudière (générique) pour un seul bâtiment,,,2,0,2,2,False,True,True,False,False,True
+9,Sierre,-,7430,29.11.2001,26,Chaudière (générique) pour un seul bâtiment,,,22,0,9,19,False,True,True,False,True,True
+24,Sierre,-,7434,02.10.2018,9,Chaudière à condensation pour un seul bâtiment,,,4,0,1,1,False,True,True,True,True,True
+39,Sierre,-,7430,01.01.2003,7,Chaudière (générique) pour un seul bâtiment,,,4,0,1,4,False,True,True,False,True,True
+86,Sierre,-,7430,05.11.2007,40,Chaudière (générique) pour un seul bâtiment,,,24,0,8,21,False,True,True,True,True,True
+91,Sierre,-,7430,29.11.2001,5,Chaudière (générique) pour un seul bâtiment,,,1,0,1,1,False,True,True,False,True,True
+185,Val de Bagnes,-,7436,29.11.2001,4,Poêle,,,4,0,2,3,False,True,True,False,True,True
+257,Val de Bagnes,13.01.2021,7430,13.01.2021,8,Chaudière (générique) pour un seul bâtiment,Chauffage électrique direct (y compris radiateur infra-rouge),7452,7,0,2,6,False,False,True,False,False,True
+162,Val de Bagnes,-,7450,14.12.2004,6,Chauffage central électrique pour un seul bâtiment,,,4,0,3,3,False,True,True,True,True,True
+275,Val de Bagnes,-,7436,29.11.2001,3,Poêle,,,1,0,0,0,False,True,True,True,True,True
+256,Val de Bagnes,-,7436,29.11.2001,3,Poêle,,,3,0,0,3,False,True,True,True,True,True
+201,Val de Bagnes,-,7436,29.11.2001,7,Poêle,,,5,0,1,5,False,True,True,True,True,True
+152,Val de Bagnes,-,7450,29.11.2001,1,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,True,True,True
+183,Val de Bagnes,-,7452,29.11.2001,6,Chauffage électrique direct (y compris radiateur infra-rouge),,,5,0,3,5,False,True,True,False,True,True
+133,Val de Bagnes,-,7450,29.11.2001,11,Chauffage central électrique pour un seul bâtiment,,,12,0,5,11,False,True,True,True,True,True
+284,Val de Bagnes,-,7450,03.12.2008,3,Chauffage central électrique pour un seul bâtiment,,,1,0,1,1,False,True,True,False,True,True
+198,Val de Bagnes,-,7450,29.11.2001,10,Chauffage central électrique pour un seul bâtiment,,,9,0,4,9,False,True,True,False,True,True
+221,Val de Bagnes,-,7450,28.12.2005,2,Chauffage central électrique pour un seul bâtiment,,,1,0,0,1,False,True,True,False,False,True
+286,Val de Bagnes,-,7430,29.11.2001,5,Chaudière (générique) pour un seul bâtiment,,,5,0,1,4,False,True,True,True,True,True
+245,Val de Bagnes,-,7450,29.11.2001,1,Chauffage central électrique pour un seul bâtiment,,,1,0,0,1,False,True,True,True,True,True
+143,Val de Bagnes,-,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,,,3,0,3,3,False,True,True,False,True,True
+150,Val de Bagnes,-,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,,,2,0,1,2,False,True,True,True,True,True
+264,Val de Bagnes,-,7430,29.11.2001,6,Chaudière (générique) pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+192,Val de Bagnes,-,7450,29.11.2001,2,Chauffage central électrique pour un seul bâtiment,,,1,0,0,1,False,True,True,True,True,True
+274,Val de Bagnes,-,7450,29.11.2001,5,Chauffage central électrique pour un seul bâtiment,,,2,0,1,1,False,True,True,False,True,True
+301,Val de Bagnes,15.07.2025,7400,15.07.2025,3,Pas de générateur de chaleur,Pas de générateur de chaleur,7400,2,0,0,1,False,False,True,False,True,True
+295,Val de Bagnes,-,7430,29.11.2001,7,Chaudière (générique) pour un seul bâtiment,,,5,1,2,4,False,True,True,False,True,True
+302,Val de Bagnes,-,7450,29.11.2001,15,Chauffage central électrique pour un seul bâtiment,,,8,0,4,6,False,True,True,True,True,True
+237,Val de Bagnes,-,7430,29.11.2001,2,Chaudière (générique) pour un seul bâtiment,,,0,0,0,0,False,True,True,True,True,True
+270,Val de Bagnes,-,7436,29.11.2001,6,Poêle,,,5,0,1,4,False,True,True,False,True,True
+249,Val de Bagnes,-,,-,7,,,,4,0,3,3,False,True,True,False,False,True
+219,Val de Bagnes,-,7450,29.11.2001,4,Chauffage central électrique pour un seul bâtiment,,,2,0,0,1,False,True,True,True,True,True
+246,Val de Bagnes,-,7436,29.11.2001,11,Poêle,,,9,1,2,7,False,True,True,True,True,True
+203,Val de Bagnes,-,7450,11.04.2007,9,Chauffage central électrique pour un seul bâtiment,,,9,0,3,7,False,True,True,True,True,True
+167,Val de Bagnes,-,7436,29.11.2001,6,Poêle,,,6,0,0,5,False,True,True,False,True,True
+230,Val de Bagnes,-,7450,29.11.2001,4,Chauffage central électrique pour un seul bâtiment,,,5,0,3,5,False,True,True,True,True,True
+297,Val de Bagnes,-,7410,13.12.2010,5,Pompe à chaleur PAC pour un seul bâtiment,,,1,0,0,1,True,True,True,False,True,True
+204,Val de Bagnes,-,7436,29.11.2001,5,Poêle,,,2,0,2,2,False,True,True,False,False,True
+225,Val de Bagnes,-,7450,29.11.2001,7,Chauffage central électrique pour un seul bâtiment,,,3,0,0,2,False,True,True,False,True,True
+254,Val de Bagnes,-,7450,29.11.2001,5,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+190,Val de Bagnes,-,7450,29.11.2001,3,Chauffage central électrique pour un seul bâtiment,,,2,0,1,2,False,True,True,False,True,True
+216,Val de Bagnes,-,7452,29.11.2001,5,Chauffage électrique direct (y compris radiateur infra-rouge),,,5,0,3,5,False,True,True,False,True,True
+181,Val de Bagnes,-,7436,29.11.2001,3,Poêle,,,0,0,0,0,False,True,True,True,True,True
+177,Val de Bagnes,-,7430,04.12.2019,12,Chaudière (générique) pour un seul bâtiment,,,5,0,2,3,False,True,True,False,True,True
+134,Val de Bagnes,-,7436,29.11.2001,8,Poêle,,,10,0,2,8,False,True,True,False,True,True
+217,Val de Bagnes,-,7450,28.12.2005,3,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+282,Val de Bagnes,-,7450,29.11.2001,4,Chauffage central électrique pour un seul bâtiment,,,3,0,1,2,False,True,True,False,True,True
+200,Val de Bagnes,-,7436,29.11.2001,6,Poêle,,,3,0,1,2,False,True,True,True,True,True
+189,Val de Bagnes,-,7410,25.11.2008,5,Pompe à chaleur PAC pour un seul bâtiment,,,4,0,0,4,True,True,True,False,False,True
+293,Val de Bagnes,-,7450,29.11.2001,12,Chauffage central électrique pour un seul bâtiment,,,4,0,2,4,False,True,True,True,True,True
+250,Val de Bagnes,-,7450,29.11.2001,1,Chauffage central électrique pour un seul bâtiment,,,4,0,2,2,False,True,True,False,True,True
+184,Val de Bagnes,-,7430,09.02.2016,4,Chaudière (générique) pour un seul bâtiment,,,0,0,0,0,False,True,True,True,True,True
+261,Val de Bagnes,-,7450,07.06.2016,1,Chauffage central électrique pour un seul bâtiment,,,1,0,1,1,False,True,True,False,False,True
+207,Val de Bagnes,-,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,,,4,0,0,3,False,True,True,True,True,True
+287,Val de Bagnes,05.04.2024,7411,05.04.2024,5,Pompe à chaleur PAC pour plusieurs bâtiments,Pas de générateur de chaleur,7400,8,0,2,6,True,True,True,True,True,True
+144,Val de Bagnes,-,7450,31.12.2017,7,Chauffage central électrique pour un seul bâtiment,,,3,0,0,2,False,True,True,False,True,True
+158,Val de Bagnes,-,7430,04.12.2019,6,Chaudière (générique) pour un seul bâtiment,,,3,0,3,3,False,True,True,True,True,True
+280,Val de Bagnes,-,7450,22.07.2005,5,Chauffage central électrique pour un seul bâtiment,,,5,0,1,3,False,True,True,False,False,True
+255,Val de Bagnes,-,7436,29.11.2001,3,Poêle,,,0,0,0,0,False,True,True,False,False,True
+199,Val de Bagnes,-,7450,25.11.2008,5,Chauffage central électrique pour un seul bâtiment,,,4,0,2,3,False,True,True,False,True,True
+210,Val de Bagnes,-,7430,03.06.2014,9,Chaudière (générique) pour un seul bâtiment,,,7,0,5,7,False,True,True,True,True,True
+279,Val de Bagnes,26.02.2025,7410,26.02.2025,2,Pompe à chaleur PAC pour un seul bâtiment,Pas de générateur de chaleur,7400,1,0,0,0,True,True,True,False,True,True
+266,Val de Bagnes,-,7436,29.11.2001,7,Poêle,,,2,0,1,2,False,True,True,False,True,True
+236,Val de Bagnes,-,7410,17.02.2010,11,Pompe à chaleur PAC pour un seul bâtiment,,,6,1,3,4,True,True,True,False,True,True
+154,Val de Bagnes,-,7450,29.11.2001,9,Chauffage central électrique pour un seul bâtiment,,,4,0,2,3,False,True,True,False,True,True
+251,Val de Bagnes,-,7450,29.11.2001,1,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+180,Val de Bagnes,-,7452,29.11.2001,8,Chauffage électrique direct (y compris radiateur infra-rouge),,,6,0,1,6,False,True,True,True,True,True
+243,Val de Bagnes,-,7450,29.11.2001,1,Chauffage central électrique pour un seul bâtiment,,,1,0,1,1,False,True,True,True,True,True
+182,Val de Bagnes,-,7450,07.06.2016,4,Chauffage central électrique pour un seul bâtiment,,,3,0,0,2,False,True,True,True,True,True
+155,Val de Bagnes,-,7430,04.12.2019,1,Chaudière (générique) pour un seul bâtiment,,,1,0,1,1,False,True,True,True,True,True
+240,Val de Bagnes,-,7430,04.12.2019,3,Chaudière (générique) pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+218,Val de Bagnes,-,7450,13.01.2009,3,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+294,Val de Bagnes,-,7450,29.11.2001,12,Chauffage central électrique pour un seul bâtiment,,,6,0,4,6,False,True,True,True,True,True
+296,Val de Bagnes,-,7430,29.11.2001,6,Chaudière (générique) pour un seul bâtiment,,,6,0,3,4,False,True,True,False,True,True
+147,Val de Bagnes,-,7420,22.04.2020,7,Installation solaire thermique pour un seul bâtiment,,,6,1,3,5,False,False,True,False,False,True
+277,Val de Bagnes,-,7452,29.11.2001,1,Chauffage électrique direct (y compris radiateur infra-rouge),,,1,0,1,1,False,True,True,False,False,True
+131,Val de Bagnes,-,7430,21.02.2017,19,Chaudière (générique) pour un seul bâtiment,,,15,0,7,10,False,True,True,False,True,True
+149,Val de Bagnes,-,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,,,4,0,2,4,False,True,True,False,True,True
+263,Val de Bagnes,-,7410,09.02.2016,3,Pompe à chaleur PAC pour un seul bâtiment,,,1,0,1,1,True,True,True,True,True,True
+234,Val de Bagnes,-,7450,31.03.2005,7,Chauffage central électrique pour un seul bâtiment,,,3,0,0,3,False,True,True,True,True,True
+141,Val de Bagnes,-,7430,29.11.2001,6,Chaudière (générique) pour un seul bâtiment,,,4,0,0,3,False,True,True,True,True,True
+299,Val de Bagnes,-,7450,29.11.2001,5,Chauffage central électrique pour un seul bâtiment,,,1,0,1,1,False,True,True,False,False,True
+160,Val de Bagnes,-,7450,29.11.2001,4,Chauffage central électrique pour un seul bâtiment,,,5,0,3,5,False,True,True,True,True,True
+145,Val de Bagnes,-,7450,29.11.2001,5,Chauffage central électrique pour un seul bâtiment,,,3,1,1,3,False,True,True,False,True,True
+233,Val de Bagnes,-,7430,04.12.2019,11,Chaudière (générique) pour un seul bâtiment,,,5,0,1,4,False,True,True,True,True,True
+278,Val de Bagnes,-,7410,03.05.2017,5,Pompe à chaleur PAC pour un seul bâtiment,,,3,1,1,2,True,True,True,False,False,False
+292,Val de Bagnes,-,7450,29.11.2001,1,Chauffage central électrique pour un seul bâtiment,,,4,0,1,1,False,True,True,True,True,True
+239,Val de Bagnes,-,7436,29.11.2001,5,Poêle,,,3,0,1,2,False,True,True,True,True,True
+161,Val de Bagnes,-,7450,29.11.2001,4,Chauffage central électrique pour un seul bâtiment,,,3,0,0,2,False,True,True,True,True,True
+300,Val de Bagnes,20.03.2015,7410,20.03.2015,8,Pompe à chaleur PAC pour un seul bâtiment,Installation solaire thermique pour un seul bâtiment,7420,3,1,2,2,True,True,True,True,True,True
+195,Val de Bagnes,-,7450,29.11.2001,5,Chauffage central électrique pour un seul bâtiment,,,1,0,1,1,False,True,True,True,True,True
+229,Val de Bagnes,-,7436,29.11.2001,7,Poêle,,,4,2,2,4,False,True,True,False,True,True
+166,Val de Bagnes,-,7436,29.11.2001,6,Poêle,,,4,0,1,3,False,True,True,True,True,True
+232,Val de Bagnes,-,7410,28.10.2013,3,Pompe à chaleur PAC pour un seul bâtiment,,,1,0,1,1,True,True,True,True,True,True
+228,Val de Bagnes,-,7436,29.11.2001,6,Poêle,,,1,0,1,1,False,True,True,False,False,True
+290,Val de Bagnes,-,7410,29.11.2001,6,Pompe à chaleur PAC pour un seul bâtiment,,,5,0,2,5,True,True,True,True,True,True
+227,Val de Bagnes,-,7410,29.11.2001,8,Pompe à chaleur PAC pour un seul bâtiment,,,4,0,0,4,True,True,True,False,False,True
+151,Val de Bagnes,-,7410,29.11.2001,5,Pompe à chaleur PAC pour un seul bâtiment,,,9,0,4,9,True,True,True,False,True,True
+223,Val de Bagnes,-,,-,3,,,,0,0,0,0,False,True,True,True,True,True
+244,Val de Bagnes,-,7436,29.11.2001,10,Poêle,,,8,0,2,7,False,True,True,True,True,True
+188,Val de Bagnes,-,7430,29.11.2001,5,Chaudière (générique) pour un seul bâtiment,,,3,0,2,2,False,True,True,True,True,True
+187,Val de Bagnes,-,7450,24.05.2013,9,Chauffage central électrique pour un seul bâtiment,,,8,0,6,6,False,True,True,False,True,True
+148,Val de Bagnes,-,7430,29.02.2016,2,Chaudière (générique) pour un seul bâtiment,,,1,0,0,0,False,True,True,False,True,True
+173,Val de Bagnes,-,7436,29.11.2001,5,Poêle,,,1,0,0,1,False,True,True,False,True,True
+140,Val de Bagnes,-,7450,29.11.2001,15,Chauffage central électrique pour un seul bâtiment,,,12,1,7,11,False,True,True,False,True,True
+262,Val de Bagnes,-,7436,29.11.2001,4,Poêle,,,4,0,2,4,False,True,True,True,True,True
+213,Val de Bagnes,-,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,,,9,0,4,8,False,True,True,False,True,True
+273,Val de Bagnes,-,7452,29.11.2001,3,Chauffage électrique direct (y compris radiateur infra-rouge),,,1,0,1,1,False,True,True,False,True,True
+202,Val de Bagnes,-,7436,29.11.2001,1,Poêle,,,1,0,0,1,False,True,True,False,True,True
+268,Val de Bagnes,-,7450,22.07.2005,6,Chauffage central électrique pour un seul bâtiment,,,3,0,0,3,False,True,True,False,True,True
+303,Val de Bagnes,-,7430,31.12.2018,11,Chaudière (générique) pour un seul bâtiment,,,13,1,6,12,False,True,True,False,False,True
+242,Val de Bagnes,-,7430,29.11.2001,7,Chaudière (générique) pour un seul bâtiment,,,5,0,2,5,False,True,True,True,True,True
+272,Val de Bagnes,-,7450,22.07.2005,2,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+212,Val de Bagnes,-,7436,29.11.2001,6,Poêle,,,4,0,4,4,False,True,True,False,True,True
+138,Val de Bagnes,-,,-,30,,,,22,1,12,18,False,True,True,True,True,True
+289,Val de Bagnes,-,7410,20.09.2016,7,Pompe à chaleur PAC pour un seul bâtiment,,,1,0,0,1,True,True,True,False,True,True
+283,Val de Bagnes,26.02.2025,7410,26.02.2025,5,Pompe à chaleur PAC pour un seul bâtiment,Pas de générateur de chaleur,7400,3,0,2,3,True,True,True,True,True,True
+179,Val de Bagnes,-,7410,26.11.2019,5,Pompe à chaleur PAC pour un seul bâtiment,,,4,0,2,2,True,True,True,False,True,True
+215,Val de Bagnes,-,7436,29.11.2001,4,Poêle,,,4,0,1,3,False,True,True,False,True,True
+172,Val de Bagnes,-,7450,29.11.2001,3,Chauffage central électrique pour un seul bâtiment,,,3,0,0,2,False,True,True,True,True,True
+146,Val de Bagnes,-,7450,21.02.2007,2,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+197,Val de Bagnes,-,7450,29.11.2001,4,Chauffage central électrique pour un seul bâtiment,,,4,0,1,3,False,True,True,False,False,False
+235,Val de Bagnes,-,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,,,5,0,2,4,False,True,True,False,True,True
+281,Val de Bagnes,-,7450,19.08.2009,5,Chauffage central électrique pour un seul bâtiment,,,3,0,1,2,False,True,True,True,True,True
+157,Val de Bagnes,-,7450,29.11.2001,5,Chauffage central électrique pour un seul bâtiment,,,4,0,1,2,False,True,True,True,True,True
+238,Val de Bagnes,-,7430,04.12.2019,8,Chaudière (générique) pour un seul bâtiment,,,6,0,4,5,False,True,True,True,True,True
+220,Val de Bagnes,-,7450,29.11.2001,2,Chauffage central électrique pour un seul bâtiment,,,1,0,1,1,False,True,True,True,True,True
+142,Val de Bagnes,-,7450,29.11.2001,2,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+298,Val de Bagnes,-,7410,13.12.2010,7,Pompe à chaleur PAC pour un seul bâtiment,,,4,0,1,4,True,True,True,False,True,True
+156,Val de Bagnes,-,7430,29.11.2001,7,Chaudière (générique) pour un seul bâtiment,,,6,0,1,5,False,True,True,False,True,True
+194,Val de Bagnes,-,7436,29.11.2001,6,Poêle,,,4,0,1,4,False,True,True,False,True,True
+170,Val de Bagnes,-,7450,07.06.2016,3,Chauffage central électrique pour un seul bâtiment,,,1,1,1,1,False,True,True,False,True,True
+226,Val de Bagnes,-,7430,29.11.2001,8,Chaudière (générique) pour un seul bâtiment,,,8,0,5,7,False,True,True,False,False,True
+222,Val de Bagnes,-,7450,14.09.2006,2,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+139,Val de Bagnes,-,7436,29.11.2001,10,Poêle,,,6,0,2,3,False,True,True,False,False,False
+208,Val de Bagnes,-,7430,31.03.2016,4,Chaudière (générique) pour un seul bâtiment,,,3,0,1,3,False,True,True,False,True,True
+176,Val de Bagnes,-,7452,29.11.2001,8,Chauffage électrique direct (y compris radiateur infra-rouge),,,8,0,4,7,False,True,True,True,True,True
+247,Val de Bagnes,-,7450,29.11.2001,1,Chauffage central électrique pour un seul bâtiment,,,2,0,0,2,False,True,True,True,True,True
+269,Val de Bagnes,-,7450,19.04.2007,4,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+265,Val de Bagnes,-,7450,29.11.2001,5,Chauffage central électrique pour un seul bâtiment,,,4,0,1,3,False,True,True,False,True,True
+258,Val de Bagnes,-,7450,29.11.2001,7,Chauffage central électrique pour un seul bâtiment,,,4,0,1,3,False,True,True,False,True,True
+224,Val de Bagnes,-,7450,23.04.2008,9,Chauffage central électrique pour un seul bâtiment,,,6,0,2,4,False,True,True,False,True,True
+260,Val de Bagnes,-,7436,29.11.2001,2,Poêle,,,1,0,1,1,False,True,True,True,True,True
+271,Val de Bagnes,-,7430,29.11.2001,5,Chaudière (générique) pour un seul bâtiment,,,1,0,0,1,False,True,True,False,False,False
+153,Val de Bagnes,-,7450,29.11.2001,1,Chauffage central électrique pour un seul bâtiment,,,1,0,0,0,False,True,True,True,True,True
+288,Val de Bagnes,30.11.2023,7400,30.11.2023,1,Pas de générateur de chaleur,Pas de générateur de chaleur,7400,3,0,1,1,False,False,True,False,True,True
+186,Val de Bagnes,-,7450,29.11.2001,1,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,False,True,True
+285,Val de Bagnes,30.11.2023,7400,30.11.2023,3,Pas de générateur de chaleur,Pas de générateur de chaleur,7400,2,0,1,1,False,False,True,True,True,True
+135,Val de Bagnes,-,7450,29.11.2001,6,Chauffage central électrique pour un seul bâtiment,,,5,0,2,4,False,True,True,False,True,True
+291,Val de Bagnes,05.04.2024,7411,05.04.2024,1,Pompe à chaleur PAC pour plusieurs bâtiments,Pas de générateur de chaleur,7400,1,0,0,1,True,True,True,False,False,True
+171,Val de Bagnes,-,7450,29.11.2001,3,Chauffage central électrique pour un seul bâtiment,,,1,0,0,0,False,True,True,True,True,True
+159,Val de Bagnes,-,7430,04.12.2019,4,Chaudière (générique) pour un seul bâtiment,,,3,1,1,3,False,True,True,False,False,False
+136,Val de Bagnes,-,7450,29.11.2001,4,Chauffage central électrique pour un seul bâtiment,,,3,0,2,3,False,True,True,False,True,True
+231,Val de Bagnes,-,7436,29.11.2001,3,Poêle,,,4,1,2,2,False,True,True,False,True,True
+253,Val de Bagnes,13.01.2021,7430,13.01.2021,1,Chaudière (générique) pour un seul bâtiment,Chauffage électrique direct (y compris radiateur infra-rouge),7452,4,0,1,1,False,False,True,True,True,True
+206,Val de Bagnes,-,7450,20.09.2005,4,Chauffage central électrique pour un seul bâtiment,,,2,0,1,2,False,True,True,True,True,True
+132,Val de Bagnes,-,7450,19.08.2009,9,Chauffage central électrique pour un seul bâtiment,,,7,0,3,6,False,True,True,False,True,True
+169,Val de Bagnes,-,7450,31.12.2018,4,Chauffage central électrique pour un seul bâtiment,,,0,0,0,0,False,True,True,True,True,True
+137,Val de Bagnes,-,7436,29.11.2001,5,Poêle,,,3,0,2,3,False,True,True,False,True,True
+241,Val de Bagnes,-,7436,29.11.2001,1,Poêle,,,0,0,0,0,False,True,True,True,True,True
+191,Val de Bagnes,-,7450,29.11.2001,5,Chauffage central électrique pour un seul bâtiment,,,2,0,0,0,False,True,True,False,True,True
+267,Val de Bagnes,-,7450,29.11.2001,5,Chauffage central électrique pour un seul bâtiment,,,3,1,1,3,False,True,True,False,True,True
+168,Val de Bagnes,-,7410,09.02.2016,3,Pompe à chaleur PAC pour un seul bâtiment,,,2,0,1,2,True,True,True,True,True,True
+174,Val de Bagnes,-,7450,29.11.2001,4,Chauffage central électrique pour un seul bâtiment,,,3,0,0,2,False,True,True,True,True,True
+163,Val de Bagnes,-,7436,03.12.2010,7,Poêle,,,6,0,1,4,False,True,True,False,True,True
+164,Val de Bagnes,-,7452,29.11.2001,9,Chauffage électrique direct (y compris radiateur infra-rouge),,,7,0,3,6,False,True,True,False,False,True
+205,Val de Bagnes,-,7436,29.11.2001,7,Poêle,,,2,0,2,2,False,True,True,True,True,True
+211,Val de Bagnes,-,7436,29.11.2001,7,Poêle,,,4,0,3,4,False,True,True,False,False,True
+259,Val de Bagnes,-,7436,29.11.2001,1,Poêle,,,5,1,2,5,False,True,True,True,True,True
+165,Val de Bagnes,-,7450,07.08.2002,5,Chauffage central électrique pour un seul bâtiment,,,3,0,0,3,False,True,True,False,False,False
+178,Val de Bagnes,-,7430,29.11.2001,21,Chaudière (générique) pour un seul bâtiment,,,12,1,5,10,False,True,True,False,True,True
+175,Val de Bagnes,-,7430,29.11.2001,4,Chaudière (générique) pour un seul bâtiment,,,4,0,2,4,False,True,True,True,True,True
+214,Val de Bagnes,-,7450,14.09.2006,6,Chauffage central électrique pour un seul bâtiment,,,5,0,3,5,False,True,True,False,False,True
+252,Val de Bagnes,-,7436,29.11.2001,2,Poêle,,,3,0,0,1,False,True,True,True,True,True
+196,Val de Bagnes,-,7436,29.11.2001,5,Poêle,,,3,0,1,3,False,True,True,True,True,True
+276,Val de Bagnes,-,7452,29.11.2001,4,Chauffage électrique direct (y compris radiateur infra-rouge),,,2,0,1,1,False,True,True,True,True,True
+248,Val de Bagnes,-,7450,29.11.2001,4,Chauffage central électrique pour un seul bâtiment,,,1,0,1,1,False,True,True,False,False,False
+209,Val de Bagnes,-,7436,29.11.2001,5,Poêle,,,3,1,2,3,False,True,True,False,True,True

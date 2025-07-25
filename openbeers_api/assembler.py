@@ -60,8 +60,8 @@ def build_basopra_input(
                 'series': ser_df,
                 'heat_tank': heat_tanks[int(bid)],
                 'dhw_tank': dhw_tanks[int(bid)],
-                'heat_pump': heat_pumps[int(bid)],
-                'PV': pv_installations[int(bid)],
+                'heat_pump': heat_pumps.get(int(bid)),
+                'PV': pv_installations.get(int(bid)),
             }
 
     conduct_building_sanity_check(output)
