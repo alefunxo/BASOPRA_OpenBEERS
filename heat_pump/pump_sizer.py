@@ -4,12 +4,14 @@ import os
 from config.loader import config
 from dataclasses import dataclass
 from utils.logger import logger
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 import pandas as pd
 import numpy as np
 import math
 from scipy import optimize
 from utils.multiprocessing_utils import run_parallel
+from openbeers.models import Simulation
+from utils.utils import pickle_load, pickle_save
 
 hp_config = config.heat_pump
 
@@ -268,7 +270,8 @@ def calculate_one_heat_pump_size(
     building_id: int,
     building_data: Dict[str, Any],
     heat_pumps_df: pd.DataFrame,
-) -> Optional[HeatPumpDesign]:
+    simulation: Simulation,
+) -> Optional[Tuple[int, str]]:
     logger.info(f"Starting dimensioning of heat pump for building: {building_data['attributes']['egid']}")
     if  not building_data['attributes']['has_HP']:
         return None
@@ -381,8 +384,13 @@ def calculate_one_heat_pump_size(
         series=df_heat,
         attributes=dict_design,
     )
-    return heat_pump
-    building_data['heat_pump']=heat_pump
+    # return heat_pump
+    # building_data['heat_pump']=heat_pump
+    save_file = f"{config.simulation_extraction_dir}/{simulation.name}_{building_id}_hp.pkl"
+
+    pickle_save(save_file, heat_pump)
+
+    return building_id, save_file
 
 def wrapper(args):
     return calculate_one_heat_pump_size(*args)
@@ -390,6 +398,7 @@ def wrapper(args):
 def calculate_heat_pump_size(
     heat_pump_data_file: str,
     building_data: Dict[int, Any],
+    simulation: Simulation,
 ):
     logger.info('Started Heat Pump Sizing Procedure')
 
@@ -403,6 +412,7 @@ def calculate_heat_pump_size(
             'building_id': bid, 
             'building_data': building_data[bid], 
             'heat_pumps_df': df_hp,
+            'simulation': simulation,
         } 
         for bid in building_data.keys()
     ]
@@ -414,10 +424,11 @@ def calculate_heat_pump_size(
         processes=config.max_processes,
         mode='kwargs',
     )
- 
-    for i in range(len(sizing_inputs)):
-        bid = sizing_inputs[i]['building_id']
-        building_data[bid]['heat_pump'] = results[i]
+
+    for bid, save_file in results:
+        hp = pickle_load(save_file)
+        building_data[bid]['heat_pump'] = hp
+        os.remove(save_file)
 
 # Define a function to generate extrapolated heat pump data
 def cop_model(delta_T):

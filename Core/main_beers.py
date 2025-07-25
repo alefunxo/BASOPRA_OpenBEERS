@@ -608,6 +608,7 @@ def pooling2(combinations):
             {e}
             """
         )
+        traceback.print_exc()
         return None
          # traceback.print_exc()
          # raise

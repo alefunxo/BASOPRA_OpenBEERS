@@ -13,7 +13,8 @@ from openbeers_api.assembler import build_basopra_input
 from openbeers.models import EnergyHeatPump, EnergyPhotovoltaicSystem, Simulation, TimeSeries
 from elec_pricer.pricer import ElectricityPricer
 from heat_pump.pump_sizer import calculate_heat_pump_size
-from utils.utils import dataframe_save, generate_aggregated_basopra_output_data, generate_aggregated_zone_data, pickle_save, pickle_load
+from utils.utils import dataframe_save, pickle_load, pickle_save
+from utils.aggregator import generate_aggregated_basopra_output_data, generate_aggregated_zone_data
 from Core.main_beers import run_basopra_simulation
 from Core.renovation_planner import RenovationPlanning
 
@@ -120,20 +121,20 @@ async def extract_simulation_data(
 
     # Add tags allowing to know if building is equipped with EV, Battery, and a HP
     renovation_planner = RenovationPlanning(config.renovation_planning.save_file)
-    if not has_renov:
+    # if not has_renov:
+    if True:
         renovation_planner.add_EVs(extraction, simulation)
         renovation_planner.add_batteries(extraction, simulation)
         renovation_planner.add_HP_flags(extraction, simulation)
     else:
         # TODO implement renovations from OpenBEERS part
-        # Current code is the same as above condition because we don't have data to use.
         renovation_planner.add_EVs(extraction, simulation)
         renovation_planner.add_openbeers_batteries(extraction, simulation)
         renovation_planner.add_openbeers_HP_flags(extraction, simulation)
 
     get_elec_prices(extraction, elec_pricer)
         
-    calculate_heat_pump_size(f"{config['input_dir']}/HP_data.csv", extraction)
+    calculate_heat_pump_size(f"{config['input_dir']}/HP_data.csv", extraction, simulation)
 
     pickle_save(save_file, extraction)
     return extraction

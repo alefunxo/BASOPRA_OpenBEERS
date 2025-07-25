@@ -289,26 +289,68 @@ def add_HP(df: pd.DataFrame) -> pd.DataFrame:
 
     return df 
 
+# def prep_battery_prob(df: pd.DataFrame) -> pd.DataFrame:
+#     """Predetermines if a building will have a battery installed if PV is lated installed
+# 
+#     Args:
+#         df (pd.DataFrame): List of buildings and their attributes
+# 
+#     Returns:
+#         pd.DataFrame: List of buildings with added flag determining it they receive a battery when PV is installed
+#     """
+#     years_of_interest = planner_config.years_of_interest
+#     battery_install_ratios = planner_config.battery_install_ratio
+#     for i in range(len(years_of_interest)):
+#         year = years_of_interest[i]
+#         will_have_battery_if_PV = np.random.rand(len(df)) <= battery_install_ratios[year]
+#         if year != years_of_interest[0]:
+#             previous_year = years_of_interest[i-1]
+#             previous_battery_prob = df[f'install_battery_{previous_year}']
+#             existing_batteries = previous_battery_prob.sum()
+#             will_have_battery_if_PV = (will_have_battery_if_PV | previous_battery_prob)
+#         df[f"install_battery_{year}"] = will_have_battery_if_PV 
+#     return df
+
 def prep_battery_prob(df: pd.DataFrame) -> pd.DataFrame:
-    """Predetermines if a building will have a battery installed if PV is lated installed
+    """Predetermine if a building will have a battery installed if PV is later installed.
 
     Args:
-        df (pd.DataFrame): List of buildings and their attributes
+        df (pd.DataFrame): List of buildings and their attributes.
 
     Returns:
-        pd.DataFrame: List of buildings with added flag determining it they receive a battery when PV is installed
+        pd.DataFrame: Buildings with added flags for battery installation per year.
     """
     years_of_interest = planner_config.years_of_interest
     battery_install_ratios = planner_config.battery_install_ratio
-    for i in range(len(years_of_interest)):
-        year = years_of_interest[i]
-        will_have_battery_if_PV = np.random.rand(len(df)) <= battery_install_ratios[year]
-        if year != years_of_interest[0]:
-            previous_year = years_of_interest[i-1]
-            previous_battery_prob = df[f'install_battery_{previous_year}']
-            will_have_battery_if_PV = (will_have_battery_if_PV | previous_battery_prob)
-        df[f"install_battery_{year}"] = will_have_battery_if_PV 
+    num_buildings = len(df)
+
+    for i, year in enumerate(years_of_interest):
+        target_ratio = battery_install_ratios[year]
+        target_count = int(np.round(target_ratio * num_buildings))
+
+        if i == 0:
+            # First year: randomly select buildings based on ratio
+            selected_indices = np.random.choice(df.index, size=target_count, replace=False)
+            df[f"install_battery_{year}"] = df.index.isin(selected_indices)
+        else:
+            prev_year = years_of_interest[i - 1]
+            prev_col = f"install_battery_{prev_year}"
+            prev_flags = df[prev_col].copy()
+
+            already_installed = prev_flags.sum()
+            df[f"install_battery_{year}"] = prev_flags
+
+            additional_needed = target_count - already_installed
+            if additional_needed > 0:
+                candidates = df.loc[~prev_flags].index
+                if additional_needed > len(candidates):
+                    additional_needed = len(candidates)  # cap to max available
+
+                new_indices = np.random.choice(candidates, size=additional_needed, replace=False)
+                df.loc[new_indices, f"install_battery_{year}"] = True
+
     return df
+
 
     
 class RenovationPlanning:

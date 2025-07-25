@@ -106,7 +106,7 @@ class ApiWrapper:
     
     async def get_renovation(self, object_id: int) -> EnergyRenovation:
         return await self.fetch(
-            self.api.get_energy_renovation_energy_renovation_id_get, 
+            self.api.get_energy_renovation_api_energy_renovation_energy_renovation_id_get, 
             object_id
         )
 
@@ -135,6 +135,12 @@ class ApiWrapper:
             self.api.get_energy_heat_pump_energy_renovation_api_energy_heat_pumps_energy_renovation_energy_renovation_id_get, 
             renovation_id
         )
+        # get_energy_heat_pump_api_energy_heat_pump_energy_heat_pump_id_get
+        # get_energy_heat_pump_api_energy_heat_pump_energy_heat_pump_id_get_with_http_info
+        # get_energy_heat_pump_api_energy_heat_pump_energy_heat_pump_id_get_without_preload_content
+        # get_energy_heat_pump_energy_renovation_api_energy_heat_pumps_energy_renovation_energy_renovation_id_get
+        # get_energy_heat_pump_energy_renovation_api_energy_heat_pumps_energy_renovation_energy_renovation_id_get_with_http_info
+        # get_energy_heat_pump_energy_renovation_api_energy_heat_pumps_energy_renovation_energy_renovation_id_get_without_preload_content
     
     async def get_PV(self, object_id: int) -> EnergyPhotovoltaicSystem:
         return await self.fetch(
