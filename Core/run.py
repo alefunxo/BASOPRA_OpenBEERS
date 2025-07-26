@@ -209,15 +209,30 @@ async def main() -> None:
     else:
         logger.info('Entering list mode. Only given simulation names will be processed')
         simulation_names = config.simulation_names
+
         for name in simulation_names:
-            logger.info(f'From config.yaml, simulation to process is: {name}')
-            api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
-            async with api_wrapper as api:
-                simulation = await api.get_simulation(name)
-            if simulation is None:
-                logger.info(f'Simulation is None')
-            pricer = ElectricityPricer()
-            await process_simulation(name, simulation, pricer)
+            try:
+                logger.info(f'From config.yaml, simulation to process is: {name}')
+                api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
+                async with api_wrapper as api:
+                    simulation = await api.get_simulation(name)
+                
+                if simulation is None:
+                    logger.warning(f'Simulation "{name}" is None. Skipping.')
+                    continue
+
+                pricer = ElectricityPricer()
+
+                try:
+                    await process_simulation(name, simulation, pricer)
+                except Exception as e:
+                    logger.error(f'Processing failed for simulation "{name}": {e}')
+                    continue
+
+            except Exception as e:
+                logger.error(f'Unexpected error retrieving simulation "{name}": {e}')
+                continue
+
 
 if __name__ == "__main__":
     asyncio.run(main())

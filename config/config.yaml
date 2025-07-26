@@ -11,14 +11,14 @@ max_processes: 0  # value of null or 0 will use max possible processes. Negative
 
 loop_mode: False
 simulation_names: 
-  - sierre_orzival_les_liddes_climate_rcp26_pv_roof_high_renovation_high_2050
-  - sierre_orzival_les_liddes_climate_rcp26_pv_roof_low_renovation_low_2050
-  - sierre_orzival_les_liddes_climate_rcp85_pv_roof_high_renovation_high_2050
-  - sierre_orzival_les_liddes_climate_rcp85_pv_roof_low_renovation_low_2050
-  - sierre_orzival_les_liddes_climate_rcp26_pv_roof_high_renovation_low_2050
-  - sierre_orzival_les_liddes_climate_rcp26_pv_roof_low_renovation_high_2050
-  - sierre_orzival_les_liddes_climate_rcp85_pv_roof_high_renovation_low_2050
-  - sierre_orzival_les_liddes_climate_rcp85_pv_roof_low_renovation_high_2050
+  - sarreyer_climate_rcp26_pv_roof_wall_high_renovation_high_2050
+  - sarreyer_climate_rcp26_pv_roof_wall_low_renovation_low_2050
+  - sarreyer_climate_rcp85_pv_roof_wall_high_renovation_high_2050
+  - sarreyer_climate_rcp85_pv_roof_wall_low_renovation_low_2050
+  - sarreyer_climate_rcp26_pv_roof_wall_high_renovation_low_2050
+  - sarreyer_climate_rcp26_pv_roof_wall_low_renovation_high_2050
+  - sarreyer_climate_rcp85_pv_roof_wall_high_renovation_low_2050
+  - sarreyer_climate_rcp85_pv_roof_wall_low_renovation_high_2050
 #   - sarreyer_climate_contemporary_pv_roof_2025
   # - sarreyer_climate_rcp26_pv_roof_high_renovation_high_2050
   # - sarreyer_climate_rcp26_pv_roof_low_renovation_low_2050
