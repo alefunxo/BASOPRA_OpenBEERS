@@ -1,11 +1,12 @@
 import sys
 import os
+import traceback
 from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import asyncio
 from config.loader import config
-from utils.logger import logger
+from utils.logger import logger, data_logger
 from openbeers_api.api import ApiWrapper
 from openbeers_api.fileloader import cleanup, download_file_from_wap, list_files_in_directory, load_climate_file
 from openbeers_api.extract import get_xml_building_data 
@@ -161,21 +162,32 @@ def output_aggregator(basopra_output: Dict[Tuple[int,int], Any])->Any:
 async def process_simulation(sim_name: str, sim: Simulation, pricer: ElectricityPricer) -> None:
     save_file = f'{config.simulation_extraction_dir}/{sim_name}.pkl'
     extraction = None
-    if sim is None and os.path.exists(save_file):
-        logger.info(f"Simulation {sim_name} not found on OpenBeers.")
-        logger.info(f'Falling back on found extraction file: {save_file}')
-        extraction = pickle_load(save_file)
-    elif sim is None and not os.path.exists(save_file):
-        logger.info(f"Simulation {sim_name} not found on OpenBeers and no fallback extraction available.")
-        logger.info(f"Interrupting simulation for {sim_name}")
-        return
-    else:
-        logger.info(f"Processing {sim.name}")
-        extraction = await extract_simulation_data(sim, pricer)
+    try:
+        if sim is None and os.path.exists(save_file):
+            logger.info(f"Simulation {sim_name} not found on OpenBeers.")
+            logger.info(f'Falling back on found extraction file: {save_file}')
+            extraction = pickle_load(save_file)
+        elif sim is None and not os.path.exists(save_file):
+            logger.info(f"Simulation {sim_name} not found on OpenBeers and no fallback extraction available.")
+            logger.info(f"Interrupting simulation for {sim_name}")
+            return
+        else:
+            logger.info(f"Processing {sim.name}")
+            extraction = await extract_simulation_data(sim, pricer)
+    except Exception as e:
+        tb = traceback.format_exc()
+        data_logger.error(f'Simulation data retrieval and preparation failed for: \n {sim.name} with error {e} and stacktrace: \n {tb}')
+        return None
 
-    basopra_input = input_aggregator(extraction)
-    basopra_output_files = run_basopra_simulation(basopra_input)
-    print(basopra_output_files)
+    try:
+        basopra_input = input_aggregator(extraction)
+        basopra_output_files = run_basopra_simulation(basopra_input)
+        print(basopra_output_files)
+    except Exception as e:
+        tb = traceback.format_exc()
+        data_logger.error(f'Simulation processing by Basopra failed for : \n {sim.name} with error {e} and stacktrace: \n {tb}')
+        return None
+
     # basopra_output = output_aggregator(basopra_output)
 
     # conf_mapping = config.Core.conf_mapping
@@ -230,9 +242,11 @@ async def main() -> None:
                     continue
 
             except Exception as e:
-                logger.error(f'Unexpected error retrieving simulation "{name}": {e}')
+                tb = traceback.format_exc()
+                logger.error(f'Unexpected error while processing simulation "{name}": {e}')
+                data_logger.error(f'Unexpected error while processing simulation "{name}": {e}\n {tb}')
                 continue
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+   asyncio.run(main())
