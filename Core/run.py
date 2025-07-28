@@ -62,7 +62,7 @@ async def run_pipeline(simulation: Simulation) -> Tuple[Dict[int, Any], bool]:
                     else (qs[i-1] + qs[(i+1) % len(qs)]) / 2 / 1000
                     for i, val in enumerate(qs) 
                 ]
-                api_series[b.id]['Qs']
+                api_series[b.id]['Qs'] = qs
             if pv_prod is not None:
                 pv_prod = [
                     val / 1000  
