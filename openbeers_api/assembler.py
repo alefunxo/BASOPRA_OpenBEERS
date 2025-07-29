@@ -64,6 +64,6 @@ def build_basopra_input(
                 'PV': pv_installations.get(int(bid)),
             }
 
-    conduct_building_sanity_check(output)
+    conduct_building_sanity_check(output, simulation)
 
     return output

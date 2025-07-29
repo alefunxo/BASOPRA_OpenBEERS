@@ -53,8 +53,27 @@ async def run_pipeline(simulation: Simulation) -> Tuple[Dict[int, Any], bool]:
                         pt.data for pt in series if pt.time_series_type_id == t.id
                     ), []) for t in ser_types
             }
-            api_series[b.id]['Qs'] = [ val / 1000 for val in api_series[b.id]['Qs']]
-            api_series[b.id]['SolarPVProduction'] = [ val / 1000 for val in api_series[b.id]['SolarPVProduction']]
+            qs = api_series[b.id]['Qs'] if api_series[b.id].get('Qs') is not None else None
+            pv_prod= api_series[b.id]['SolarPVProduction'] if api_series[b.id].get('SolarPVProduction') is not None else None
+            if qs is not None:
+                qs = [
+                    val / 1000 
+                    if val is not None
+                    else (qs[i-1] + qs[(i+1) % len(qs)]) / 2 / 1000
+                    for i, val in enumerate(qs) 
+                ]
+                api_series[b.id]['Qs'] = qs
+            if pv_prod is not None:
+                pv_prod = [
+                    val / 1000  
+                    if val is not None 
+                    else (pv_prod[i-1] + pv_prod[(i+1) % len(pv_prod)]) / 2 / 1000 
+                    for i, val in enumerate(pv_prod)
+                ]
+                api_series[b.id]['SolarPVProduction'] = pv_prod 
+
+            # api_series[b.id]['Qs'] = [ val / 1000 for val in api_series[b.id]['Qs']] if api_series[b.id].get('Qs') is not None else None
+            # api_series[b.id]['SolarPVProduction'] = [ val / 1000 for val in api_series[b.id]['SolarPVProduction']] if api_series[b.id].get('SolarPVProduction') is not None else None
     
         renovations = await api.get_renovations(b_ids, simulation.scenario_id, simulation.year)
         heat_pumps: Dict[int, List[EnergyHeatPump]] = {}
