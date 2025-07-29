@@ -1,9 +1,9 @@
 import sys
 import os
 from typing import Any, Dict, List, Tuple, Union
-
+from tqdm import tqdm
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
+import multiprocessing as mp
 import pandas as pd
 from pandas import DataFrame
 from utils.utils import dataframe_load, is_type, list_files_recursive
@@ -28,14 +28,20 @@ def assume_month_range() -> List[Tuple[int, int]]:
 #     df[col_name] = df.get(col_name, pd.Series(default_value, index=df.index))
 #     return df[col_name]
 
-def safe_get(df: pd.DataFrame, cols: Union[str, List[str]], default_value=0) -> DataFrame:
+def safe_get(df: pd.DataFrame, cols: Union[str, List[str]], default_value=0) -> pd.DataFrame:
     if isinstance(cols, str):
         return df[cols] if cols in df else pd.Series(default_value, index=df.index, name=cols)
-    else:
-        return pd.concat(
-            [(df[col] if col in df else pd.Series(default_value, index=df.index, name=col)) for col in cols],
-            axis=1
-        )
+    # list case
+    if not cols:
+        # no columns → empty DataFrame
+        return pd.DataFrame(index=df.index)
+    parts = []
+    for col in cols:
+        if col in df:
+            parts.append(df[col])
+        else:
+            parts.append(pd.Series(default_value, index=df.index, name=col))
+    return pd.concat(parts, axis=1)
 
 
 def autoconsumption(df: DataFrame):
@@ -49,7 +55,7 @@ def autoconsumption(df: DataFrame):
     # Aggregate totals
     # pv_used_locally = df[pv_used_locally_cols].sum().sum()
     pv_used_locally = safe_get(df, pv_used_locally_cols).sum().sum()
-    pv_total = df['E_PV'].sum()
+    pv_total = safe_get(df,'E_PV').sum()
 
     # Self-consumption [%]
     return (pv_used_locally / pv_total) * 100 if pv_total > 0 else 0
@@ -81,7 +87,9 @@ def autarky(df: DataFrame):
 
     # Autarky [%]
     return (local_supply / total_consumption) * 100 if total_consumption > 0 else 0
-
+def EV_consumption(df: DataFrame):
+    ev_grid_cols = [col for col in df.columns if col.startswith('E_grid_batt_EV')]
+    return safe_get(df,ev_grid_cols).sum().sum()
 def peak_consumption(df: DataFrame):
     return safe_get(df,"E_cons").max()
 def quantile99_consumption(df: DataFrame):
@@ -99,20 +107,85 @@ def cooling_hours(df: DataFrame):
 
 def cooling_energy(df: DataFrame):
     return safe_get(df,"Cooling").sum()
+def thermal_consumption(df: DataFrame):
+    return (safe_get(df,"Req_kWh") + safe_get(df,"Req_kWh_DHW")).sum()
 
+# Small KPI functions using safe_get
+def total_pv_generation(df: pd.DataFrame):
+    return safe_get(df, "E_PV").sum()
+
+def total_grid_import(df: pd.DataFrame):
+    return safe_get(df, "E_cons").sum()
+
+def total_household_demand(df: pd.DataFrame):
+    return safe_get(df, "E_demand").sum()
+
+def peak_e_demand(df: pd.DataFrame):
+    return safe_get(df, "E_demand").max()
+
+def quantile99_e_demand(df: pd.DataFrame):
+    return safe_get(df, "E_demand").quantile(0.99)
+
+def change_peak_percent(df: pd.DataFrame):
+    max_cons = peak_consumption(df)
+    max_dem = peak_e_demand(df)
+    return (max_cons / max_dem * 100) if max_dem else float('nan')
+
+def change_q99_peak_percent(df: pd.DataFrame):
+    q99_cons = quantile99_consumption(df)
+    q99_dem = quantile99_e_demand(df)
+    return (q99_cons / q99_dem * 100) if q99_dem else float('nan')
+
+def peak_pv_injection(df: pd.DataFrame):
+    return safe_get(df, "E_PV_grid").max()
+
+def quantile99_pv_injection(df: pd.DataFrame):
+    return safe_get(df, "E_PV_grid").quantile(0.99)
+
+def total_hp_space_heat(df: pd.DataFrame):
+    return safe_get(df, "E_hp").sum()
+
+def total_hp_dhw(df: pd.DataFrame):
+    return safe_get(df, "E_hpdhw").sum()
+
+def total_req_space_kwh(df: pd.DataFrame):
+    return safe_get(df, "Req_kWh").sum()
+
+def total_req_dhw_kwh(df: pd.DataFrame):
+    return safe_get(df, "Req_kWh_DHW").sum()
+
+def dhw_share(df: pd.DataFrame):
+    space = total_req_space_kwh(df)
+    dhw = total_req_dhw_kwh(df)
+    total = space + dhw
+    return (dhw / total) if total else 0.0
+
+# Updated KPI functions dictionary
 kpi_fcts = {
-    'autoconsumption': autoconsumption,
+    'self-consumption': autoconsumption,
     'autarky': autarky,
-    'peak_consumption': peak_consumption,
-    'peak_injection': peak_injection,
-    # 'cooling_hours': cooling_hours,
-    # 'cooling_energy': cooling_energy,
+    'total_pv_generation': total_pv_generation,
+    'total_grid_import':    total_grid_import,
+    'total_household_demand': total_household_demand,
+    'peak_e_cons':         peak_consumption,
+    'quantile99_e_cons':   quantile99_consumption,
+    'peak_e_demand':       peak_e_demand,
+    'quantile99_e_demand': quantile99_e_demand,
+    'change_peak_percent': change_peak_percent,
+    'change_q99_peak_percent': change_q99_peak_percent,
+    'peak_pv_injection':       peak_pv_injection,
+    'quantile99_pv_injection': quantile99_pv_injection,
+    'total_hp_space_heat': total_hp_space_heat,
+    'total_hp_dhw':        total_hp_dhw,
+    'total_req_space_kwh': total_req_space_kwh,
+    'total_req_dhw_kwh':   total_req_dhw_kwh,
+    'thermal_consumption': thermal_consumption,
+    'dhw_share': dhw_share,
     'peak_thermal_consumption': peak_thermal_consumption,
-    'quantile99_consumption':quantile99_consumption,
-    'quantile99_injection':quantile99_injection,
     'quantile99_thermal_consumption':quantile99_thermal_consumption,
-
+    'EV_consumption':EV_consumption
 }
+
 
 def calc_kpis(df: DataFrame):
     kpis = {}
@@ -160,36 +233,92 @@ def get_all_building_dfs(main_dir:str) -> Dict[str, Any]:
     final_df = pd.concat(flattened_data, ignore_index=True)
     return final_df 
 
+def discover_tasks(root_dir: str) -> List[Tuple[str, str, str, str]]:
+    structure = list_files_recursive(root_dir)
+    tasks = []
+    for sim, info in structure.items():
+        for fname in info['files']:
+            if is_type(fname, '.csv'):
+                parts = fname.rsplit('.', 1)[0].split('_')
+                building, config = parts[1], parts[2]
+                full_path = os.path.join(root_dir, sim, fname)
+                tasks.append((full_path, sim, building, config))
+    return tasks
+
+def worker(args: Tuple[str, str, str, str]):
+    path, sim, building, config = args
+    df = dataframe_load(path)
+    m = get_building_monthly_kpis(df)
+    m['simulation'], m['building'], m['configuration'] = sim, building, config
+    y = calc_kpis(df).to_frame().T
+    y['simulation'], y['building'], y['configuration'] = sim, building, config
+    return path, m, y
+
+def safe_worker(args):
+    try:
+        return (*worker(args), None)
+    except Exception as e:
+        return (args[0], None, None, e)
+
 def main():
-    main_dir = 'outputs_basopra'
-    zone_dfs = get_all_building_dfs(main_dir)
-    monthly_kpi_dfs = pd.DataFrame()
-    yearly_kpi_dfs = []
-    for sim_name, simulation in zone_dfs.groupby('simulation'):
-        print(sim_name)
-        print(simulation.shape)
-        print(simulation['building'].unique().shape)
-        for b_name, building in simulation.groupby('building'):
-            for conf_name, conf in building.groupby('configuration'):
-                month_kpis = get_building_monthly_kpis(conf)
-                month_kpis['simulation'] = sim_name
-                month_kpis['building'] = b_name
-                month_kpis['configuration'] = conf_name
-                monthly_kpi_dfs = pd.concat([monthly_kpi_dfs, month_kpis], ignore_index=True)
+    root = 'outputs_basopra'
+    monthly_csv = 'monthlykpi.csv'
+    yearly_csv  = 'yearlykpi.csv'
 
-                yearly_kpis = calc_kpis(conf)
-                yearly_kpis['simulation'] = sim_name
-                yearly_kpis['building'] = b_name
-                yearly_kpis['configuration'] = conf_name
-                yearly_kpi_dfs.append(yearly_kpis)
-    yearly_kpi_dfs = pd.DataFrame(yearly_kpi_dfs)
-    monthly_kpi_dfs.to_csv('monthlykpi.csv')
-    yearly_kpi_dfs.to_csv('yearlykpi.csv')
-    pd.set_option("display.float_format", "{:.2f}".format)
+    for f in (monthly_csv, yearly_csv):
+        if os.path.exists(f):
+            os.remove(f)
 
-    print(monthly_kpi_dfs)
-    print(yearly_kpi_dfs)
-    # print(df.describe())
+    tasks = discover_tasks(root)
+    first_month, first_year = True, True
+
+    failed_monthly = []  # list of (path, df)
+    failed_yearly  = []  # list of (path, df)
+
+    with mp.Pool(mp.cpu_count()) as pool:
+        for path, m_df, y_df, error in tqdm(
+            pool.imap_unordered(safe_worker, tasks),
+            total=len(tasks),
+            desc="Processing KPIs"
+        ):
+            if error:
+                print(f"[ERROR] loading {path}: {error}", file=sys.stderr)
+                continue
+
+            try:
+                m_df.to_csv(monthly_csv, mode='a', index=False, header=first_month)
+            except Exception as e:
+                print(f"[ERROR] writing monthly for {path}: {e}", file=sys.stderr)
+                failed_monthly.append((path, m_df))
+            else:
+                first_month = False
+
+            try:
+                y_df.to_csv(yearly_csv, mode='a', index=False, header=first_year)
+            except Exception as e:
+                print(f"[ERROR] writing yearly for {path}: {e}", file=sys.stderr)
+                failed_yearly.append((path, y_df))
+            else:
+                first_year = False
+
+    # Retry any failed writes once more
+    if failed_monthly or failed_yearly:
+        print("Retrying failed writes...", file=sys.stderr)
+    for path, m_df in failed_monthly:
+        try:
+            m_df.to_csv(monthly_csv, mode='a', index=False, header=first_month)
+        except Exception as e:
+            print(f"[RETRY ERROR] monthly for {path}: {e}", file=sys.stderr)
+        else:
+            first_month = False
+
+    for path, y_df in failed_yearly:
+        try:
+            y_df.to_csv(yearly_csv, mode='a', index=False, header=first_year)
+        except Exception as e:
+            print(f"[RETRY ERROR] yearly for {path}: {e}", file=sys.stderr)
+        else:
+            first_year = False
 
 if __name__ == "__main__":
     main()
