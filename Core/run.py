@@ -266,6 +266,17 @@ async def main() -> None:
                 data_logger.error(f'Unexpected error while processing simulation "{name}": {e}\n {tb}')
                 continue
 
+async def list_simulations():
+    logger.info('Starting loop through simulations')
+    api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
+    async with api_wrapper as api:
+        simulations = await api.get_all_simulations()
+    sim_names = [sim.name for sim in simulations]
+    sim_names.sort()
+    for sim in sim_names:
+        print(sim)
+
 
 if __name__ == "__main__":
-   asyncio.run(main())
+    # asyncio.run(list_simulations())
+    asyncio.run(main())
