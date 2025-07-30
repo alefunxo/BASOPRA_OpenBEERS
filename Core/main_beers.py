@@ -879,9 +879,9 @@ def create_run_configurations(buildings_data):
 
     Combs_todo_dicts = []
     for building, b_data in buildings_data.items():
-        if whitelist is not None and building not in whitelist:
+        if whitelist is not None and int(b_data['attributes']['egid']) not in whitelist:
             continue
-        if blacklist is not None and building in blacklist:
+        if blacklist is not None and int(b_data['attributes']['egid']) in blacklist:
             continue
         b_base_config = fixed_config.copy()
         building_conf = get_conf_for_building(b_data)
