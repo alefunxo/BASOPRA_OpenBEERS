@@ -11,6 +11,7 @@ max_processes: -8 # value of null or 0 will use max possible processes. Negative
 
 loop_mode: False
 simulation_names: 
+  - sierre_orzival_les_liddes_climate_rcp26_pv_roof_high_renovation_high_2040
     # - sierre_orzival_les_liddes_climate_contemporary_pv_roof_2025
     # - sierre_orzival_les_liddes_climate_rcp26_pv_roof_high_renovation_high_2040
     ## - sierre_orzival_les_liddes_climate_rcp26_pv_roof_high_renovation_high_2050
@@ -86,7 +87,7 @@ simulation_names:
   # - sarreyer_climate_rcp85_pv_roof_low_renovation_low_2050
 
 building_whitelist:
-
+  - 947872
 building_blacklist:
   
 simulation_extraction_dir: outputs_extraction/

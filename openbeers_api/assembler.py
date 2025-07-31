@@ -20,6 +20,21 @@ def build_basopra_input(
     pv_installations: Dict[int, List[EnergyPhotovoltaicSystem]],
 ) -> Dict[str, Dict[str, pd.DataFrame]]:
     output = {}
+    sim_year = simulation.year
+    datetime_index = pd.date_range(start=f'{sim_year}-01-01 00:00', end=f'{sim_year}-12-31 23:00', freq='h')
+
+    # If leap year we just ignore the last day and bring all series objects to len 8760
+    hours_per_year = 8760
+    if sim_year % 4 == 0 and (sim_year % 100 != 0 or sim_year % 400 == 0):
+        datetime_index = pd.date_range(start=f'{sim_year}-01-01 00:00', end=f'{sim_year}-12-30 23:00', freq='h')
+        climate = climate[:hours_per_year]
+        for bid, series in api_series.items():
+            for attr, ser in series.items():
+                series[attr] = ser[:hours_per_year]
+        for bid, series in xml_series.items():
+            for attr, ser in series.items():
+                series[attr] = ser[:hours_per_year]
+
     for bid in api_attributes:
         valid_building = True
 
@@ -51,7 +66,6 @@ def build_basopra_input(
                 valid_building = False
 
         # Creating a proper date time index
-        datetime_index = pd.date_range(start=f'{simulation.year}-01-01 00:00', end=f'{simulation.year}-12-31 23:00', freq='h')
         ser_df.index = datetime_index
 
         # Creating final output

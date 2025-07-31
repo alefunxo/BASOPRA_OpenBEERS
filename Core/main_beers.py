@@ -879,9 +879,9 @@ def create_run_configurations(buildings_data):
 
     Combs_todo_dicts = []
     for building, b_data in buildings_data.items():
-        if whitelist is not None and building not in whitelist:
+        if whitelist is not None and int(b_data['attributes']['egid']) not in whitelist:
             continue
-        if blacklist is not None and building in blacklist:
+        if blacklist is not None and int(b_data['attributes']['egid']) in blacklist:
             continue
         b_base_config = fixed_config.copy()
         building_conf = get_conf_for_building(b_data)
@@ -987,6 +987,19 @@ def run_simulation_from_file(simulation_input_file: str) -> str:
     blacklist = config.building_blacklist
 
     (bid, b_data), = pickle_load(simulation_input_file).items()
+    if whitelist is not None and int(b_data['attributes']['egid']) not in whitelist:
+        return None
+    if blacklist is not None and int(b_data['attributes']['egid']) in blacklist:
+        return None
+    building_conf = get_conf_for_building(b_data)
+
+    if b_data.get('heat_pump') is None:
+        fixed_config.house_type = 'NoHeatPump'
+    combination = {
+        'hh': b_data,
+        'name': bid,
+        'conf': building_conf,
+    }
 
     Combs_todo_dicts = []
     for building, b_data in buildings_data.items():
