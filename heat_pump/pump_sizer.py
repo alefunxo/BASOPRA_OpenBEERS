@@ -1,6 +1,7 @@
 import pickle
 import sys
 import os
+import gc
 from config.loader import config
 from dataclasses import dataclass
 from utils.logger import logger
@@ -394,6 +395,172 @@ def calculate_one_heat_pump_size(
 
 def wrapper(args):
     return calculate_one_heat_pump_size(*args)
+
+def calculate_hp_from_extraction_file(
+        building_file: str,
+        heat_pumps_file: str,
+) -> str:
+    # Load and preprocess HP data
+    df_hp=pd.read_csv(heat_pumps_file, sep=';')  # Temperature in celcius
+    df_hp.loc[:,'P_el']=df_hp.loc[:,'P_el'].str.replace(',','.').astype(float)
+    df_hp.loc[:,'COP']=df_hp.loc[:,'COP'].str.replace(',','.').astype(float)
+    df_hp['P_th']=df_hp.P_el*df_hp.COP
+    heat_pumps_df = df_hp
+    del df_hp
+    gc.collect()
+
+    # Load building data
+    (bid, b_data), = pickle_load(building_file).items()
+    sim_name = b_data['attributes']['sim_name']
+    b_egid = b_data['attributes']['egid']
+    has_HP = b_data['attributes']['has_HP'] 
+    surface = b_data['attributes']['habitable_surface']
+    datetime_index = b_data['series'].index
+    b_Ts = b_data['series']['Ts']
+    b_Qs = b_data['series']['Qs']
+    b_dhw = b_data['series'].dhw
+
+    save_file = os.path.join(
+        config.simulation_extraction_dir,
+        sim_name,
+        f"{bid}_{b_egid}.pkl"
+    )
+
+    logger.info(f"Starting dimensioning of heat pump for building: {b_egid}")
+
+    if not has_HP:
+        b_data['heat_pump'] = None
+        pickle_save(save_file, {bid, b_data})
+        return save_file
+        
+    # Unload unused parts early
+    gc.collect()
+
+    # Determine if DHW square is high
+    ratio = b_dhw.sum() / (b_Qs.sum() + b_dhw.sum()) * 100
+    logger.info(f"Ratio DHW-SH: {ratio:.1f}%")
+    flag_hp = ratio > 30 # if DHW is higher than 30% of the total demand, the HP will have to be sized differently, taken into account the DHW demand and not only SH
+    flag_heating_floor = (b_Qs.sum() / surface < 50)
+
+    dict_design = hp_config.dict_design
+    design_temp, heatload_dt,heatload_dhw=get_design_temperature_hp(
+        pd.DataFrame(b_Ts),
+        pd.DataFrame(b_Qs),
+        pd.DataFrame(b_dhw),
+        dict_design,
+        flag_hp
+    )  # Qs resolution is 1 hour power and energy are then interchangeable here
+
+    # Prepare DataFrame
+    df_heat = pd.DataFrame({
+        'Req_kWh': b_Qs,
+        'Temp': b_Ts,
+    })
+    del b_Qs, b_Ts
+    gc.collect()
+
+    # # Create datetime index for every hour of 2017
+    # datetime_index = pd.date_range(start='2017-01-01 00:00', end='2017-12-31 23:00', freq='h')
+
+    # Assign to DataFrame
+    df_heat.index = datetime_index
+    aux = df_heat.groupby(df_heat.index.dayofyear)['Temp'].mean()
+    df_heat.loc[(df_heat.index.hour == 0)&(df_heat.index.minute==0), 'Temp_mean'] = aux.values
+    df_heat['Temp_mean'] = df_heat['Temp_mean'].ffill().round(1)
+    df_heat['Temp_mean'] = df_heat['Temp_mean'].rolling(window=200).mean().bfill()
+    df_heat['Set_T'] = 20
+
+    # Supply temps
+    if flag_heating_floor:
+        temp_args = {
+            'T_supply': dict_design['T_d_supply_floor'],
+            'T_return': dict_design['T_d_return_floor'],
+            'rad_exp': dict_design['rad_exp_floor'],
+        }
+        tank_args = {
+            'T_supply': dict_design['T_d_supply_floor_tank'],
+            'T_return': dict_design['T_d_return_floor_tank'],
+            'rad_exp': dict_design['rad_exp_floor'],
+        }
+    else:
+        temp_args = {
+            'T_supply': dict_design['T_d_supply_radiator'],
+            'T_return': dict_design['T_d_return_radiator'],
+            'rad_exp': dict_design['rad_exp_radiator'],
+        }
+        tank_args = {
+            'T_supply': dict_design['T_d_supply_radiator_tank'],
+            'T_return': dict_design['T_d_return_radiator_tank'],
+            'rad_exp': dict_design['rad_exp_radiator'],
+        }
+
+    df_heat['Temp_supply'] = df_heat.apply(
+        lambda x: supply_temp(x, dict_design['heatload_dt'], dict_design['design_temp'], **temp_args),
+        axis=1
+    )
+    df_heat['Temp_supply_tank'] = df_heat.apply(
+        lambda x: supply_temp(x, dict_design['heatload_dt'], dict_design['design_temp'], **tank_args),
+        axis=1
+    )
+        
+    # Match intervals
+    T_dists = heat_pumps_df.T_dist.unique()
+    T_outs = heat_pumps_df.T_outside.unique()
+    df_heat['HP_T_SFH_to_use'] = df_heat['Temp_supply'].apply(lambda x: T_dists[find_interval_hp(x, T_dists)])
+    df_heat['HP_T_SFH_tank_to_use'] = df_heat['Temp_supply_tank'].apply(lambda x: T_dists[find_interval_hp(x, T_dists)])
+    df_heat['Temp_amb_interval'] = df_heat['Temp'].apply(lambda x: T_outs[find_interval_hp(x, T_outs)])
+
+    hp_sizing(dict_design, heat_pumps_df, flag_heating_floor, flag_hp)
+    get_COP(df_heat,heat_pumps_df,dict_design)
+    del heat_pumps_df
+    gc.collect()
+    
+    # Final output fields
+    df_heat = df_heat[[
+        'Set_T', 'Temp', 'Req_kWh', 'Temp_supply', 'Temp_supply_tank', 
+        'COP_SH', 'COP_tank', 'COP_DHW',
+        'hp_sh_cons', 'hp_tank_cons', 'hp_dhw_cons'
+    ]]
+
+    heat_pump = HeatPumpDesign(
+        series=df_heat,
+        attributes=dict_design,
+    )
+    del df_heat
+    gc.collect()
+
+    # Store directly to previously loaded object (no need to reload!)
+    b_data['heat_pump'] = heat_pump
+    pickle_save(save_file, {bid: b_data})
+    del b_data
+    gc.collect()
+
+    return save_file
+
+def heat_pump_dimensioning_from_files(
+        building_extraction_files: List[str],
+        heat_pump_data_file: str,
+) -> List[str]:
+    logger.info("Started Heat Pump Sizing Procedure")
+    df_hp=pd.read_csv(heat_pump_data_file,sep=';')  # Temperature in celcius
+    df_hp.loc[:,'P_el']=df_hp.loc[:,'P_el'].str.replace(',','.').astype(float)
+    df_hp.loc[:,'COP']=df_hp.loc[:,'COP'].str.replace(',','.').astype(float)
+    df_hp['P_th']=df_hp.P_el*df_hp.COP
+    sizing_inputs = [
+        {
+            'building_file': f, 
+            'heat_pumps_file': heat_pump_data_file,
+        } 
+        for f in building_extraction_files
+    ]
+    results = run_parallel(
+        calculate_hp_from_extraction_file,
+        sizing_inputs,
+        config.multiprocessing,
+        processes=config.max_processes,
+        mode='kwargs',
+    )
+    return results
 
 def calculate_heat_pump_size(
     heat_pump_data_file: str,

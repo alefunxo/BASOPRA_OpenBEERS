@@ -25,7 +25,7 @@ import os
 from typing import Any, Dict, List, Set, Tuple
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from utils.utils import dataframe_save
+from utils.utils import dataframe_save, pickle_load
 
 from box import Box
 import re
@@ -978,4 +978,101 @@ def run_basopra_simulation(big_data_object):
     basopra_results.extend(gurobi_parallel_results)
 
     return basopra_results
+
+
+def run_simulation_from_file(simulation_input_file: str) -> str:
+    fixed_config = core_config.basopra_fixed_parameters
+
+    whitelist = config.building_whitelist
+    blacklist = config.building_blacklist
+
+    (bid, b_data), = pickle_load(simulation_input_file).items()
+
+    Combs_todo_dicts = []
+    for building, b_data in buildings_data.items():
+        if whitelist is not None and building not in whitelist:
+            continue
+        if blacklist is not None and building in blacklist:
+            continue
+        b_base_config = fixed_config.copy()
+        building_conf = get_conf_for_building(b_data)
+
+
+        # if b_data['attributes'].get('ev_count', 0) == 0:
+        #     b_base_config['ev_profiles'] = None
+        # else:
+        #     b_data['ev_profiles'] = b_base_config['ev_profiles']
+        if b_data.get('heat_pump') is None:
+            b_base_config.house_type = 'NoHeatPump'
+        combination = {
+            'hh': b_data,
+            'name': building,
+            'conf': building_conf,
+        }
+        Combs_todo_dicts.append({
+            'combinations': {**combination, **b_base_config}
+        })
+
+    return Combs_todo_dicts
+
+@fn_timer
+def run_basopra_simulation_from_file_names(simulation_file_names: List[str]):
+    buildings_data = big_data_object
     
+    results = run_parallel(
+        run_simulation_from_file,
+        simulation_file_names,
+        config.multiprocessing,
+        processes=config.max_processes,
+        mode='kwargs',
+    )
+    return results
+    Combs_todo_dicts = create_run_configurations(buildings_data)
+
+    basopra_results: List[str] = []
+    # TODO Eventually want to reimplement a method to find the simulations that already have been run by checking the output files
+    # Filtering non gurobi simulations
+    basic_simulations_indexes: List[int] = []
+    for combination in Combs_todo_dicts:
+        if combination['combinations']['conf'] in special_configurations.keys():
+            basic_simulations_indexes.append(Combs_todo_dicts.index(combination))
+
+    basic_simulations = []
+    for sim in sorted(basic_simulations_indexes, reverse=True):
+        basic_simulations.append(Combs_todo_dicts.pop(sim))
+
+    # Running non gurobi simulations
+    # for i in range(len(basic_simulations)):
+    #     conf_id = basic_simulations[i]['combinations']['conf']
+    #     simulation_inputs = basic_simulations[i]['combinations']
+    #     simulation_outputs = special_configurations[conf_id](simulation_inputs)
+    #     output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
+    #     basopra_results.append(output_file_path)
+    
+    basic_parallel_results = run_parallel(
+        run_non_gurobi_sim,
+        basic_simulations,
+        config.multiprocessing,
+        processes=config.max_processes,
+        mode='kwargs',
+    )
+    basopra_results.extend(basic_parallel_results)
+    
+    # Running gurobi simulations
+    ###### TESTING ####################
+    #[entry['combinations'].update(conf=8) for entry in Combs_todo_dicts]
+    #index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 20)
+    #do_EV_only_simulation(Combs_todo_dicts[0]['combinations'])
+    ###################################
+    
+    gurobi_parallel_results = run_parallel(
+        pooling2,
+        Combs_todo_dicts,
+        config.multiprocessing,
+        processes=config.max_processes,
+        mode='kwargs',
+    )
+    basopra_results.extend(gurobi_parallel_results)
+
+    return basopra_results
+ 

@@ -26,6 +26,7 @@ def build_basopra_input(
         # Building attributes
         attributes = api_attributes[bid]
         attributes['sim_name'] = simulation.name
+        attributes['sim_year'] = simulation.year
         building_xml_attributes = xml_attributes.get(bid)
         if building_xml_attributes:
             for attr_name in building_xml_attributes.keys():

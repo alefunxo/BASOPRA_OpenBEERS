@@ -13,8 +13,9 @@ from openbeers_api.extract import get_xml_building_data
 from openbeers_api.assembler import build_basopra_input
 from openbeers.models import EnergyHeatPump, EnergyPhotovoltaicSystem, Simulation, TimeSeries
 from elec_pricer.pricer import ElectricityPricer
-from heat_pump.pump_sizer import calculate_heat_pump_size
+from heat_pump.pump_sizer import calculate_heat_pump_size, heat_pump_dimensioning_from_files
 from utils.utils import dataframe_save, pickle_load, pickle_save
+from utils.multiprocessing_utils import run_parallel
 from utils.aggregator import generate_aggregated_basopra_output_data, generate_aggregated_zone_data
 from Core.main_beers import run_basopra_simulation
 from Core.renovation_planner import RenovationPlanning
@@ -102,7 +103,6 @@ async def run_pipeline(simulation: Simulation) -> Tuple[Dict[int, Any], bool]:
         xml_attributes, xml_series, heat_tanks, dhw_tanks = get_xml_building_data(config['dest_folder'] + 'simulation.xml')
         climate_df = load_climate_file(config['dest_folder'] + climate.climate_file)
 
-        cleanup(config['dest_folder'])
 
         # Combining data from different sources
         result = build_basopra_input(
@@ -276,7 +276,145 @@ async def list_simulations():
     for sim in sim_names:
         print(sim)
 
+async def extract_openbeers_data(
+        simulation: Simulation,
+        planner: RenovationPlanning,
+        pricer: ElectricityPricer,
+) -> List[str]:
+    logger.info(f"Extracting all data from simulation: {simulation.id} - {simulation.name}")
+    save_dir = f"{config['simulation_extraction_dir']}/{simulation.name}_noHP"
+
+    extraction, has_renov = await run_pipeline(simulation)
+
+    if True:
+        planner.add_EVs(extraction, simulation)
+        planner.add_batteries(extraction, simulation)
+        planner.add_HP_flags(extraction, simulation)
+    else:
+        # TODO implement renovations from OpenBEERS part
+        planner.add_EVs(extraction, simulation)
+        planner.add_openbeers_batteries(extraction, simulation)
+        planner.add_openbeers_HP_flags(extraction, simulation)
+    
+    get_elec_prices(extraction, pricer)
+
+    extracted_files = []
+    for bid, b_data in extraction.items():
+        save_file = f"{save_dir}/{bid}_{b_data['attributes']['egid']}.pkl"
+        pickle_save(save_file, {bid: b_data})
+        extracted_files.append(save_file)
+
+    return extracted_files
+
+async def get_one_simulation_data(
+        sim_name: str,
+        sim: Simulation,
+):
+    extracted_sims = []
+    save_dir = f'{config.simulation_extraction_dir}/{sim.name}_noHP'
+    planner = RenovationPlanning(config.renovation_planning.save_file)
+    pricer = ElectricityPricer()
+    try:
+        if sim is None and os.path.exists(save_dir):
+            logger.info(f"Simulation {sim_name} not found on OpenBeers.")
+            logger.info(f"Falling back on found extraction dir: {save_dir}")
+            files = [os.path.join(save_dir, f) for f in os.listdir(save_dir) if os.path.isfile(os.path.join(save_dir, f))]
+            extracted_sims.extend(files)
+        elif sim is None and not os.path.exists(save_dir):
+            logger.info(f"Simulation {sim_name} not found on OpenBeers and no fallback extraction available.")
+            logger.info(f"Interrupting simulation for {sim_name}")
+        else:
+            logger.info(f"Processing {sim.name}")
+            save_files = await extract_openbeers_data(sim, planner, pricer)
+            extracted_sims.extend(save_files)
+    except Exception as e:
+        tb = traceback.format_exc()
+        data_logger.error(f"Simulation data retrieval and preparation failed for: \n{sim.name} with error {e} and stacktrace: \n{tb}")
+    return extracted_sims
+
+def get_one_simulation_data_sync(sim_name: str, sim: Simulation):
+    return asyncio.run(get_one_simulation_data(sim_name, sim))
+
+
+def get_openbeers_data(
+        sim_names: List[str],
+        simulations: List[Simulation],
+) -> List[str]:
+    simulation_retrieving_inputs = (
+        {
+            'sim_name': name,
+            'sim': sim,
+        } for name, sim in zip(sim_names, simulations)
+    )
+    results = run_parallel(
+        get_one_simulation_data_sync,
+        simulation_retrieving_inputs,
+        config.multiprocessing,
+        processes=config.max_processes,
+        mode='kwargs',
+    )
+    results = [item for sublist in results for item in sublist]
+    return results
+
+def alternate(simulations: List[Simulation]) -> None:
+    simulation_names = config.simulation_names
+   
+    # Retrieving and saving Simulation data
+    try:
+        simulation_save_files = get_openbeers_data(simulation_names, simulations)
+    except Exception as e:
+        tb = traceback.format_exc()
+        logger.error(f'Unexpected error while retrieving OpenBeers data: {e}')
+        data_logger.error(f'Unexpected error while retrieving OpenBeers data: {e}\n {tb}')
+
+    cleanup(config['dest_folder'])
+
+    # Creating and saving Heat Pumps
+    try:
+        files_for_basopra = heat_pump_dimensioning_from_files(simulation_save_files, f"{config['input_dir']}/HP_data.csv")
+    except Exception as e:
+        tb = traceback.format_exc()
+        logger.error(f"Unexpected error while dimensionning Heat Pumps: {e}")
+        data_logger.error(f"Unexpected error while dimensionning Heat Pumps: {e}\n{tb}")
+
+    # Initiating Basopra simulations
+    try:
+        output_file_names = run_basopra_simulation_from_file_names(files_for_basopra)
+        logger.info("Finished all Basopra runs")
+        for file in output_file_names:
+            print(file)
+    except Exception as e:
+        tb = traceback.format_exc()
+        logger.error(f"Unexpected error while running Basopra simulations: {e}\n{tb}")
+    pass
+
+async def get_simulations() -> List[Simulation]:
+    logger.info("Starting loop through simulations")
+    logger.info("Entering list mode. Only given simulation names will be processed")
+    simulation_names = config.simulation_names
+
+    simulations = []
+    for name in simulation_names:
+        try:
+            logger.info(f"From config.yaml, simulation to process is: {name}")
+            api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
+            async with api_wrapper as api:
+                simulation = await api.get_simulation(name)
+            
+            if simulation is None:
+                logger.warning(f'Simulation "{name}" is None. Skipping.')
+                continue
+
+            simulations.append(simulation)
+        except Exception as e:
+            tb = traceback.format_exc()
+            logger.error(f'Unexpected error while processing simulation "{name}": {e}')
+            data_logger.error(f'Unexpected error while processing simulation "{name}": {e}\n {tb}')
+            continue
+    return simulations
 
 if __name__ == "__main__":
     # asyncio.run(list_simulations())
-    asyncio.run(main())
+    # asyncio.run(main())
+    simulations = asyncio.run(get_simulations())
+    alternate(simulations)
