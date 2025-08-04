@@ -20,9 +20,10 @@
 # ------------
 #  Pandas, numpy, sys, glob, os, csv, pickle, functools, argparse, itertools, time, math, pyomo and multiprocessing
 
+import gc
 import sys
 import os
-from typing import Any, Dict, List, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from utils.utils import dataframe_save, pickle_load
@@ -467,83 +468,68 @@ def load_param(combinations):
     Comments
     -----
     '''
-    # logger.info('Loading data for Basopra Optimization')
-
     series = combinations['hh']['series']
     idx = series.index
 
     attributes = combinations['hh']['attributes']
     heat_pump = None
     heat_pump_series_names = config.heat_pump_series
-    df_heat_new = pd.DataFrame(0, index=idx, columns=heat_pump_series_names)
-    if attributes['has_HP']:
-        heat_pump = combinations['hh']['heat_pump']
-        heat_pump.series.index = idx
-    df_el = series[['ElectricConsumption', 'SolarPVProduction','dhw']]  # kWh, kWh, kWh
-
     pv_roof_capacity = attributes['roof_pv_capacity']  # kW
     pv_wall_capacity = attributes['wall_pv_capacity']  # kW
     pv_capacity = pv_roof_capacity + pv_wall_capacity  # kW
-    elec_price = attributes['elec_price']/100  # frs/kWh
+
+    elec_price = attributes['elec_price'] / 100  # frs/kWh
+    Export_price = combinations['Export_price'] # frs/kWh
     ev_profiles = combinations['hh']['ev_profiles']
     public_charging_price=combinations['public_charging_price']
-    Export_price = combinations['Export_price'] # frs/kWh
-    
-    # logger.info("Choose the corresponding profile for electricity")
-   
+
     param = core_config['param_load_fixed_parameters']
     param['name']=combinations['name']
     param['App_comb']=combinations['App_comb']
 
-    week = 1
-
+    # df_el creation
+    df_el = series[['ElectricConsumption', 'SolarPVProduction','dhw']].copy()  # kWh, kWh, kWh
     df_el.columns=['E_demand','E_PV','dhw']
-    
-    PV_nom = pv_capacity
-    # logger.info(f'PV_nom : {PV_nom}')
-    # Let-s try with the demand instead of the PV due to the high PV nom in the facade
-    param["Capacity"] = np.round(df_el.E_demand.sum()/1000,0) # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
-    # logger.info(f'Battery Capacity : {Capacity}')
-    param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
-   
 
-    if attributes['has_HP']:
-        df_heat_new = heat_pump.series[heat_pump_series_names]
-    else:
-        df_heat_new = pd.DataFrame(0, index=idx, columns=heat_pump_series_names)
-
-    ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
-
-    df_el.index = idx    
-
+    # set addicional columns
     df_el['Price_flat']=elec_price
     df_el['Export_price']=Export_price
     df_el.rename(columns={'dhw': 'Req_kWh_DHW'}, inplace=True)
+
+    # PV and battery parameters
+    PV_nom = pv_capacity
+    param["Capacity"] = np.round(df_el.E_demand.sum()/1000,0) # pv_capacity['Roof'] + pv_capacity['Wall']# Capacity is for the battery, PV_nom is for PV
+    param['Inverter_power'] = round(pv_capacity/ 1.2, 1)
+
+    # Heat Pump
+    if attributes['has_HP']:
+        heat_pump = combinations['hh']['heat_pump']
+        df_heat_new = heat_pump.series[heat_pump_series_names]
+        heat_pump.series.index = idx
+    else:
+        df_heat_new = pd.DataFrame(0, index=idx, columns=heat_pump_series_names)
+
     
-    to_concat = [df_el]
-    to_concat.append(df_heat_new)
-    to_concat.append(df_EVs)
-    data_input=pd.concat(to_concat,axis=1,copy=True,sort=False)
+    # EV Profiles
+    ev_param, df_EVs = load_multi_EV_data(ev_profiles, param, idx)
 
-    #skip the first DHW data since cannot be produced simultaneously with SH    data_input.loc[(data_input.index.hour<2),'Req_kWh_DHW']=0
-    #data_input.loc[:,'E_PV']=data_input.loc[:,'E_PV']*PV_nom
+    # Combine all inputs
+    data_input=pd.concat([df_el, df_heat_new, df_EVs],axis=1,copy=True,sort=False)
 
-    data_input['Temp']=data_input['Temp'].apply(celsius_to_kelvin)
-    data_input['Set_T']=data_input['Set_T'].apply(celsius_to_kelvin)
-    data_input['Temp_supply']=data_input['Temp_supply'].apply(celsius_to_kelvin)
-    data_input['Temp_supply_tank']=data_input['Temp_supply_tank'].apply(celsius_to_kelvin)
-    
+    temp_columns = ['Temp', 'Set_T', 'Temp_supply', 'Temp_supply_tank']
+    data_input[temp_columns] = data_input[temp_columns].applymap(celsius_to_kelvin)
 
-    if param['testing']:
+    week = 1
+    if param.get('testing', False):
         data_input=data_input[data_input.index.isocalendar().week==week]
         nyears=1
         days=7
-        ndays=7
     else:
         nyears=1
         days=365
-        ndays=365
-    param['ndays']=days*nyears
+
+    param['ndays'] = days * nyears
+
     param, conf_aux=configure_system_parameters(combinations, heat_pump, param)
     
     param.update({
@@ -554,9 +540,7 @@ def load_param(combinations):
         'PV_nom': PV_nom,
         'App_comb': create_app_combinations(combinations['App_comb']),
         'public_charging_price':public_charging_price
-        })
-
-    
+    })
     
     return param, data_input
 
@@ -577,6 +561,7 @@ def pooling2(combinations):
         bool
             True if successful, False otherwise.
         '''
+        print("GUROBI")
 
         param, data_input=load_param(combinations)
         # try:
@@ -614,18 +599,25 @@ def pooling2(combinations):
         return None
          # traceback.print_exc()
          # raise
+    finally:
+        del combinations, df, param, data_input
+        gc.collect()
 
-def save_basopra_results_to_csv(simulation_inputs: Dict[str, Any], simulation_outputs: pd.DataFrame) -> str:
-    # Getting necessary attributes to save file
+def create_sim_file_name(simulation_inputs: Dict[str, Any]) -> str:
+    simulation_name = simulation_inputs['hh']['attributes']['sim_name']
     building_id = simulation_inputs['name']
     egid = simulation_inputs['hh']['attributes']['egid']
     conf_id = simulation_inputs['conf']
     conf_name = core_config.conf_mapping[conf_id]
-    simulation_name = simulation_inputs['hh']['attributes']['sim_name']
     ev = 'EV' if simulation_inputs['hh']['attributes']['ev_count'] > 0 else 'noEV'
     pv = 'PV' if simulation_inputs['hh']['attributes']['has_PV'] else 'noPV'
-    
     output_file_name = f'{config.basopra_output_dir}{simulation_name}/df_{building_id}_{egid}_{conf_name}_{ev}_{pv}.csv'
+    return output_file_name
+
+
+def save_basopra_results_to_csv(simulation_inputs: Dict[str, Any], simulation_outputs: pd.DataFrame) -> str:
+    # Getting necessary attributes to save file
+    output_file_name = create_sim_file_name(simulation_inputs)
 
     # Outputs cleanup and merge with inputs
     simulation_outputs= simulation_outputs.loc[:, ~simulation_outputs.columns.str.startswith("Bool_")]
@@ -905,6 +897,7 @@ def create_run_configurations(buildings_data):
     return Combs_todo_dicts
 
 def run_non_gurobi_sim(combinations: Dict[str, Any]):
+    print("NON_GUROBI")
     try:
         simulation_inputs = combinations
         conf_id = combinations['conf']
@@ -926,6 +919,9 @@ def run_non_gurobi_sim(combinations: Dict[str, Any]):
             """
         )
         return None
+    finally:
+        del combinations, simulation_inputs, simulation_outputs
+        gc.collect()
 
 @fn_timer
 def run_basopra_simulation(big_data_object):
@@ -980,13 +976,13 @@ def run_basopra_simulation(big_data_object):
     return basopra_results
 
 
-def run_simulation_from_file(simulation_input_file: str) -> str:
+def run_simulation_from_file(simulation_input_file: str) -> Optional[str]:
+    print("ACHIEVED")
     fixed_config = core_config.basopra_fixed_parameters
 
+    (bid, b_data), = pickle_load(simulation_input_file).items()
     whitelist = config.building_whitelist
     blacklist = config.building_blacklist
-
-    (bid, b_data), = pickle_load(simulation_input_file).items()
     if whitelist is not None and int(b_data['attributes']['egid']) not in whitelist:
         return None
     if blacklist is not None and int(b_data['attributes']['egid']) in blacklist:
@@ -995,97 +991,37 @@ def run_simulation_from_file(simulation_input_file: str) -> str:
 
     if b_data.get('heat_pump') is None:
         fixed_config.house_type = 'NoHeatPump'
+
     combination = {
         'hh': b_data,
         'name': bid,
         'conf': building_conf,
     }
-
-    Combs_todo_dicts = []
-    for building, b_data in buildings_data.items():
-        if whitelist is not None and building not in whitelist:
-            continue
-        if blacklist is not None and building in blacklist:
-            continue
-        b_base_config = fixed_config.copy()
-        building_conf = get_conf_for_building(b_data)
-
-
-        # if b_data['attributes'].get('ev_count', 0) == 0:
-        #     b_base_config['ev_profiles'] = None
-        # else:
-        #     b_data['ev_profiles'] = b_base_config['ev_profiles']
-        if b_data.get('heat_pump') is None:
-            b_base_config.house_type = 'NoHeatPump'
-        combination = {
-            'hh': b_data,
-            'name': building,
-            'conf': building_conf,
-        }
-        Combs_todo_dicts.append({
-            'combinations': {**combination, **b_base_config}
-        })
-
-    return Combs_todo_dicts
+    save_file = create_sim_file_name(combination)
+    if config.cache and os.path.exists(save_file):
+        logger.info(f"Basopra simulation already exists: {save_file}")
+        return save_file
+    
+    if building_conf in special_configurations.keys():
+        output_file_path = run_non_gurobi_sim({**combination, **fixed_config})
+    else:
+        output_file_path = pooling2({**combination, **fixed_config})
+    
+    return output_file_path
 
 @fn_timer
-def run_basopra_simulation_from_file_names(simulation_file_names: List[str]):
-    buildings_data = big_data_object
+def run_basopra_simulation_from_file_names(simulation_file_names: List[str]) -> List[str]:
+    files = [{
+        'simulation_input_file': sim_file,
+    } for sim_file in simulation_file_names]
     
     results = run_parallel(
         run_simulation_from_file,
-        simulation_file_names,
+        files,
         config.multiprocessing,
         processes=config.max_processes,
         mode='kwargs',
     )
+    results = [res for res in results if res is not None]
     return results
-    Combs_todo_dicts = create_run_configurations(buildings_data)
-
-    basopra_results: List[str] = []
-    # TODO Eventually want to reimplement a method to find the simulations that already have been run by checking the output files
-    # Filtering non gurobi simulations
-    basic_simulations_indexes: List[int] = []
-    for combination in Combs_todo_dicts:
-        if combination['combinations']['conf'] in special_configurations.keys():
-            basic_simulations_indexes.append(Combs_todo_dicts.index(combination))
-
-    basic_simulations = []
-    for sim in sorted(basic_simulations_indexes, reverse=True):
-        basic_simulations.append(Combs_todo_dicts.pop(sim))
-
-    # Running non gurobi simulations
-    # for i in range(len(basic_simulations)):
-    #     conf_id = basic_simulations[i]['combinations']['conf']
-    #     simulation_inputs = basic_simulations[i]['combinations']
-    #     simulation_outputs = special_configurations[conf_id](simulation_inputs)
-    #     output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
-    #     basopra_results.append(output_file_path)
     
-    basic_parallel_results = run_parallel(
-        run_non_gurobi_sim,
-        basic_simulations,
-        config.multiprocessing,
-        processes=config.max_processes,
-        mode='kwargs',
-    )
-    basopra_results.extend(basic_parallel_results)
-    
-    # Running gurobi simulations
-    ###### TESTING ####################
-    #[entry['combinations'].update(conf=8) for entry in Combs_todo_dicts]
-    #index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 20)
-    #do_EV_only_simulation(Combs_todo_dicts[0]['combinations'])
-    ###################################
-    
-    gurobi_parallel_results = run_parallel(
-        pooling2,
-        Combs_todo_dicts,
-        config.multiprocessing,
-        processes=config.max_processes,
-        mode='kwargs',
-    )
-    basopra_results.extend(gurobi_parallel_results)
-
-    return basopra_results
- 

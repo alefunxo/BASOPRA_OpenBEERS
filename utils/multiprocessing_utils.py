@@ -10,7 +10,8 @@ def run_parallel(
     use_multiprocessing: bool = True,
     processes: int = None,
     start_method: str = "spawn",
-    mode: str = "default"  # "default", "unpack_args", or "kwargs"
+    mode: str = "default",  # "default", "unpack_args", or "kwargs"
+    chunksize: int = 1,
 ) -> list:
     """
     Runs a function in parallel or serial mode.
@@ -35,11 +36,11 @@ def run_parallel(
         ctx = mp.get_context(start_method)
         with ctx.Pool(processes=processes) as pool:
             if mode == "unpack_args":
-                return pool.map(_wrapper_unpack_args, [(func, args) for args in inputs])
+                return pool.map(_wrapper_unpack_args, [(func, args) for args in inputs], chunksize=chunksize)
             elif mode == "kwargs":
-                return pool.map(_wrapper_kwargs, [(func, kwargs) for kwargs in inputs])
+                return pool.map(_wrapper_kwargs, [(func, kwargs) for kwargs in inputs], chunksize=chunksize)
             else:
-                return pool.map(func, inputs)
+                return pool.map(func, inputs, chunksize=chunksize)
     else:
         if mode == "unpack_args":
             return [func(*args) for args in inputs]
@@ -65,36 +66,3 @@ def resolve_num_processes(requested: int | None) -> int: # For python > 3.9
         return max(1, cpu_total + requested)
     else:
         return max(1, requested)
-# import multiprocessing as mp
-
-# from utils.logger import logger
-# from typing import Callable, Dict, Iterable, Any
-# 
-# def default_wrapper(fn: Callable, kwargs: Dict) -> Any:
-#     return fn(**kwargs)
-# 
-# def run_parallel(
-#     func: Callable,
-#     inputs: Iterable[Any],
-#     use_multiprocessing: bool = True,
-#     processes: int = None,
-#     start_method: str = 'spawn',
-#     wrap_kwargs: bool = False,
-#     unpack_args: bool = False,
-# ):
-#     if unpack_args and wrap_kwargs:
-#         raise ValueError("Cannot use both unpack_args and wrap_kwargs")
-# 
-#     if wrap_kwargs:
-#         def wrapped_func(kwargs): return func(**kwargs)
-#     elif unpack_args:
-#         def wrapped_func(args): return func(*args)
-#     else:
-#         wrapped_func = func
-#     
-#     if use_multiprocessing:
-#         ctx = mp.get_context(start_method)
-#         with ctx.Pool(processes=processes) as pool:
-#             return pool.map(wrapped_func, inputs)
-#     else:
-#         return [wrapped_func(inp) for inp in inputs]

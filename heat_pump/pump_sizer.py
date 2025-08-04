@@ -400,6 +400,7 @@ def calculate_hp_from_extraction_file(
         building_file: str,
         heat_pumps_file: str,
 ) -> str:
+
     # Load and preprocess HP data
     df_hp=pd.read_csv(heat_pumps_file, sep=';')  # Temperature in celcius
     df_hp.loc[:,'P_el']=df_hp.loc[:,'P_el'].str.replace(',','.').astype(float)
@@ -426,11 +427,15 @@ def calculate_hp_from_extraction_file(
         f"{bid}_{b_egid}.pkl"
     )
 
+    if os.path.exists(save_file) and config.cache:
+        logger.info(f"Simulation building extraction file with HP already exists. {save_file}")
+        return save_file
+
     logger.info(f"Starting dimensioning of heat pump for building: {b_egid}")
 
     if not has_HP:
         b_data['heat_pump'] = None
-        pickle_save(save_file, {bid, b_data})
+        pickle_save(save_file, {bid: b_data})
         return save_file
         
     # Unload unused parts early

@@ -451,9 +451,15 @@ class RenovationPlanning:
         citysim_hp_flag_name = planner_config.citysim_hp_flag
         citysim_hp = {}
         for b, values in buildings.items():
+            municip = values['attributes']['commune'],
+            renovation = values.get('renovation')
+            hp_flag = False
+            if renovation is not None:
+                hp_flag = renovation.roof_renovation
             citysim_hp[b] = {
-                'municipality': values['attributes']['commune'],
-                citysim_hp_flag_name: values['attributes'].get(citysim_hp_flag_name, False),
+                'municipality': municip,
+                # citysim_hp_flag_name: values['attributes'].get(citysim_hp_flag_name, False),
+                citysim_hp_flag_name: hp_flag,
             }
         citysim_hp = pd.DataFrame(citysim_hp).T
         precomputed_has_hp = self.renovation_plan.loc[citysim_hp.index.intersection(self.renovation_plan.index)]

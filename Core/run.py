@@ -17,7 +17,7 @@ from heat_pump.pump_sizer import calculate_heat_pump_size, heat_pump_dimensionin
 from utils.utils import dataframe_save, pickle_load, pickle_save
 from utils.multiprocessing_utils import run_parallel
 from utils.aggregator import generate_aggregated_basopra_output_data, generate_aggregated_zone_data
-from Core.main_beers import run_basopra_simulation
+from Core.main_beers import run_basopra_simulation, run_basopra_simulation_from_file_names
 from Core.renovation_planner import RenovationPlanning
 
 async def get_attributes_for_building(api, buildings, attribute_types):
@@ -114,6 +114,7 @@ async def run_pipeline(simulation: Simulation) -> Tuple[Dict[int, Any], bool]:
             climate = climate_df, 
             heat_tanks = heat_tanks, 
             dhw_tanks = dhw_tanks, 
+            renovations = renovations,
             heat_pumps = heat_pumps,
             pv_installations = pv_installations,
         )
@@ -284,6 +285,11 @@ async def extract_openbeers_data(
     logger.info(f"Extracting all data from simulation: {simulation.id} - {simulation.name}")
     save_dir = f"{config['simulation_extraction_dir']}/{simulation.name}_noHP"
 
+    if os.path.exists(save_dir) and config.cache:
+        logger.info(f"Simulation extraction file already exists. {simulation.name}")
+        files = [os.path.join(save_dir, f) for f in os.listdir(save_dir) if os.path.isfile(os.path.join(save_dir, f))]
+        return files
+
     extraction, has_renov = await run_pipeline(simulation)
 
     if True:
@@ -386,7 +392,6 @@ def alternate(simulations: List[Simulation]) -> None:
     except Exception as e:
         tb = traceback.format_exc()
         logger.error(f"Unexpected error while running Basopra simulations: {e}\n{tb}")
-    pass
 
 async def get_simulations() -> List[Simulation]:
     logger.info("Starting loop through simulations")

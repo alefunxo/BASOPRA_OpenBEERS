@@ -386,14 +386,17 @@ def Optimize(data_input, param):
     # Define the list of columns to map from data_input
     new_cols = {col: data_input[col].reset_index(drop=True).iloc[:end_d].values 
                 for col in columns_to_map}
-    df = df.assign(**new_cols)
-    new_cols = {}
+    # df = df.assign(**new_cols)
+    # new_cols = {}
     for ev in param['EV_list']:
         new_cols[f"{ev}_EV_home"]   = data_input[f"{ev}_EV_home"].reset_index(drop=True).iloc[:end_d].values
         new_cols[f"{ev}_EV_away"]   = data_input[f"{ev}_EV_away"].reset_index(drop=True).iloc[:end_d].values
         new_cols[f"{ev}_E_EV_trip"] = data_input[f"{ev}_E_EV_trip"].reset_index(drop=True).iloc[:end_d].values
 
-    df = df.assign(**new_cols)
+    # df = df.assign(**new_cols)
+    df = pd.concat([df, pd.DataFrame(new_cols, index=df.index)], axis=1)
+
+    df = df.copy()
 
     df.set_index('index', inplace=True)
 

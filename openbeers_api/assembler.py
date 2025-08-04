@@ -2,7 +2,7 @@ import pandas as pd
 from typing import Dict, Any, List
 from Core.paper_classes import heat_storage_tank
 from openbeers_api.integrity_checker import conduct_building_sanity_check
-from openbeers.models import Simulation, EnergyHeatPump, EnergyPhotovoltaicSystem
+from openbeers.models import Simulation, EnergyHeatPump, EnergyPhotovoltaicSystem, EnergyRenovation
 from utils.logger import data_logger
 
 surfaces = ['Roof', 'Wall', 'Ground']
@@ -16,6 +16,7 @@ def build_basopra_input(
     climate: pd.DataFrame,
     heat_tanks: Dict[int, heat_storage_tank],
     dhw_tanks: Dict[int, heat_storage_tank],
+    renovations: Dict[int, EnergyRenovation],
     heat_pumps: Dict[int, List[EnergyHeatPump]],
     pv_installations: Dict[int, List[EnergyPhotovoltaicSystem]],
 ) -> Dict[str, Dict[str, pd.DataFrame]]:
@@ -75,6 +76,7 @@ def build_basopra_input(
                 'series': ser_df,
                 'heat_tank': heat_tanks[int(bid)],
                 'dhw_tank': dhw_tanks[int(bid)],
+                'renovation': renovations[int(bid)],
                 'heat_pump': heat_pumps.get(int(bid)),
                 'PV': pv_installations.get(int(bid)),
             }
