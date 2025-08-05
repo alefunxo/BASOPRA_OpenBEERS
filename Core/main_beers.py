@@ -320,23 +320,27 @@ def load_EV_data(combinations, single_param):
 def init_zero_ev(param: dict, idx) :
     EV0 = 'EV0'
     # zero‐filled time‐series DataFrame
-    df_zero = pd.DataFrame(0, index=idx,
-                            columns=['EV_home','EV_away','E_EV_trip','E_EV_req'])
+    df_zero = pd.DataFrame(
+        0, 
+        index=idx,
+        columns=['EV_home','EV_away','E_EV_trip','E_EV_req'],
+    )
     # populate every scalar to zero
-    zeros = {EV0: 0}
+    # zeros = {EV0: 0}
     # time‐series as dict of zeros-per‐timestamp
-    ts_dict = {EV0: df_zero.to_dict(orient='list')}  # or .to_dict() for {t:0}
-    Batt_EV        = {}
-    Batt_EV['EV0']=pc.Battery_tech(Capacity=0, Technology='NMC')
+    # ts_dict = {EV0: df_zero.to_dict(orient='list')}  # or .to_dict() for {t:0}
+    # Batt_EV        = {}
+    Batt_EV = {EV0: pc.Battery_tech(Capacity=0, Technology='NMC')}
     Batt_EV['EV0'].SOC_max = 0
     Batt_EV['EV0'].SOC_min = 0
+
     param.update({
         'EV_list':             [EV0],
         'Batt_EV':             Batt_EV,
-        'E_EV_start':          zeros,
-        'EV_P_max_home':       zeros,
-        'EV_P_max_away':       zeros,
-        'EV_V2G':              zeros,
+        'E_EV_start':          {EV0: 0},
+        'EV_P_max_home':       {EV0: 0},
+        'EV_P_max_away':       {EV0: 0},
+        'EV_V2G':              {EV0: 0},
         'EV_home':             {EV0: dict.fromkeys(idx, 0)},
         'EV_away':             {EV0: dict.fromkeys(idx, 0)},
         'E_EV_trip':           {EV0: dict.fromkeys(idx, 0)},
@@ -429,7 +433,12 @@ def init_zero_ev(param: dict, idx) :
 
 def load_multi_EV_data(ev_profiles, param, idx):
     if not ev_profiles:
-        return init_zero_ev(param, idx)
+        param, df_EVs_dict = init_zero_ev(param, idx)
+        df_EVs = pd.concat(df_EVs_dict, axis=1)
+        df_EVs.columns = [f"{ev}_{col}" for ev, col in df_EVs.columns]
+        df_EVs.index = idx
+        return param, df_EVs
+        # return init_zero_ev(param, idx)
 
     EV_list = list(ev_profiles.keys())
     param.update({'EV_list': EV_list})
