@@ -34,7 +34,7 @@ def run_parallel(
     if use_multiprocessing:
         processes = resolve_num_processes(processes)
         ctx = mp.get_context(start_method)
-        with ctx.Pool(processes=processes) as pool:
+        with ctx.Pool(processes=processes, maxtasksperchild=1) as pool:
             if mode == "unpack_args":
                 return pool.map(_wrapper_unpack_args, [(func, args) for args in inputs], chunksize=chunksize)
             elif mode == "kwargs":

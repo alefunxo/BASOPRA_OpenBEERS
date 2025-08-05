@@ -23,7 +23,7 @@
 import gc
 import sys
 import os
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from utils.utils import dataframe_save, pickle_load
@@ -168,76 +168,152 @@ def load_electricity_demand(id_dwell):
     df_el.columns=new_cols
     return df_el
 
+_ev_file_cache = {}
+
+def get_cached_csv(
+    path: Union[str, Path], 
+    usecols: Optional[list[str]] = None,
+    index_col: Optional[Union[int, str]] = None,
+    parse_dates: Optional[Union[list[int], list[str]]] = None,
+    sep: Optional[str] = None,
+    engine: Optional[str] = None
+) -> pd.DataFrame:
+    key = (
+        str(path), 
+        tuple(usecols) if usecols else None, 
+        index_col, 
+        tuple(parse_dates) if parse_dates else None,
+        sep,
+        engine,
+    )
+    if key not in _ev_file_cache:
+        _ev_file_cache[key] = pd.read_csv(
+            path, 
+            usecols=usecols, 
+            index_col=index_col, 
+            parse_dates=parse_dates,
+            sep=sep,
+            engine=engine,
+        )
+    return _ev_file_cache[key].copy()
+
+    # key = (str(path), tuple(usecols) if usecols else None)
+    # if key not in _ev_file_cache:
+    #     _ev_file_cache[key] = pd.read_csv(path, usecols=usecols)
+    # return _ev_file_cache[key].copy()  # prevent modification
+
 def load_EV_data(combinations, single_param):
+    EV_use = combinations['EV_use']
+    profile_row = combinations['profile_row_number']
+    P_home = combinations['EV_P_max_home']
+
+    id_map = {
+        'Low': 'hhnrEVLow.csv',
+        'Medium': 'hhnrEVMedium.csv',
+        'High': 'hhnrEVHigh.csv',
+        'None': 'hhnrEVHigh.csv'  # reused
+    }
+
+    profile_map = {
+        'Low': 'dfEVLow.csv',
+        'Medium': 'dfEVMedium.csv',
+        'High': 'dfEVHigh.csv',
+        'None': 'dfEVNone.csv'
+    }
+
+    EV_IDs = get_cached_csv(f'{INPUT_PATH}{id_map[EV_use]}')
+    filename_EV2 = Path(f'{INPUT_PATH}{profile_map[EV_use]}')
+
+    EV_ID = EV_IDs.iloc[profile_row]['HHNR_WEEKDAY_WEEKENDAY']
+
+    # ########## LOAD EV DATA
+    # Batt_EV = pc.Battery_tech(Capacity=combinations['EV_batt_cap'], Technology='NMC')
+    # # logger.info("Extract the id numbers")
+    # if combinations['EV_use'] == 'Low':
+    #         EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVLow.csv')
+    #         filename_EV2 = Path(f'{INPUT_PATH}dfEVLow.csv')
     
-    ########## LOAD EV DATA
-    Batt_EV = pc.Battery_tech(Capacity=combinations['EV_batt_cap'], Technology='NMC')
-    # logger.info("Extract the id numbers")
-    if combinations['EV_use'] == 'Low':
-            EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVLow.csv')
-            filename_EV2 = Path(f'{INPUT_PATH}dfEVLow.csv')
-    
-    if combinations['EV_use'] == 'Medium':
-            EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVMedium.csv')
-            filename_EV2 = Path(f'{INPUT_PATH}dfEVMedium.csv')
+    # if combinations['EV_use'] == 'Medium':
+    #         EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVMedium.csv')
+    #         filename_EV2 = Path(f'{INPUT_PATH}dfEVMedium.csv')
 
     
-    if combinations['EV_use'] == 'High':
-            EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVHigh.csv')
-            filename_EV2 = Path(f'{INPUT_PATH}dfEVHigh.csv')            
-    if combinations['EV_use'] == 'None': #It will select a number for the model to work, but it is not used later
-            EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVHigh.csv')
-            filename_EV2 = Path(f'{INPUT_PATH}dfEVNone.csv')    
-    EV_ID = EV_IDs.iloc[combinations['profile_row_number']]['HHNR_WEEKDAY_WEEKENDAY']
+    # if combinations['EV_use'] == 'High':
+    #         EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVHigh.csv')
+    #         filename_EV2 = Path(f'{INPUT_PATH}dfEVHigh.csv')            
+    # if combinations['EV_use'] == 'None': #It will select a number for the model to work, but it is not used later
+    #         EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVHigh.csv')
+    #         filename_EV2 = Path(f'{INPUT_PATH}dfEVNone.csv')    
+    # EV_ID = EV_IDs.iloc[combinations['profile_row_number']]['HHNR_WEEKDAY_WEEKENDAY']
     
-    # logger.info("EV_ID: s"  + str(EV_ID))
-    
-    
+    # # logger.info("EV_ID: s"  + str(EV_ID))
     
     filename_EV = Path(f'{INPUT_PATH}dfEVBasopra.csv')
-    fields_EV=['index','energyRequired'+combinations['EV_P_max_home']+'kW'+ combinations['EV_use'],'maxPower'+ combinations['EV_use'],'energyTrip'+ combinations['EV_use']]
-    
-   
-    df_EV = pd.read_csv(filename_EV,engine='python',sep=',|;',index_col=0,
-                         parse_dates=[0],usecols=fields_EV)
-
-    
+    fields_EV = [
+        'index',
+        'energyRequired' + combinations['EV_P_max_home'] + 'kW' + combinations['EV_use'],
+        'maxPower' + combinations['EV_use'],
+        'energyTrip' + combinations['EV_use']
+    ]
+    # df_EV = pd.read_csv(filename_EV, engine='python', sep=',|;', index_col=0, parse_dates=[0], usecols=fields_EV)
+    df_EV = get_cached_csv(
+        filename_EV, 
+        usecols=fields_EV,
+        index_col=0,
+        parse_dates=[0],
+        sep=',|;',
+        engine='python'
+    )
     df_EV.columns=['E_EV_req','EV_home','E_EV_trip']
     
-    if combinations['EV_use'] == 'None':
-        aux_nameEV='1'
-    else:
-        aux_nameEV=str(combinations['profile_row_number']+1)
+    # Load household-specific override
+    aux_nameEV = str(profile_row + 1) if EV_use != 'None' else '1'
+    fields_EV2 = [
+        f'energyRequired{P_home}kW_{aux_nameEV}', 
+        f'energyTrip_{aux_nameEV}', 
+        f'maxPower_{aux_nameEV}'
+    ]
+    df_EV2 = get_cached_csv(filename_EV2, usecols=fields_EV2)
+    df_EV2.columns = ['E_EV_req', 'E_EV_trip', 'EV_home']
 
-    fields_EV2=['energyRequired'+combinations['EV_P_max_home']+'kW_'+ aux_nameEV,'energyTrip_'+ aux_nameEV,'maxPower_'+ aux_nameEV]
-    df_EV2 = pd.read_csv(filename_EV2, usecols=lambda x: x.strip().strip('"') in fields_EV2)
-    df_EV2.columns=['E_EV_req','E_EV_trip','EV_home']
+    # if combinations['EV_use'] == 'None':
+    #     aux_nameEV='1'
+    # else:
+    #     aux_nameEV=str(combinations['profile_row_number']+1)
+    # fields_EV2=['energyRequired'+combinations['EV_P_max_home']+'kW_'+ aux_nameEV,'energyTrip_'+ aux_nameEV,'maxPower_'+ aux_nameEV]
+    # df_EV2 = pd.read_csv(filename_EV2, usecols=lambda x: x.strip().strip('"') in fields_EV2)
+    # df_EV2.columns=['E_EV_req','E_EV_trip','EV_home']
     
+    # Overwrite general values with household-specific ones
     df_EV['E_EV_req'] = df_EV2['E_EV_req'].values
-    df_EV['EV_home']=df_EV2['EV_home'].values
-    df_EV['E_EV_trip']=df_EV2['E_EV_trip'].values
+    df_EV['E_EV_trip'] = df_EV2['E_EV_trip'].values
+    df_EV['EV_home'] = df_EV2['EV_home'].values
+    df_EV['EV_away'] = abs(df_EV['EV_home'] - 1)
 
-    if np.issubdtype(df_EV.index.dtype, np.datetime64):
-        df_EV.index=df_EV.index.tz_localize('UTC').tz_convert('Europe/Brussels')
-    else:
-        df_EV.index=pd.to_datetime(df_EV.index,utc=True)
-        df_EV.index=df_EV.index.tz_convert('Europe/Brussels')
+    # Ensure datetime index
+    if not np.issubdtype(df_EV.index.dtype, np.datetime64):
+        df_EV.index = pd.to_datetime(df_EV.index, utc=True)
+    df_EV.index = df_EV.index.tz_convert('Europe/Brussels')
+
+    # if np.issubdtype(df_EV.index.dtype, np.datetime64):
+    #     df_EV.index=df_EV.index.tz_localize('UTC').tz_convert('Europe/Brussels')
+    # else:
+    #     df_EV.index=pd.to_datetime(df_EV.index,utc=True)
+    #     df_EV.index=df_EV.index.tz_convert('Europe/Brussels')
             
-    ####### EV variables
-    single_param['EV_batt_cap'] = combinations['EV_batt_cap']
-    if combinations['EV_P_max_home'] == '3_6':
-        single_param['EV_P_max_home'] = 3.6
-    elif combinations['EV_P_max_home'] == '7':
-        single_param['EV_P_max_home'] = 7
-    elif combinations['EV_P_max_home'] == '11':
-        single_param['EV_P_max_home'] = 11
-    single_param['EV_P_max_away'] = 22
-    single_param['EV_use'] = combinations['EV_use']
-    Batt_EV.SOC_max =  1.0*Batt_EV.Capacity
-    Batt_EV.SOC_min =  0.2*Batt_EV.Capacity
-    single_param['Batt_EV']=Batt_EV
-    single_param['E_EV_start']=Batt_EV.SOC_max
-    df_EV['EV_away']=abs(df_EV.EV_home-1)
+    # EV parameters
+    Batt_EV = pc.Battery_tech(Capacity=combinations['EV_batt_cap'], Technology='NMC')
+    Batt_EV.SOC_max = 1.0 * Batt_EV.Capacity
+    Batt_EV.SOC_min = 0.2 * Batt_EV.Capacity
+
+    single_param.update({
+        'EV_batt_cap': combinations['EV_batt_cap'],
+        'EV_P_max_home': float(P_home.replace('_', '.')) if '_' in P_home else float(P_home),
+        'EV_P_max_away': 22,
+        'EV_use': EV_use,
+        'Batt_EV': Batt_EV,
+        'E_EV_start': Batt_EV.SOC_max
+    })
     
     return single_param, df_EV
 
@@ -268,88 +344,138 @@ def init_zero_ev(param: dict, idx) :
     })
     return param, {EV0: df_zero}
 
+# def load_multi_EV_data(ev_profiles, param, idx):
+#     # special case: no profiles → one dummy EV0 with all zeros
+#     if not ev_profiles:
+#         param, dfs = init_zero_ev(param, idx) 
+#     else:
+#         # else: your original per‐EV loop
+#         EV_list        = list(ev_profiles.keys())
+#         Batt_EV        = {}
+#         E_EV_start     = {}
+#         EV_P_max_home  = {}
+#         EV_P_max_away  = {}
+#         EV_V2G         = {}
+#         EV_home        = {}
+#         EV_away        = {}
+#         E_EV_trip      = {}
+#         dfs            = {}
+# 
+#         for ev in EV_list:
+#             combos = ev_profiles[ev]
+#             single_param, df_ev = load_EV_data(combos, {})
+# 
+#             Batt_EV[ev]       = single_param['Batt_EV']
+#             E_EV_start[ev]    = single_param['E_EV_start']
+#             EV_P_max_home[ev] = single_param['EV_P_max_home']
+#             EV_P_max_away[ev] = single_param['EV_P_max_away']
+#             EV_V2G[ev]        = single_param.get('EV_V2G', 1)
+# 
+#             EV_home[ev]       = df_ev['EV_home'].to_dict()
+#             EV_away[ev]       = df_ev['EV_away'].to_dict()
+#             E_EV_trip[ev]     = df_ev['E_EV_trip'].to_dict()
+# 
+#             dfs[ev] = df_ev
+# 
+#         param.update({
+#             'EV_list':             EV_list,
+#             'Batt_EV':             Batt_EV,
+#             'E_EV_start':          E_EV_start,
+#             'EV_P_max_home':       EV_P_max_home,
+#             'EV_P_max_away':       EV_P_max_away,
+#             'EV_V2G':              EV_V2G,
+#             'EV_home':             EV_home,
+#             'EV_away':             EV_away,
+#             'E_EV_trip':           E_EV_trip,
+#             
+#         })
+# 
+#     for ev, df in dfs.items():
+#         
+#         df_hourly = df.resample('1h').agg({
+#             'E_EV_req':  'sum',
+#             'E_EV_trip': 'sum',
+#             'EV_home':   'max',
+#         })
+#         # recompute EV_away
+#         df_hourly['EV_away'] = 1 - df_hourly['EV_home']
+# 
+#         # store it back
+#         dfs[ev] = df_hourly
+#         '''
+#         param['EV_home'][ev]   = df_hourly['EV_home'].reset_index(drop=True).to_dict()
+#         param['EV_away'][ev]   = df_hourly['EV_away'].reset_index(drop=True).to_dict()
+#         param['E_EV_trip'][ev] = df_hourly['E_EV_trip'].reset_index(drop=True).to_dict()
+#         '''
+# 
+# 
+#     ############ data profiles through time
+#     # 1) Concatenate all EV frames into one, with top‐level EV names
+#     if dfs:
+#         df_EVs = pd.concat(dfs, axis=1)
+#     # This yields a MultiIndex for columns: ('EV1','EV_home'), ('EV1','E_EV_trip'), ('EV2','EV_home'), …
+# 
+#     # 2) Flatten the MultiIndex into single strings, e.g. "EV1_E_EV_trip"
+#         df_EVs.columns = [
+#             f"{ev}_{col}"
+#             for ev, col in df_EVs.columns
+#         ]
+#     else:
+#         param, df_EVs = init_zero_ev(param, idx)
+# 
+#     df_EVs.index=idx
+# 
+#     return param, df_EVs
+
 def load_multi_EV_data(ev_profiles, param, idx):
-    # special case: no profiles → one dummy EV0 with all zeros
     if not ev_profiles:
-        param, dfs = init_zero_ev(param, idx) 
-    else:
-        # else: your original per‐EV loop
-        EV_list        = list(ev_profiles.keys())
-        Batt_EV        = {}
-        E_EV_start     = {}
-        EV_P_max_home  = {}
-        EV_P_max_away  = {}
-        EV_V2G         = {}
-        EV_home        = {}
-        EV_away        = {}
-        E_EV_trip      = {}
-        dfs            = {}
+        return init_zero_ev(param, idx)
 
-        for ev in EV_list:
-            combos = ev_profiles[ev]
-            single_param, df_ev = load_EV_data(combos, {})
+    EV_list = list(ev_profiles.keys())
+    param.update({'EV_list': EV_list})
 
-            Batt_EV[ev]       = single_param['Batt_EV']
-            E_EV_start[ev]    = single_param['E_EV_start']
-            EV_P_max_home[ev] = single_param['EV_P_max_home']
-            EV_P_max_away[ev] = single_param['EV_P_max_away']
-            EV_V2G[ev]        = single_param.get('EV_V2G', 1)
+    Batt_EV = {}
+    E_EV_start = {}
+    EV_P_max_home = {}
+    EV_P_max_away = {}
+    EV_V2G = {}
+    dfs = {}
 
-            EV_home[ev]       = df_ev['EV_home'].to_dict()
-            EV_away[ev]       = df_ev['EV_away'].to_dict()
-            E_EV_trip[ev]     = df_ev['E_EV_trip'].to_dict()
+    for ev in EV_list:
+        combos = ev_profiles[ev]
+        single_param, df_ev = load_EV_data(combos, {})
+        dfs[ev] = df_ev
 
-            dfs[ev] = df_ev
+        Batt_EV[ev] = single_param['Batt_EV']
+        E_EV_start[ev] = single_param['E_EV_start']
+        EV_P_max_home[ev] = single_param['EV_P_max_home']
+        EV_P_max_away[ev] = single_param['EV_P_max_away']
+        EV_V2G[ev] = single_param.get('EV_V2G', 1)
 
-        param.update({
-            'EV_list':             EV_list,
-            'Batt_EV':             Batt_EV,
-            'E_EV_start':          E_EV_start,
-            'EV_P_max_home':       EV_P_max_home,
-            'EV_P_max_away':       EV_P_max_away,
-            'EV_V2G':              EV_V2G,
-            'EV_home':             EV_home,
-            'EV_away':             EV_away,
-            'E_EV_trip':           E_EV_trip,
-            
-        })
+    param.update({
+        'Batt_EV': Batt_EV,
+        'E_EV_start': E_EV_start,
+        'EV_P_max_home': EV_P_max_home,
+        'EV_P_max_away': EV_P_max_away,
+        'EV_V2G': EV_V2G
+    })
 
+    # Resample + concatenate
     for ev, df in dfs.items():
-        
         df_hourly = df.resample('1h').agg({
-            'E_EV_req':  'sum',
+            'E_EV_req': 'sum',
             'E_EV_trip': 'sum',
-            'EV_home':   'max',
+            'EV_home': 'max'
         })
-        # recompute EV_away
         df_hourly['EV_away'] = 1 - df_hourly['EV_home']
-
-        # store it back
         dfs[ev] = df_hourly
-        '''
-        param['EV_home'][ev]   = df_hourly['EV_home'].reset_index(drop=True).to_dict()
-        param['EV_away'][ev]   = df_hourly['EV_away'].reset_index(drop=True).to_dict()
-        param['E_EV_trip'][ev] = df_hourly['E_EV_trip'].reset_index(drop=True).to_dict()
-        '''
 
-
-    ############ data profiles through time
-    # 1) Concatenate all EV frames into one, with top‐level EV names
-    if dfs:
-        df_EVs = pd.concat(dfs, axis=1)
-    # This yields a MultiIndex for columns: ('EV1','EV_home'), ('EV1','E_EV_trip'), ('EV2','EV_home'), …
-
-    # 2) Flatten the MultiIndex into single strings, e.g. "EV1_E_EV_trip"
-        df_EVs.columns = [
-            f"{ev}_{col}"
-            for ev, col in df_EVs.columns
-        ]
-    else:
-        param, df_EVs = init_zero_ev(param, idx)
-
-    df_EVs.index=idx
+    df_EVs = pd.concat(dfs, axis=1)
+    df_EVs.columns = [f"{ev}_{col}" for ev, col in df_EVs.columns]
+    df_EVs.index = idx
 
     return param, df_EVs
+
 
 def configure_system_parameters(combinations, heat_pump, param):
     """
@@ -517,7 +643,8 @@ def load_param(combinations):
     data_input=pd.concat([df_el, df_heat_new, df_EVs],axis=1,copy=True,sort=False)
 
     temp_columns = ['Temp', 'Set_T', 'Temp_supply', 'Temp_supply_tank']
-    data_input[temp_columns] = data_input[temp_columns].applymap(celsius_to_kelvin)
+    data_input[temp_columns] = data_input[temp_columns].apply(lambda col: col.map(celsius_to_kelvin))
+
 
     week = 1
     if param.get('testing', False):
@@ -546,41 +673,31 @@ def load_param(combinations):
 
 
 def pooling2(combinations):
+    '''
+    Description
+    -----------
+    Calls other functions, load the data and Core_LP.
+    This function includes the variables for the tests (testing and data_input.index.week)
+    Parameters
+    ----------
+    selected_dwellings : dict
+
+    Returns
+    ------
+    bool
+        True if successful, False otherwise.
+    '''
     try:
-        '''
-        Description
-        -----------
-        Calls other functions, load the data and Core_LP.
-        This function includes the variables for the tests (testing and data_input.index.week)
-        Parameters
-        ----------
-        selected_dwellings : dict
-
-        Returns
-        ------
-        bool
-            True if successful, False otherwise.
-        '''
-        print("GUROBI")
-
         param, data_input=load_param(combinations)
-        # try:
         if param['nyears']>1:
-            data_input=pd.DataFrame(pd.np.tile(pd.np.array(data_input).T,
-                                   param['nyears']).T,columns=data_input.columns)
-        
+            data_input=pd.DataFrame(
+                pd.np.tile(pd.np.array(data_input).T,
+                param['nyears']).T,
+                columns=data_input.columns
+            )
 
-
-        [df,aux_dict]=single_opt2(param, data_input)
-        # except OSError as e:
-        #     ##print(f"OSError: {e}")
-        #     raise
-        # except Exception as e:
-        #     ##print(f"Unexpected error: {e}")
-        #     raise
-
+        df,aux_dict = single_opt2(param, data_input)
         output_file_path = save_basopra_results_to_csv(combinations, df)
-        # return df, aux_dict
         return output_file_path
     except Exception as e:
         tb = traceback.format_exc()
@@ -597,10 +714,10 @@ def pooling2(combinations):
             """
         )
         return None
-         # traceback.print_exc()
-         # raise
     finally:
-        del combinations, df, param, data_input
+        for var in ['combinations', 'df', 'param', 'data_input', 'aux_dict']:
+            if var in locals():
+                del locals()[var]
         gc.collect()
 
 def create_sim_file_name(simulation_inputs: Dict[str, Any]) -> str:
@@ -711,20 +828,25 @@ def deterministic_multi_ev_charging_with_pv(df_base, flat_params, df_EVs):
     df_out = df_base.copy()
 
     # initialize flux columns
-    for ev in ev_ids:
+    new_cols = {
+        f"{col}_{ev}": 0.0
+        for ev in ev_ids
         for col in (
             "SOC_EV",
             "E_PV_batt_EV",
             "E_grid_batt_EV",
-            "EV_charge_away"
-        ):
-            df_out[f"{col}_{ev}"] = 0.0
-    df_out["E_PV_load"] = 0.0
-    df_out["E_PV_EV"]   = 0.0
-    df_out["E_grid_load"] = 0.0
-    df_out["E_grid_EV"]   = 0.0
-    df_out["E_PV_grid"]       = 0.0
-    df_out["E_cons"]       = 0.0
+            "EV_charge_away",
+        )
+    }
+
+    for col in [
+        "E_PV_load", "E_PV_EV",
+        "E_grid_load", "E_grid_EV",
+        "E_PV_grid", "E_cons"
+    ]:
+        new_cols[col] = 0.0
+
+    df_out = pd.concat([df_out, pd.DataFrame(new_cols, index=df_out.index)], axis=1)
 
     soc = {ev: flat_params[ev]['E_EV_start'] for ev in ev_ids}
 
@@ -859,7 +981,6 @@ def nothing_simulations(combination: Dict[str, Any]):
     
 special_configurations = {
     8: nothing_simulations,
-    # 8: do_basic_nothing_simulation,
     # 12: do_battery_only_simulation,
 }
 
@@ -878,11 +999,6 @@ def create_run_configurations(buildings_data):
         b_base_config = fixed_config.copy()
         building_conf = get_conf_for_building(b_data)
 
-
-        # if b_data['attributes'].get('ev_count', 0) == 0:
-        #     b_base_config['ev_profiles'] = None
-        # else:
-        #     b_data['ev_profiles'] = b_base_config['ev_profiles']
         if b_data.get('heat_pump') is None:
             b_base_config.house_type = 'NoHeatPump'
         combination = {
@@ -897,7 +1013,6 @@ def create_run_configurations(buildings_data):
     return Combs_todo_dicts
 
 def run_non_gurobi_sim(combinations: Dict[str, Any]):
-    print("NON_GUROBI")
     try:
         simulation_inputs = combinations
         conf_id = combinations['conf']
@@ -940,14 +1055,6 @@ def run_basopra_simulation(big_data_object):
     for sim in sorted(basic_simulations_indexes, reverse=True):
         basic_simulations.append(Combs_todo_dicts.pop(sim))
 
-    # Running non gurobi simulations
-    # for i in range(len(basic_simulations)):
-    #     conf_id = basic_simulations[i]['combinations']['conf']
-    #     simulation_inputs = basic_simulations[i]['combinations']
-    #     simulation_outputs = special_configurations[conf_id](simulation_inputs)
-    #     output_file_path = save_basopra_results_to_csv(simulation_inputs, simulation_outputs)
-    #     basopra_results.append(output_file_path)
-    
     basic_parallel_results = run_parallel(
         run_non_gurobi_sim,
         basic_simulations,
@@ -956,13 +1063,6 @@ def run_basopra_simulation(big_data_object):
         mode='kwargs',
     )
     basopra_results.extend(basic_parallel_results)
-    
-    # Running gurobi simulations
-    ###### TESTING ####################
-    #[entry['combinations'].update(conf=8) for entry in Combs_todo_dicts]
-    #index, result = next((i, d) for i, d in enumerate(Combs_todo_dicts) if d['combinations']['name'] == 20)
-    #do_EV_only_simulation(Combs_todo_dicts[0]['combinations'])
-    ###################################
     
     gurobi_parallel_results = run_parallel(
         pooling2,
@@ -975,9 +1075,15 @@ def run_basopra_simulation(big_data_object):
 
     return basopra_results
 
-
 def run_simulation_from_file(simulation_input_file: str) -> Optional[str]:
-    print("ACHIEVED")
+    """Loads data from given file and launches a basopra simulation, either gurobi or simplified
+
+    Args:
+        simulation_input_file (str): file containing input data
+
+    Returns:
+        Optional[str]: Simulation output file name
+    """
     fixed_config = core_config.basopra_fixed_parameters
 
     (bid, b_data), = pickle_load(simulation_input_file).items()
@@ -1006,11 +1112,23 @@ def run_simulation_from_file(simulation_input_file: str) -> Optional[str]:
         output_file_path = run_non_gurobi_sim({**combination, **fixed_config})
     else:
         output_file_path = pooling2({**combination, **fixed_config})
+
+    # Clean up large objects
+    del b_data, combination, building_conf, fixed_config
+    gc.collect()
     
     return output_file_path
 
 @fn_timer
 def run_basopra_simulation_from_file_names(simulation_file_names: List[str]) -> List[str]:
+    """Launches parallel basopra simulation runs from files containing building input data
+
+    Args:
+        simulation_file_names (List[str]): List of file names containing input data
+
+    Returns:
+        List[str]: List of files where simulation outputs were stored
+    """
     files = [{
         'simulation_input_file': sim_file,
     } for sim_file in simulation_file_names]

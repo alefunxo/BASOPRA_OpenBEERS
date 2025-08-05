@@ -20,6 +20,7 @@
 # ------------
 # Pandas, numpy, pyomo, pickle, math, sys, glob, time
 
+import gc
 from utils.logger import logger
 from config.loader import config
 import pandas as pd
@@ -173,6 +174,7 @@ def Optimize(data_input, param):
     DoD_arr : array
     """
     logger.info("Starting optimization process.")
+
     days = 1
     dt = param['delta_t']
     Batt = param['Batt']
@@ -182,8 +184,7 @@ def Optimize(data_input, param):
     logger.info("Optimizing for %s day(s) with a window of %s timesteps.", days, window)
     logger.info("%%%%%%%%% Optimizing %%%%%%%%%%%%%%%")
 
-    
-
+    # Pre-allocated_arrays
     aux_Cap_arr = np.zeros(param['ndays'])
     SOC_max_arr = np.zeros(param['ndays'])
     SOH_arr = np.zeros(param['ndays'])
@@ -191,26 +192,28 @@ def Optimize(data_input, param):
     cycle_cal_arr = np.zeros(param['ndays'])
     results_arr = []
     DoD_arr = np.zeros(param['ndays'])
+
     aux_Cap = Batt.Capacity
     SOC_max_ = Batt.SOC_max
     SOH_aux = 1
 
-    #width = 200
-    #data_input.loc[:, 'Temp_supply'] = data_input['Temp_supply'].rolling(window=width).mean().bfill()
-    #data_input.loc[:, 'Temp_supply_tank'] = data_input['Temp_supply_tank'].copy().rolling(window=width).mean().bfill()
-    data_input['T_aux_supply'] = data_input.apply(lambda row: row.Temp_supply + 10, axis=1)
+    # data_input['T_aux_supply'] = data_input.apply(lambda row: row.Temp_supply + 10, axis=1)
+    data_input['T_aux_supply'] = data_input['Temp_supply'] + 10
+
+    df_list = []
+    # df = pd.DataFrame()
     for i in range(int(param['ndays'] / days)):
         logger.info("Processing day index: %s", i)
-        logger.debug("Processing day index: %s", i)
-        toy = 0
-        data_input_ = data_input[data_input.index.dayofyear == data_input.index.dayofyear[0] + i]
-        #print(data_input_)
+
+        dayofyear_i = data_input.index.dayofyear[0] + i
+        data_input_ = data_input[data_input.index.dayofyear == dayofyear_i]
+
         if i == 0:
             aux_Cap_aged = Batt.Capacity
             aux_SOC_max = Batt.SOC_max
             SOH = 1
-            T_init = data_input[data_input.index.dayofyear == data_input.index.dayofyear[0] + i].Temp_supply.iloc[0]
-            T_init_dhw = 50+273.15
+            T_init = data_input_.Temp_supply.iloc[0]
+            T_init_dhw = 50 + 273.15
         else:
             aux_Cap_aged = aux_Cap
             aux_SOC_max = SOC_max_
@@ -218,101 +221,96 @@ def Optimize(data_input, param):
             T_init = T_init_
             T_init_dhw = T_init_dhw_
 
-        if data_input.index.dayofyear[0] + i == 120:
+        # Time of year
+        if dayofyear_i == 120:
             toy = 1
-        elif data_input.index.dayofyear[0] + i == 274:
+        elif dayofyear_i == 274:
             toy = 3
-        elif (data_input.index.dayofyear[0] + i < 274) & (data_input.index.dayofyear[0] + i > 120):
+        elif 120 < dayofyear_i < 274:
             toy = 2
-        
-        if param['App_comb'][2] == True:
-            if param['App_comb'][3] == True:
-                retail_price_dict = dict(enumerate(data_input_.Price_DT_mod))
-            else:
-                retail_price_dict = dict(enumerate(data_input_.Price_DT))
         else:
-            if param['App_comb'][3] == True:
-                retail_price_dict = dict(enumerate(data_input_.Price_flat_mod))
-            else:
-                retail_price_dict = dict(enumerate(data_input_.Price_flat))
+            toy = 0
+       
+        # Retail price logic
+        app2, app3 = param['App_comb'][2], param['App_comb'][3]
+        if app2:
+            retail_price_dict = dict(enumerate(data_input_.Price_DT_mod if app3 else data_input_.Price_DT))
+        else:
+            retail_price_dict = dict(enumerate(data_input_.Price_flat_mod if app3 else data_input_.Price_flat))
+
+        param_day = param.copy()
+        param_day.update({
+            col: dict(enumerate(data_input_[col])) for col in data_input_.columns
+        })
+
         for col in data_input_.keys():
             param.update({col: dict(enumerate(data_input_[col]))})
-        Set_declare = np.arange(-1, data_input_.shape[0])
-        if i == 0:
-            logger.debug("Retail price dictionary (first day): %s", retail_price_dict)
+        param_day.update({
+            'dayofyear': dayofyear_i,
+            'SOC_max': aux_SOC_max,
+            'toy': toy,
+            'Batt': Batt,
+            'Set_declare': np.arange(-1, data_input_.shape[0]),
+            'T_init': T_init,
+            'T_init_dhw': T_init_dhw,
+            'retail_price': retail_price_dict,
+            'App_comb_mod': dict(enumerate(param['App_comb'])),
+            'Max_inj': param['Curtailment'] * param['PV_nom'],
+            'EV_home': {ev: data_input[f"{ev}_EV_home"].reset_index(drop=True).to_dict() for ev in param['EV_list']},
+            'EV_away': {ev: data_input[f"{ev}_EV_away"].reset_index(drop=True).to_dict() for ev in param['EV_list']},
+            'E_EV_trip': {ev: data_input[f"{ev}_E_EV_trip"].reset_index(drop=True).to_dict() for ev in param['EV_list']},
+            'E_EV_req': {ev: data_input[f"{ev}_E_EV_req"].reset_index(drop=True).to_dict() for ev in param['EV_list']},
+            'Batt_EV': dict(param['Batt_EV']),
+        })
         
-        param['Batt_EV']=dict(param['Batt_EV'])
-        # assume EV_list = ['EV1','EV2',…]
+        # Build and solve model
+        instance = optim.Concrete_model(param_day)
+        opt = SolverFactory('gurobi')
+        opt.options.update({
+            "threads": 1,
+            "mipgap": 0.02,
+            "TimeLimit": 180,
+        })
 
-        # build the per‐EV time‐series dicts from the DataFrame
-        
-        param['EV_home']   = {
-            ev: data_input[f"{ev}_EV_home"].reset_index(drop=True).to_dict()
-            for ev in param['EV_list']
-        }
-        param['EV_away']   = {
-            ev: data_input[f"{ev}_EV_away"].reset_index(drop=True).to_dict()
-            for ev in param['EV_list']
-        }
-        param['E_EV_trip'] = {
-            ev: data_input[f"{ev}_E_EV_trip"].reset_index(drop=True).to_dict()
-            for ev in param['EV_list']
-        }
+        results = opt.solve(instance)
 
-        # and if you still need E_EV_req:
-        param['E_EV_req']  = {
-            ev: data_input[f"{ev}_E_EV_req"].reset_index(drop=True).to_dict()
-            for ev in param['EV_list']
-        }
+        # global_lock = threading.Lock()
+        # while global_lock.locked():
+        #     continue
+        # global_lock.acquire()
+        # if sys.platform == 'linux' or sys.platform == 'win32':
+        #     opt = SolverFactory('gurobi')
+        #     opt.options["threads"] = 1
+        #     opt.options["mipgap"] = 0.02
+        #     opt.options["TimeLimit"] = 180    
 
-        
-        param.update({'dayofyear': data_input.index.dayofyear[0] + i,
-                      'SOC_max': aux_SOC_max,
-                      'toy': toy,
-                      #'subset_tank_day': (np.arange(1, 97 / 3) * 3).astype(int), #not used
-                      'Batt': Batt,
-                      'Set_declare': Set_declare,
-                      'T_init': T_init,
-                      'T_init_dhw': T_init_dhw,
-                      'retail_price': retail_price_dict,
-                      'App_comb_mod': dict(enumerate(param['App_comb']))})
-        param['Max_inj'] = param['Curtailment'] * param['PV_nom']
-        instance = optim.Concrete_model(param)
-        global_lock = threading.Lock()
-        while global_lock.locked():
-            continue
-        global_lock.acquire()
-        if sys.platform == 'linux' or sys.platform == 'win32':
-            opt = SolverFactory('gurobi')
-            opt.options["threads"] = 1
-            opt.options["mipgap"] = 0.02
-            opt.options["TimeLimit"] = 180    
+        # else:
+        #     opt = SolverFactory('cplex', executable='/opt/ibm/ILOG/CPLEX_Studio1271/cplex/bin/x86-64_linux/cplex')
+        #     opt.options["threads"] = 1
+        #     opt.options["mipgap"] = 0.001
+        # logger.debug("Solver initialized, starting solve for day index %s", i)
+        # #opt.set_instance(instance)
 
-        else:
-            opt = SolverFactory('cplex', executable='/opt/ibm/ILOG/CPLEX_Studio1271/cplex/bin/x86-64_linux/cplex')
-            opt.options["threads"] = 1
-            opt.options["mipgap"] = 0.001
-        logger.debug("Solver initialized, starting solve for day index %s", i)
-        #opt.set_instance(instance)
-
-        # 1) disable dual reductions so Gurobi separates unbounded from infeasible
-        #opt.options['DualReductions'] = 0
-        # 2) ask for unbounded‐info so it will compute and retain a ray if unbounded
-        #opt.options['InfUnbdInfo']  = 1
-        results = opt.solve(instance)#, tee=True)#core_config.Optimizer.solver_verbose)
-        global_lock.release()
+        # # 1) disable dual reductions so Gurobi separates unbounded from infeasible
+        # #opt.options['DualReductions'] = 0
+        # # 2) ask for unbounded‐info so it will compute and retain a ray if unbounded
+        # #opt.options['InfUnbdInfo']  = 1
+        # results = opt.solve(instance)#, tee=True)#core_config.Optimizer.solver_verbose)
+        # global_lock.release()
         
         if core_config.Optimizer.solver_results_write:
             results.write(num=1)
 
         if (results.solver.status == SolverStatus.ok) and (results.solver.termination_condition == TerminationCondition.optimal):
             logger.debug("Optimal solution found for day index %s", i)
-            [df_1, P_max] = get_output(instance)
+            df_1, P_max = get_output(instance)
+
             T_init_ = df_1.loc[df_1.index[-1], 'T_ts']
             T_init_dhw_ = df_1.loc[df_1.index[-1], 'T_dhwst']
             if param['aging']:
-                [SOC_max_, aux_Cap, SOH_aux, Cycle_aging_factor, cycle_cal, DoD] = aging_day(
-                    df_1.E_char, SOH, Batt.SOC_min, Batt, aux_Cap_aged)
+                SOC_max_, aux_Cap, SOH_aux, Cycle_aging_factor, cycle_cal, DoD = aging_day(
+                    df_1.E_char, SOH, Batt.SOC_min, Batt, aux_Cap_aged
+                )
                 DoD_arr[i] = DoD
                 cycle_cal_arr[i] = cycle_cal
                 P_max_arr[i] = P_max
@@ -320,74 +318,106 @@ def Optimize(data_input, param):
                 SOC_max_arr[i] = SOC_max_
                 SOH_arr[i] = SOH_aux
             else:
-                if Batt.Capacity == 0:
-                    DoD_arr[i] = 0
-                else:
-                    DoD_arr[i] = df_1.E_dis.sum() / Batt.Capacity
+                DoD_arr[i] = df_1.E_dis.sum() / Batt.Capacity if Batt.Capacity else 0
                 cycle_cal_arr[i] = 0
                 P_max_arr[i] = P_max
                 aux_Cap_arr[i] = aux_Cap
                 SOC_max_arr[i] = SOC_max_
                 SOH_arr[i] = SOH_aux
                 Cycle_aging_factor = 0
+
             results_arr.append(instance.total_cost())
-            if i == 0:  # initialize
-                df = pd.DataFrame(df_1)
-            elif i == param['ndays'] - 1:  # if we go until the end of the days
-                df = pd.concat([df, df_1], ignore_index=True)
-                if SOH <= 0:
-                    logger.info("SOH <= 0, breaking loop.")
-                    break
-                if param['ndays'] / 365 > Batt.Battery_cal_life:
-                    logger.info("Exceeded battery lifetime, breaking loop.")
-                    break
-            else:  # if SOH or ndays are greater than the limit
-                df = pd.concat([df, df_1], ignore_index=True)
-                if SOH <= 0:
-                    logger.info("SOH <= 0, ending optimization early.")
-                    df = pd.concat([df, df_1], ignore_index=True)
-                    end_d = df.shape[0]
-                    break
-                if i / 365 > Batt.Battery_cal_life:
-                    logger.info("Day index exceeds battery lifetime, breaking loop.")
-                    df = pd.concat([df, df_1], ignore_index=True)
-                    break
-        elif (results.solver.termination_condition == TerminationCondition.infeasible):
-            logger.error("Model infeasible for day index %s", i)
-            return (None, results)
+            df_list.append(df_1)
+            del df_1
+            gc.collect()
+            # df = pd.concat([df, df_1])
+
+            if SOH <= 0 or i / 365 > Batt.Battery_cal_life:
+                logger.info("Battery life or SOH limit reached. Breaking.")
+                break
+
+            # if i == 0:  # initialize
+            #     df = pd.DataFrame(df_1)
+            # elif i == param['ndays'] - 1:  # if we go until the end of the days
+            #     df = pd.concat([df, df_1], ignore_index=True)
+            #     if SOH <= 0:
+            #         logger.info("SOH <= 0, breaking loop.")
+            #         break
+            #     if param['ndays'] / 365 > Batt.Battery_cal_life:
+            #         logger.info("Exceeded battery lifetime, breaking loop.")
+            #         break
+            # else:  # if SOH or ndays are greater than the limit
+            #     df = pd.concat([df, df_1], ignore_index=True)
+            #     if SOH <= 0:
+            #         logger.info("SOH <= 0, ending optimization early.")
+            #         df = pd.concat([df, df_1], ignore_index=True)
+            #         end_d = df.shape[0]
+            #         break
+            #     if i / 365 > Batt.Battery_cal_life:
+            #         logger.info("Day index exceeds battery lifetime, breaking loop.")
+            #         df = pd.concat([df, df_1], ignore_index=True)
+            #         break
         else:
-            logger.error("Solver error: status %s for day index %s", results.solver.status, i)
-            return (None, results)
+            logger.error("Solver issue (status: %s, condition: %s)", results.solver.status, results.solver.termination_condition)
+            return None, results
+        # elif (results.solver.termination_condition == TerminationCondition.infeasible):
+        #     logger.error("Model infeasible for day index %s", i)
+        #     return (None, results)
+        # else:
+        #     logger.error("Solver error: status %s for day index %s", results.solver.status, i)
+        #     return (None, results)
+
+        # Clean up model
+        del instance, opt, data_input_, retail_price_dict, param_day
+        gc.collect()
+
+    df = pd.concat(df_list, ignore_index=True)
+    del df_list
+
     end_d = df.shape[0]
-    df = pd.concat([df, data_input.loc[data_input.index[:end_d], ['E_demand', 'E_PV', 'Export_price']].reset_index()], axis=1)
-    if param['App_comb'][2] == True:
-        if param['App_comb'][3] == True:
-            logger.info("App2 and App 3 selected.")
-            df['price'] = data_input.Price_DT_mod.reset_index(drop=True)[:end_d].values
-        else:
-            logger.info("App2 selected.")
-            df['price'] = data_input.Price_DT.reset_index(drop=True)[:end_d].values
+    df = pd.concat([
+        df, 
+        data_input.loc[data_input.index[:end_d], ['E_demand', 'E_PV', 'Export_price']].reset_index()
+    ], axis=1)
+
+    if param['App_comb'][2]:
+        df['price'] = (data_input.Price_DT_mod if param['App_comb'][3] else data_input.Price_DT).reset_index(drop=True)[:end_d].values
     else:
-        if param['App_comb'][3] == True:
-            logger.info("App3 selected.")
-            df['price'] = data_input.Price_flat_mod.reset_index(drop=True)[:end_d].values
-        else:
-            logger.info("No App2 nor App3 selected.")
-            df['price'] = data_input.Price_flat.reset_index(drop=True)[:end_d].values
+        df['price'] = (data_input.Price_flat_mod if param['App_comb'][3] else data_input.Price_flat).reset_index(drop=True)[:end_d].values
+
+    # if param['App_comb'][2] == True:
+    #     if param['App_comb'][3] == True:
+    #         logger.info("App2 and App 3 selected.")
+    #         df['price'] = data_input.Price_DT_mod.reset_index(drop=True)[:end_d].values
+    #     else:
+    #         logger.info("App2 selected.")
+    #         df['price'] = data_input.Price_DT.reset_index(drop=True)[:end_d].values
+    # else:
+    #     if param['App_comb'][3] == True:
+    #         logger.info("App3 selected.")
+    #         df['price'] = data_input.Price_flat_mod.reset_index(drop=True)[:end_d].values
+    #     else:
+    #         logger.info("No App2 nor App3 selected.")
+    #         df['price'] = data_input.Price_flat.reset_index(drop=True)[:end_d].values
     #logger.debug("First five price values: %s", df['price'].head())
     
     # Compute inverter and converter power
     df['Inv_P'] = (df[['E_PV_load', 'E_batt_load', 'E_PV_grid', 'E_loss_inv']].sum(axis=1)) / dt
     df['Conv_P'] = (df[['E_PV_load', 'E_PV_batt', 'E_PV_grid', 'E_loss_conv']].sum(axis=1)) / dt
+
+    # Add mapped columns
     columns_to_map = [
-    'Req_kWh', 'Req_kWh_DHW', 'Set_T', 'Temp', 'Temp_supply',
-    'Temp_supply_tank', 'T_aux_supply', 'COP_tank', 'COP_SH', 'COP_DHW'
-]#, 'E_EV_trip' '
+        'Req_kWh', 'Req_kWh_DHW', 'Set_T', 'Temp', 'Temp_supply',
+        'Temp_supply_tank', 'T_aux_supply', 'COP_tank', 'COP_SH', 'COP_DHW'
+    ]#, 'E_EV_trip' '
     # Define the list of columns to map from data_input
-    new_cols = {col: data_input[col].reset_index(drop=True).iloc[:end_d].values 
-                for col in columns_to_map}
+    new_cols = {
+        col: data_input[col].reset_index(drop=True).iloc[:end_d].values 
+        for col in columns_to_map
+    }
     # df = df.assign(**new_cols)
     # new_cols = {}
+
     for ev in param['EV_list']:
         new_cols[f"{ev}_EV_home"]   = data_input[f"{ev}_EV_home"].reset_index(drop=True).iloc[:end_d].values
         new_cols[f"{ev}_EV_away"]   = data_input[f"{ev}_EV_away"].reset_index(drop=True).iloc[:end_d].values
@@ -395,13 +425,27 @@ def Optimize(data_input, param):
 
     # df = df.assign(**new_cols)
     df = pd.concat([df, pd.DataFrame(new_cols, index=df.index)], axis=1)
-
-    df = df.copy()
-
     df.set_index('index', inplace=True)
+    # df = df.copy()
 
-    aux_dict = {'aux_Cap_arr': aux_Cap_arr, 'SOH_arr': SOH_arr, 'Cycle_aging_factor': Cycle_aging_factor, 'P_max_arr': P_max_arr,
-                'results_arr': results_arr, 'cycle_cal_arr': cycle_cal_arr, 'DoD_arr': DoD_arr, 'results': results}
+    aux_dict = {
+        'aux_Cap_arr': aux_Cap_arr, 
+        'SOH_arr': SOH_arr, 
+        'Cycle_aging_factor': Cycle_aging_factor, 
+        'P_max_arr': P_max_arr,
+        'results_arr': results_arr, 
+        'cycle_cal_arr': cycle_cal_arr, 
+        'DoD_arr': DoD_arr, 
+        # 'results': results,
+        'results_summary': {
+            'status': str(results.solver.status),
+            'termination_condition': str(results.solver.termination_condition)
+        }
+    }
+
+    del data_input, param, new_cols, results
+    gc.collect()
+
     logger.info("Optimization process completed.")
     return df, aux_dict
 
@@ -571,18 +615,23 @@ def single_opt2(param, data_input):
     """
     logger.info("Starting single_opt2 process.")
     logger.info("Begin single_opt2: Starting optimization sequence.")
-    aux_app_comb = param['App_comb']  # afterwards is modified to send to LP
-    logger.info("App_comb stored.")
-    df, aux_dict = Optimize(data_input, param)
-    param.update({'App_comb': aux_app_comb})
-    logger.info("Optimization complete; proceeding with saving results.")
-    if param['testing'] == False:
-        logger.info("Non-testing mode: aggregating results.")
-        # save_results(df, aux_dict, param)
+    original_app_comb = param['App_comb'].copy()  # afterwards is modified to send to LP
 
-        #aggregate_results(df, aux_dict, param)
+    df, aux_dict = Optimize(data_input, param)
+
+    param['App_comb'] = original_app_comb
+    del original_app_comb
+
+    logger.info("Optimization complete; proceeding with saving results.")
+
+    if not param['testing']:
+        logger.info("Non-testing mode: aggregating results.")
     else:
-        # save_results(df, aux_dict, param)
         logger.debug("Testing mode active; skipping aggregation. Data input head: %s", data_input.head())
+
+    result = [df, aux_dict]
+    del data_input, param, df, aux_dict
+    gc.collect()
+
     logger.info("single_opt2 process completed.")
-    return [df, aux_dict]
+    return result
