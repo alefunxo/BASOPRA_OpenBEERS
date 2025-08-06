@@ -56,19 +56,8 @@ from utils.logger import logger, data_logger
 
 
 core_config = config['Core']
-#INPUT_PATH = "../Input/"
-#OUTPUT_PATH = "../Output/"
 INPUT_PATH = config['input_dir']
 OUTPUT_PATH = config['output_dir']
-
-
-# # Configure logger
-# logging.basicConfig(filename='main.log', 
-#                     level=logging.DEBUG,
-#                     filemode='w',
-#                     format='%(asctime)s - %(levelname)s - %(message)s')
-# logger = logging.getLogger(__name__)
-# logger.info("Test message")
 
 def expand_grid(dct): #MAIN PARAMETERS MULTIPLICATION TO CONSTRUCT SCENARIOS
     rows = itertools.product(*dct.values())
@@ -119,9 +108,6 @@ def load_prices():
         df_prices.index=pd.to_datetime(df_prices.index,utc=True)
         df_prices.index=df_prices.index.tz_convert('Europe/Brussels')
     return df_prices
-        
-
-
 
 def load_heat_demand(combinations):
     filename_heat=Path(f'{INPUT_PATH}preprocessed_heat_demand_2_new_Oct.csv')
@@ -142,7 +128,6 @@ def load_heat_demand(combinations):
     df_heat=pd.read_csv(filename_heat,engine='python',sep=';',index_col=[0],
                         parse_dates=[0], usecols=fields_heat)
     df_heat.columns=new_cols
-
 
     if np.issubdtype(df_heat.index.dtype, np.datetime64):
         df_heat.index=df_heat.index.tz_localize('UTC').tz_convert('Europe/Brussels')
@@ -167,6 +152,7 @@ def load_electricity_demand(id_dwell):
 
     df_el.columns=new_cols
     return df_el
+
 
 _ev_file_cache = {}
 
@@ -197,22 +183,10 @@ def get_cached_csv(
         )
     return _ev_file_cache[key].copy()
 
-    # key = (str(path), tuple(usecols) if usecols else None)
-    # if key not in _ev_file_cache:
-    #     _ev_file_cache[key] = pd.read_csv(path, usecols=usecols)
-    # return _ev_file_cache[key].copy()  # prevent modification
-
 def load_EV_data(combinations, single_param):
     EV_use = combinations['EV_use']
     profile_row = combinations['profile_row_number']
     P_home = combinations['EV_P_max_home']
-
-    id_map = {
-        'Low': 'hhnrEVLow.csv',
-        'Medium': 'hhnrEVMedium.csv',
-        'High': 'hhnrEVHigh.csv',
-        'None': 'hhnrEVHigh.csv'  # reused
-    }
 
     profile_map = {
         'Low': 'dfEVLow.csv',
@@ -221,32 +195,17 @@ def load_EV_data(combinations, single_param):
         'None': 'dfEVNone.csv'
     }
 
-    EV_IDs = get_cached_csv(f'{INPUT_PATH}{id_map[EV_use]}')
-    filename_EV2 = Path(f'{INPUT_PATH}{profile_map[EV_use]}')
+    # id_map = {
+    #     'Low': 'hhnrEVLow.csv',
+    #     'Medium': 'hhnrEVMedium.csv',
+    #     'High': 'hhnrEVHigh.csv',
+    #     'None': 'hhnrEVHigh.csv'  # reused
+    # }
 
-    EV_ID = EV_IDs.iloc[profile_row]['HHNR_WEEKDAY_WEEKENDAY']
-
-    # ########## LOAD EV DATA
-    # Batt_EV = pc.Battery_tech(Capacity=combinations['EV_batt_cap'], Technology='NMC')
-    # # logger.info("Extract the id numbers")
-    # if combinations['EV_use'] == 'Low':
-    #         EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVLow.csv')
-    #         filename_EV2 = Path(f'{INPUT_PATH}dfEVLow.csv')
-    
-    # if combinations['EV_use'] == 'Medium':
-    #         EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVMedium.csv')
-    #         filename_EV2 = Path(f'{INPUT_PATH}dfEVMedium.csv')
-
-    
-    # if combinations['EV_use'] == 'High':
-    #         EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVHigh.csv')
-    #         filename_EV2 = Path(f'{INPUT_PATH}dfEVHigh.csv')            
-    # if combinations['EV_use'] == 'None': #It will select a number for the model to work, but it is not used later
-    #         EV_IDs = pd.read_csv(f'{INPUT_PATH}hhnrEVHigh.csv')
-    #         filename_EV2 = Path(f'{INPUT_PATH}dfEVNone.csv')    
+    # EV_IDs = get_cached_csv(f'{INPUT_PATH}{id_map[EV_use]}')
     # EV_ID = EV_IDs.iloc[combinations['profile_row_number']]['HHNR_WEEKDAY_WEEKENDAY']
-    
-    # # logger.info("EV_ID: s"  + str(EV_ID))
+
+    filename_EV2 = Path(f'{INPUT_PATH}{profile_map[EV_use]}')
     
     filename_EV = Path(f'{INPUT_PATH}dfEVBasopra.csv')
     fields_EV = [
@@ -255,7 +214,7 @@ def load_EV_data(combinations, single_param):
         'maxPower' + combinations['EV_use'],
         'energyTrip' + combinations['EV_use']
     ]
-    # df_EV = pd.read_csv(filename_EV, engine='python', sep=',|;', index_col=0, parse_dates=[0], usecols=fields_EV)
+
     df_EV = get_cached_csv(
         filename_EV, 
         usecols=fields_EV,
@@ -275,14 +234,6 @@ def load_EV_data(combinations, single_param):
     ]
     df_EV2 = get_cached_csv(filename_EV2, usecols=fields_EV2)
     df_EV2.columns = ['E_EV_req', 'E_EV_trip', 'EV_home']
-
-    # if combinations['EV_use'] == 'None':
-    #     aux_nameEV='1'
-    # else:
-    #     aux_nameEV=str(combinations['profile_row_number']+1)
-    # fields_EV2=['energyRequired'+combinations['EV_P_max_home']+'kW_'+ aux_nameEV,'energyTrip_'+ aux_nameEV,'maxPower_'+ aux_nameEV]
-    # df_EV2 = pd.read_csv(filename_EV2, usecols=lambda x: x.strip().strip('"') in fields_EV2)
-    # df_EV2.columns=['E_EV_req','E_EV_trip','EV_home']
     
     # Overwrite general values with household-specific ones
     df_EV['E_EV_req'] = df_EV2['E_EV_req'].values
@@ -295,11 +246,6 @@ def load_EV_data(combinations, single_param):
         df_EV.index = pd.to_datetime(df_EV.index, utc=True)
     df_EV.index = df_EV.index.tz_convert('Europe/Brussels')
 
-    # if np.issubdtype(df_EV.index.dtype, np.datetime64):
-    #     df_EV.index=df_EV.index.tz_localize('UTC').tz_convert('Europe/Brussels')
-    # else:
-    #     df_EV.index=pd.to_datetime(df_EV.index,utc=True)
-    #     df_EV.index=df_EV.index.tz_convert('Europe/Brussels')
             
     # EV parameters
     Batt_EV = pc.Battery_tech(Capacity=combinations['EV_batt_cap'], Technology='NMC')
@@ -325,11 +271,6 @@ def init_zero_ev(param: dict, idx) :
         index=idx,
         columns=['EV_home','EV_away','E_EV_trip','E_EV_req'],
     )
-    # populate every scalar to zero
-    # zeros = {EV0: 0}
-    # time‐series as dict of zeros-per‐timestamp
-    # ts_dict = {EV0: df_zero.to_dict(orient='list')}  # or .to_dict() for {t:0}
-    # Batt_EV        = {}
     Batt_EV = {EV0: pc.Battery_tech(Capacity=0, Technology='NMC')}
     Batt_EV['EV0'].SOC_max = 0
     Batt_EV['EV0'].SOC_min = 0
@@ -347,89 +288,6 @@ def init_zero_ev(param: dict, idx) :
         
     })
     return param, {EV0: df_zero}
-
-# def load_multi_EV_data(ev_profiles, param, idx):
-#     # special case: no profiles → one dummy EV0 with all zeros
-#     if not ev_profiles:
-#         param, dfs = init_zero_ev(param, idx) 
-#     else:
-#         # else: your original per‐EV loop
-#         EV_list        = list(ev_profiles.keys())
-#         Batt_EV        = {}
-#         E_EV_start     = {}
-#         EV_P_max_home  = {}
-#         EV_P_max_away  = {}
-#         EV_V2G         = {}
-#         EV_home        = {}
-#         EV_away        = {}
-#         E_EV_trip      = {}
-#         dfs            = {}
-# 
-#         for ev in EV_list:
-#             combos = ev_profiles[ev]
-#             single_param, df_ev = load_EV_data(combos, {})
-# 
-#             Batt_EV[ev]       = single_param['Batt_EV']
-#             E_EV_start[ev]    = single_param['E_EV_start']
-#             EV_P_max_home[ev] = single_param['EV_P_max_home']
-#             EV_P_max_away[ev] = single_param['EV_P_max_away']
-#             EV_V2G[ev]        = single_param.get('EV_V2G', 1)
-# 
-#             EV_home[ev]       = df_ev['EV_home'].to_dict()
-#             EV_away[ev]       = df_ev['EV_away'].to_dict()
-#             E_EV_trip[ev]     = df_ev['E_EV_trip'].to_dict()
-# 
-#             dfs[ev] = df_ev
-# 
-#         param.update({
-#             'EV_list':             EV_list,
-#             'Batt_EV':             Batt_EV,
-#             'E_EV_start':          E_EV_start,
-#             'EV_P_max_home':       EV_P_max_home,
-#             'EV_P_max_away':       EV_P_max_away,
-#             'EV_V2G':              EV_V2G,
-#             'EV_home':             EV_home,
-#             'EV_away':             EV_away,
-#             'E_EV_trip':           E_EV_trip,
-#             
-#         })
-# 
-#     for ev, df in dfs.items():
-#         
-#         df_hourly = df.resample('1h').agg({
-#             'E_EV_req':  'sum',
-#             'E_EV_trip': 'sum',
-#             'EV_home':   'max',
-#         })
-#         # recompute EV_away
-#         df_hourly['EV_away'] = 1 - df_hourly['EV_home']
-# 
-#         # store it back
-#         dfs[ev] = df_hourly
-#         '''
-#         param['EV_home'][ev]   = df_hourly['EV_home'].reset_index(drop=True).to_dict()
-#         param['EV_away'][ev]   = df_hourly['EV_away'].reset_index(drop=True).to_dict()
-#         param['E_EV_trip'][ev] = df_hourly['E_EV_trip'].reset_index(drop=True).to_dict()
-#         '''
-# 
-# 
-#     ############ data profiles through time
-#     # 1) Concatenate all EV frames into one, with top‐level EV names
-#     if dfs:
-#         df_EVs = pd.concat(dfs, axis=1)
-#     # This yields a MultiIndex for columns: ('EV1','EV_home'), ('EV1','E_EV_trip'), ('EV2','EV_home'), …
-# 
-#     # 2) Flatten the MultiIndex into single strings, e.g. "EV1_E_EV_trip"
-#         df_EVs.columns = [
-#             f"{ev}_{col}"
-#             for ev, col in df_EVs.columns
-#         ]
-#     else:
-#         param, df_EVs = init_zero_ev(param, idx)
-# 
-#     df_EVs.index=idx
-# 
-#     return param, df_EVs
 
 def load_multi_EV_data(ev_profiles, param, idx):
     if not ev_profiles:
@@ -480,7 +338,10 @@ def load_multi_EV_data(ev_profiles, param, idx):
         dfs[ev] = df_hourly
 
     df_EVs = pd.concat(dfs, axis=1)
-    df_EVs.columns = [f"{ev}_{col}" for ev, col in df_EVs.columns]
+    df_EVs.columns = [
+        f"{ev}_{col}" 
+        for ev, col in df_EVs.columns
+    ]
     df_EVs.index = idx
 
     return param, df_EVs
@@ -652,8 +513,9 @@ def load_param(combinations):
     data_input=pd.concat([df_el, df_heat_new, df_EVs],axis=1,copy=True,sort=False)
 
     temp_columns = ['Temp', 'Set_T', 'Temp_supply', 'Temp_supply_tank']
-    data_input[temp_columns] = data_input[temp_columns].apply(lambda col: col.map(celsius_to_kelvin))
-
+    data_input[temp_columns] = data_input[temp_columns].apply(
+        lambda col: col.map(celsius_to_kelvin)
+    )
 
     week = 1
     if param.get('testing', False):
@@ -702,7 +564,7 @@ def pooling2(combinations):
             data_input=pd.DataFrame(
                 pd.np.tile(pd.np.array(data_input).T,
                 param['nyears']).T,
-                columns=data_input.columns
+                columns=data_input.columns,
             )
 
         df,aux_dict = single_opt2(param, data_input)
@@ -783,55 +645,6 @@ def do_basic_nothing_simulation(combination: Dict[str, Any]):
 
     return df
 
-def do_battery_only_simulation(b_data: Dict[str, Any]):
-    series = b_data['series']
-    df = pd.DataFrame({
-        'ElectricConsumption': series['ElectricConsumption'],
-        'SolarPVProduction': series['SolarPVProduction'],
-    })
-
-    efficiency = core_config.param_load_fixed_parameters.Converter_efficiency_batt
-
-    df['E_PV_load'] = 0.0
-    df['E_PV_batt'] = 0.0
-    df['E_PV_grid'] = 0.0
-    df['E_batt_load'] = 0.0
-    df['E_grid_load'] = 0.0
-    df['SOC'] = 0.0
-
-    soc = 0.0
-
-    for i in df.index:
-        pv = df.at[i, 'SolarPVProduction']
-        demand = df.at[i, 'ElectricConsumption']
-        
-        E_PV_load = min(pv, demand)
-        remaining_demand = demand - E_PV_load
-        pv_surplus = pv - E_PV_load
-
-        charge_possible = min(max_charge_kW, pv_surplus)
-        charge_capacity = capacity_kWh - soc
-        E_PV_batt = min(charge_possible, charge_capacity)
-        soc += E_PV_batt * efficiency
-        pv_surplus -= E_PV_batt
-
-        discharge_possible = min(max_discharge_kW, soc/efficiency)
-        E_batt_load = min(discharge_possible, remaining_demand)
-        soc -= E_batt_load * efficiency
-        remaining_demand -= E_batt_load
-
-        E_grid_load = remaining_demand
-        E_PV_grid = pv_surplus
-
-        df.at[i, 'E_PV_load'] = E_PV_load
-        df.at[i, 'E_PV_batt'] = E_PV_batt
-        df.at[i, 'E_batt_load'] = E_batt_load
-        df.at[i, 'E_grid_load'] = E_grid_load
-        df.at[i, 'E_PV_grid'] = E_PV_grid
-        df.at[i, 'SOC'] = soc
-
-    return df
-    
 def deterministic_multi_ev_charging_with_pv(df_base, flat_params, df_EVs):
     ev_ids = list(flat_params.keys())
     df_out = df_base.copy()
@@ -848,11 +661,7 @@ def deterministic_multi_ev_charging_with_pv(df_base, flat_params, df_EVs):
         )
     }
 
-    for col in [
-        "E_PV_load", "E_PV_EV",
-        "E_grid_load", "E_grid_EV",
-        "E_PV_grid", "E_cons"
-    ]:
+    for col in ["E_PV_load", "E_PV_EV", "E_grid_load", "E_grid_EV", "E_PV_grid", "E_cons"]:
         new_cols[col] = 0.0
 
     df_out = pd.concat([df_out, pd.DataFrame(new_cols, index=df_out.index)], axis=1)
@@ -990,7 +799,6 @@ def nothing_simulations(combination: Dict[str, Any]):
     
 special_configurations = {
     8: nothing_simulations,
-    # 12: do_battery_only_simulation,
 }
 
 def create_run_configurations(buildings_data):

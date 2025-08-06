@@ -197,11 +197,9 @@ def Optimize(data_input, param):
     SOC_max_ = Batt.SOC_max
     SOH_aux = 1
 
-    # data_input['T_aux_supply'] = data_input.apply(lambda row: row.Temp_supply + 10, axis=1)
     data_input['T_aux_supply'] = data_input['Temp_supply'] + 10
 
     df_list = []
-    # df = pd.DataFrame()
     for i in range(int(param['ndays'] / days)):
         logger.info("Processing day index: %s", i)
 
@@ -273,30 +271,6 @@ def Optimize(data_input, param):
         })
 
         results = opt.solve(instance)
-
-        # global_lock = threading.Lock()
-        # while global_lock.locked():
-        #     continue
-        # global_lock.acquire()
-        # if sys.platform == 'linux' or sys.platform == 'win32':
-        #     opt = SolverFactory('gurobi')
-        #     opt.options["threads"] = 1
-        #     opt.options["mipgap"] = 0.02
-        #     opt.options["TimeLimit"] = 180    
-
-        # else:
-        #     opt = SolverFactory('cplex', executable='/opt/ibm/ILOG/CPLEX_Studio1271/cplex/bin/x86-64_linux/cplex')
-        #     opt.options["threads"] = 1
-        #     opt.options["mipgap"] = 0.001
-        # logger.debug("Solver initialized, starting solve for day index %s", i)
-        # #opt.set_instance(instance)
-
-        # # 1) disable dual reductions so Gurobi separates unbounded from infeasible
-        # #opt.options['DualReductions'] = 0
-        # # 2) ask for unbounded‐info so it will compute and retain a ray if unbounded
-        # #opt.options['InfUnbdInfo']  = 1
-        # results = opt.solve(instance)#, tee=True)#core_config.Optimizer.solver_verbose)
-        # global_lock.release()
         
         if core_config.Optimizer.solver_results_write:
             results.write(num=1)
@@ -336,37 +310,10 @@ def Optimize(data_input, param):
                 logger.info("Battery life or SOH limit reached. Breaking.")
                 break
 
-            # if i == 0:  # initialize
-            #     df = pd.DataFrame(df_1)
-            # elif i == param['ndays'] - 1:  # if we go until the end of the days
-            #     df = pd.concat([df, df_1], ignore_index=True)
-            #     if SOH <= 0:
-            #         logger.info("SOH <= 0, breaking loop.")
-            #         break
-            #     if param['ndays'] / 365 > Batt.Battery_cal_life:
-            #         logger.info("Exceeded battery lifetime, breaking loop.")
-            #         break
-            # else:  # if SOH or ndays are greater than the limit
-            #     df = pd.concat([df, df_1], ignore_index=True)
-            #     if SOH <= 0:
-            #         logger.info("SOH <= 0, ending optimization early.")
-            #         df = pd.concat([df, df_1], ignore_index=True)
-            #         end_d = df.shape[0]
-            #         break
-            #     if i / 365 > Batt.Battery_cal_life:
-            #         logger.info("Day index exceeds battery lifetime, breaking loop.")
-            #         df = pd.concat([df, df_1], ignore_index=True)
-            #         break
         else:
             logger.error("Solver issue (status: %s, condition: %s)", results.solver.status, results.solver.termination_condition)
             return None, results
-        # elif (results.solver.termination_condition == TerminationCondition.infeasible):
-        #     logger.error("Model infeasible for day index %s", i)
-        #     return (None, results)
-        # else:
-        #     logger.error("Solver error: status %s for day index %s", results.solver.status, i)
-        #     return (None, results)
-
+        
         # Clean up model
         del instance, opt, data_input_, retail_price_dict, param_day
         gc.collect()
@@ -384,23 +331,7 @@ def Optimize(data_input, param):
         df['price'] = (data_input.Price_DT_mod if param['App_comb'][3] else data_input.Price_DT).reset_index(drop=True)[:end_d].values
     else:
         df['price'] = (data_input.Price_flat_mod if param['App_comb'][3] else data_input.Price_flat).reset_index(drop=True)[:end_d].values
-
-    # if param['App_comb'][2] == True:
-    #     if param['App_comb'][3] == True:
-    #         logger.info("App2 and App 3 selected.")
-    #         df['price'] = data_input.Price_DT_mod.reset_index(drop=True)[:end_d].values
-    #     else:
-    #         logger.info("App2 selected.")
-    #         df['price'] = data_input.Price_DT.reset_index(drop=True)[:end_d].values
-    # else:
-    #     if param['App_comb'][3] == True:
-    #         logger.info("App3 selected.")
-    #         df['price'] = data_input.Price_flat_mod.reset_index(drop=True)[:end_d].values
-    #     else:
-    #         logger.info("No App2 nor App3 selected.")
-    #         df['price'] = data_input.Price_flat.reset_index(drop=True)[:end_d].values
-    #logger.debug("First five price values: %s", df['price'].head())
-    
+   
     # Compute inverter and converter power
     df['Inv_P'] = (df[['E_PV_load', 'E_batt_load', 'E_PV_grid', 'E_loss_inv']].sum(axis=1)) / dt
     df['Conv_P'] = (df[['E_PV_load', 'E_PV_batt', 'E_PV_grid', 'E_loss_conv']].sum(axis=1)) / dt
@@ -409,24 +340,22 @@ def Optimize(data_input, param):
     columns_to_map = [
         'Req_kWh', 'Req_kWh_DHW', 'Set_T', 'Temp', 'Temp_supply',
         'Temp_supply_tank', 'T_aux_supply', 'COP_tank', 'COP_SH', 'COP_DHW'
-    ]#, 'E_EV_trip' '
+    ]
+
     # Define the list of columns to map from data_input
     new_cols = {
         col: data_input[col].reset_index(drop=True).iloc[:end_d].values 
         for col in columns_to_map
     }
-    # df = df.assign(**new_cols)
-    # new_cols = {}
 
     for ev in param['EV_list']:
         new_cols[f"{ev}_EV_home"]   = data_input[f"{ev}_EV_home"].reset_index(drop=True).iloc[:end_d].values
         new_cols[f"{ev}_EV_away"]   = data_input[f"{ev}_EV_away"].reset_index(drop=True).iloc[:end_d].values
         new_cols[f"{ev}_E_EV_trip"] = data_input[f"{ev}_E_EV_trip"].reset_index(drop=True).iloc[:end_d].values
 
-    # df = df.assign(**new_cols)
     df = pd.concat([df, pd.DataFrame(new_cols, index=df.index)], axis=1)
     df.set_index('index', inplace=True)
-    # df = df.copy()
+    df = df.copy()
 
     aux_dict = {
         'aux_Cap_arr': aux_Cap_arr, 

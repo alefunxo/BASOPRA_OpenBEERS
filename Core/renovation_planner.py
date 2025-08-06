@@ -451,14 +451,13 @@ class RenovationPlanning:
         citysim_hp_flag_name = planner_config.citysim_hp_flag
         citysim_hp = {}
         for b, values in buildings.items():
-            municip = values['attributes']['commune'],
+            municip = values['attributes']['commune']
             renovation = values.get('renovation')
             hp_flag = False
             if renovation is not None:
                 hp_flag = renovation.roof_renovation
             citysim_hp[b] = {
                 'municipality': municip,
-                # citysim_hp_flag_name: values['attributes'].get(citysim_hp_flag_name, False),
                 citysim_hp_flag_name: hp_flag,
             }
         citysim_hp = pd.DataFrame(citysim_hp).T
@@ -475,7 +474,6 @@ class RenovationPlanning:
         ].index.to_list()
 
         number_of_flags_to_change = len(flags_to_turn_True)
-        # number_of_ok_differences = len(ok_but_different)
         flags_to_turn_False = rng.choice(ok_but_different, size=number_of_flags_to_change, replace=False)
 
         for b, values in buildings.items():
