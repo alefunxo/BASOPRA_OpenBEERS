@@ -267,15 +267,14 @@ async def main() -> None:
                 data_logger.error(f'Unexpected error while processing simulation "{name}": {e}\n {tb}')
                 continue
 
-async def list_simulations():
+async def list_simulations() -> List[str]:
     logger.info('Starting loop through simulations')
     api_wrapper = await ApiWrapper.from_config(config['openbeers_address'])
     async with api_wrapper as api:
         simulations = await api.get_all_simulations()
     sim_names = [sim.name for sim in simulations]
     sim_names.sort()
-    for sim in sim_names:
-        print(sim)
+    return sim_names
 
 async def extract_openbeers_data(
         simulation: Simulation,
@@ -355,7 +354,8 @@ def get_openbeers_data(
     results = run_parallel(
         get_one_simulation_data_sync,
         simulation_retrieving_inputs,
-        config.multiprocessing,
+        # config.multiprocessing,
+        False,
         processes=config.max_processes,
         mode='kwargs',
     )
@@ -396,7 +396,10 @@ def alternate(simulations: List[Simulation]) -> None:
 async def get_simulations() -> List[Simulation]:
     logger.info("Starting loop through simulations")
     logger.info("Entering list mode. Only given simulation names will be processed")
-    simulation_names = config.simulation_names
+    if config.loop_mode:
+        simulation_names = await list_simulations()
+    else:
+        simulation_names = config.simulation_names
 
     simulations = []
     for name in simulation_names:
