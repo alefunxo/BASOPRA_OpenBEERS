@@ -1,0 +1,29 @@
+numpy
+pandas
+geopandas
+pyomo
+shapely
+scipy
+matplotlib-base
+plotly
+requests
+pyyaml
+# gurobi==12.0.1   # requires license; conda channel preferred
+jupyter_core
+ipython
+ipykernel
+openpyxl
+folium
+pyproj
+pyogrio
+ruamel.yaml
+lxml
+beautifulsoup4
+aiohttp
+aiohttp-retry
+aiohappyeyeballs
+python-box
+# openbeers @ git+https://github.com/your-org/openbeers.git
+propcache
+pydantic
+typing-inspection
