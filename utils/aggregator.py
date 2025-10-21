@@ -1,3 +1,8 @@
+# Copyright © 2025 HES-SO Valais-Wallis <alejandro.penabello@hevs.ch>
+# SPDX-FileContributor: Alejandro Penabello <alejandro.penabello@hevs.ch>
+# SPDX-FileContributor: Lucien Troillet <lucien.troillet@hevs.ch>
+#
+# SPDX-License-Identifier: Apache-2.0
 
 from typing import Any, Dict, List, Tuple
 import numpy as np

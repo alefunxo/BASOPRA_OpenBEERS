@@ -1,3 +1,9 @@
+# Copyright © 2025 HES-SO Valais-Wallis <alejandro.penabello@hevs.ch>
+# SPDX-FileContributor: Alejandro Penabello <alejandro.penabello@hevs.ch>
+# SPDX-FileContributor: Lucien Troillet <lucien.troillet@hevs.ch>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 """
 This script defines a minimum working example and defines
 the input data required for running an energy optimization model.
